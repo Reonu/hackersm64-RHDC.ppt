@@ -18,3 +18,4 @@
 #include "mario/geo.inc.c"
 
 #include "dudeguy/geo.inc.c"
+#include "confroom/geo.inc.c"

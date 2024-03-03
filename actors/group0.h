@@ -335,4 +335,6 @@ extern const Gfx white_particle_small_unused_dl[];
 
 #include "dudeguy/geo_header.h"
 
+#include "confroom/geo_header.h"
+
 #endif

@@ -32,3 +32,4 @@
 #endif
 
 #include "dudeguy/model.inc.c"
+#include "confroom/model.inc.c"
