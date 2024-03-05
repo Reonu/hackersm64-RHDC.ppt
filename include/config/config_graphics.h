@@ -55,7 +55,7 @@
 /**
  * Disables AA (Improves console performance but causes visible seams between unconnected geometry).
  */
-// #define DISABLE_AA
+#define DISABLE_AA
 
 /**
  * Makes the coins ia8 64x64 instead of ia16 32x32. Uses new ia8 textures so that vanilla coins look better.
@@ -146,4 +146,4 @@
  * Can improve performance in some circumstances, though it can also cause large tris to warp if cut off from the camera.
  * Only use this if you can test the difference of your hack with and without this change on console.
  */
-// #define USE_FRUSTRATIO2
+#define USE_FRUSTRATIO2

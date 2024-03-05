@@ -5,7 +5,7 @@ include util.mk
 # Default target
 default: all
 
-TARGET_STRING := sm64
+TARGET_STRING := slidehack
 
 # Preprocessor definitions
 DEFINES :=
@@ -92,7 +92,7 @@ FIXLIGHTS ?= 1
 
 DEBUG_MAP_STACKTRACE_FLAG := -D DEBUG_MAP_STACKTRACE
 
-TARGET := sm64
+TARGET := slidehack
 
 
 # GRUCODE - selects which RSP microcode to use.
