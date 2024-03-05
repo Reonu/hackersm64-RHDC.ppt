@@ -68,6 +68,14 @@ struct RenderModeContainer {
 
 #define RENDER_PHASE_FIRST 0
 
+#define ORTHO_RENDER_MULTIPLIER 400
+
+#define H_RADIUS (4 * ORTHO_RENDER_MULTIPLIER)
+#define V_RADIUS (3 * ORTHO_RENDER_MULTIPLIER)
+
+// TEMP
+#define g2DCamActive TRUE
+
 void geo_process_node_and_siblings(struct GraphNode *firstNode);
 void geo_process_root(struct GraphNodeRoot *node, Vp *b, Vp *c, s32 clearColor);
 

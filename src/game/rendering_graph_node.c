@@ -469,12 +469,24 @@ void geo_process_perspective(struct GraphNodePerspective *node) {
 #ifdef VERTICAL_CULLING
         node->halfFovVertical = tans(vHalfFov);
 #endif
+        if (g2DCamActive) {
+            guOrtho(
+                mtx,
+                -H_RADIUS / (f32)WORLD_SCALE,
+                H_RADIUS / (f32)WORLD_SCALE,
+                -V_RADIUS / (f32)WORLD_SCALE,
+                V_RADIUS / (f32)WORLD_SCALE,
+                1500,
+                4000,
+                (f32)((4096 * 4) / WORLD_SCALE)
+            );
+        } else {
+            // With low fovs, coordinate overflow can occur more easily. This slightly reduces precision only while zoomed in.
+            f32 scale = node->fov < 28.0f ? remap(MAX(node->fov, 15), 15, 28, 0.5f, 1.0f): 1.0f;
+            guPerspective(mtx, &perspNorm, node->fov, sAspectRatio, node->near / WORLD_SCALE, node->far / WORLD_SCALE, scale);
 
-        // With low fovs, coordinate overflow can occur more easily. This slightly reduces precision only while zoomed in.
-        f32 scale = node->fov < 28.0f ? remap(MAX(node->fov, 15), 15, 28, 0.5f, 1.0f): 1.0f;
-        guPerspective(mtx, &perspNorm, node->fov, sAspectRatio, node->near / WORLD_SCALE, node->far / WORLD_SCALE, scale);
-
-        gSPPerspNormalize(gDisplayListHead++, perspNorm);
+            gSPPerspNormalize(gDisplayListHead++, perspNorm);
+        }
 
         gSPMatrix(gDisplayListHead++, VIRTUAL_TO_PHYSICAL(mtx), G_MTX_PROJECTION | G_MTX_LOAD | G_MTX_NOPUSH);
 
@@ -807,7 +819,6 @@ void set_global_light_direction() {
  * Process a camera node.
  */
 void geo_process_camera(struct GraphNodeCamera *node) {
-    Mtx *rollMtx = alloc_display_list(sizeof(*rollMtx));
     Gfx *setLightsDL = alloc_display_list(sizeof(Gfx) * 3);
     Gfx *levelLightsDL;
     Vec3f probePos;
@@ -817,12 +828,19 @@ void geo_process_camera(struct GraphNodeCamera *node) {
     if (node->fnNode.func != NULL) {
         node->fnNode.func(GEO_CONTEXT_RENDER, &node->fnNode.node, gMatStack[gMatStackIndex]);
     }
-    mtxf_rotate_xy(rollMtx, node->rollScreen);
+    if (!g2DCamActive) {
+        Mtx *rollMtx = alloc_display_list(sizeof(*rollMtx));
+        mtxf_rotate_xy(rollMtx, node->rollScreen);
 
-    gSPMatrix(gDisplayListHead++, VIRTUAL_TO_PHYSICAL(rollMtx), G_MTX_PROJECTION | G_MTX_MUL | G_MTX_NOPUSH);
-    geo_append_display_list(setLightsDL, LAYER_OPAQUE);
+        gSPMatrix(gDisplayListHead++, VIRTUAL_TO_PHYSICAL(rollMtx), G_MTX_PROJECTION | G_MTX_MUL | G_MTX_NOPUSH);
+        geo_append_display_list(setLightsDL, LAYER_OPAQUE);
 
-    mtxf_lookat(gCameraTransform, node->pos, node->focus, node->roll);
+        mtxf_lookat(gCameraTransform, node->pos, node->focus, node->roll);
+    } else {
+        static Vec3f zeroPos = {0, 0, 400};
+        static Vec3f zeroFoc = {0, 0, 0};
+        mtxf_lookat(gCameraTransform, zeroPos, zeroFoc, 0);
+    }
 
     // Calculate the lookAt
 #ifdef F3DEX_GBI_2
@@ -1245,6 +1263,9 @@ void geo_process_shadow(struct GraphNodeShadow *node) {
 #define NO_CULLING_EMULATOR_BLACKLIST (EMU_CONSOLE | EMU_WIIVC | EMU_ARES | EMU_SIMPLE64 | EMU_CEN64)
 
 s32 obj_is_in_view(struct GraphNodeObject *node) {
+    if (g2DCamActive) {
+        return TRUE;
+    }
     struct GraphNode *geo = node->sharedChild;
 
     s16 cullingRadius;
