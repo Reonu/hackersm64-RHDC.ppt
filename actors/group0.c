@@ -34,3 +34,4 @@
 #include "dudeguy/model.inc.c"
 #include "confroom/model.inc.c"
 #include "bar/model.inc.c"
+#include "bar/collision.inc.c"
