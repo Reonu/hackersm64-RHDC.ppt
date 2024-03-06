@@ -10,6 +10,8 @@
 
 #define MODEL_DUDEGUY                          0x101
 
+#define MODEL_BAR                              0x102
+
 /* Various static level geometry, the geo layout differs but terrain object presets treat them the same.*/
 
 #define MODEL_LEVEL_GEOMETRY_03                0x03

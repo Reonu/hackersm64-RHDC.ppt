@@ -19,3 +19,4 @@
 
 #include "dudeguy/geo.inc.c"
 #include "confroom/geo.inc.c"
+#include "bar/geo.inc.c"

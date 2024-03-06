@@ -617,13 +617,13 @@ void general_star_dance_handler(struct MarioState *m, s32 isInWater) {
                 break;
 
             case 80:
-                if (!(m->actionArg & 1)) {
-                    level_trigger_warp(m, WARP_OP_STAR_EXIT);
-                } else {
-                    enable_time_stop();
-                    create_dialog_box_with_response(gLastCompletedStarNum == 7 ? DIALOG_013 : DIALOG_014);
-                    m->actionState = ACT_STATE_STAR_DANCE_DO_SAVE;
-                }
+                //if (!(m->actionArg & 1)) {
+                    //level_trigger_warp(m, WARP_OP_STAR_EXIT);
+                //} else {
+                    //enable_time_stop();
+                    //create_dialog_box_with_response(gLastCompletedStarNum == 7 ? DIALOG_013 : DIALOG_014);
+                    m->actionState = 1;
+                //}
                 cameraAngle = gMarioState->area->camera->yaw;
 
                 //slidehack: warp mario to next area
@@ -634,10 +634,10 @@ void general_star_dance_handler(struct MarioState *m, s32 isInWater) {
 
                 break;
         }
-    } else if (m->actionState == ACT_STATE_STAR_DANCE_DO_SAVE && gDialogResponse != DIALOG_RESPONSE_NONE) {
-        if (gDialogResponse == DIALOG_RESPONSE_YES) {
-            save_file_do_save(gCurrSaveFileNum - 1);
-        }
+    } else if (m->actionState == ACT_STATE_STAR_DANCE_DO_SAVE) {
+        //if (gDialogResponse == DIALOG_RESPONSE_YES) {
+            //save_file_do_save(gCurrSaveFileNum - 1);
+        //}
         m->actionState = ACT_STATE_STAR_DANCE_RETURN;
     } else if (m->actionState == ACT_STATE_STAR_DANCE_RETURN && is_anim_at_end(m)) {
         disable_time_stop();
