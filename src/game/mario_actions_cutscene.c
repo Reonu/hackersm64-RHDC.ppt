@@ -583,6 +583,7 @@ s32 act_debug_free_move(struct MarioState *m) {
 }
 
 void general_star_dance_handler(struct MarioState *m, s32 isInWater) {
+    s16 cameraAngle;
     struct Object *celebStar = NULL;
 
     if (m->actionState == ACT_STATE_STAR_DANCE_CUTSCENE) {
@@ -623,6 +624,14 @@ void general_star_dance_handler(struct MarioState *m, s32 isInWater) {
                     create_dialog_box_with_response(gLastCompletedStarNum == 7 ? DIALOG_013 : DIALOG_014);
                     m->actionState = ACT_STATE_STAR_DANCE_DO_SAVE;
                 }
+                cameraAngle = gMarioState->area->camera->yaw;
+
+                //slidehack: warp mario to next area
+                change_area(gCurrAreaIndex+1);
+                gMarioState->area = gCurrentArea;
+            
+                gMarioState->area->camera->yaw = cameraAngle;
+
                 break;
         }
     } else if (m->actionState == ACT_STATE_STAR_DANCE_DO_SAVE && gDialogResponse != DIALOG_RESPONSE_NONE) {
