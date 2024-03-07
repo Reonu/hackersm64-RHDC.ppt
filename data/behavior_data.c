@@ -6104,3 +6104,30 @@ const BehaviorScript bhvMovingBar[] = {
         CALL_NATIVE(bhv_moving_bar_loop),
     END_LOOP(),
 };
+
+const BehaviorScript bhvDonut1[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    BEGIN_LOOP(),
+        LOAD_COLLISION_DATA(donut1_collision),
+        CALL_NATIVE(bhv_donut_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvDonut2[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    BEGIN_LOOP(),
+        LOAD_COLLISION_DATA(donut2_collision),
+        CALL_NATIVE(bhv_donut_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvDonut3[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    BEGIN_LOOP(),
+        LOAD_COLLISION_DATA(donut3_collision),
+        CALL_NATIVE(bhv_donut_loop),
+    END_LOOP(),
+};

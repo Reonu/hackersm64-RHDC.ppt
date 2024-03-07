@@ -20,3 +20,6 @@
 #include "dudeguy/geo.inc.c"
 #include "confroom/geo.inc.c"
 #include "bar/geo.inc.c"
+#include "donut1/geo.inc.c"
+#include "donut2/geo.inc.c"
+#include "donut3/geo.inc.c"

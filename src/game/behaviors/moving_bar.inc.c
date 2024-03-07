@@ -5,3 +5,8 @@ void bhv_moving_bar_loop(void) {
     o->oBitfsPlatformTimer += 0x100;
     load_object_collision_model();
 }
+
+void bhv_donut_loop(void) {
+    o->oFaceAngleRoll += 128;
+    load_object_collision_model();
+}

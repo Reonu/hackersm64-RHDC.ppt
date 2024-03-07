@@ -1,0 +1,11 @@
+extern const GeoLayout donut1_geo[];
+extern Vtx donut1_donut1_mesh_layer_0_vtx_cull[8];
+extern Vtx donut1_donut1_mesh_layer_0_vtx_0[44];
+extern Gfx donut1_donut1_mesh_layer_0_tri_0[];
+extern Vtx donut1_donut1_mesh_layer_0_vtx_1[52];
+extern Gfx donut1_donut1_mesh_layer_0_tri_1[];
+extern Gfx mat_donut1_blu_layer0[];
+extern Gfx mat_revert_donut1_blu_layer0[];
+extern Gfx mat_donut1_red_layer0[];
+extern Gfx mat_revert_donut1_red_layer0[];
+extern Gfx donut1_donut1_mesh_layer_0[];

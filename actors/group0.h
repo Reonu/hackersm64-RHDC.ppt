@@ -341,4 +341,16 @@ extern const Gfx white_particle_small_unused_dl[];
 
 #include "bar/collision_header.h"
 
+#include "donut1/geo_header.h"
+
+#include "donut1/collision_header.h"
+
+#include "donut2/geo_header.h"
+
+#include "donut2/collision_header.h"
+
+#include "donut3/geo_header.h"
+
+#include "donut3/collision_header.h"
+
 #endif
