@@ -365,6 +365,10 @@ void bhv_goomba_update(void) {
         }
 
         cur_obj_move_standard(-78);
+
+        if (gCurrLevelNum == LEVEL_SLIDES) {
+            o->oPosZ = 0;
+        }        
     } else {
         o->oAnimState = GOOMBA_ANIM_STATE_EYES_CLOSED;
 #ifdef FLOOMBAS
