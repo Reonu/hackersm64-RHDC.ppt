@@ -627,8 +627,7 @@ void general_star_dance_handler(struct MarioState *m, s32 isInWater) {
                 cameraAngle = gMarioState->area->camera->yaw;
 
                 //slidehack: warp mario to next area
-                change_area(gCurrAreaIndex+1);
-                gMarioState->area = gCurrentArea;
+                gBeatSlide = 1;
             
                 gMarioState->area->camera->yaw = cameraAngle;
 

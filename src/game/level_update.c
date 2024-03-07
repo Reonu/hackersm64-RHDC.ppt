@@ -1173,6 +1173,12 @@ UNUSED static s32 play_mode_unused(void) {
 s32 update_level(void) {
     s32 changeLevel = FALSE;
 
+    if (gBeatSlide) {
+        change_area(gCurrAreaIndex+1);
+        gMarioState->area = gCurrentArea;
+        gBeatSlide = 0;
+    }
+
     switch (sCurrPlayMode) {
         case PLAY_MODE_NORMAL:
             changeLevel = play_mode_normal(); scroll_textures();
