@@ -1784,10 +1784,28 @@ s32 execute_mario_action(UNUSED struct Object *obj) {
             play_sound(SOUND_ENV_WIND2, gMarioState->marioObj->header.gfx.cameraToObject);
         }
 
-        if (gCurrLevelNum = LEVEL_SLIDES) {
+        if (gCurrLevelNum == LEVEL_SLIDES) {
             gMarioState->pos[2] = 0;
             gMarioState->marioObj->oPosZ = 0;
             gMarioObject->header.gfx.pos[2] = 0;
+
+            if (gMarioState->pos[1] <= -2500) {
+                gMarioState->pos[0] = gMarioRespawn[0];
+                gMarioState->pos[1] = gMarioRespawn[1];
+                gMarioState->pos[2] = gMarioRespawn[2];
+                
+                gMarioState->marioObj->oPosX = gMarioRespawn[0];
+                gMarioState->marioObj->oPosY = gMarioRespawn[1];
+                gMarioState->marioObj->oPosZ = gMarioRespawn[2];
+
+                gMarioObject->header.gfx.pos[0] = gMarioRespawn[0];
+                gMarioObject->header.gfx.pos[1] = gMarioRespawn[1];
+                gMarioObject->header.gfx.pos[2] = gMarioRespawn[2];
+
+                vec3_zero(gMarioState->vel);
+
+                set_mario_action(gMarioState,ACT_IDLE,0);
+            }
         }
 
         play_infinite_stairs_music();
@@ -1874,6 +1892,8 @@ void init_mario(void) {
         capObject->oForwardVel = 0;
         capObject->oMoveAngleYaw = 0;
     }
+
+    vec3f_copy(gMarioRespawn,gMarioState->pos);
 }
 
 void init_mario_from_save_file(void) {

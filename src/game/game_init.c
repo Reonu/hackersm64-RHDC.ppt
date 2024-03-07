@@ -98,6 +98,8 @@ struct DemoInput *gCurrDemoInput = NULL;
 u16 gDemoInputListID = 0;
 struct DemoInput gRecordedDemoInput = { 0 };
 
+Vec3f gMarioRespawn = {0,0,0};
+
 // Display
 // ----------------------------------------------------------------------------------------------------
 

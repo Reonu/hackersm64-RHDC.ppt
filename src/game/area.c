@@ -306,6 +306,9 @@ void change_area(s32 index) {
     if (areaFlags & AREA_FLAG_LOAD) {
         gMarioObject->header.gfx.areaIndex = index, gMarioSpawnInfo->areaIndex = index;
     }
+
+    vec3f_copy(gMarioRespawn,gMarioState->pos)
+
 }
 
 void area_update_objects(void) {
