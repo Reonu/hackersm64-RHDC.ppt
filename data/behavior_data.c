@@ -6097,9 +6097,10 @@ const BehaviorScript bhvIntroScene[] = {
 };
 
 const BehaviorScript bhvMovingBar[] = {
-    BEGIN(OBJ_LIST_DEFAULT),
+    BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
     BEGIN_LOOP(),
+        LOAD_COLLISION_DATA(bar_collision),
         CALL_NATIVE(bhv_moving_bar_loop),
     END_LOOP(),
 };
