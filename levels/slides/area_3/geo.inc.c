@@ -3,20 +3,16 @@
 const GeoLayout slides_area_3_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
+		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE_DECAL, -1639, -1283, 21, slides_dl_graph_003_mesh_layer_2),
 		GEO_DISPLAY_LIST(LAYER_FORCE, slides_dl_slide1_v2Mesh_001_mesh_layer_0),
+		GEO_DISPLAY_LIST(LAYER_OPAQUE, slides_dl_slide1_v2Mesh_001_mesh_layer_1),
+		GEO_TRANSLATE_NODE_WITH_DL(LAYER_FORCE, -2077, 1689, 0, slides_dl_slide3titleMesh_mesh_layer_0),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
 const GeoLayout slides_area_3[] = {
 	GEO_NODE_SCREEN_AREA(10, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, SCREEN_WIDTH/2, SCREEN_HEIGHT/2),
 	GEO_OPEN_NODE(),
-		GEO_ZBUFFER(0),
-		GEO_OPEN_NODE(),
-			GEO_NODE_ORTHO(100.0000),
-			GEO_OPEN_NODE(),
-				GEO_BACKGROUND(BACKGROUND_OCEAN_SKY, geo_skybox_main),
-			GEO_CLOSE_NODE(),
-		GEO_CLOSE_NODE(),
 		GEO_ZBUFFER(1),
 		GEO_OPEN_NODE(),
 			GEO_CAMERA_FRUSTUM_WITH_FUNC(45.0000, 100, 30000, geo_camera_fov),
