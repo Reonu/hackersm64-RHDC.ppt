@@ -38,9 +38,7 @@
  *                    ANIMATIONS                  *
  **************************************************/
 
-/**
- * Checks if Mario's animation has reached its end point.
- */
+//Slide hack: respawn mario if ded
 void move_mario_to_respawn(struct MarioState *m, u8 deathType) {
     m->pos[0] = gMarioRespawn[0];
     m->pos[1] = gMarioRespawn[1];
@@ -56,12 +54,17 @@ void move_mario_to_respawn(struct MarioState *m, u8 deathType) {
 
     vec3_zero(gMarioState->vel);
 
+    gMarioState->forwardVel = 0;
+
     if (!(gMarioState->action & ACT_FLAG_SWIMMING)) {
         set_mario_action(gMarioState,ACT_IDLE,0);
     }
     
 }
 
+/**
+ * Checks if Mario's animation has reached its end point.
+ */
 s32 is_anim_at_end(struct MarioState *m) {
     struct Object *marioObj = m->marioObj;
 
