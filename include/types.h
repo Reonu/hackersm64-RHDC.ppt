@@ -203,6 +203,11 @@ enum AnimFlags {
     ANIM_FLAG_UNUSED     = BIT(7), // 0x80
 };
 
+enum deathTypes {
+    DEATH_TYPE_VOIDOUT  = BIT(0),
+    DEATH_TYPE_HURT     = BIT(1),
+    DEATH_TYPE_BURNED   = BIT(2),
+};
 struct Animation {
     /*0x00*/ s16 flags;
     /*0x02*/ s16 animYTransDivisor;

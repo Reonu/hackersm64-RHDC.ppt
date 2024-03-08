@@ -6,6 +6,7 @@
 #include "macros.h"
 #include "types.h"
 
+extern void move_mario_to_respawn(struct MarioState *m, u8 isBurning);
 s32 is_anim_at_end(struct MarioState *m);
 s32 is_anim_past_end(struct MarioState *m);
 s16 set_mario_animation(struct MarioState *m, s32 targetAnimID);

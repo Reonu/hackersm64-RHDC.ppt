@@ -41,6 +41,27 @@
 /**
  * Checks if Mario's animation has reached its end point.
  */
+void move_mario_to_respawn(struct MarioState *m, u8 deathType) {
+    m->pos[0] = gMarioRespawn[0];
+    m->pos[1] = gMarioRespawn[1];
+    m->pos[2] = gMarioRespawn[2];
+    
+    m->marioObj->oPosX = gMarioRespawn[0];
+    m->marioObj->oPosY = gMarioRespawn[1];
+    m->marioObj->oPosZ = gMarioRespawn[2];
+
+    m->marioObj->header.gfx.pos[0] = gMarioRespawn[0];
+    m->marioObj->header.gfx.pos[1] = gMarioRespawn[1];
+    m->marioObj->header.gfx.pos[2] = gMarioRespawn[2];    
+
+    vec3_zero(gMarioState->vel);
+
+    if (!(gMarioState->action & ACT_FLAG_SWIMMING)) {
+        set_mario_action(gMarioState,ACT_IDLE,0);
+    }
+    
+}
+
 s32 is_anim_at_end(struct MarioState *m) {
     struct Object *marioObj = m->marioObj;
 
@@ -815,10 +836,11 @@ u32 set_mario_action_airborne(struct MarioState *m, u32 action, u32 actionArg) {
             break;
 
         case ACT_LAVA_BOOST:
-            m->vel[1] = 84.0f;
+            //m->vel[1] = 84.0f;
             if (actionArg == 0) {
                 m->forwardVel = 0.0f;
             }
+            move_mario_to_respawn(m,DEATH_TYPE_BURNED);
             break;
 
         case ACT_DIVE:
@@ -1790,21 +1812,7 @@ s32 execute_mario_action(UNUSED struct Object *obj) {
             gMarioObject->header.gfx.pos[2] = 0;
 
             if (gMarioState->pos[1] <= -2500) {
-                gMarioState->pos[0] = gMarioRespawn[0];
-                gMarioState->pos[1] = gMarioRespawn[1];
-                gMarioState->pos[2] = gMarioRespawn[2];
-                
-                gMarioState->marioObj->oPosX = gMarioRespawn[0];
-                gMarioState->marioObj->oPosY = gMarioRespawn[1];
-                gMarioState->marioObj->oPosZ = gMarioRespawn[2];
-
-                gMarioObject->header.gfx.pos[0] = gMarioRespawn[0];
-                gMarioObject->header.gfx.pos[1] = gMarioRespawn[1];
-                gMarioObject->header.gfx.pos[2] = gMarioRespawn[2];
-
-                vec3_zero(gMarioState->vel);
-
-                set_mario_action(gMarioState,ACT_IDLE,0);
+                move_mario_to_respawn(gMarioState,DEATH_TYPE_VOIDOUT);
             }
         }
 

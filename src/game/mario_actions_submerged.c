@@ -19,6 +19,8 @@
 #include "level_table.h"
 #include "rumble_init.h"
 
+#include "game_init.h"
+
 #define MIN_SWIM_STRENGTH 160
 #define MIN_SWIM_SPEED 16.0f
 
@@ -441,6 +443,12 @@ static void common_swimming_step(struct MarioState *m, s16 swimStrength) {
 
     switch (perform_water_step(m)) {
         case WATER_STEP_HIT_FLOOR:
+            if (m->floor != NULL) {
+                if (m->floor->type == SURFACE_BURNING) {
+                    move_mario_to_respawn(m,DEATH_TYPE_BURNED);
+                    break;
+                }
+            }
             floorPitch = -find_floor_slope(m, -0x8000);
             if (m->faceAngle[0] < floorPitch) {
                 m->faceAngle[0] = floorPitch;
@@ -448,12 +456,26 @@ static void common_swimming_step(struct MarioState *m, s16 swimStrength) {
             break;
 
         case WATER_STEP_HIT_CEILING:
+            if (m->ceil != NULL) {
+                if (m->ceil->type == SURFACE_BURNING) {
+                    move_mario_to_respawn(m,DEATH_TYPE_BURNED);
+                    break;
+                }
+            }
+
             if (m->faceAngle[0] > -0x3000) {
                 m->faceAngle[0] -= 0x100;
             }
             break;
 
         case WATER_STEP_HIT_WALL:
+            if (m->wall != NULL) {
+                if (m->wall->type == SURFACE_BURNING) {
+                    move_mario_to_respawn(m,DEATH_TYPE_BURNED);
+                    break;
+                }                
+            }
+
             if (m->controller->stickY == 0.0f) {
                 if (m->faceAngle[0] > 0.0f) {
                     m->faceAngle[0] += 0x200;
