@@ -804,7 +804,7 @@ u32 interact_star_or_key(struct MarioState *m, UNUSED u32 interactType, struct O
         }
 
         if (noExit) {
-            starGrabAction = ACT_STAR_DANCE_NO_EXIT;
+            starGrabAction = ACT_STAR_DANCE_WATER;
         }
 
         if (m->action & ACT_FLAG_SWIMMING) {
@@ -816,7 +816,7 @@ u32 interact_star_or_key(struct MarioState *m, UNUSED u32 interactType, struct O
         }
 
         if (m->action & ACT_FLAG_AIR) {
-            starGrabAction = ACT_FALL_AFTER_STAR_GRAB;
+            starGrabAction = ACT_STAR_DANCE_WATER;
         }
 
         spawn_object(obj, MODEL_NONE, bhvStarKeyCollectionPuffSpawner);

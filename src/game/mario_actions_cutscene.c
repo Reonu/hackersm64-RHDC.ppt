@@ -458,7 +458,7 @@ s32 act_reading_automatic_dialog(struct MarioState *m) {
                 play_cutscene_music(SEQUENCE_ARGS(0, SEQ_LEVEL_INSIDE_CASTLE));
             }
             if (m->prevAction == ACT_STAR_DANCE_WATER) {
-                set_mario_action(m, ACT_WATER_IDLE, 0); // 100c star?
+                set_mario_action(m, ACT_IDLE, 0); // 100c star?
             } else {
                 // make Mario walk into door after star dialog
                 set_mario_action(m, m->prevAction == ACT_UNLOCKING_STAR_DOOR ? ACT_WALKING : ACT_IDLE,
