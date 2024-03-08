@@ -41,3 +41,5 @@
 #include "donut2/collision.inc.c"
 #include "donut3/model.inc.c"
 #include "donut3/collision.inc.c"
+#include "correlation/model.inc.c"
+#include "correlation/collision.inc.c"

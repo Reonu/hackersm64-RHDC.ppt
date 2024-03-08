@@ -357,4 +357,8 @@ extern const GeoLayout geo_confroom_root[];
 
 #include "donut3/collision_header.h"
 
+#include "correlation/geo_header.h"
+
+#include "correlation/collision_header.h"
+
 #endif
