@@ -74,6 +74,7 @@
     #undef VANILLA_DEBUG
     #undef DEBUG_FORCE_CRASH_ON_BOOT
     #undef DEBUG_ASSERTIONS
+    #undef SLIDE_DEBUG
 #endif // DISABLE_ALL
 
 #ifdef DEBUG_ALL
@@ -103,6 +104,9 @@
 
     #undef DEBUG_ASSERTIONS
     #define DEBUG_ASSERTIONS
+
+    #undef SLIDE_DEBUG
+    #define SLIDE_DEBUG
 #endif // DEBUG_ALL
 
 #ifdef PUPPYPRINT_DEBUG

@@ -1170,14 +1170,30 @@ UNUSED static s32 play_mode_unused(void) {
     return FALSE;
 }
 
+void change_slide(s8 change) {
+    if (gAreaData[gCurrAreaIndex+change].graphNode != NULL) {
+        change_area(gCurrAreaIndex+change);
+        gMarioState->area = gCurrentArea;
+        gBeatSlide = 0;
+    }
+}
+
 s32 update_level(void) {
     s32 changeLevel = FALSE;
 
     if (gBeatSlide) {
-        change_area(gCurrAreaIndex+1);
-        gMarioState->area = gCurrentArea;
-        gBeatSlide = 0;
+        change_slide(1);
     }
+
+#ifdef SLIDE_DEBUG
+    if (gPlayer1Controller->buttonDown & R_TRIG) {
+        if (gPlayer1Controller->buttonPressed & L_JPAD) {
+            change_slide(-1);
+        } else if (gPlayer1Controller->buttonPressed & R_JPAD) {
+            change_slide(1);
+        }
+    }
+#endif
 
     switch (sCurrPlayMode) {
         case PLAY_MODE_NORMAL:
