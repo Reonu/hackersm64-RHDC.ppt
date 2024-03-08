@@ -40,7 +40,7 @@ const LevelScript level_slides_entry[] = {
 		OBJECT(MODEL_NONE, -1278, -94, 0, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
 		TERRAIN(slides_area_1_collision),
 		MACRO_OBJECTS(slides_area_1_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_GRASS),
+		STOP_MUSIC(0),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -53,7 +53,7 @@ const LevelScript level_slides_entry[] = {
 		OBJECT(MODEL_STAR, -1642, -308, 74, 0, 0, 0, (0x02 << 16), bhvStar),
 		TERRAIN(slides_area_2_collision),
 		MACRO_OBJECTS(slides_area_2_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_GRASS),
+		STOP_MUSIC(0),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -66,10 +66,10 @@ const LevelScript level_slides_entry[] = {
 		OBJECT(MODEL_BAR, -1289, -1283, 21, 0, 0, 0, (30 << 16), bhvMovingBar),
 		OBJECT(MODEL_BAR, -939, -1283, 21, 0, 0, 0, (70 << 16), bhvMovingBar),
 		OBJECT(MODEL_BAR, -589, -1283, 21, 0, 0, 0, (120 << 16), bhvMovingBar),
-		OBJECT(MODEL_STAR, 983, 497, 74, 0, 0, 0, (0x02 << 16), bhvStar),
+		OBJECT(MODEL_STAR, 983, 362, 74, 0, 0, 0, (0x02 << 16), bhvStar),
 		TERRAIN(slides_area_3_collision),
 		MACRO_OBJECTS(slides_area_3_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_GRASS),
+		STOP_MUSIC(0),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -84,7 +84,7 @@ const LevelScript level_slides_entry[] = {
 		OBJECT(MODEL_STAR, 561, 854, 74, 0, 0, 0, (0x03 << 16), bhvStar),
 		TERRAIN(slides_area_4_collision),
 		MACRO_OBJECTS(slides_area_4_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_GRASS),
+		STOP_MUSIC(0),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -94,13 +94,43 @@ const LevelScript level_slides_entry[] = {
 		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF0, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
-		OBJECT(MODEL_DONUT1, -1227, -439, 19, 0, 0, 0, 0x00000000, bhvDonut1),
+		OBJECT(MODEL_DONUT1, -1728, -439, 19, 0, 0, 0, 0x00000000, bhvDonut1),
 		OBJECT(MODEL_DONUT2, -1, -439, 19, 0, 0, 0, 0x00000000, bhvDonut2),
-		OBJECT(MODEL_DONUT3, 1262, -439, 19, 0, 0, 0, 0x00000000, bhvDonut3),
-		OBJECT(MODEL_STAR, 1263, -441, 33, 0, 0, 0, (0x03 << 16), bhvStar),
+		OBJECT(MODEL_DONUT3, 1752, -439, 19, 0, 0, 0, 0x00000000, bhvDonut3),
+		OBJECT(MODEL_STAR, 1753, -441, 33, 0, 0, 0, (0x05 << 16), bhvStar),
 		TERRAIN(slides_area_5_collision),
 		MACRO_OBJECTS(slides_area_5_macro_objs),
-		SET_BACKGROUND_MUSIC(0x00, SEQ_LEVEL_GRASS),
+		STOP_MUSIC(0),
+		TERRAIN_TYPE(TERRAIN_GRASS),
+		/* Fast64 begin persistent block [area commands] */
+		/* Fast64 end persistent block [area commands] */
+	END_AREA(),
+
+	AREA(6, slides_area_6),
+		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF0, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF1, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		OBJECT(MODEL_CORRELATION, 99, -747, 54, 0, 0, 0, (10 << 16), bhvCorrelation),
+		OBJECT(MODEL_STAR, -1798, 114, 33, 0, 0, 0, (0x06 << 16), bhvStar),
+		TERRAIN(slides_area_6_collision),
+		MACRO_OBJECTS(slides_area_6_macro_objs),
+		STOP_MUSIC(0),
+		TERRAIN_TYPE(TERRAIN_GRASS),
+		/* Fast64 begin persistent block [area commands] */
+		/* Fast64 end persistent block [area commands] */
+	END_AREA(),
+
+	AREA(7, slides_area_7),
+		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF0, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF1, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		OBJECT(MODEL_BAR, -1796, -1529, 21, 0, 0, 0, (50 << 16) | (254 << 8), bhvMovingBar),
+		OBJECT(MODEL_BAR, -1151, -1529, 21, 0, 0, 0, (80 << 16) | (230 << 8), bhvMovingBar),
+		OBJECT(MODEL_BAR, -618, -1529, 21, 0, 0, 0, (110 << 16) | (240 << 8), bhvMovingBar),
+		OBJECT(MODEL_STAR, 783, -245, 33, 0, 0, 0, (0x07 << 16), bhvStar),
+		TERRAIN(slides_area_7_collision),
+		MACRO_OBJECTS(slides_area_7_macro_objs),
+		STOP_MUSIC(0),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
