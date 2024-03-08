@@ -16,6 +16,8 @@
 #define MODEL_DONUT2                           0x104
 #define MODEL_DONUT3                           0x105
 
+#define MODEL_CORRELATION                      0x106
+
 /* Various static level geometry, the geo layout differs but terrain object presets treat them the same.*/
 
 #define MODEL_LEVEL_GEOMETRY_03                0x03

@@ -552,6 +552,7 @@ void bhv_yoshi_loop(void);
 void bhv_volcano_trap_loop(void);
 void bhv_moving_bar_loop(void);
 void bhv_donut_loop (void);
+void bhv_correlation_loop(void);
 
 Gfx *geo_move_mario_part_from_parent(s32 callContext, UNUSED struct GraphNode *node, Mat4 mtx);
 

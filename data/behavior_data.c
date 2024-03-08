@@ -6131,3 +6131,12 @@ const BehaviorScript bhvDonut3[] = {
         CALL_NATIVE(bhv_donut_loop),
     END_LOOP(),
 };
+
+const BehaviorScript bhvCorrelation[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    BEGIN_LOOP(),
+        LOAD_COLLISION_DATA(correlation_collision),
+        CALL_NATIVE(bhv_correlation_loop),
+    END_LOOP(),
+};
