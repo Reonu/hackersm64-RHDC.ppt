@@ -9,6 +9,7 @@
 #include "game/segment2.h"
 #include "game/mario_misc.h"
 #include "game/mario_actions_cutscene.h"
+#include "game/confroom.h"
 
 // sky background params
 enum SkyBackgroundParams {

@@ -804,5 +804,16 @@ void set_fov_shake_from_point_preset(u8 preset, f32 posX, f32 posY, f32 posZ);
 void obj_rotate_towards_point(struct Object *obj, Vec3f point, s16 pitchOff, s16 yawOff, s16 pitchDiv, s16 yawDiv);
 
 Gfx *geo_camera_fov(s32 callContext, struct GraphNode *g, UNUSED void *context);
+void create_camera(struct GraphNodeCamera *gc, struct AllocOnlyPool *pool);
+
+
+#define FOV_24MM  84.06f
+#define FOV_35MM  63.44f
+#define FOV_50MM  46.79f
+#define FOV_75MM  32.18f
+#define FOV_100MM 24.41f
+#define FOV_120MM 19.64f
+#define FOV_150MM 16.41f
+#define FOV_200MM 12.35f
 
 #endif // CAMERA_H

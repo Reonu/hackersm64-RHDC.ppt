@@ -74,7 +74,7 @@ struct RenderModeContainer {
 #define V_RADIUS (3 * ORTHO_RENDER_MULTIPLIER)
 
 // TEMP
-#define g2DCamActive TRUE
+extern s32 g2DCamActive;
 
 void geo_process_node_and_siblings(struct GraphNode *firstNode);
 void geo_process_root(struct GraphNodeRoot *node, Vp *b, Vp *c, s32 clearColor);

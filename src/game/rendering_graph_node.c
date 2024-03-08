@@ -54,6 +54,7 @@ s16 gMatStackIndex = 0;
 ALIGNED16 Mat4 gMatStack[32];
 ALIGNED16 Mtx *gMatStackFixed[32];
 f32 sAspectRatio;
+s32 g2DCamActive = TRUE;
 
 /**
  * Animation nodes have state in global variables, so this struct captures

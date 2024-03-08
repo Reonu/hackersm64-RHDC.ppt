@@ -13,6 +13,7 @@
 #include "game/area.h"
 #include "game/debug.h"
 #include "game/game_init.h"
+#include "game/confroom.h"
 #include "game/mario.h"
 #include "game/memory.h"
 #include "game/object_helpers.h"
@@ -375,6 +376,9 @@ static void level_cmd_clear_level(void) {
 }
 
 static void level_cmd_alloc_level_pool(void) {
+    s32 succ = conf_room_check_should_init();
+    assert(succ, "FAILED TO ALLOC CONF ROOM");
+
     if (sLevelPool == NULL) {
         sLevelPool = alloc_only_pool_init(main_pool_available() - sizeof(struct AllocOnlyPool),
                                           MEMORY_POOL_LEFT);

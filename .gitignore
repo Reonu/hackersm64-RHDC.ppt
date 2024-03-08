@@ -2149,3 +2149,5 @@ lib/libs2d_engine.a
 
 # :Zone_Identifier files
 *Zone.Identifier
+
+out.txt

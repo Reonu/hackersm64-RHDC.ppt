@@ -14,4 +14,6 @@ extern RGBA16 gFramebuffers[3][SCREEN_WIDTH * SCREEN_HEIGHT];
 #define gFramebuffer1 gFramebuffers[1]
 #define gFramebuffer2 gFramebuffers[2]
 
+extern RGBA16 gAuxBuffers[1][SCREEN_WIDTH * SCREEN_HEIGHT];
+
 #endif // FRAMEBUFFERS_H

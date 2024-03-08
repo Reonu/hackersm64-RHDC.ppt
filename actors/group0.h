@@ -331,6 +331,10 @@ extern const Gfx white_particle_small_dl_end[];
 extern const Gfx white_particle_small_dl[];
 extern const Gfx white_particle_small_unused_dl[];
 
+extern const GeoLayout geo_confroom_root[];
+
+#include "confroom/data.h"
+
 #include "mario/geo_header.h"
 
 #include "dudeguy/geo_header.h"

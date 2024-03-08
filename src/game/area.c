@@ -18,6 +18,7 @@
 #include "area.h"
 #include "rendering_graph_node.h"
 #include "level_update.h"
+#include "confroom.h"
 #include "engine/geo_layout.h"
 #include "save_file.h"
 #include "level_table.h"
@@ -25,6 +26,7 @@
 #include "puppyprint.h"
 #include "debug_box.h"
 #include "engine/colors.h"
+#include "buffers/framebuffers.h"
 #include "profiling.h"
 #ifdef S2DEX_TEXT_ENGINE
 #include "s2d_engine/init.h"
@@ -401,8 +403,23 @@ void render_game(void) {
     PROFILER_GET_SNAPSHOT_TYPE(PROFILER_DELTA_COLLISION);
     if (gCurrentArea != NULL && !gWarpTransition.pauseRendering) {
         if (gCurrentArea->graphNode) {
+            g2DCamActive = TRUE;
+            gDPSetColorImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, VIRTUAL_TO_PHYSICAL(gAuxBuffers[0]));
             geo_process_root(gCurrentArea->graphNode, gViewportOverride, gViewportClip, gFBSetColor);
+            g2DCamActive = FALSE;
+            // init_z_buffer(TRUE);
+            gDPPipeSync(gDisplayListHead++);
+            gDPSetRenderMode(gDisplayListHead++, G_RM_NOOP, G_RM_NOOP);
+            gDPSetColorImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, gPhysicalZBuffer);
+            gDPSetCycleType(gDisplayListHead++, G_CYC_FILL);
+            gDPPipeSync(gDisplayListHead++);
+            gDPSetFillColor(gDisplayListHead++, GPACK_ZDZ(G_MAXFBZ, 0) << 16 | GPACK_ZDZ(G_MAXFBZ, 0));
+            gDPFillRectangle(gDisplayListHead++, 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1);
+            gDPPipeSync(gDisplayListHead++);
+            gDPSetCombineMode(gDisplayListHead++, G_CC_SHADE, G_CC_SHADE);
+            select_framebuffer();
         }
+        process_conf_room();
 #ifdef PUPPYPRINT
         bzero(gCurrEnvCol, sizeof(ColorRGBA));
 #endif

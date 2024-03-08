@@ -548,7 +548,7 @@ ifneq (,$(call find-command,armips))
 else
   RSPASM              := $(TOOLS_DIR)/armips
 endif
-EMULATOR = mupen64plus
+EMULATOR = wslview
 EMU_FLAGS =
 
 ifneq (,$(call find-command,wslview))
@@ -620,7 +620,7 @@ load: $(ROM) $(LOADER)
 	$(LOADER) -r $<
 
 unf: $(ROM) $(LOADER)
-	$(LOADER) -d -r $<
+	$(LOADER) -d out.txt -r $<
 
 libultra: $(BUILD_DIR)/libultra.a
 

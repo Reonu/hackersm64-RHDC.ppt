@@ -21450,7 +21450,7 @@ Vtx confroom_projectorscreenMesh_mesh_layer_1_vtx_0[178] = {
 
 Gfx confroom_projectorscreenMesh_mesh_layer_1_tri_0[] = {
 	gsDPLoadSync(),
-	gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, confroom_emubad_rgba16),
+	// gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, confroom_emubad_rgba16),
 	gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 0, 7, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0, G_TX_WRAP | G_TX_NOMIRROR, 0, 0),
 	gsDPLoadTile(7, 0, 0, 252, 124),
 	gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 16, 0, 0, 0, G_TX_CLAMP | G_TX_NOMIRROR, 0, 0, G_TX_CLAMP | G_TX_NOMIRROR, 0, 0),
@@ -22598,7 +22598,7 @@ Gfx mat_confroom_white[] = {
 
 Gfx mat_confroom_projectorscreen[] = {
 	gsDPPipeSync(),
-	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT, TEXEL0, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT),
+	gsDPSetCombineLERP(0, 0, 0, TEXEL0, 0, 0, 0, ENVIRONMENT, 0, 0, 0, TEXEL0, 0, 0, 0, ENVIRONMENT),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsSPEndDisplayList(),
 };

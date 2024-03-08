@@ -16,6 +16,8 @@
 #include "water_splash/geo.inc.c"
 #include "sparkle_animation/geo.inc.c"
 #include "mario/geo.inc.c"
+#include "confroom/data.c"
+#include "confroom/root.inc.c"
 
 #include "dudeguy/geo.inc.c"
 #include "confroom/geo.inc.c"
