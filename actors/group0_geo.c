@@ -27,3 +27,5 @@
 #include "donut3/geo.inc.c"
 
 #include "correlation/geo.inc.c"
+#include "bar_red/geo.inc.c"
+#include "bar_yellow/geo.inc.c"

@@ -6135,8 +6135,19 @@ const BehaviorScript bhvDonut3[] = {
 const BehaviorScript bhvCorrelation[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_FLOAT(oCollisionDistance, 20000),
     BEGIN_LOOP(),
         LOAD_COLLISION_DATA(correlation_collision),
         CALL_NATIVE(bhv_correlation_loop),
     END_LOOP(),
+};
+
+const BehaviorScript bhvMovingBarRed[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_FLOAT(oCollisionDistance, 20000),
+    BEGIN_LOOP(),
+        LOAD_COLLISION_DATA(bar_red_collision),
+        CALL_NATIVE(bhv_moving_bar_loop),
+    END_LOOP(),    
 };

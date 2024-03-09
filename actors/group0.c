@@ -43,3 +43,6 @@
 #include "donut3/collision.inc.c"
 #include "correlation/model.inc.c"
 #include "correlation/collision.inc.c"
+#include "bar_red/model.inc.c"
+#include "bar_red/collision.inc.c"
+#include "bar_yellow/model.inc.c"
