@@ -19,4 +19,7 @@
 #include "levels/slides/area_7/collision.inc.c"
 #include "levels/slides/area_7/macro.inc.c"
 #include "levels/slides/area_7/spline.inc.c"
+#include "levels/slides/area_8/collision.inc.c"
+#include "levels/slides/area_8/macro.inc.c"
+#include "levels/slides/area_8/spline.inc.c"
 #include "levels/slides/model.inc.c"
