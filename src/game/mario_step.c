@@ -705,6 +705,12 @@ s32 perform_air_step(struct MarioState *m, u32 stepArg) {
         }
     }
 
+    if (quarterStepResult == AIR_STEP_HIT_CEILING) {
+        if (m->ceil->type == SURFACE_RED_BAR) {
+            move_mario_to_respawn(m,DEATH_TYPE_BURNED);
+        }
+    }
+
     if (m->vel[1] >= 0.0f) {
         m->peakHeight = m->pos[1];
     }
