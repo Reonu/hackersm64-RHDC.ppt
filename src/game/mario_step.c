@@ -9,6 +9,7 @@
 #include "game_init.h"
 #include "interaction.h"
 #include "mario_step.h"
+#include "surface_terrains.h"
 
 #include "config.h"
 
@@ -370,6 +371,18 @@ s32 perform_ground_step(struct MarioState *m) {
     if (stepResult == GROUND_STEP_HIT_WALL_CONTINUE_QSTEPS) {
         stepResult = GROUND_STEP_HIT_WALL;
     }
+
+    if (stepResult == GROUND_STEP_HIT_WALL && m->wall && m->wall->type == SURFACE_INSTANT_QUICKSAND)
+    {
+        stepResult = GROUND_STEP_DEATH;
+        m->vel[0] = -2 * m->wall->normal.x;
+        m->vel[1] = -2 * m->wall->normal.y;
+        m->vel[2] = -2 * m->wall->normal.z;
+        drop_and_set_mario_action(m, ACT_QUICKSAND_DEATH, 1);
+        return stepResult;
+    }
+
+     
     return stepResult;
 }
 
@@ -703,10 +716,19 @@ s32 perform_air_step(struct MarioState *m, u32 stepArg) {
             || quarterStepResult == AIR_STEP_HIT_LAVA_WALL) {
             break;
         }
+        if (quarterStepResult == AIR_STEP_HIT_WALL && m->wall && m->wall->type == SURFACE_INSTANT_QUICKSAND)
+        {
+            stepResult = AIR_STEP_DEATH;
+            m->vel[0] = -2 * m->wall->normal.x;
+            m->vel[1] = -2 * m->wall->normal.y;
+            m->vel[2] = -2 * m->wall->normal.z;
+            drop_and_set_mario_action(m, ACT_QUICKSAND_DEATH, 1);
+            return stepResult;
+        }
     }
 
     if (quarterStepResult == AIR_STEP_HIT_CEILING) {
-        if (m->ceil->type == SURFACE_RED_BAR) {
+        if ((m->ceil != NULL) && (m->ceil->type == SURFACE_RED_BAR)) {
             move_mario_to_respawn(m,DEATH_TYPE_BURNED);
         }
     }

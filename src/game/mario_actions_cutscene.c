@@ -27,6 +27,7 @@
 #include "seq_ids.h"
 #include "sound_init.h"
 #include "rumble_init.h"
+#include "print.h"
 
 static struct Object *sIntroWarpPipeObj;
 static struct Object *sEndPeachObj;
@@ -750,15 +751,35 @@ s32 act_quicksand_death(struct MarioState *m) {
         set_mario_animation(m, MARIO_ANIM_DYING_IN_QUICKSAND);
         set_anim_to_frame(m, 60);
         m->actionState = ACT_STATE_QUICKSAND_DEATH_SINK;
+        m->actionTimer = 0;
     }
     if (m->actionState == ACT_STATE_QUICKSAND_DEATH_SINK) {
         if (m->quicksandDepth >= 100.0f) {
             play_sound_if_no_flag(m, SOUND_MARIO_WAAAOOOW, MARIO_ACTION_SOUND_PLAYED);
         }
-        if ((m->quicksandDepth += 5.0f) >= 180.0f) {
-            level_trigger_warp(m, WARP_OP_DEATH);
-            m->actionState = ACT_STATE_QUICKSAND_DEATH_DEAD;
+        if (m->actionArg == 0)
+        {
+            if ((m->quicksandDepth += 5.0f) >= 180.0f) {
+                level_trigger_warp(m, WARP_OP_DEATH);
+                m->actionState = 2;
+            }
+         }
+        else // Quicksand wall
+        {
+            if ((m->actionTimer >= 30))
+            {
+                level_trigger_warp(m, WARP_OP_DEATH);
+            }
+            m->marioObj->header.gfx.pos[0] += m->vel[0];
+            m->marioObj->header.gfx.pos[1] += m->vel[1];
+            m->marioObj->header.gfx.pos[2] += m->vel[2];
+            m->actionTimer++;
         }
+        
+    }
+    if (m->actionArg == 0)
+    {
+            m->actionState = ACT_STATE_QUICKSAND_DEATH_DEAD;
     }
     stationary_ground_step(m);
     play_sound(SOUND_MOVING_QUICKSAND_DEATH, m->marioObj->header.gfx.cameraToObject);
@@ -1521,6 +1542,14 @@ s32 act_squished(struct MarioState *m) {
 
     if ((spaceUnderCeil = m->ceilHeight - m->floorHeight) < 0) {
         spaceUnderCeil = 0;
+    }
+
+    if (gMarioState->ceil != NULL) {
+        if (gMarioState->ceil->type == SURFACE_RED_BAR) {
+            move_mario_to_respawn(gMarioState,DEATH_TYPE_BURNED);
+            m->squishTimer = 0;
+            return FALSE;
+        }
     }
 
     switch (m->actionState) {

@@ -444,7 +444,7 @@ static void common_swimming_step(struct MarioState *m, s16 swimStrength) {
     switch (perform_water_step(m)) {
         case WATER_STEP_HIT_FLOOR:
             if (m->floor != NULL) {
-                if (m->floor->type == SURFACE_BURNING) {
+                if (m->floor->type == SURFACE_RED_BAR) {
                     move_mario_to_respawn(m,DEATH_TYPE_BURNED);
                     break;
                 }
@@ -457,7 +457,7 @@ static void common_swimming_step(struct MarioState *m, s16 swimStrength) {
 
         case WATER_STEP_HIT_CEILING:
             if (m->ceil != NULL) {
-                if (m->ceil->type == SURFACE_BURNING) {
+                if (m->ceil->type == SURFACE_RED_BAR) {
                     move_mario_to_respawn(m,DEATH_TYPE_BURNED);
                     break;
                 }
@@ -470,7 +470,7 @@ static void common_swimming_step(struct MarioState *m, s16 swimStrength) {
 
         case WATER_STEP_HIT_WALL:
             if (m->wall != NULL) {
-                if (m->wall->type == SURFACE_BURNING) {
+                if (m->wall->type == SURFACE_RED_BAR) {
                     move_mario_to_respawn(m,DEATH_TYPE_BURNED);
                     break;
                 }                
