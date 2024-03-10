@@ -6146,8 +6146,29 @@ const BehaviorScript bhvMovingBarRed[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
     SET_FLOAT(oCollisionDistance, 20000),
+    CALL_NATIVE(bhv_moving_bar_init),
     BEGIN_LOOP(),
         LOAD_COLLISION_DATA(bar_red_collision),
         CALL_NATIVE(bhv_moving_bar_loop),
     END_LOOP(),    
+};
+
+const BehaviorScript bhvMovingBarYellow[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    CALL_NATIVE(bhv_moving_bar_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_moving_bar_loop),
+    END_LOOP(),    
+};
+
+const BehaviorScript bhvMovingBarGreen[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_FLOAT(oCollisionDistance, 20000),
+    CALL_NATIVE(bhv_moving_bar_init),
+    BEGIN_LOOP(),
+        LOAD_COLLISION_DATA(bar_green_collision),
+        CALL_NATIVE(bhv_moving_bar_loop),
+    END_LOOP(),        
 };

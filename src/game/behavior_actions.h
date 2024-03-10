@@ -550,6 +550,7 @@ void bhv_intro_scene_loop(void);
 void bhv_dust_smoke_loop(void);
 void bhv_yoshi_loop(void);
 void bhv_volcano_trap_loop(void);
+void bhv_moving_bar_init(void);
 void bhv_moving_bar_loop(void);
 void bhv_donut_loop (void);
 void bhv_correlation_loop(void);
