@@ -42,7 +42,7 @@ const Collision slides_area_7_collision[] = {
 	COL_TRI(7, 11, 4),
 	COL_TRI(9, 6, 5),
 	COL_TRI(9, 5, 10),
-	COL_TRI_INIT(SURFACE_BURNING, 24),
+	COL_TRI_INIT(SURFACE_RED_BAR, 24),
 	COL_TRI(12, 13, 14),
 	COL_TRI(12, 14, 15),
 	COL_TRI(15, 14, 16),

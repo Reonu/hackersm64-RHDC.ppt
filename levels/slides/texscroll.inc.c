@@ -1,4 +1,4 @@
-void scroll_slides_dl_slide2_mesh_layer_1_vtx_6() {
+void scroll_slides_dl_slide2_mesh_layer_1_vtx_0() {
 	int i = 0;
 	int count = 4;
 	int width = 64 * 0x20;
@@ -8,7 +8,7 @@ void scroll_slides_dl_slide2_mesh_layer_1_vtx_6() {
 	int deltaX;
 	static int currentY = 0;
 	int deltaY;
-	Vtx *vertices = segmented_to_virtual(slides_dl_slide2_mesh_layer_1_vtx_6);
+	Vtx *vertices = segmented_to_virtual(slides_dl_slide2_mesh_layer_1_vtx_0);
 
 	deltaX = (int)(1.0 * 0x20) % width;
 	deltaY = (int)(1.0 * 0x20) % height;
@@ -28,5 +28,5 @@ void scroll_slides_dl_slide2_mesh_layer_1_vtx_6() {
 }
 
 void scroll_slides() {
-	scroll_slides_dl_slide2_mesh_layer_1_vtx_6();
+	scroll_slides_dl_slide2_mesh_layer_1_vtx_0();
 };

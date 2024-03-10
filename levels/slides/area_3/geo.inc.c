@@ -5,7 +5,6 @@ const GeoLayout slides_area_3_geo[] = {
 	GEO_OPEN_NODE(),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE_DECAL, -1639, -1283, 21, slides_dl_graph_003_mesh_layer_2),
 		GEO_DISPLAY_LIST(LAYER_FORCE, slides_dl_slide1_v2Mesh_001_mesh_layer_0),
-		GEO_DISPLAY_LIST(LAYER_OPAQUE, slides_dl_slide1_v2Mesh_001_mesh_layer_1),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_FORCE, -2077, 1689, 0, slides_dl_slide3titleMesh_mesh_layer_0),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),

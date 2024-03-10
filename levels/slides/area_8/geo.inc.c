@@ -6,8 +6,9 @@ const GeoLayout slides_area_8_geo[] = {
 		GEO_ROTATION_NODE_WITH_DL(LAYER_FORCE, 90, 0, 0, slides_dl_0slide8bg_mesh_layer_0),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE_DECAL, -1993, -1283, 21, slides_dl_graph_004_mesh_layer_2),
 		GEO_OPEN_NODE(),
-			GEO_DISPLAY_LIST(LAYER_OPAQUE, slides_dl_graph_004_mesh_layer_1),
+			GEO_DISPLAY_LIST(LAYER_FORCE, slides_dl_graph_004_mesh_layer_0),
 		GEO_CLOSE_NODE(),
+		GEO_TRANSLATE_NODE_WITH_DL(LAYER_FORCE, 1, 1167, 0, slides_dl_slide8titleMesh_mesh_layer_0),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
