@@ -214,7 +214,7 @@ const Collision donut2_collision[] = {
 	COL_TRI(26, 13, 12),
 	COL_TRI(17, 1, 2),
 	COL_TRI(17, 2, 16),
-	COL_TRI_INIT(SURFACE_BURNING, 116),
+	COL_TRI_INIT(SURFACE_RED_BAR, 116),
 	COL_TRI(2, 16, 17),
 	COL_TRI(2, 17, 1),
 	COL_TRI(13, 12, 26),

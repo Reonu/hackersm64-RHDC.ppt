@@ -46,3 +46,7 @@
 #include "bar_red/model.inc.c"
 #include "bar_red/collision.inc.c"
 #include "bar_yellow/model.inc.c"
+#include "bar_green/model.inc.c"
+#include "bar_green/collision.inc.c"
+#include "bar_pink/collision.inc.c"
+#include "bar_pink/model.inc.c"

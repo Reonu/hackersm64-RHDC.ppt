@@ -85,7 +85,7 @@ const Collision correlation_collision[] = {
 	COL_VERTEX(1726, -2, -54),
 	COL_VERTEX(1874, 86, -54),
 	COL_VERTEX(1874, 86, 146),
-	COL_TRI_INIT(SURFACE_BURNING, 126),
+	COL_TRI_INIT(SURFACE_RED_BAR, 126),
 	COL_TRI(0, 1, 2),
 	COL_TRI(0, 2, 3),
 	COL_TRI(4, 5, 6),

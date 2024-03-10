@@ -1,4 +1,4 @@
-Vtx bar_red_bar_001_mesh_layer_1_vtx_cull[8] = {
+Vtx bar_red_bar_001_mesh_layer_0_vtx_cull[8] = {
 	{{ {-100, 0, 142}, 0, {0, 0}, {0, 0, 0, 0} }},
 	{{ {-100, 36, 142}, 0, {0, 0}, {0, 0, 0, 0} }},
 	{{ {-100, 36, -142}, 0, {0, 0}, {0, 0, 0, 0} }},
@@ -9,7 +9,7 @@ Vtx bar_red_bar_001_mesh_layer_1_vtx_cull[8] = {
 	{{ {100, 0, -142}, 0, {0, 0}, {0, 0, 0, 0} }},
 };
 
-Vtx bar_red_bar_001_mesh_layer_1_vtx_0[20] = {
+Vtx bar_red_bar_001_mesh_layer_0_vtx_0[20] = {
 	{{ {-100, 0, 142}, 0, {368, 1008}, {129, 0, 0, 255} }},
 	{{ {-100, 36, 142}, 0, {624, 1008}, {129, 0, 0, 255} }},
 	{{ {-100, 36, -142}, 0, {624, 752}, {129, 0, 0, 255} }},
@@ -32,8 +32,8 @@ Vtx bar_red_bar_001_mesh_layer_1_vtx_0[20] = {
 	{{ {100, 36, 142}, 0, {624, 240}, {0, 127, 0, 255} }},
 };
 
-Gfx bar_red_bar_001_mesh_layer_1_tri_0[] = {
-	gsSPVertex(bar_red_bar_001_mesh_layer_1_vtx_0 + 0, 20, 0),
+Gfx bar_red_bar_001_mesh_layer_0_tri_0[] = {
+	gsSPVertex(bar_red_bar_001_mesh_layer_0_vtx_0 + 0, 20, 0),
 	gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
 	gsSP2Triangles(4, 5, 6, 0, 4, 6, 7, 0),
 	gsSP2Triangles(8, 9, 10, 0, 8, 10, 11, 0),
@@ -43,21 +43,33 @@ Gfx bar_red_bar_001_mesh_layer_1_tri_0[] = {
 };
 
 
-Gfx mat_bar_red_red[] = {
+Gfx mat_bar_red_red_layer0[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, PRIMITIVE, 0, 0, 0, 1, 0, 0, 0, PRIMITIVE, 0, 0, 0, 1),
+	gsSPGeometryMode(G_ZBUFFER | G_SHADE, 0),
+	gsDPSetColorDither(G_CD_DISABLE),
+	gsDPSetRenderMode(G_RM_OPA_SURF, G_RM_NOOP),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPSetPrimColor(0, 0, 255, 11, 0, 255),
 	gsSPEndDisplayList(),
 };
 
-Gfx bar_red_bar_001_mesh_layer_1[] = {
+Gfx mat_revert_bar_red_red_layer0[] = {
+	gsDPPipeSync(),
+	gsSPGeometryMode(0, G_ZBUFFER | G_SHADE),
+	gsDPSetColorDither(G_CD_MAGICSQ),
+	gsDPSetRenderMode(G_RM_ZB_OPA_SURF, G_RM_ZB_OPA_SURF2),
+	gsSPEndDisplayList(),
+};
+
+Gfx bar_red_bar_001_mesh_layer_0[] = {
 	gsSPClearGeometryMode(G_LIGHTING),
-	gsSPVertex(bar_red_bar_001_mesh_layer_1_vtx_cull + 0, 8, 0),
+	gsSPVertex(bar_red_bar_001_mesh_layer_0_vtx_cull + 0, 8, 0),
 	gsSPSetGeometryMode(G_LIGHTING),
 	gsSPCullDisplayList(0, 7),
-	gsSPDisplayList(mat_bar_red_red),
-	gsSPDisplayList(bar_red_bar_001_mesh_layer_1_tri_0),
+	gsSPDisplayList(mat_bar_red_red_layer0),
+	gsSPDisplayList(bar_red_bar_001_mesh_layer_0_tri_0),
+	gsSPDisplayList(mat_revert_bar_red_red_layer0),
 	gsDPPipeSync(),
 	gsSPSetGeometryMode(G_LIGHTING),
 	gsSPClearGeometryMode(G_TEXTURE_GEN),

@@ -367,4 +367,12 @@ extern const GeoLayout geo_confroom_root[];
 
 #include "bar_yellow/geo_header.h"
 
+#include "bar_green/geo_header.h"
+
+#include "bar_green/collision_header.h"
+
+#include "bar_pink/collision_header.h"
+
+#include "bar_pink/geo_header.h"
+
 #endif
