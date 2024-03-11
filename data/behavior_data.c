@@ -6173,3 +6173,11 @@ const BehaviorScript bhvMovingBarPink[] = {
         CALL_NATIVE(bhv_moving_bar_loop),
     END_LOOP(),        
 };
+
+const BehaviorScript bhvCheckpointFlag[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO)),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_checkpoint_flag_loop),
+    END_LOOP(),
+};

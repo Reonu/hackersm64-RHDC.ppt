@@ -18,6 +18,8 @@
 
 #define MODEL_CORRELATION                      0x106
 
+#define MODEL_CHECKPOINT_FLAG                  0x107
+
 /* Various static level geometry, the geo layout differs but terrain object presets treat them the same.*/
 
 #define MODEL_LEVEL_GEOMETRY_03                0x03

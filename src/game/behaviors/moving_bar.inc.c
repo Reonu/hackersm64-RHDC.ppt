@@ -1,4 +1,8 @@
 #include "behavior_data.h"
+#include "engine/math_util.h"
+#include "game/game_init.h"
+#include "game/level_update.h"
+#include "game/spawn_sound.h"
 
 #define Y_SCALE o->header.gfx.scale[1]
 
@@ -52,4 +56,22 @@ void bhv_correlation_loop(void) {
     o->oPosY -= (sins(o->oBitfsPlatformTimer) * BPARAM2);
     o->oBitfsPlatformTimer += 0x300;
     load_object_collision_model();
+}
+
+/*CHECKPOINT FLAG*/
+
+void bhv_checkpoint_flag_loop(void) {
+    if (o->oCheckpointFlagCounter == 0) {
+        if (o->oDistanceToMario < 100.f) {
+            o->oCheckpointFlagCounter++;
+            vec3_copy(gMarioRespawn,gMarioState->pos);
+            cur_obj_play_sound_2(SOUND_GENERAL2_RIGHT_ANSWER);
+        }
+    }
+    
+    if (o->oCheckpointFlagCounter == 1) {
+        o->oPrimRGB = 0xFF0000;
+    } else {
+        o->oPrimRGB = 0x787878;
+    }
 }

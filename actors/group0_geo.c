@@ -27,3 +27,4 @@
 #include "donut3/geo.inc.c"
 
 #include "correlation/geo.inc.c"
+#include "checkpoint_flag/geo.inc.c"
