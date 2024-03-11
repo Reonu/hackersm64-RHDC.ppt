@@ -6099,6 +6099,7 @@ const BehaviorScript bhvIntroScene[] = {
 const BehaviorScript bhvMovingBar[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    CALL_NATIVE(bhv_moving_bar_init),
     BEGIN_LOOP(),
         LOAD_COLLISION_DATA(bar_collision),
         CALL_NATIVE(bhv_moving_bar_loop),
@@ -6162,13 +6163,13 @@ const BehaviorScript bhvMovingBarYellow[] = {
     END_LOOP(),    
 };
 
-const BehaviorScript bhvMovingBarGreen[] = {
+const BehaviorScript bhvMovingBarPink[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
     SET_FLOAT(oCollisionDistance, 20000),
     CALL_NATIVE(bhv_moving_bar_init),
     BEGIN_LOOP(),
-        LOAD_COLLISION_DATA(bar_green_collision),
+        LOAD_COLLISION_DATA(bar_pink_collision),
         CALL_NATIVE(bhv_moving_bar_loop),
     END_LOOP(),        
 };

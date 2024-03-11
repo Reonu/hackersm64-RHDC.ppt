@@ -1,3 +1,5 @@
+#include "behavior_data.h"
+
 #define Y_SCALE o->header.gfx.scale[1]
 
 /*
@@ -8,15 +10,27 @@ BPARAM4 applies a phase offset
 */
 
 void bhv_moving_bar_init(void) {
-    o->oBitfsPlatformTimer += BPARAM4 * 200;
+    o->oBarTimer += BPARAM4 * 200;
+
+    if (o->behavior == segmented_to_virtual(bhvMovingBar)) {
+        o->oPrimRGB = 0xFF5700;
+    } else if (o->behavior == segmented_to_virtual(bhvMovingBarRed)) {
+        o->oPrimRGB = 0xFF0000;
+    } else if (o->behavior == segmented_to_virtual(bhvMovingBarYellow)) {
+        o->oPrimRGB = 0xFFFF00;
+    } else if (o->behavior == segmented_to_virtual(bhvMovingBarPink)) {
+        o->oPrimRGB = 0xC800CE;
+    } else {
+        o->oPrimRGB = 0xFF5700;
+    }
 }
 
 void bhv_moving_bar_loop(void) {
-    Y_SCALE = ((sins(o->oBitfsPlatformTimer) + 1.1 ) * BPARAM2) * 0.2f;
+    Y_SCALE = ((sins(o->oBarTimer) + 1.1 ) * BPARAM2) * 0.2f;
 
-    o->oBitfsPlatformTimer += BPARAM3 * 2; 
+    o->oBarTimer += BPARAM3 * 2; 
 
-    if (!obj_has_model(o,MODEL_BAR_YELLOW)) {
+    if (o->behavior != segmented_to_virtual(bhvMovingBarYellow)) {
         load_object_collision_model();
     }
     

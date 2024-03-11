@@ -17,9 +17,6 @@
 #define MODEL_DONUT3                           0x105
 
 #define MODEL_CORRELATION                      0x106
-#define MODEL_BAR_RED                          0x107
-#define MODEL_BAR_YELLOW                       0x108
-#define MODEL_BAR_GREEN                        0x109
 
 /* Various static level geometry, the geo layout differs but terrain object presets treat them the same.*/
 
