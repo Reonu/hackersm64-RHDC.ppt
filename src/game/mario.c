@@ -1825,7 +1825,7 @@ s32 execute_mario_action(UNUSED struct Object *obj) {
             }
         }
         if (gMarioState->floor != NULL) {
-            if ((gMarioState->floor->type == SURFACE_RED_BAR) && !(gMarioState->action & ACT_FLAG_AIR) && (gMarioState->action != ACT_DEBUG_FREE_MOVE)) {
+            if ((gMarioState->floor->type == SURFACE_RED_BAR) && !(gMarioState->action & ACT_FLAG_AIR) && !(gMarioState->action & ACT_FLAG_SWIMMING) && (gMarioState->action != ACT_DEBUG_FREE_MOVE)) {
                 move_mario_to_respawn(gMarioState,DEATH_TYPE_BURNED);
             }
         }
