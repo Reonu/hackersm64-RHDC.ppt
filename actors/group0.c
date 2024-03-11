@@ -46,3 +46,4 @@
 #include "bar_red/collision.inc.c"
 #include "bar_pink/collision.inc.c"
 #include "checkpoint_flag/model.inc.c"
+#include "bar_blue/collision.inc.c"

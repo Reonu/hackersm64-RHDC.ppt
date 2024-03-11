@@ -368,4 +368,6 @@ extern const GeoLayout geo_confroom_root[];
 
 #include "checkpoint_flag/geo_header.h"
 
+#include "bar_blue/collision_header.h"
+
 #endif

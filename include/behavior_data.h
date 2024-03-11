@@ -548,6 +548,7 @@ extern const BehaviorScript bhvCorrelation[];
 extern const BehaviorScript bhvMovingBarRed[];
 extern const BehaviorScript bhvMovingBarYellow[];
 extern const BehaviorScript bhvMovingBarPink[];
+extern const BehaviorScript bhvMovingBarBlue[];
 extern const BehaviorScript bhvCheckpointFlag[];
 
 #endif // BEHAVIOR_DATA_H

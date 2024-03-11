@@ -2,14 +2,15 @@
 #include "engine/math_util.h"
 #include "game/game_init.h"
 #include "game/level_update.h"
-#include "game/spawn_sound.h"
+#include "game/spawn_sound.h"ç
+#include "game/print.h"
 
 #define Y_SCALE o->header.gfx.scale[1]
 
 /*
 --MOVING BARS--
-//BPARAM2 controls the maximum size of the bar
-//BPARAM3 controls the speed for the bar's growth
+BPARAM2 controls the maximum size of the bar
+BPARAM3 controls the speed for the bar's growth
 BPARAM4 applies a phase offset
 */
 
@@ -24,6 +25,8 @@ void bhv_moving_bar_init(void) {
         o->oPrimRGB = 0xFFFF00;
     } else if (o->behavior == segmented_to_virtual(bhvMovingBarPink)) {
         o->oPrimRGB = 0xC800CE;
+    } else if (o->behavior == segmented_to_virtual(bhvMovingBarBlue)) {
+        o->oPrimRGB = 0x004AFF;
     } else {
         o->oPrimRGB = 0xFF5700;
     }
@@ -36,6 +39,10 @@ void bhv_moving_bar_loop(void) {
 
     if (o->behavior != segmented_to_virtual(bhvMovingBarYellow)) {
         load_object_collision_model();
+    }
+
+    if (BPARAM4) {
+        //print_text_fmt_int(20,20,"",o->oScaleY);
     }
     
 }
