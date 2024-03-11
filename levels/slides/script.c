@@ -157,6 +157,7 @@ const LevelScript level_slides_entry[] = {
 		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF0, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		OBJECT(MODEL_CHECKPOINT_FLAG, 1530, -432, 69, 0, 0, 0, 0x00000000, bhvCheckpointFlag),
 		OBJECT(MODEL_BAR, -1433, -1387, 21, 0, 0, 0, (120 << 16) | (230 << 8) | (100), bhvMovingBarYellow),
 		OBJECT(MODEL_BAR, -1133, 420, 21, 0, 0, 180, (120 << 16) | (230 << 8) | (30), bhvMovingBarRed),
 		OBJECT(MODEL_BAR, -833, -1387, 21, 0, 0, 0, (120 << 16) | (230 << 8) | (80), bhvMovingBarYellow),
