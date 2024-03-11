@@ -779,9 +779,8 @@ s32 act_quicksand_death(struct MarioState *m) {
     }
     if (m->actionArg == 0)
     {
-            m->actionState = ACT_STATE_QUICKSAND_DEATH_DEAD;
+            stationary_ground_step(m);
     }
-    stationary_ground_step(m);
     play_sound(SOUND_MOVING_QUICKSAND_DEATH, m->marioObj->header.gfx.cameraToObject);
     return FALSE;
 }
