@@ -4,7 +4,9 @@ const GeoLayout slides_area_12_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
 		GEO_ROTATION_NODE_WITH_DL(LAYER_FORCE, 90, 0, 0, slides_dl_0slide10bg_002_mesh_layer_0),
-		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE_DECAL, -70, 290, 1, slides_dl_Cube_003_mesh_layer_2),
+		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE_DECAL, 129, -125, 1, slides_dl_Bars_mesh_layer_2),
+		GEO_DISPLAY_LIST(LAYER_FORCE, slides_dl_slide12titleMesh_mesh_layer_0),
+		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE_DECAL, 129, -125, 1, slides_dl_topBarVisual_mesh_layer_2),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };

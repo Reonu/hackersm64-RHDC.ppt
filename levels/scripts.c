@@ -123,6 +123,7 @@ const LevelScript level_main_scripts_entry[] = {
     LOAD_MODEL_FROM_GEO(MODEL_CORRELATION,             correlation_geo),
     LOAD_MODEL_FROM_GEO(MODEL_CHECKPOINT_FLAG,         checkpoint_flag_geo),
     LOAD_MODEL_FROM_GEO(MODEL_SPRING,                  spring_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_CHEESING,                cheesing_geo),
     FREE_LEVEL_POOL(),
     POP_POOL(),
     CALL(/*arg*/ 0, /*func*/ lvl_init_from_save_file),
