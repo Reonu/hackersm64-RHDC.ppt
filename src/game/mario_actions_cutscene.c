@@ -768,7 +768,7 @@ s32 act_quicksand_death(struct MarioState *m) {
         {
             if ((m->actionTimer >= 30))
             {
-                level_trigger_warp(m, WARP_OP_DEATH);
+                move_mario_to_respawn(m,DEATH_TYPE_QUICKSAND);
             }
             m->marioObj->header.gfx.pos[0] += m->vel[0];
             m->marioObj->header.gfx.pos[1] += m->vel[1];
