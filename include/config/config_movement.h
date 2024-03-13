@@ -36,7 +36,7 @@
 /**
  * Prevents Mario from falling asleep while idle.
  */
-// #define NO_SLEEP
+#define NO_SLEEP
 
 /**
  * Disables fall damage.
@@ -46,7 +46,7 @@
 /**
  * Disables the scream that mario makes when falling off a great height (this is separate from actual fall damage).
  */
-// #define NO_FALL_DAMAGE_SOUND
+#define NO_FALL_DAMAGE_SOUND
 
 /**
  * Fall height for normal fall damage. Vanilla is 1150.0f.
@@ -66,7 +66,7 @@
 /**
  * Prevents hands-free holding.
  */
-// #define HANDS_FREE_HOLDING_FIX
+#define HANDS_FREE_HOLDING_FIX
 
 /**
  * Prevents Mario from losing his cap.
@@ -81,7 +81,7 @@
 /**
  * If A and Z are pressed on the same frame while running, Mario will long jump instead of ground pound.
  */
-// #define EASIER_LONG_JUMPS
+#define EASIER_LONG_JUMPS
 
 /**
  * Enables the ability to hold Z while twirling to descend faster.
@@ -101,7 +101,7 @@
 /**
  * Allows Mario to grab hangable ceilings from any state.
  */
-// #define HANGING_FIX
+#define HANGING_FIX
 
 /**
  * The maximum angle the player can wall kick, in degrees. 0..90. To allow 45 degree wall kicks, you must supply `46` to allow 45 and under.
