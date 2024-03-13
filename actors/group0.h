@@ -370,4 +370,6 @@ extern const GeoLayout geo_confroom_root[];
 
 #include "bar_blue/collision_header.h"
 
+#include "spring/geo_header.h"
+
 #endif

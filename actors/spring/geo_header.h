@@ -1,0 +1,11 @@
+extern const GeoLayout spring_geo[];
+extern Vtx spring_spring_model_mesh_layer_1_vtx_cull[8];
+extern Vtx spring_spring_model_mesh_layer_1_vtx_0[76];
+extern Gfx spring_spring_model_mesh_layer_1_tri_0[];
+extern Vtx spring_spring_model_mesh_layer_1_vtx_1[16];
+extern Gfx spring_spring_model_mesh_layer_1_tri_1[];
+extern Gfx mat_spring_spring_002[];
+extern Gfx mat_spring_metal_002[];
+extern Gfx mat_revert_spring_metal_002[];
+extern Gfx spring_spring_model_mesh_layer_1[];
+extern Gfx spring_material_revert_render_settings[];

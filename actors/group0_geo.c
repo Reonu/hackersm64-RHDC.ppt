@@ -28,3 +28,5 @@
 
 #include "correlation/geo.inc.c"
 #include "checkpoint_flag/geo.inc.c"
+
+#include "spring/geo.inc.c"
