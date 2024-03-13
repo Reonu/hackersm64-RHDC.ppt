@@ -17,7 +17,7 @@ const GeoLayout slides_area_11[] = {
 		GEO_OPEN_NODE(),
 			GEO_CAMERA_FRUSTUM_WITH_FUNC(45.0000, 100, 30000, geo_camera_fov),
 			GEO_OPEN_NODE(),
-				GEO_CAMERA(CAMERA_MODE_8_DIRECTIONS, 1000000, 0, 0, 1000000, -100, 0, geo_camera_main),
+				GEO_CAMERA(CAMERA_MODE_8_DIRECTIONS, 0, 0, -100000, 0, -100, -100000, geo_camera_main),
 				GEO_OPEN_NODE(),
 					GEO_BRANCH(1, slides_area_11_geo),
 					GEO_RENDER_OBJ(),

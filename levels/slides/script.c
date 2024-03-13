@@ -83,6 +83,24 @@ const LevelScript level_slides_entry[] = {
 		/* Fast64 end persistent block [area commands] */
 	END_AREA(),
 
+	AREA(12, slides_area_12),
+		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF0, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF1, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0x01, LEVEL_SLIDES, 0x0B, 0x02, WARP_NO_CHECKPOINT),
+		WARP_NODE(0x02, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		OBJECT(MODEL_GOOMBA, 73, -936, 52, 0, 0, 0, 0x00000000, bhvGoomba),
+		OBJECT(MODEL_GOOMBA, 951, -336, 54, 0, 0, 0, (0x01), bhvGoomba),
+		OBJECT(MODEL_SPRING, -1272, 264, 0, 0, 0, 0, (0x02 << 16), bhvSpring),
+		OBJECT(MODEL_SPRING, -403, -918, 0, 0, 0, 0, (0x02 << 16), bhvSpring),
+		TERRAIN(slides_area_12_collision),
+		MACRO_OBJECTS(slides_area_12_macro_objs),
+		STOP_MUSIC(0),
+		TERRAIN_TYPE(TERRAIN_GRASS),
+		/* Fast64 begin persistent block [area commands] */
+		/* Fast64 end persistent block [area commands] */
+	END_AREA(),
+
 	AREA(2, slides_area_2),
 		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF0, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
@@ -116,8 +134,8 @@ const LevelScript level_slides_entry[] = {
 		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF0, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
-		OBJECT(MODEL_GOOMBA, 221, -741, 33, 0, 0, 0, 0x00000000, bhvGoomba),
 		OBJECT(MODEL_GOOMBA, -384, -741, 33, 0, 0, 0, 0x00000000, bhvGoomba),
+		OBJECT(MODEL_GOOMBA, 221, -741, 33, 0, 0, 0, 0x00000000, bhvGoomba),
 		OBJECT(MODEL_STAR, 561, 854, 74, 0, 0, 0, (0x04 << 24), bhvStar),
 		TERRAIN(slides_area_4_collision),
 		MACRO_OBJECTS(slides_area_4_macro_objs),
