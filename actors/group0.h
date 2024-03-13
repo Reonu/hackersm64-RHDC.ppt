@@ -372,4 +372,6 @@ extern const GeoLayout geo_confroom_root[];
 
 #include "spring/geo_header.h"
 
+#include "cheesing/geo_header.h"
+
 #endif

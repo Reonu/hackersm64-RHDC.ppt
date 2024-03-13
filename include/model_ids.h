@@ -20,6 +20,8 @@
 #define MODEL_CHECKPOINT_FLAG                  0x107
 #define MODEL_SPRING                           0x108
 
+#define MODEL_CHEESING                         0x109
+
 /* Various static level geometry, the geo layout differs but terrain object presets treat them the same.*/
 
 #define MODEL_LEVEL_GEOMETRY_03                0x03

@@ -82,3 +82,28 @@ void bhv_checkpoint_flag_loop(void) {
         o->oPrimRGB = 0x787878;
     }
 }
+
+void bhv_cheesing_loop(void) {
+    if (gMarioState->action == ACT_QUICKSAND_DEATH) {
+        o->oPosY = o->oHomeY;
+    } else {
+        o->oPosY = o->oHomeY - 3000;
+    }
+}
+
+void bhv_starting_point_init(void) {
+    gMarioState->pos[0] = o->oPosX;
+    gMarioState->pos[1] = o->oPosY;
+    gMarioState->pos[2] = o->oPosZ;
+    
+    gMarioState->marioObj->oPosX = o->oPosX;
+    gMarioState->marioObj->oPosY = o->oPosY;
+    gMarioState->marioObj->oPosZ = o->oPosZ;
+
+    gMarioState->marioObj->header.gfx.pos[0] = o->oPosX;
+    gMarioState->marioObj->header.gfx.pos[1] = o->oPosY;
+    gMarioState->marioObj->header.gfx.pos[2] = o->oPosZ;
+
+    vec3f_copy(gMarioRespawn,gMarioState->pos);
+    mark_obj_for_deletion(o);  
+}

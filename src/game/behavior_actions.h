@@ -555,6 +555,8 @@ void bhv_moving_bar_loop(void);
 void bhv_donut_loop (void);
 void bhv_correlation_loop(void);
 void bhv_checkpoint_flag_loop(void);
+void bhv_cheesing_loop(void);
+void bhv_starting_point_init(void);
 
 void bhv_spring_init(void);
 void bhv_spring_loop(void);

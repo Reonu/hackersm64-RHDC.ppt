@@ -6208,3 +6208,18 @@ const BehaviorScript bhvSpring[] = {
         SET_INT(oInteractStatus, 0),
     END_LOOP(),
 };
+
+const BehaviorScript bhvCheesing[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_HOME(),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_cheesing_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvStartingPoint[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    CALL_NATIVE(bhv_starting_point_init),
+    BREAK(),
+};
