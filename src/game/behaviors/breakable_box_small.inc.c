@@ -44,30 +44,36 @@ void small_breakable_box_act_move(void) {
         }
     }
 
-    if (collisionFlags & OBJ_COL_FLAG_HIT_WALL) {
+    /*if (collisionFlags & OBJ_COL_FLAG_HIT_WALL) {
         spawn_mist_particles();
         spawn_triangle_break_particles(20, MODEL_DIRT_ANIMATION, 0.7f, 3);
         obj_spawn_yellow_coins(o, 3);
         create_sound_spawner(SOUND_GENERAL_BREAK_BOX);
         o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
+    }*/
+    if (collisionFlags & OBJ_COL_FLAG_HIT_WALL) {
+        o->oForwardVel /= 6;
     }
 
-    obj_check_floor_death(collisionFlags, sObjFloor);
+    //obj_check_floor_death(collisionFlags, sObjFloor);
 }
 
 void breakable_box_small_released_loop(void) {
     o->oBreakableBoxSmallFramesSinceReleased++;
 
     // Begin flashing
+/*
     if (o->oBreakableBoxSmallFramesSinceReleased > 810) {
         COND_BIT((o->oBreakableBoxSmallFramesSinceReleased & 0x1), o->header.gfx.node.flags, GRAPH_RENDER_INVISIBLE);
     }
+
 
     // Despawn, and create a corkbox respawner
     if (o->oBreakableBoxSmallFramesSinceReleased > 900) {
         create_respawner(MODEL_BREAKABLE_BOX, bhvBreakableBoxSmall, 3000);
         o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
     }
+    */
 }
 
 void breakable_box_small_idle_loop(void) {

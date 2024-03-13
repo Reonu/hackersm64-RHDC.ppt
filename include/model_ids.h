@@ -6,8 +6,7 @@
 /* Global models that are loaded for every level */
 
 #define MODEL_MARIO                            0x01        // mario_geo
-#define MODEL_LUIGI                            0x02        // unused
-
+#define MODEL_LUIGI                            0x02        // unused                    0x100        // bullet_bill_geo
 #define MODEL_DUDEGUY                          0x101
 
 #define MODEL_BAR                              0x102
@@ -19,6 +18,7 @@
 #define MODEL_CORRELATION                      0x106
 
 #define MODEL_CHECKPOINT_FLAG                  0x107
+#define MODEL_SPRING                           0x108
 
 /* Various static level geometry, the geo layout differs but terrain object presets treat them the same.*/
 

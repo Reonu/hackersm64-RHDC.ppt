@@ -56,6 +56,7 @@ u32 interact_hoot          (struct MarioState *m, u32 interactType, struct Objec
 u32 interact_cap           (struct MarioState *m, u32 interactType, struct Object *obj);
 u32 interact_grabbable     (struct MarioState *m, u32 interactType, struct Object *obj);
 u32 interact_text          (struct MarioState *m, u32 interactType, struct Object *obj);
+u32 interact_spring        (struct MarioState *m, u32 interactType, struct Object *obj);
 
 struct InteractionHandler {
     u32 interactType;
@@ -94,6 +95,7 @@ static struct InteractionHandler sInteractionHandlers[] = {
     { INTERACT_CAP,            interact_cap },
     { INTERACT_GRABBABLE,      interact_grabbable },
     { INTERACT_TEXT,           interact_text },
+    { INTERACT_SPRING,         interact_spring },
 };
 
 static u32 sForwardKnockbackActions[][3] = {
@@ -1790,6 +1792,27 @@ u32 interact_text(struct MarioState *m, UNUSED u32 interactType, struct Object *
     }
 
     return interact;
+}
+
+u32 interact_spring(struct MarioState *m, UNUSED u32 interactType, struct Object *o) {
+    u32 interaction;
+    m->interactObj = o;
+    m->usedObj = o;
+    interaction = determine_interaction(m, o);
+    if ((interaction & (INT_GROUND_POUND_OR_TWIRL | INT_KICK | INT_TRIP | INT_SLIDE_KICK | INT_FAST_ATTACK_OR_SHELL | INT_HIT_FROM_ABOVE)) && !(gMarioState->action & ACT_FLAG_RIDING_SHELL)) {
+            o->oAction = 1;
+            if (o->oInteractionSubtype & INT_SUBTYPE_TWIRL_BOUNCE) {
+                bounce_off_object(m, o, o->oFriction);
+                reset_mario_pitch(m);
+                return drop_and_set_mario_action(m, ACT_TWIRLING, 0);
+            } else {
+                bounce_off_object(m, o, o->oFriction);
+            }
+    }
+    else {
+        push_mario_out_of_object(m, o, 5.0f);
+    }
+    return FALSE;
 }
 
 void check_kick_or_punch_wall(struct MarioState *m) {

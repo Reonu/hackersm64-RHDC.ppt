@@ -1,4 +1,5 @@
 
+#include "game/game_init.h"
 /**
  * Behavior for bhvGoomba and bhvGoombaTripletSpawner,
  * Goombas can either be spawned individually, or spawned by a triplet spawner.
@@ -365,10 +366,7 @@ void bhv_goomba_update(void) {
         }
 
         cur_obj_move_standard(-78);
-
-        if (gCurrLevelNum == LEVEL_SLIDES) {
-            o->oPosZ = 0;
-        }        
+       
     } else {
         o->oAnimState = GOOMBA_ANIM_STATE_EYES_CLOSED;
 #ifdef FLOOMBAS
@@ -376,5 +374,11 @@ void bhv_goomba_update(void) {
             o->oAnimState += FLOOMBA_ANIM_STATE_EYES_OPEN;
         }
 #endif
+    }
+    if (g2dMode) {
+        o->oPosZ = 0;
+    }
+    if (BPARAM4 == 0x01) {
+        o->oPosX = o->oHomeX;
     }
 }

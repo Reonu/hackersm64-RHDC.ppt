@@ -2338,6 +2338,9 @@ Gfx *geo_set_prim_color(s32 callContext, struct GraphNode *node, UNUSED void *co
     if (callContext == GEO_CONTEXT_RENDER) {
         currentGraphNode = (struct GraphNodeGenerated *) node;
         objectGraphNode = (struct Object *) gCurGraphNodeObject; 
+        if (gCurGraphNodeHeldObject) {
+            objectGraphNode = gCurGraphNodeHeldObject->objNode;
+        }
         layer = currentGraphNode->parameter & 0xFF;
 
         //if (layer != 0) {
@@ -2355,4 +2358,3 @@ Gfx *geo_set_prim_color(s32 callContext, struct GraphNode *node, UNUSED void *co
     }
     return dlStart;
 }
-

@@ -1724,6 +1724,12 @@ void queue_rumble_particles(struct MarioState *m) {
 }
 #endif
 
+void check_2d_mode(void) {
+    if (gCurrLevelNum == LEVEL_SLIDES) {
+        g2dMode = TRUE;
+    }
+}
+
 /**
  * Main function for executing Mario's behavior. Returns particleFlags.
  */
@@ -1809,7 +1815,9 @@ s32 execute_mario_action(UNUSED struct Object *obj) {
             play_sound(SOUND_ENV_WIND2, gMarioState->marioObj->header.gfx.cameraToObject);
         }
 
-        if (gCurrLevelNum == LEVEL_SLIDES) {
+        check_2d_mode();
+
+        if (g2dMode) {
             gMarioState->pos[2] = 0;
             gMarioState->marioObj->oPosZ = 0;
             gMarioObject->header.gfx.pos[2] = 0;

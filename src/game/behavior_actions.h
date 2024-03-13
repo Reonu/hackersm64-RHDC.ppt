@@ -556,6 +556,10 @@ void bhv_donut_loop (void);
 void bhv_correlation_loop(void);
 void bhv_checkpoint_flag_loop(void);
 
+void bhv_spring_init(void);
+void bhv_spring_loop(void);
+
+
 Gfx *geo_move_mario_part_from_parent(s32 callContext, UNUSED struct GraphNode *node, Mat4 mtx);
 
 // Bowser

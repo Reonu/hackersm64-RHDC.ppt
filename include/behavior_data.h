@@ -550,5 +550,5 @@ extern const BehaviorScript bhvMovingBarYellow[];
 extern const BehaviorScript bhvMovingBarPink[];
 extern const BehaviorScript bhvMovingBarBlue[];
 extern const BehaviorScript bhvCheckpointFlag[];
-
+extern const BehaviorScript bhvSpring[];
 #endif // BEHAVIOR_DATA_H

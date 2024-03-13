@@ -1,0 +1,516 @@
+diff --git a/actors/group0.c b/actors/group0.c
+index 8a84d59c..a80051a7 100644
+--- a/actors/group0.c
++++ b/actors/group0.c
+@@ -32,3 +32,5 @@
+ #endif
+ 
+ #include "bullet_bill/model.inc.c"
++
++#include "spring/model.inc.c"
+\ No newline at end of file
+diff --git a/actors/group0.h b/actors/group0.h
+index 6970e9f5..f12715c7 100644
+--- a/actors/group0.h
++++ b/actors/group0.h
+@@ -340,4 +340,6 @@ extern const Gfx bullet_bill_seg5_dl_0500E8A8[];
+ 
+ #include "mario/geo_header.h"
+ 
++#include "spring/geo_header.h"
++
+ #endif
+diff --git a/actors/group0_geo.c b/actors/group0_geo.c
+index d4a33dff..8db19e97 100644
+--- a/actors/group0_geo.c
++++ b/actors/group0_geo.c
+@@ -18,3 +18,5 @@
+ #include "mario/geo.inc.c"
+ 
+ #include "bullet_bill/geo.inc.c"
++
++#include "spring/geo.inc.c"
+\ No newline at end of file
+diff --git a/actors/spring/geo.inc.c b/actors/spring/geo.inc.c
+new file mode 100644
+index 00000000..9ee3093c
+--- /dev/null
++++ b/actors/spring/geo.inc.c
+@@ -0,0 +1,11 @@
++#include "src/game/envfx_snow.h"
++
++const GeoLayout spring_geo[] = {
++	GEO_NODE_START(),
++	GEO_OPEN_NODE(),
++		GEO_ASM(0x01, geo_set_spring_color),
++		GEO_DISPLAY_LIST(LAYER_OPAQUE, spring_spring_model_mesh_layer_1),
++		GEO_DISPLAY_LIST(LAYER_OPAQUE, spring_material_revert_render_settings),
++	GEO_CLOSE_NODE(),
++	GEO_END(),
++};
+diff --git a/actors/spring/geo_header.h b/actors/spring/geo_header.h
+new file mode 100644
+index 00000000..c0b79af9
+--- /dev/null
++++ b/actors/spring/geo_header.h
+@@ -0,0 +1,11 @@
++extern const GeoLayout spring_geo[];
++extern Vtx spring_spring_model_mesh_layer_1_vtx_cull[8];
++extern Vtx spring_spring_model_mesh_layer_1_vtx_0[76];
++extern Gfx spring_spring_model_mesh_layer_1_tri_0[];
++extern Vtx spring_spring_model_mesh_layer_1_vtx_1[16];
++extern Gfx spring_spring_model_mesh_layer_1_tri_1[];
++extern Gfx mat_spring_spring_002[];
++extern Gfx mat_spring_metal_002[];
++extern Gfx mat_revert_spring_metal_002[];
++extern Gfx spring_spring_model_mesh_layer_1[];
++extern Gfx spring_material_revert_render_settings[];
+diff --git a/actors/spring/model.inc.c b/actors/spring/model.inc.c
+new file mode 100644
+index 00000000..c99c41a1
+--- /dev/null
++++ b/actors/spring/model.inc.c
+@@ -0,0 +1,196 @@
++Vtx spring_spring_model_mesh_layer_1_vtx_cull[8] = {
++	{{ {-55, 4, 63}, 0, {-16, -16}, {0, 0, 0, 0} }},
++	{{ {-55, 125, 63}, 0, {-16, -16}, {0, 0, 0, 0} }},
++	{{ {-55, 125, -61}, 0, {-16, -16}, {0, 0, 0, 0} }},
++	{{ {-55, 4, -61}, 0, {-16, -16}, {0, 0, 0, 0} }},
++	{{ {56, 4, 63}, 0, {-16, -16}, {0, 0, 0, 0} }},
++	{{ {56, 125, 63}, 0, {-16, -16}, {0, 0, 0, 0} }},
++	{{ {56, 125, -61}, 0, {-16, -16}, {0, 0, 0, 0} }},
++	{{ {56, 4, -61}, 0, {-16, -16}, {0, 0, 0, 0} }},
++};
++
++Vtx spring_spring_model_mesh_layer_1_vtx_0[76] = {
++	{{ {-55, 4, 57}, 0, {368, 1008}, {129, 0, 0, 255} }},
++	{{ {-55, 17, 57}, 0, {624, 1008}, {129, 0, 0, 255} }},
++	{{ {-55, 17, -54}, 0, {624, 752}, {129, 0, 0, 255} }},
++	{{ {-55, 4, -54}, 0, {368, 752}, {129, 0, 0, 255} }},
++	{{ {-55, 4, -54}, 0, {368, 752}, {0, 0, 129, 255} }},
++	{{ {-55, 17, -54}, 0, {624, 752}, {0, 0, 129, 255} }},
++	{{ {56, 17, -54}, 0, {624, 496}, {0, 0, 129, 255} }},
++	{{ {56, 4, -54}, 0, {368, 496}, {0, 0, 129, 255} }},
++	{{ {56, 4, -54}, 0, {368, 496}, {127, 0, 0, 255} }},
++	{{ {56, 17, -54}, 0, {624, 496}, {127, 0, 0, 255} }},
++	{{ {56, 17, 57}, 0, {624, 240}, {127, 0, 0, 255} }},
++	{{ {56, 4, 57}, 0, {368, 240}, {127, 0, 0, 255} }},
++	{{ {56, 4, 57}, 0, {368, 240}, {0, 0, 127, 255} }},
++	{{ {56, 17, 57}, 0, {624, 240}, {0, 0, 127, 255} }},
++	{{ {-55, 17, 57}, 0, {624, -16}, {0, 0, 127, 255} }},
++	{{ {-55, 4, 57}, 0, {368, -16}, {0, 0, 127, 255} }},
++	{{ {-55, 4, -54}, 0, {112, 496}, {0, 129, 0, 255} }},
++	{{ {56, 4, -54}, 0, {368, 496}, {0, 129, 0, 255} }},
++	{{ {56, 4, 57}, 0, {368, 240}, {0, 129, 0, 255} }},
++	{{ {-55, 4, 57}, 0, {112, 240}, {0, 129, 0, 255} }},
++	{{ {56, 17, -54}, 0, {624, 496}, {0, 127, 0, 255} }},
++	{{ {-55, 17, -54}, 0, {880, 496}, {0, 127, 0, 255} }},
++	{{ {-55, 17, 57}, 0, {880, 240}, {0, 127, 0, 255} }},
++	{{ {56, 17, 57}, 0, {624, 240}, {0, 127, 0, 255} }},
++	{{ {-55, 111, 57}, 0, {368, 1008}, {129, 0, 0, 255} }},
++	{{ {-55, 125, 57}, 0, {624, 1008}, {129, 0, 0, 255} }},
++	{{ {-55, 125, -54}, 0, {624, 752}, {129, 0, 0, 255} }},
++	{{ {-55, 111, -54}, 0, {368, 752}, {129, 0, 0, 255} }},
++	{{ {-55, 111, -54}, 0, {368, 752}, {0, 0, 129, 255} }},
++	{{ {-55, 125, -54}, 0, {624, 752}, {0, 0, 129, 255} }},
++	{{ {56, 125, -54}, 0, {624, 496}, {0, 0, 129, 255} }},
++	{{ {56, 111, -54}, 0, {368, 496}, {0, 0, 129, 255} }},
++	{{ {56, 111, -54}, 0, {368, 496}, {127, 0, 0, 255} }},
++	{{ {56, 125, -54}, 0, {624, 496}, {127, 0, 0, 255} }},
++	{{ {56, 125, 57}, 0, {624, 240}, {127, 0, 0, 255} }},
++	{{ {56, 111, 57}, 0, {368, 240}, {127, 0, 0, 255} }},
++	{{ {56, 111, 57}, 0, {368, 240}, {0, 0, 127, 255} }},
++	{{ {56, 125, 57}, 0, {624, 240}, {0, 0, 127, 255} }},
++	{{ {-55, 125, 57}, 0, {624, -16}, {0, 0, 127, 255} }},
++	{{ {-55, 111, 57}, 0, {368, -16}, {0, 0, 127, 255} }},
++	{{ {-55, 111, -54}, 0, {112, 496}, {0, 129, 0, 255} }},
++	{{ {56, 111, -54}, 0, {368, 496}, {0, 129, 0, 255} }},
++	{{ {56, 111, 57}, 0, {368, 240}, {0, 129, 0, 255} }},
++	{{ {-55, 111, 57}, 0, {112, 240}, {0, 129, 0, 255} }},
++	{{ {56, 125, -54}, 0, {624, 496}, {0, 127, 0, 255} }},
++	{{ {-55, 125, -54}, 0, {880, 496}, {0, 127, 0, 255} }},
++	{{ {-55, 125, 57}, 0, {880, 240}, {0, 127, 0, 255} }},
++	{{ {56, 125, 57}, 0, {624, 240}, {0, 127, 0, 255} }},
++	{{ {-15, 47, 63}, 0, {368, 1008}, {183, 183, 73, 255} }},
++	{{ {-15, 79, 63}, 0, {624, 1008}, {183, 73, 73, 255} }},
++	{{ {-15, 79, 31}, 0, {624, 752}, {183, 73, 183, 255} }},
++	{{ {-15, 47, 31}, 0, {368, 752}, {183, 183, 183, 255} }},
++	{{ {17, 79, 31}, 0, {624, 496}, {73, 73, 183, 255} }},
++	{{ {17, 47, 31}, 0, {368, 496}, {73, 183, 183, 255} }},
++	{{ {17, 79, 63}, 0, {624, 240}, {73, 73, 73, 255} }},
++	{{ {-15, 79, 63}, 0, {880, 240}, {183, 73, 73, 255} }},
++	{{ {-15, 79, 31}, 0, {880, 496}, {183, 73, 183, 255} }},
++	{{ {17, 47, 63}, 0, {368, 240}, {73, 183, 73, 255} }},
++	{{ {-15, 79, 63}, 0, {624, -16}, {183, 73, 73, 255} }},
++	{{ {-15, 47, 63}, 0, {368, -16}, {183, 183, 73, 255} }},
++	{{ {-15, 47, 31}, 0, {112, 496}, {183, 183, 183, 255} }},
++	{{ {-15, 47, 63}, 0, {112, 240}, {183, 183, 73, 255} }},
++	{{ {17, 47, -29}, 0, {112, 496}, {73, 183, 73, 255} }},
++	{{ {-15, 47, -61}, 0, {368, 240}, {183, 183, 183, 255} }},
++	{{ {17, 47, -61}, 0, {112, 240}, {73, 183, 183, 255} }},
++	{{ {-15, 47, -29}, 0, {368, 496}, {183, 183, 73, 255} }},
++	{{ {-15, 79, -61}, 0, {624, 240}, {183, 73, 183, 255} }},
++	{{ {-15, 79, -29}, 0, {624, 496}, {183, 73, 73, 255} }},
++	{{ {17, 47, -29}, 0, {368, 752}, {73, 183, 73, 255} }},
++	{{ {17, 79, -29}, 0, {624, 752}, {73, 73, 73, 255} }},
++	{{ {17, 47, -61}, 0, {368, 1008}, {73, 183, 183, 255} }},
++	{{ {17, 79, -61}, 0, {624, 1008}, {73, 73, 183, 255} }},
++	{{ {17, 79, -61}, 0, {880, 240}, {73, 73, 183, 255} }},
++	{{ {17, 79, -29}, 0, {880, 496}, {73, 73, 73, 255} }},
++	{{ {17, 79, -61}, 0, {624, -16}, {73, 73, 183, 255} }},
++	{{ {17, 47, -61}, 0, {368, -16}, {73, 183, 183, 255} }},
++};
++
++Gfx spring_spring_model_mesh_layer_1_tri_0[] = {
++	gsSPVertex(spring_spring_model_mesh_layer_1_vtx_0 + 0, 32, 0),
++	gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
++	gsSP2Triangles(4, 5, 6, 0, 4, 6, 7, 0),
++	gsSP2Triangles(8, 9, 10, 0, 8, 10, 11, 0),
++	gsSP2Triangles(12, 13, 14, 0, 12, 14, 15, 0),
++	gsSP2Triangles(16, 17, 18, 0, 16, 18, 19, 0),
++	gsSP2Triangles(20, 21, 22, 0, 20, 22, 23, 0),
++	gsSP2Triangles(24, 25, 26, 0, 24, 26, 27, 0),
++	gsSP2Triangles(28, 29, 30, 0, 28, 30, 31, 0),
++	gsSPVertex(spring_spring_model_mesh_layer_1_vtx_0 + 32, 30, 0),
++	gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
++	gsSP2Triangles(4, 5, 6, 0, 4, 6, 7, 0),
++	gsSP2Triangles(8, 9, 10, 0, 8, 10, 11, 0),
++	gsSP2Triangles(12, 13, 14, 0, 12, 14, 15, 0),
++	gsSP2Triangles(16, 17, 18, 0, 16, 18, 19, 0),
++	gsSP2Triangles(19, 18, 20, 0, 19, 20, 21, 0),
++	gsSP2Triangles(21, 20, 22, 0, 20, 23, 22, 0),
++	gsSP2Triangles(20, 24, 23, 0, 21, 22, 25, 0),
++	gsSP2Triangles(25, 22, 26, 0, 25, 26, 27, 0),
++	gsSP2Triangles(28, 21, 25, 0, 28, 25, 29, 0),
++	gsSPVertex(spring_spring_model_mesh_layer_1_vtx_0 + 62, 14, 0),
++	gsSP2Triangles(0, 1, 2, 0, 0, 3, 1, 0),
++	gsSP2Triangles(3, 4, 1, 0, 3, 5, 4, 0),
++	gsSP2Triangles(6, 5, 3, 0, 6, 7, 5, 0),
++	gsSP2Triangles(8, 7, 6, 0, 8, 9, 7, 0),
++	gsSP2Triangles(5, 10, 4, 0, 5, 11, 10, 0),
++	gsSP2Triangles(1, 4, 12, 0, 1, 12, 13, 0),
++	gsSPEndDisplayList(),
++};
++
++Vtx spring_spring_model_mesh_layer_1_vtx_1[16] = {
++	{{ {1, 79, -46}, 0, {377, 240}, {129, 0, 0, 255} }},
++	{{ {1, 79, -32}, 0, {420, 496}, {129, 0, 0, 255} }},
++	{{ {1, 111, -4}, 0, {622, 496}, {129, 0, 0, 255} }},
++	{{ {1, 111, -18}, 0, {578, 240}, {129, 0, 0, 255} }},
++	{{ {1, 79, 35}, 0, {421, 752}, {129, 0, 0, 255} }},
++	{{ {1, 79, 49}, 0, {378, 1008}, {129, 0, 0, 255} }},
++	{{ {1, 112, 20}, 0, {581, 1008}, {129, 0, 0, 255} }},
++	{{ {1, 112, 6}, 0, {624, 752}, {129, 0, 0, 255} }},
++	{{ {1, 17, -20}, 0, {427, 752}, {129, 0, 0, 255} }},
++	{{ {1, 17, -6}, 0, {384, 1008}, {129, 0, 0, 255} }},
++	{{ {1, 48, -33}, 0, {577, 1008}, {129, 0, 0, 255} }},
++	{{ {1, 48, -47}, 0, {622, 752}, {129, 0, 0, 255} }},
++	{{ {1, 17, 9}, 0, {385, 240}, {129, 0, 0, 255} }},
++	{{ {1, 17, 22}, 0, {428, 496}, {129, 0, 0, 255} }},
++	{{ {1, 48, 49}, 0, {620, 496}, {129, 0, 0, 255} }},
++	{{ {1, 48, 36}, 0, {576, 240}, {129, 0, 0, 255} }},
++};
++
++Gfx spring_spring_model_mesh_layer_1_tri_1[] = {
++	gsSPVertex(spring_spring_model_mesh_layer_1_vtx_1 + 0, 16, 0),
++	gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
++	gsSP2Triangles(4, 5, 6, 0, 4, 6, 7, 0),
++	gsSP2Triangles(8, 9, 10, 0, 8, 10, 11, 0),
++	gsSP2Triangles(12, 13, 14, 0, 12, 14, 15, 0),
++	gsSPEndDisplayList(),
++};
++
++
++Gfx mat_spring_spring_002[] = {
++	gsDPPipeSync(),
++	gsDPSetCombineLERP(PRIMITIVE, 0, SHADE, 0, 0, 0, 0, 0, PRIMITIVE, 0, SHADE, 0, 0, 0, 0, 0),
++	gsSPTexture(65535, 65535, 0, 0, 1),
++	gsSPEndDisplayList(),
++};
++
++Gfx mat_spring_metal_002[] = {
++	gsDPPipeSync(),
++	gsDPSetCombineLERP(ENVIRONMENT, 0, SHADE, 0, 0, 0, 0, 0, ENVIRONMENT, 0, SHADE, 0, 0, 0, 0, 0),
++	gsSPGeometryMode(G_CULL_BACK, 0),
++	gsSPTexture(65535, 65535, 0, 0, 1),
++	gsDPSetEnvColor(135, 135, 135, 255),
++	gsSPEndDisplayList(),
++};
++
++Gfx mat_revert_spring_metal_002[] = {
++	gsDPPipeSync(),
++	gsSPGeometryMode(0, G_CULL_BACK),
++	gsSPEndDisplayList(),
++};
++
++Gfx spring_spring_model_mesh_layer_1[] = {
++	gsSPClearGeometryMode(G_LIGHTING),
++	gsSPVertex(spring_spring_model_mesh_layer_1_vtx_cull + 0, 8, 0),
++	gsSPSetGeometryMode(G_LIGHTING),
++	gsSPCullDisplayList(0, 7),
++	gsSPDisplayList(mat_spring_spring_002),
++	gsSPDisplayList(spring_spring_model_mesh_layer_1_tri_0),
++	gsSPDisplayList(mat_spring_metal_002),
++	gsSPDisplayList(spring_spring_model_mesh_layer_1_tri_1),
++	gsSPDisplayList(mat_revert_spring_metal_002),
++	gsSPEndDisplayList(),
++};
++
++Gfx spring_material_revert_render_settings[] = {
++	gsDPPipeSync(),
++	gsSPSetGeometryMode(G_LIGHTING),
++	gsSPClearGeometryMode(G_TEXTURE_GEN),
++	gsDPSetCombineLERP(0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT, 0, 0, 0, SHADE, 0, 0, 0, ENVIRONMENT),
++	gsSPTexture(65535, 65535, 0, 0, 0),
++	gsDPSetEnvColor(255, 255, 255, 255),
++	gsDPSetAlphaCompare(G_AC_NONE),
++	gsSPEndDisplayList(),
++};
++
+diff --git a/data/behavior_data.c b/data/behavior_data.c
+index 60923f3b..1b712910 100644
+--- a/data/behavior_data.c
++++ b/data/behavior_data.c
+@@ -6105,3 +6105,18 @@ const BehaviorScript bhvSplinePlatform[] = {
+         CALL_NATIVE(load_object_collision_model),
+     END_LOOP(),
+ };
++
++const BehaviorScript bhvSpring[] = {
++    BEGIN(OBJ_LIST_GENACTOR),
++    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO),
++    SET_INTERACT_TYPE(INTERACT_SPRING),
++    SET_HITBOX(/*Radius*/ 100, /*Height*/ 120),
++    CALL_NATIVE(bhv_spring_init),
++    CALL_NATIVE(bhv_init_room),
++    SET_INT(oIntangibleTimer, 0),
++    SET_HOME(),
++    BEGIN_LOOP(),
++        CALL_NATIVE(bhv_spring_loop),
++        SET_INT(oInteractStatus, 0),
++    END_LOOP(),
++};
+\ No newline at end of file
+diff --git a/include/behavior_data.h b/include/behavior_data.h
+index 5cc846e1..bb3fe366 100644
+--- a/include/behavior_data.h
++++ b/include/behavior_data.h
+@@ -541,5 +541,6 @@ extern const BehaviorScript bhvEndBirds2[];
+ extern const BehaviorScript bhvIntroScene[];
+ extern const BehaviorScript bhvUnusedFakeStar[];
+ extern const BehaviorScript bhvSplinePlatform[];
++extern const BehaviorScript bhvSpring[];
+ 
+ #endif // BEHAVIOR_DATA_H
+diff --git a/include/model_ids.h b/include/model_ids.h
+index 3f745df3..d015714e 100644
+--- a/include/model_ids.h
++++ b/include/model_ids.h
+@@ -8,6 +8,7 @@
+ #define MODEL_MARIO                            0x01        // mario_geo
+ #define MODEL_LUIGI                            0x02        // unused
+ #define MODEL_BULLET_BILL                      0x100        // bullet_bill_geo
++#define MODEL_SPRING                           0x101
+ 
+ /* Various static level geometry, the geo layout differs but terrain object presets treat them the same.*/
+ 
+diff --git a/include/object_fields.h b/include/object_fields.h
+index 01dcd564..0412dd09 100644
+--- a/include/object_fields.h
++++ b/include/object_fields.h
+@@ -1301,7 +1301,7 @@ os16112*/
+ #define /*0x100*/ o100                                          OBJECT_FIELD_S32(0x1E)
+ #define /*0x104*/ o104                                          OBJECT_FIELD_S32(0x1F)
+ #define /*0x108*/ o108                                          OBJECT_FIELD_S32(0x20)
+-#define /*0x10C*/ o10C                                          OBJECT_FIELD_S32(0x21)
++#define /*0x110*/ oPrimRGB                                      OBJECT_FIELD_S32(0x22)
+ #define /*0x110*/ o110                                          OBJECT_FIELD_S32(0x22)
+ 
+ #define /*0x0F4*/ oFloatF4                                      OBJECT_FIELD_F32(0x1B)
+diff --git a/levels/scripts.c b/levels/scripts.c
+index 974edc90..dd877f54 100644
+--- a/levels/scripts.c
++++ b/levels/scripts.c
+@@ -116,6 +116,7 @@ const LevelScript level_main_scripts_entry[] = {
+     LOAD_MODEL_FROM_GEO(MODEL_SILVER_COIN_NO_SHADOW,   silver_coin_no_shadow_geo),
+ #endif
+     LOAD_MODEL_FROM_GEO(MODEL_BULLET_BILL,             bullet_bill_geo),
++    LOAD_MODEL_FROM_GEO(MODEL_SPRING,                  spring_geo),
+     FREE_LEVEL_POOL(),
+     POP_POOL(),
+     CALL(/*arg*/ 0, /*func*/ lvl_init_from_save_file),
+diff --git a/src/game/behavior_actions.h b/src/game/behavior_actions.h
+index 1bf0d9c4..b61f5261 100644
+--- a/src/game/behavior_actions.h
++++ b/src/game/behavior_actions.h
+@@ -551,6 +551,10 @@ void bhv_dust_smoke_loop(void);
+ void bhv_yoshi_loop(void);
+ void bhv_volcano_trap_loop(void);
+ 
++void bhv_spring_init(void);
++void bhv_spring_loop(void);
++
++
+ Gfx *geo_move_mario_part_from_parent(s32 callContext, UNUSED struct GraphNode *node, Mat4 mtx);
+ 
+ // Bowser
+diff --git a/src/game/behaviors/spring.inc.c b/src/game/behaviors/spring.inc.c
+new file mode 100644
+index 00000000..e97b05cc
+--- /dev/null
++++ b/src/game/behaviors/spring.inc.c
+@@ -0,0 +1,34 @@
++void bhv_spring_init(void) {
++    switch (BPARAM2) {
++        case 0x00:
++            o->oFriction = 40.0f;
++            o->oPrimRGB = 0x00FF00;
++            break;
++        case 0x01:
++            o->oFriction = 80.0f;
++            o->oPrimRGB = 0xFFFF00;
++            break;
++        case 0x02:
++            o->oFriction = 150.0f;
++            o->oPrimRGB = 0xFF0000;
++            break;
++    }
++}
++
++void bhv_spring_loop(void) {
++    if (o->oAction == 1) {
++        if (o->oTimer == 1){
++                gMarioState->action = ACT_DOUBLE_JUMP;
++            }
++        if (o->oTimer < 4) {
++            o->header.gfx.scale[1] -= 0.125f;
++        }
++        else if (o->oTimer < 8) {
++            o->header.gfx.scale[1] += 0.125f;
++        }
++        else {
++            o->header.gfx.scale[1] = 1;
++            o->oAction = 0;
++        }
++    }
++}
+\ No newline at end of file
+diff --git a/src/game/interaction.c b/src/game/interaction.c
+index 3232113e..8540f0fe 100644
+--- a/src/game/interaction.c
++++ b/src/game/interaction.c
+@@ -56,6 +56,7 @@ u32 interact_hoot          (struct MarioState *m, u32 interactType, struct Objec
+ u32 interact_cap           (struct MarioState *m, u32 interactType, struct Object *obj);
+ u32 interact_grabbable     (struct MarioState *m, u32 interactType, struct Object *obj);
+ u32 interact_text          (struct MarioState *m, u32 interactType, struct Object *obj);
++u32 interact_spring        (struct MarioState *m, u32 interactType, struct Object *obj);
+ 
+ struct InteractionHandler {
+     u32 interactType;
+@@ -94,6 +95,7 @@ static struct InteractionHandler sInteractionHandlers[] = {
+     { INTERACT_CAP,            interact_cap },
+     { INTERACT_GRABBABLE,      interact_grabbable },
+     { INTERACT_TEXT,           interact_text },
++    { INTERACT_SPRING,         interact_spring },
+ };
+ 
+ static u32 sForwardKnockbackActions[][3] = {
+@@ -1792,6 +1794,27 @@ u32 interact_text(struct MarioState *m, UNUSED u32 interactType, struct Object *
+     return interact;
+ }
+ 
++u32 interact_spring(struct MarioState *m, UNUSED u32 interactType, struct Object *o) {
++    u32 interaction;
++    m->interactObj = o;
++    m->usedObj = o;
++    interaction = determine_interaction(m, o);
++    if ((interaction & (INT_GROUND_POUND_OR_TWIRL | INT_KICK | INT_TRIP | INT_SLIDE_KICK | INT_FAST_ATTACK_OR_SHELL | INT_HIT_FROM_ABOVE)) && !(gMarioState->action & ACT_FLAG_RIDING_SHELL)) {
++            o->oAction = 1;
++            if (o->oInteractionSubtype & INT_SUBTYPE_TWIRL_BOUNCE) {
++                bounce_off_object(m, o, o->oFriction);
++                reset_mario_pitch(m);
++                return drop_and_set_mario_action(m, ACT_TWIRLING, 0);
++            } else {
++                bounce_off_object(m, o, o->oFriction);
++            }
++    }
++    else {
++        push_mario_out_of_object(m, o, 5.0f);
++    }
++    return FALSE;
++}
++
+ void check_kick_or_punch_wall(struct MarioState *m) {
+     if (m->flags & (MARIO_PUNCHING | MARIO_KICKING | MARIO_TRIPPING)) {
+         struct WallCollisionData detector;
+diff --git a/src/game/interaction.h b/src/game/interaction.h
+index 591c7e72..d2031d2c 100644
+--- a/src/game/interaction.h
++++ b/src/game/interaction.h
+@@ -38,7 +38,7 @@ enum ObjInteractTypes {
+     INTERACT_SNUFIT_BULLET        = /* 0x10000000 */ (1 << 28),
+     INTERACT_SHOCK                = /* 0x20000000 */ (1 << 29),
+     INTERACT_IGLOO_BARRIER        = /* 0x40000000 */ (1 << 30),
+-    INTERACT_UNKNOWN_31           = /* 0x80000000 */ (1 << 31),
++    INTERACT_SPRING               = /* 0x80000000 */ (1 << 31),
+ 
+     INTERACT_MASK_NO_OBJ_COLLISIONS = (INTERACT_COIN | INTERACT_CAP | INTERACT_STRONG_WIND | INTERACT_STAR_OR_KEY | INTERACT_WARP | INTERACT_WATER_RING | INTERACT_FLAME)
+ };
+diff --git a/src/game/obj_behaviors.c b/src/game/obj_behaviors.c
+index 46c699df..2aa79ca5 100644
+--- a/src/game/obj_behaviors.c
++++ b/src/game/obj_behaviors.c
+@@ -783,3 +783,4 @@ UNUSED s32 debug_sequence_tracker(s16 debugInputSequence[]) {
+ #include "behaviors/treasure_chest.inc.c"
+ #include "behaviors/mips.inc.c"
+ #include "behaviors/yoshi.inc.c"
++#include "behaviors/spring.inc.c"
+diff --git a/src/game/object_helpers.c b/src/game/object_helpers.c
+index 058517a4..ff356978 100644
+--- a/src/game/object_helpers.c
++++ b/src/game/object_helpers.c
+@@ -2470,3 +2470,33 @@ void bhv_follow_spline(void) {
+         obj->oSplinePrevWaypoint = nextWaypoint;
+     }
+ }
++
++Gfx *geo_set_spring_color(s32 callContext, struct GraphNode *node, UNUSED void *context) {
++    Gfx *dlStart, *dlHead;
++    struct Object *objectGraphNode;
++    struct GraphNodeGenerated *currentGraphNode;
++    u8 layer;
++    dlStart = NULL;
++    // You'd set the flags to 7 << 8 to make it affect layer 7
++    if (callContext == GEO_CONTEXT_RENDER) {
++        currentGraphNode = (struct GraphNodeGenerated *) node;
++        objectGraphNode = (struct Object *) gCurGraphNodeObject; // TODO: change this to object pointer
++        layer = currentGraphNode->parameter & 0xFF;
++
++        if (layer != 0) {
++            currentGraphNode->fnNode.node.flags =
++                (layer << 8) | (currentGraphNode->fnNode.node.flags & 0xFF);
++        }
++    
++        dlStart = alloc_display_list(sizeof(Gfx) * 3);
++        dlHead = dlStart;
++        // shirt
++        u8 r = (objectGraphNode->oPrimRGB >> 16) & 0xff;
++        u8 g = (objectGraphNode->oPrimRGB >> 8) & 0xff;
++        u8 b = objectGraphNode->oPrimRGB & 0xff;
++        gDPSetPrimColor(dlHead++, 0, 0, r, g, b, 255);
++        gSPEndDisplayList(dlHead);
++    }
++    return dlStart;
++}
++
+diff --git a/src/game/object_helpers.h b/src/game/object_helpers.h
+index a62a8b34..dfba97d9 100644
+--- a/src/game/object_helpers.h
++++ b/src/game/object_helpers.h
+@@ -280,5 +280,6 @@ void cur_obj_spawn_star_at_y_offset(f32 targetX, f32 targetY, f32 targetZ, f32 o
+ 
+ void init_obj_spline(void);
+ void bhv_follow_spline(void);
++Gfx *geo_set_spring_color(s32 callContext, struct GraphNode *node, UNUSED void *context);
+ 
+ #endif // OBJECT_HELPERS_H
