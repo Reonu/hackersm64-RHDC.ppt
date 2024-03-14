@@ -6110,6 +6110,8 @@ const BehaviorScript bhvMovingBar[] = {
 const BehaviorScript bhvDonut1[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_FLOAT(oDrawingDistance, 20000),
+    CALL_NATIVE(bhv_donut_init),
     BEGIN_LOOP(),
         LOAD_COLLISION_DATA(donut1_collision),
         CALL_NATIVE(bhv_donut_loop),
@@ -6119,6 +6121,8 @@ const BehaviorScript bhvDonut1[] = {
 const BehaviorScript bhvDonut2[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_FLOAT(oDrawingDistance, 20000),
+    CALL_NATIVE(bhv_donut_init),
     BEGIN_LOOP(),
         LOAD_COLLISION_DATA(donut2_collision),
         CALL_NATIVE(bhv_donut_loop),
@@ -6128,11 +6132,47 @@ const BehaviorScript bhvDonut2[] = {
 const BehaviorScript bhvDonut3[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_FLOAT(oDrawingDistance, 20000),
+    CALL_NATIVE(bhv_donut_init),
     BEGIN_LOOP(),
         LOAD_COLLISION_DATA(donut3_collision),
         CALL_NATIVE(bhv_donut_loop),
     END_LOOP(),
 };
+
+const BehaviorScript bhvDonut4[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_FLOAT(oDrawingDistance, 20000),
+    CALL_NATIVE(bhv_donut_init),
+    BEGIN_LOOP(),
+        LOAD_COLLISION_DATA(donut4_collision),
+        CALL_NATIVE(bhv_donut_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvDonut5[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_FLOAT(oDrawingDistance, 20000),
+    CALL_NATIVE(bhv_donut_init),
+    BEGIN_LOOP(),
+        LOAD_COLLISION_DATA(donut5_collision),
+        CALL_NATIVE(bhv_donut_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvDonut6[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_FLOAT(oDrawingDistance, 20000),
+    CALL_NATIVE(bhv_donut_init),
+    BEGIN_LOOP(),
+        LOAD_COLLISION_DATA(donut6_collision),
+        CALL_NATIVE(bhv_donut_loop),
+    END_LOOP(),
+};
+
 
 const BehaviorScript bhvCorrelation[] = {
     BEGIN(OBJ_LIST_SURFACE),

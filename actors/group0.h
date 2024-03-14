@@ -374,4 +374,16 @@ extern const GeoLayout geo_confroom_root[];
 
 #include "cheesing/geo_header.h"
 
+#include "donut4/geo_header.h"
+
+#include "donut4/collision_header.h"
+
+#include "donut5/geo_header.h"
+
+#include "donut5/collision_header.h"
+
+#include "donut6/geo_header.h"
+
+#include "donut6/collision_header.h"
+
 #endif

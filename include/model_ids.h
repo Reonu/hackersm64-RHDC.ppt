@@ -22,6 +22,10 @@
 
 #define MODEL_CHEESING                         0x109
 
+#define MODEL_DONUT4                           0x110
+#define MODEL_DONUT5                           0x111
+#define MODEL_DONUT6                           0x112
+
 /* Various static level geometry, the geo layout differs but terrain object presets treat them the same.*/
 
 #define MODEL_LEVEL_GEOMETRY_03                0x03

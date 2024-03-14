@@ -52,3 +52,9 @@
 #include "spring/model.inc.c"
 
 #include "cheesing/model.inc.c"
+#include "donut4/model.inc.c"
+#include "donut4/collision.inc.c"
+#include "donut5/model.inc.c"
+#include "donut5/collision.inc.c"
+#include "donut6/model.inc.c"
+#include "donut6/collision.inc.c"

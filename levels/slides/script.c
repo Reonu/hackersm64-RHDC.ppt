@@ -120,6 +120,23 @@ const LevelScript level_slides_entry[] = {
 		/* Fast64 end persistent block [area commands] */
 	END_AREA(),
 
+	AREA(14, slides_area_14),
+		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF0, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF1, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0x01, LEVEL_SLIDES, 0x0B, 0x02, WARP_NO_CHECKPOINT),
+		WARP_NODE(0x02, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		OBJECT(MODEL_DONUT4, 702, -1302, 67, 0, 0, 0, (32 << 16), bhvDonut4),
+		OBJECT(MODEL_DONUT5, -350, -1302, 67, 0, 0, 0, (90 << 24) | (64 << 16), bhvDonut5),
+		OBJECT(MODEL_DONUT6, -1462, -1302, 67, 0, 0, 0, (180 << 24) | (128 << 16), bhvDonut6),
+		TERRAIN(slides_area_14_collision),
+		MACRO_OBJECTS(slides_area_14_macro_objs),
+		STOP_MUSIC(0),
+		TERRAIN_TYPE(TERRAIN_GRASS),
+		/* Fast64 begin persistent block [area commands] */
+		/* Fast64 end persistent block [area commands] */
+	END_AREA(),
+
 	AREA(2, slides_area_2),
 		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF0, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
@@ -168,9 +185,9 @@ const LevelScript level_slides_entry[] = {
 		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF0, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
-		OBJECT(MODEL_DONUT1, -1728, -439, 19, 0, 0, 0, 0x00000000, bhvDonut1),
-		OBJECT(MODEL_DONUT2, -1, -439, 19, 0, 0, 0, 0x00000000, bhvDonut2),
-		OBJECT(MODEL_DONUT3, 1752, -439, 19, 0, 0, 0, 0x00000000, bhvDonut3),
+		OBJECT(MODEL_DONUT1, -1728, -439, 19, 0, 0, 0, (32 << 16), bhvDonut1),
+		OBJECT(MODEL_DONUT2, -1, -439, 19, 0, 0, 0, (32 << 16), bhvDonut2),
+		OBJECT(MODEL_DONUT3, 1752, -439, 19, 0, 0, 0, (32 << 16), bhvDonut3),
 		OBJECT(MODEL_STAR, 1753, -441, 33, 0, 0, 0, (0x05 << 24), bhvStar),
 		TERRAIN(slides_area_5_collision),
 		MACRO_OBJECTS(slides_area_5_macro_objs),

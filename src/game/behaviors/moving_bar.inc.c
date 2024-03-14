@@ -4,6 +4,7 @@
 #include "game/level_update.h"
 #include "game/spawn_sound.h"ç
 #include "game/print.h"
+#include "engine/math_util.h"
 
 #define Y_SCALE o->header.gfx.scale[1]
 
@@ -54,8 +55,12 @@ it
 
 rotates
 */
+void bhv_donut_init(void) {
+    o->oFaceAngleRoll += DEGREES(BPARAM1);
+}
+
 void bhv_donut_loop(void) {
-    o->oFaceAngleRoll += 128;
+    o->oFaceAngleRoll += BPARAM2 * 4;
     load_object_collision_model();
 }
 
