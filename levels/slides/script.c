@@ -129,6 +129,7 @@ const LevelScript level_slides_entry[] = {
 		OBJECT(MODEL_DONUT4, 702, -1302, 67, 0, 0, 0, (32 << 16), bhvDonut4),
 		OBJECT(MODEL_DONUT5, -350, -1302, 67, 0, 0, 0, (90 << 24) | (64 << 16), bhvDonut5),
 		OBJECT(MODEL_DONUT6, -1462, -1302, 67, 0, 0, 0, (180 << 24) | (128 << 16), bhvDonut6),
+		OBJECT(MODEL_STAR, -2100, 818, 0, 0, 0, 0, (0x0E << 24), bhvStar),
 		TERRAIN(slides_area_14_collision),
 		MACRO_OBJECTS(slides_area_14_macro_objs),
 		STOP_MUSIC(0),
