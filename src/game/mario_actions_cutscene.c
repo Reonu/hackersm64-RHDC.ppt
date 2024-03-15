@@ -553,7 +553,7 @@ s32 act_debug_free_move(struct MarioState *m) {
     if (m->intendedMag > 0) {
         speed *= m->intendedMag * 2.0f;
         pos[0] += speed * sins(m->intendedYaw);
-        pos[2] += speed * coss(m->intendedYaw);
+        pos[1] += -speed * coss(m->intendedYaw);
     }
 
     // TODO: Add ability to ignore collision
