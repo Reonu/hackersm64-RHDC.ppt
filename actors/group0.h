@@ -386,4 +386,6 @@ extern const GeoLayout geo_confroom_root[];
 
 #include "donut6/collision_header.h"
 
+#include "silver_star/geo_header.h"
+
 #endif

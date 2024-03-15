@@ -35,3 +35,4 @@
 #include "donut4/geo.inc.c"
 #include "donut5/geo.inc.c"
 #include "donut6/geo.inc.c"
+#include "silver_star/geo.inc.c"

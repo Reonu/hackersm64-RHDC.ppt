@@ -127,6 +127,7 @@ const LevelScript level_main_scripts_entry[] = {
     LOAD_MODEL_FROM_GEO(MODEL_DONUT4,                  donut4_geo),
     LOAD_MODEL_FROM_GEO(MODEL_DONUT5,                  donut5_geo),
     LOAD_MODEL_FROM_GEO(MODEL_DONUT6,                  donut6_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_SILVER_STAR,             silver_star_geo),
     FREE_LEVEL_POOL(),
     POP_POOL(),
     CALL(/*arg*/ 0, /*func*/ lvl_init_from_save_file),
