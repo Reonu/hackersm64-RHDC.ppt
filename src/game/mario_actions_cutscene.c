@@ -760,7 +760,7 @@ s32 act_quicksand_death(struct MarioState *m) {
         if (m->actionArg == 0)
         {
             if ((m->quicksandDepth += 5.0f) >= 180.0f) {
-                level_trigger_warp(m, WARP_OP_DEATH);
+                move_mario_to_respawn(m,DEATH_TYPE_QUICKSAND);
                 m->actionState = 2;
             }
          }
