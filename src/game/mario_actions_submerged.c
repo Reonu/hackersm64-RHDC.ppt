@@ -64,9 +64,10 @@ static f32 get_buoyancy(struct MarioState *m) {
         }
     } else if (swimming_near_surface(m)) {
         buoyancy = 1.25f;
-    } else if (!(m->action & ACT_FLAG_MOVING)) {
-        buoyancy = -2.0f;
     }
+    // else if (!(m->action & ACT_FLAG_MOVING)) {
+    //     buoyancy = -2.0f;
+    // }
 
     return buoyancy;
 }
@@ -217,7 +218,7 @@ static void stationary_slow_down(struct MarioState *m) {
     m->angleVel[1] = 0;
 
     m->forwardVel = approach_f32(m->forwardVel, 0.0f, 1.0f, 1.0f);
-    m->vel[1] = approach_f32(m->vel[1], buoyancy, 2.0f, 1.0f);
+    m->vel[1] = approach_f32(m->vel[1], buoyancy, 8.0f, 8.0f);
 
     m->faceAngle[0] = approach_s32(m->faceAngle[0], 0, 0x200, 0x200);
     m->faceAngle[2] = approach_s32(m->faceAngle[2], 0, 0x100, 0x100);
@@ -252,42 +253,49 @@ static void update_swimming_speed(struct MarioState *m, f32 decelThreshold) {
 }
 
 static void update_swimming_yaw(struct MarioState *m) {
-    s16 targetYawVel = -(s16)(10.0f * m->controller->stickX);
+    // s16 targetYawVel = -(s16)(10.0f * m->controller->stickX);
+    s32 absX = ABS(m->controller->stickX);
+    if (absX < 8) return;
+    s16 targetYaw = m->controller->stickX < 0 ? DEGREES(-90) : DEGREES(90);
+    m->faceAngle[1] = approach_angle(m->faceAngle[1], targetYaw, DEGREES(30));
+    m->faceAngle[2] = 0;
 
-    if (targetYawVel > 0) {
-        if (m->angleVel[1] < 0) {
-            m->angleVel[1] += 0x40;
-            if (m->angleVel[1] > 0x10) {
-                m->angleVel[1] = 0x10;
-            }
-        } else {
-            m->angleVel[1] = approach_s32(m->angleVel[1], targetYawVel, 0x10, 0x20);
-        }
-    } else if (targetYawVel < 0) {
-        if (m->angleVel[1] > 0) {
-            m->angleVel[1] -= 0x40;
-            if (m->angleVel[1] < -0x10) {
-                m->angleVel[1] = -0x10;
-            }
-        } else {
-            m->angleVel[1] = approach_s32(m->angleVel[1], targetYawVel, 0x20, 0x10);
-        }
-    } else {
-        m->angleVel[1] = approach_s32(m->angleVel[1], 0, 0x40, 0x40);
-    }
+    // if (targetYawVel > 0) {
+    //     if (m->angleVel[1] < 0) {
+    //         m->angleVel[1] += 0x40;
+    //         if (m->angleVel[1] > 0x10) {
+    //             m->angleVel[1] = 0x10;
+    //         }
+    //     } else {
+    //         m->angleVel[1] = approach_s32(m->angleVel[1], targetYawVel, 0x10, 0x20);
+    //     }
+    // } else if (targetYawVel < 0) {
+    //     if (m->angleVel[1] > 0) {
+    //         m->angleVel[1] -= 0x40;
+    //         if (m->angleVel[1] < -0x10) {
+    //             m->angleVel[1] = -0x10;
+    //         }
+    //     } else {
+    //         m->angleVel[1] = approach_s32(m->angleVel[1], targetYawVel, 0x20, 0x10);
+    //     }
+    // } else {
+    //     m->angleVel[1] = approach_s32(m->angleVel[1], 0, 0x40, 0x40);
+    // }
+    // m->faceAngle[1] = targetYaw;
 
-    m->faceAngle[1] += m->angleVel[1];
-    m->faceAngle[2] = -m->angleVel[1] * 8;
+    // m->faceAngle[1] += m->angleVel[1];
+    // m->faceAngle[2] = -m->angleVel[1] * 8;
 }
 
 static void update_swimming_pitch(struct MarioState *m) {
-    s16 targetPitch = -(s16)(252.0f * m->controller->stickY);
+    // s16 targetPitch = -(s16)(252.0f * m->controller->stickY);
+    s16 targetPitch = DEGREES(-90) + (m->intendedYaw >= 0 ? m->intendedYaw : -m->intendedYaw);
 
     s16 pitchVel;
     if (m->faceAngle[0] < 0) {
-        pitchVel = 0x100;
+        pitchVel = 0x800;
     } else {
-        pitchVel = 0x200;
+        pitchVel = 0x800;
     }
 
     if (m->faceAngle[0] < targetPitch) {
@@ -511,15 +519,15 @@ static s32 check_water_jump(struct MarioState *m) {
     s32 probe = (s32)(m->pos[1] + 1.5f);
 
     if (m->input & INPUT_A_PRESSED) {
-        if (probe >= m->waterLevel - 80 && m->faceAngle[0] >= 0 && m->controller->stickY < -60.0f) {
+        if (probe >= m->waterLevel - 80 && m->faceAngle[0] >= 0 && m->intendedMag > 10) {
             vec3_zero(m->angleVel);
 
             m->vel[1] = 62.0f;
 
             if (m->heldObj == NULL) {
-                return set_mario_action(m, ACT_WATER_JUMP, 0);
+                return set_mario_action(m, ACT_JUMP, 0);
             } else {
-                return set_mario_action(m, ACT_HOLD_WATER_JUMP, 0);
+                return set_mario_action(m, ACT_HOLD_JUMP, 0);
             }
         }
     }
