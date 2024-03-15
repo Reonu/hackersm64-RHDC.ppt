@@ -23,7 +23,12 @@ void bhv_collect_star_init(void) {
 #endif
         o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_TRANSPARENT_STAR];
     } else {
-        o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_STAR];
+        if (!BPARAM4) {
+            o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_STAR];
+        } else {
+            o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_SILVER_STAR];
+        }
+        
     }
 
     obj_set_hitbox(o, &sCollectStarHitbox);

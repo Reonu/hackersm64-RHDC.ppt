@@ -310,6 +310,7 @@ void change_area(s32 index) {
     }
 
     vec3f_copy(gMarioRespawn,gMarioState->pos)
+    gCurrentCheckpoint = 0;
 
 }
 

@@ -208,6 +208,7 @@ enum deathTypes {
     DEATH_TYPE_HURT     = BIT(1),
     DEATH_TYPE_BURNED   = BIT(2),
     DEATH_TYPE_QUICKSAND= BIT(3),
+    DEATH_TYPE_NO_DEATH = BIT(4),
 };
 struct Animation {
     /*0x00*/ s16 flags;

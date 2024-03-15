@@ -5,6 +5,7 @@
 #include "game/spawn_sound.h"ç
 #include "game/print.h"
 #include "engine/math_util.h"
+#include "game/mario.h"
 
 #define Y_SCALE o->header.gfx.scale[1]
 
@@ -111,4 +112,14 @@ void bhv_starting_point_init(void) {
 
     vec3f_copy(gMarioRespawn,gMarioState->pos);
     mark_obj_for_deletion(o);  
+}
+
+void bhv_checkpoint_loop(void) {
+    if (gCurrentCheckpoint == BPARAM1) {
+        gMarioRespawn[0] = o->oPosX;
+        gMarioRespawn[1] = o->oPosY;
+        gMarioRespawn[2] = o->oPosZ;
+        move_mario_to_respawn(gMarioState,DEATH_TYPE_NO_DEATH);
+        mark_obj_for_deletion(o);
+    }
 }

@@ -6263,3 +6263,10 @@ const BehaviorScript bhvStartingPoint[] = {
     CALL_NATIVE(bhv_starting_point_init),
     BREAK(),
 };
+
+const BehaviorScript bhvCheckpoint[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_checkpoint_loop),
+    END_LOOP(),
+};
