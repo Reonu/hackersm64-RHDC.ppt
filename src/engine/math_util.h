@@ -285,7 +285,10 @@ ALWAYS_INLINE s32 roundf(f32 in) {
 #define vec3_add(dst, src) vec3_sum((dst), (dst), (src))
 #define vec4_add(dst, src) vec4_sum((dst), (dst), (src))
 
-#define vec3f_add vec3_add
+ALWAYS_INLINE void vec3f_add(f32 *dest, f32 *src) {
+    vec3_add(dest, src);
+}
+
 #define vec3i_add vec3_add
 #define vec3s_add vec3_add
 
@@ -562,6 +565,15 @@ ALWAYS_INLINE s32 roundf(f32 in) {
     vec3f_diff(_d, (to), (from));                             \
     f32 _xz = (sqr(_d[0]) + sqr(_d[2]));                      \
     *(dist)  = sqrtf(_xz + sqr(_d[1]));                         \
+    *(pitch) = atan2s(sqrtf(_xz), _d[1]);                       \
+    *(yaw)   = atan2s(_d[2], _d[0]);                            \
+}
+
+// Finds the pitch, and yaw between two vectors
+#define vec3_get_angle(from, to, pitch, yaw) { \
+    Vec3f _d;                                                 \
+    vec3f_diff(_d, (to), (from));                             \
+    f32 _xz = (sqr(_d[0]) + sqr(_d[2]));                      \
     *(pitch) = atan2s(sqrtf(_xz), _d[1]);                       \
     *(yaw)   = atan2s(_d[2], _d[0]);                            \
 }

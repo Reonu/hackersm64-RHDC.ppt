@@ -3,7 +3,7 @@
 #include "sm64.h"
 #include "segment_names.h"
 #include "memory.h"
-#include "camera_fpv.h"
+#include "fpv_camera.h"
 #include "area.h"
 #include "rendering_graph_node.h"
 #include "engine/math_util.h"

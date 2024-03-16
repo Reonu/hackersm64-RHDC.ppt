@@ -32,6 +32,7 @@
 #include "puppycam2.h"
 #include "puppyprint.h"
 #include "level_commands.h"
+#include "fpv_player.h"
 
 #include "config.h"
 
@@ -1194,6 +1195,9 @@ s32 update_level(void) {
         }
     }
 #endif
+
+    s32 gameplayActive = update_player();
+    if (!gameplayActive) return FALSE;
 
     switch (sCurrPlayMode) {
         case PLAY_MODE_NORMAL:
