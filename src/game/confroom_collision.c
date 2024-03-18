@@ -118,11 +118,22 @@ u32 test_cyl_exit_aabb(AABB *aabb, Cylinder *cyl) {
 }
 
 AABB *find_space(Cylinder *cyl) {
+    AABB *bestAABB = NULL;
+
     for (int i = 0; i < ARRAY_COUNT(gOfficeSpaces); i++) {
         AABB *aabb = &gOfficeSpaces[i];
-        if (test_point_in_aabb(aabb, cyl->pos)) return aabb;
+        if (test_point_in_aabb(aabb, cyl->pos)) {
+            if (bestAABB == NULL) {
+                s32 completelyInside = test_cyl_exit_aabb(aabb, cyl) == AABB_NO_EXIT;
+                if (completelyInside) return aabb;
+                bestAABB = aabb;
+            } else if (test_cyl_exit_aabb(aabb, cyl) == AABB_NO_EXIT) {
+                return aabb;
+            }
+        }
     }
-    return NULL;
+
+    return bestAABB;
 }
 
 // NOTE: does not properly resolve spaces that have a dimension less than the cyl radius
