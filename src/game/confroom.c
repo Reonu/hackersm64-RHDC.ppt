@@ -7,6 +7,7 @@
 #include "area.h"
 #include "rendering_graph_node.h"
 #include "engine/math_util.h"
+#include "engine/graph_node.h"
 #include "actors/group0.h"
 #include "buffers/framebuffers.h"
 
@@ -17,6 +18,33 @@ static struct AllocOnlyPool *sConfRoomGraphPool = NULL;
 static struct GraphNodeRoot *sConfRoomRoot = NULL;
 
 static s32 sInitialized = FALSE;
+
+struct Object gConfroomObjectPool[NUM_CONFROOM_OBJECTS];
+struct GraphNode gConfroomObjectParent = {
+    .type = GRAPH_NODE_TYPE_OBJECT_PARENT,
+    .prev = NULL,
+    .next = NULL,
+    .parent = NULL,
+    .children = NULL,
+};
+
+static s32 sInitializedConfroomObjectPool = FALSE;
+
+s32 init_confroom_object_pool(void) {
+    if (sInitializedConfroomObjectPool) return TRUE;
+
+    init_scene_graph_node_links(&gConfroomObjectParent, GRAPH_NODE_TYPE_OBJECT_PARENT);
+
+    for (int i = 0; i < NUM_CONFROOM_OBJECTS; i++) {
+        gConfroomObjectPool[i].activeFlags = ACTIVE_FLAG_DEACTIVATED;
+        struct GraphNodeObject *graphNode = &gConfroomObjectPool[i].header.gfx;
+        init_graph_node_object(NULL, graphNode, 0, gVec3fZero, gVec3sZero, gVec3fOne);
+        geo_add_child(&gConfroomObjectParent, &graphNode->node);
+        graphNode->node.flags &= ~GRAPH_RENDER_ACTIVE;
+    }
+    
+    return TRUE;
+}
 
 s32 alloc_conf_room_pool(void) {
     if (sConfRoomGraphPool != NULL) return TRUE;
@@ -32,9 +60,11 @@ s32 alloc_conf_room_pool(void) {
 s32 init_conf_room_graph_root(void) {
     if (sConfRoomRoot != NULL) return TRUE;
     if (sConfRoomGraphPool == NULL) return FALSE;
+    init_confroom_object_pool();
 
     sConfRoomRoot =
         (struct GraphNodeRoot *) process_geo_layout(sConfRoomGraphPool, (void *)geo_confroom_root);
+    // TODO: set gConfroomObjectParent as sharedChild of the GraphNodeObjectParent (see register_scene_graph_node)
     return TRUE;
 }
 
@@ -44,6 +74,7 @@ s32 conf_room_check_should_init(void) {
 
     sInitialized = sSegmentROMTable[SEGMENT_GROUP0_GEO] == (uintptr_t)_group0_geoSegmentRomStart;
     if (sInitialized) {
+        init_confroom_object_pool();
         if (!alloc_conf_room_pool() || !init_conf_room_graph_root()) sInitialized = FALSE;
     }
     return sInitialized;
@@ -68,12 +99,12 @@ Gfx *geo_render_projector_screen(s32 callContext, struct GraphNode *node, UNUSED
 
         dlStart = alloc_display_list(sizeof(Gfx) * 7);
         dlHead = dlStart;
-        gSPDisplayList(dlHead++, mat_confroom_projectorscreen);
+        gSPDisplayList(dlHead++, mat_projector_screen_projectorscreen);
         gDPSetTextureImage(dlHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, gAuxBuffers[0]);
         gDPLoadSync(dlHead++);
-        gSPDisplayList(dlHead++, confroom_projectorscreenMesh_mesh_layer_1_tri_0);
-        gSPDisplayList(dlHead++, mat_confroom_white);
-        gSPDisplayList(dlHead++, confroom_projectorscreenMesh_mesh_layer_1_tri_1);
+        gSPDisplayList(dlHead++, projector_screen_projectorscreenMesh_mesh_layer_1_tri_0);
+        gSPDisplayList(dlHead++, mat_projector_screen_whiteUnlit);
+        gSPDisplayList(dlHead++, projector_screen_projectorscreenMesh_mesh_layer_1_tri_1);
         gSPEndDisplayList(dlHead);
     }
 
