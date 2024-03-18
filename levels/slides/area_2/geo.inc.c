@@ -8,7 +8,7 @@ const GeoLayout slides_area_2_geo[] = {
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE_DECAL, -519, -224, 21, slides_dl_graph_002_mesh_layer_2),
 		GEO_DISPLAY_LIST(LAYER_FORCE, slides_dl_slide2_mesh_layer_0),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, slides_dl_slide2_mesh_layer_1),
-		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 0, 152, 0, slides_dl_slide2title_mesh_layer_1),
+		GEO_TRANSLATE_NODE_WITH_DL(LAYER_FORCE, 0, 152, 0, slides_dl_slide2title_mesh_layer_0),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };

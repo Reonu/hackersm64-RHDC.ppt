@@ -6,7 +6,6 @@ const GeoLayout slides_area_11_geo[] = {
 		GEO_ROTATION_NODE_WITH_DL(LAYER_FORCE, 90, 0, 0, slides_dl_0slide10bg_001_mesh_layer_0),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_FORCE, 1627, 1060, 514, slides_dl_1mmmMesh_001_mesh_layer_0),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_FORCE, -43, -967, 12, slides_dl_manorslidebilinearMesh_mesh_layer_0),
-		GEO_TRANSLATE_NODE_WITH_DL(LAYER_FORCE, -1047, 951, 0, slides_dl_manortitleMesh_mesh_layer_0),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };

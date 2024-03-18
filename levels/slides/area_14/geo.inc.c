@@ -4,7 +4,6 @@ const GeoLayout slides_area_14_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
 		GEO_ROTATION_NODE_WITH_DL(LAYER_FORCE, 90, 0, 0, slides_dl_0slide10bg_004_mesh_layer_0),
-		GEO_TRANSLATE_NODE_WITH_DL(LAYER_FORCE, -1338, 1791, 0, slides_dl_slide14titleMesh_mesh_layer_0),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_FORCE, -1688, 697, -100, slides_dl_white_mesh_layer_0),
 		GEO_OPEN_NODE(),
 			GEO_DISPLAY_LIST(LAYER_OPAQUE_DECAL, slides_dl_white_mesh_layer_2),

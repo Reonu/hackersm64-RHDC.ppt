@@ -37,7 +37,13 @@ void bhv_moving_bar_init(void) {
 void bhv_moving_bar_loop(void) {
     Y_SCALE = ((sins(o->oBarTimer) + 1.1 ) * BPARAM2) * 0.2f;
 
-    o->oBarTimer += BPARAM3 * 2; 
+    if (BPARAM3 == 254) {
+        o->oBarTimer += 700;
+    } else  {
+        o->oBarTimer += BPARAM3 * 2; 
+    }
+
+    
 
     if (o->behavior != segmented_to_virtual(bhvMovingBarYellow)) {
         load_object_collision_model();
@@ -122,4 +128,15 @@ void bhv_checkpoint_loop(void) {
         move_mario_to_respawn(gMarioState,DEATH_TYPE_NO_DEATH);
         mark_obj_for_deletion(o);
     }
+}
+
+void bhv_dudeguy_loop(void) {
+    cur_obj_init_animation(o->oAnimationIndex);
+    if (gPlayer1Controller->buttonPressed & R_JPAD) {
+        o->oAnimationIndex++;
+    } else if (gPlayer1Controller->buttonPressed & L_JPAD) {
+        o->oAnimationIndex--;
+    }
+
+    o->oFaceAngleYaw += DEGREES(5);
 }

@@ -7,7 +7,6 @@ const GeoLayout slides_area_9_geo[] = {
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_FORCE, -1955, -1399, 0, slides_dl_Cube_mesh_layer_0),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_FORCE, 0, 826, 0, slides_dl_mitmMesh_mesh_layer_0),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_FORCE, -30, -42, 0, slides_dl_rtyiMesh_mesh_layer_0),
-		GEO_TRANSLATE_NODE_WITH_DL(LAYER_FORCE, -1458, 1767, 0, slides_dl_slide9titleMesh_mesh_layer_0),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_FORCE, 1589, 885, 0, slides_dl_yctfMesh_mesh_layer_0),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),

@@ -4,7 +4,6 @@ const GeoLayout slides_area_13_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
 		GEO_ROTATION_NODE_WITH_DL(LAYER_FORCE, 90, 0, 0, slides_dl_0slide10bg_003_mesh_layer_0),
-		GEO_TRANSLATE_NODE_WITH_DL(LAYER_FORCE, -1330, 1804, 0, slides_dl_slide13titleMesh_mesh_layer_0),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_FORCE, -316, -69, 0, slides_dl_sliding_mesh_layer_0),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),

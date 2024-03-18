@@ -59,3 +59,5 @@
 #include "donut6/model.inc.c"
 #include "donut6/collision.inc.c"
 #include "silver_star/model.inc.c"
+#include "dudeguy/anims/data.inc.c"
+#include "dudeguy/anims/table.inc.c"

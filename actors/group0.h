@@ -388,4 +388,6 @@ extern const GeoLayout geo_confroom_root[];
 
 #include "silver_star/geo_header.h"
 
+
+#include "dudeguy/anim_header.h"
 #endif
