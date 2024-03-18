@@ -8,16 +8,26 @@
 #include "level_update.h"
 #include "area.h"
 #include "memory.h"
+#include "debug.h"
+#include "confroom_collision.h"
 #include "engine/math_util.h"
 #include "actors/group0.h"
 
+#define STARTING_POSITION { 0.0f, 1.0f, 414.8766040802f }
+
 FPVPlayer gFPVPlayer = {
     .cont = NULL,
-    .pos = {     0.0f,                 0.0f,   414.8766040802f },
+    .pos = STARTING_POSITION,
     .vel = { 0, 0, 0 },
     .headPos = PLAYER_EYE_SITTING,
     .energy = MAX_ENERGY,
     .dir = { 0, 0, 0 },
+    .hitbox = {
+        .pos = STARTING_POSITION,
+        .height = PLAYER_HEIGHT,
+        .radius = PLAYER_RADIUS
+    },
+    .curSpace = NULL,
     .actionState = PLAYER_FREE,
     .focusPointActive = FALSE,
     .crouching = FALSE,
@@ -78,7 +88,13 @@ static s32 update_free(FPVPlayer *player) {
     player->crouching = (player->cont->buttonDown & PLAYER_BTN_CROUCH) ? TRUE : FALSE;
     player->running = (player->cont->buttonDown & PLAYER_BTN_RUN) ? TRUE : FALSE;
 
-    if (tryingToMove) {
+    f32 floorHeight = find_confroom_floor(player->pos);    
+    if (floorHeight > player->pos[1]) {
+        player->pos[1] = floorHeight;
+    }
+    s32 onGround = roundf(player->pos[1]) == roundf(floorHeight);
+
+    if (onGround && tryingToMove) {
         deplete_energy(E_COST_MOVING);
 
         Vec3f accel;
@@ -108,26 +124,60 @@ static s32 update_free(FPVPlayer *player) {
                 player->vel[2] = xzVel[2] * curSpeed;
             }
         }
-    } else {
+    } else if (onGround) {
         deplete_energy(player->crouching ? E_COST_CROUCHING : E_COST_STANDING);
         player->vel[0] = approach_f32(player->vel[0], 0, PLAYER_DECEL, PLAYER_DECEL);
         player->vel[2] = approach_f32(player->vel[2], 0, PLAYER_DECEL, PLAYER_DECEL);
     }
 
-    if ((player->cont->buttonPressed & A_BUTTON) && roundf(player->pos[1]) == 0) {
+    if (
+        (player->cont->buttonPressed & A_BUTTON) &&
+        roundf(player->pos[1]) == roundf(floorHeight)
+    ) {
         player->vel[1] += PLAYER_JUMP_VEL;
     }
+    player->headPos = approach_f32(player->headPos, player->crouching ? PLAYER_EYE_CROUCHING : PLAYER_EYE_DEFAULT, 10, 10);
+    if (player->curSpace && player->curSpace->max_y < player->pos[1] + player->headPos + PLAYER_TOP_DIST_FROM_EYE + 5) {
+        player->headPos = player->curSpace->max_y - player->pos[1] - PLAYER_TOP_DIST_FROM_EYE - 5;
+    }
 
-    vec3f_add(player->pos, player->vel);
+    Cylinder hitbox;
+    vec3f_copy(hitbox.pos, player->pos);
+    vec3f_add(hitbox.pos, player->vel);
+    hitbox.pos[1] += 30; // add step threshold
+    hitbox.height = player->headPos + PLAYER_TOP_DIST_FROM_EYE;
+    hitbox.radius = PLAYER_RADIUS;
 
-    if (player->pos[1] > 0) {
+    AABB *newSpace = find_space(&hitbox);
+    hitbox.pos[1] -= 30;
+    // no space found at all, player is completely stuck!
+    assert(!(newSpace == NULL && player->curSpace == NULL), "Could not find a player space!");
+
+    if (newSpace != NULL) {
+        if (newSpace != player->curSpace) {
+            if (hitbox.pos[1] < newSpace->min_y) {
+                hitbox.pos[1] = newSpace->min_y;
+            }
+            player->curSpace = newSpace;
+        }
+    }
+
+    resolve_exit_space(&hitbox, player->curSpace, player->pos);
+    vec3f_copy(hitbox.pos, player->pos);
+    resolve_confroom_collisions(&hitbox, player->pos);
+
+    if (player->curSpace->max_y < player->pos[1] + player->headPos + PLAYER_TOP_DIST_FROM_EYE) {
+        player->vel[1] = 0;
+    }
+
+    floorHeight = find_confroom_floor(player->pos);
+    if (player->pos[1] > floorHeight) {
         player->vel[1] -= PLAYER_GRAVITY;
         if (player->vel[1] < PLAYER_TERM_VEL) player->vel[1] = PLAYER_TERM_VEL;
     } else {
-        player->pos[1] = player->vel[1] = 0;
+        player->pos[1] = floorHeight;
+        player->vel[1] = 0;
     }
-
-    player->headPos = approach_f32(player->headPos, player->crouching ? PLAYER_EYE_CROUCHING : PLAYER_EYE_DEFAULT, 10, 10);
 
     return FALSE;   
 }
@@ -188,6 +238,15 @@ void init_player(void) {
     // TODO: Use correct initial action state
     player->actionState = PLAYER_PRESENTING;
     // TODO: copy init position from group0 data export
+
+    confroom_initialize_collision();
+
+    Cylinder hitbox;
+    vec3f_copy(hitbox.pos, player->pos);
+    hitbox.height = PLAYER_TOP_DIST_FROM_EYE;
+    hitbox.radius = PLAYER_RADIUS;
+
+    player->curSpace = find_space(&hitbox);
 }
 
 void update_cam_from_player(FPVPlayer *player, FPVCamState *cam) {

@@ -4,6 +4,7 @@
 
 #include "types.h"
 #include "area.h"
+#include "confroom_collision.h"
 #include "engine/geo_layout.h"
 #include "engine/graph_node.h"
 #include "engine/math_util.h"
@@ -23,16 +24,21 @@ typedef struct {
     f32 focusPointFac; // 0 to 1, 0 uses player direction and 1 uses focus point directly
     s32 energy;
     Vec3s dir;
+    Cylinder hitbox;
+    AABB *curSpace;
     u8 actionState;
     u8 focusPointActive: 1;
     u8 crouching: 1;
     u8 running: 1;
 } FPVPlayer;
 
+#define PLAYER_HEIGHT        183.0f
+#define PLAYER_RADIUS        30.0f
 #define PLAYER_EYE_DEFAULT   165.0f
 #define PLAYER_EYE_SITTING   135.0f
 #define PLAYER_EYE_CROUCHING 99.0f
 
+#define PLAYER_TOP_DIST_FROM_EYE (PLAYER_HEIGHT - PLAYER_EYE_DEFAULT)
 #define PLAYER_WAIST_DIST_FROM_EYE 66.0f
 
 #define MINUTES_TO_FRAMES(t) (60 * 30 * (t))
@@ -62,8 +68,8 @@ typedef struct {
 #define PLAYER_DECEL     (PLAYER_MAX_SPEED_WALK * 0.35f)
 
 #define PLAYER_GRAVITY   meters_sec(9.8f*0.2f)
-#define PLAYER_TERM_VEL  meters_sec(-53.0f)
-#define PLAYER_JUMP_VEL  meters_sec(20.0f)
+#define PLAYER_TERM_VEL  meters_sec(-53.0f * 0.2f)
+#define PLAYER_JUMP_VEL  meters_sec(12.0f)
 
 
 // controls

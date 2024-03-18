@@ -64,6 +64,10 @@ extern f32 gSineTable[];
     __auto_type _x = (x); \
     _x * _x; })
 
+ALWAYS_INLINE f32 sqrf(f32 val) {
+    return val * val;
+}
+
 // Get the sign of a number
 #define signum_positive(x) (((x) < 0) ? -1 : 1)
 
@@ -226,9 +230,15 @@ ALWAYS_INLINE s32 roundf(f32 in) {
     (dst)[3] = _w;                      \
 }
 
-#define vec3f_copy vec3_copy
+ALWAYS_INLINE void vec3f_copy(Vec3f dest, Vec3f src) {
+    vec3_copy(dest, src);
+}
+ALWAYS_INLINE void vec3s_copy(Vec3s dest, Vec3s src) {
+    vec3_copy(dest, src);
+}
+
 #define vec3i_copy vec3_copy
-#define vec3s_copy vec3_copy
+
 #define vec3s_to_vec3i vec3_copy
 #define vec3s_to_vec3f vec3_copy
 #define vec3i_to_vec3s vec3_copy

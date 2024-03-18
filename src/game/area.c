@@ -309,7 +309,7 @@ void change_area(s32 index) {
         gMarioObject->header.gfx.areaIndex = index, gMarioSpawnInfo->areaIndex = index;
     }
 
-    vec3f_copy(gMarioRespawn,gMarioState->pos)
+    vec3f_copy(gMarioRespawn, gMarioState->pos);
     gCurrentCheckpoint = 0;
 
 }
