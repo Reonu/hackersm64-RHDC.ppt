@@ -61,3 +61,4 @@
 #include "silver_star/model.inc.c"
 #include "dudeguy/anims/data.inc.c"
 #include "dudeguy/anims/table.inc.c"
+#include "projector_screen/model.inc.c"

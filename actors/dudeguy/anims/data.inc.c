@@ -3,3 +3,4 @@
 #include "anim_talking.inc.c"
 #include "anim_idle.inc.c"
 #include "anim_stopwalking.inc.c"
+#include "anim_typing.inc.c"

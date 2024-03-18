@@ -1,0 +1,10 @@
+extern const GeoLayout projector_screen_geo[];
+extern u8 projector_screen_emubad_rgba16[];
+extern Vtx projector_screen_projectorscreenMesh_mesh_layer_1_vtx_cull[8];
+extern Vtx projector_screen_projectorscreenMesh_mesh_layer_1_vtx_0[178];
+extern Gfx projector_screen_projectorscreenMesh_mesh_layer_1_tri_0[];
+extern Vtx projector_screen_projectorscreenMesh_mesh_layer_1_vtx_1[70];
+extern Gfx projector_screen_projectorscreenMesh_mesh_layer_1_tri_1[];
+extern Gfx mat_projector_screen_projectorscreen[];
+extern Gfx mat_projector_screen_whiteUnlit[];
+extern Gfx projector_screen_projectorscreenMesh_mesh_layer_1[];
