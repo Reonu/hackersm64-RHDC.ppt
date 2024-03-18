@@ -6270,3 +6270,13 @@ const BehaviorScript bhvCheckpoint[] = {
         CALL_NATIVE(bhv_checkpoint_loop),
     END_LOOP(),
 };
+
+const BehaviorScript bhvDudeGuy[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_INT(oDrawingDistance, 20000),
+    LOAD_ANIMATIONS(oAnimations, dudeguy_anims),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_dudeguy_loop),
+    END_LOOP(),   
+};

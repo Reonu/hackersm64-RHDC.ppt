@@ -1287,7 +1287,7 @@ os16112*/
 #define /*0x0F8*/ oBarTimer                                     OBJECT_FIELD_S32(0x1C)
 #define /*0x0FC*/ oCheckpointFlagCounter                        OBJECT_FIELD_S32(0x1D)
 #define /*0x100*/ oBreakableBoxSmallReleased                                          OBJECT_FIELD_S32(0x1E)
-#define /*0x104*/ o104                                          OBJECT_FIELD_S32(0x1F)
+#define /*0x104*/ oAnimationIndex                               OBJECT_FIELD_S32(0x1F)
 #define /*0x108*/ o108                                          OBJECT_FIELD_S32(0x20)
 #define /*0x110*/ oIdk                                          OBJECT_FIELD_S32(0x22)
 #define /*0x110*/ o110                                          OBJECT_FIELD_S32(0x22)

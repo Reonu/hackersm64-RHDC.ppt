@@ -557,4 +557,5 @@ extern const BehaviorScript bhvSpring[];
 extern const BehaviorScript bhvCheesing[];
 extern const BehaviorScript bhvStartingPoint[];
 extern const BehaviorScript bhvCheckpoint[];
+extern const BehaviorScript bhvDudeGuy[];
 #endif // BEHAVIOR_DATA_H
