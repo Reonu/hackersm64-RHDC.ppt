@@ -16,6 +16,7 @@ static s32 sInitializedCollision = FALSE;
 static AABB_src *sSrcOfficeSpaces[] = {
     &confroom_spaceMainRoom,
     &confroom_spaceDoorToHall,
+    &confroom_spaceHall,
 };
 AABB gOfficeSpaces[ARRAY_COUNT(sSrcOfficeSpaces)] = {};
 
