@@ -28,8 +28,8 @@ s32 spawn_confroom_objects(UNUSED s16 initOrUpdate, s32 reg) {
         obj->prevObj = NULL;
         obj->collidedObjInteractTypes = 0;
         obj->numCollidedObjs = 0;
-        for (i = 0; i < MAX_OBJECT_FIELDS; i++) {
-            obj->rawData.asS32[i] = 0;
+        for (int j = 0; j < MAX_OBJECT_FIELDS; j++) {
+            obj->rawData.asS32[j] = 0;
         }
         obj->isOfficeObject = TRUE;
         obj->bhvStackIndex = 0;
@@ -87,5 +87,5 @@ s32 spawn_confroom_objects(UNUSED s16 initOrUpdate, s32 reg) {
 }
 
 s32 get_num_confroom_objects(void) {
-    return gNumConfroomSpawns;
+    return ARRAY_COUNT(gConfroomSpawns);
 }
