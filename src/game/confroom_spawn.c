@@ -10,6 +10,7 @@
 
 ConfroomObjectSpawn *gConfroomSpawns[] = {
     &spawn_dudeGuy1,
+    &spawn_dudeGuyPhone,
 };
 
 s32 gNumConfroomSpawns = ARRAY_COUNT(gConfroomSpawns);

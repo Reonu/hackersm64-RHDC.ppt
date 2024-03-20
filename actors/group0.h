@@ -404,4 +404,6 @@ extern const GeoLayout geo_confroom_root[];
 
 #include "circle3/geo_header.h"
 
+#include "dudeguy_phone/geo_header.h"
+
 #endif
