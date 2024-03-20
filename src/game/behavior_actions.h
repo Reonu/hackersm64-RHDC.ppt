@@ -121,6 +121,7 @@ void bhv_tree_snow_or_leaf_loop(void);
 void bhv_piranha_plant_bubble_loop(void);
 void bhv_piranha_plant_waking_bubbles_loop(void);
 void bhv_purple_switch_loop(void);
+void bhv_purple_switch_init(void);
 void bhv_hidden_object_loop(void);
 void bhv_breakable_box_loop(void);
 void bhv_pushable_loop(void);
@@ -560,6 +561,8 @@ void bhv_cheesing_loop(void);
 void bhv_starting_point_init(void);
 void bhv_checkpoint_loop(void);
 void bhv_dudeguy_loop(void);
+void bhv_circle_init(void);
+void bhv_circle_loop(void);
 
 void bhv_spring_init(void);
 void bhv_spring_loop(void);
