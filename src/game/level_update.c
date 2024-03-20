@@ -1197,7 +1197,11 @@ s32 update_level(void) {
 #endif
 
     s32 gameplayActive = update_player();
-    if (!gameplayActive) return FALSE;
+    update_confroom_objects();
+    if (!gameplayActive) {
+        gAreaUpdateCounter++;
+        return FALSE;
+    }
 
     switch (sCurrPlayMode) {
         case PLAY_MODE_NORMAL:

@@ -32,6 +32,8 @@ typedef struct {
     u8 running: 1;
 } FPVPlayer;
 
+extern FPVPlayer gFPVPlayer;
+
 #define PLAYER_HEIGHT        183.0f
 #define PLAYER_RADIUS        30.0f
 #define PLAYER_EYE_DEFAULT   165.0f

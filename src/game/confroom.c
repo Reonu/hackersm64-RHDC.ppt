@@ -8,10 +8,13 @@
 #include "rendering_graph_node.h"
 #include "engine/math_util.h"
 #include "engine/graph_node.h"
+#include "engine/behavior_script.h"
 #include "actors/group0.h"
 #include "buffers/framebuffers.h"
+#include "object_list_processor.h"
 
 #include "confroom.h"
+#include "confroom_spawn.h"
 
 static struct AllocOnlyPool *sConfRoomGraphPool = NULL;
 
@@ -65,6 +68,7 @@ s32 init_conf_room_graph_root(void) {
     sConfRoomRoot =
         (struct GraphNodeRoot *) process_geo_layout(sConfRoomGraphPool, (void *)geo_confroom_root);
     // TODO: set gConfroomObjectParent as sharedChild of the GraphNodeObjectParent (see register_scene_graph_node)
+    sConfRoomRoot->areaIndex = 0;
     return TRUE;
 }
 
@@ -86,6 +90,39 @@ s32 process_conf_room(void) {
     geo_process_root(sConfRoomRoot, NULL, NULL, 0);
 
     return TRUE;
+}
+
+Gfx *geo_assign_confroom_object_parent_next(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) {
+    struct GraphNodeGenerated *currentGraphNode;
+
+    if (callContext == GEO_CONTEXT_RENDER) {
+        struct GraphNodeGenerated *curNode = (struct GraphNodeGenerated *) node;
+        struct GraphNodeObjectParent *objParentNode = (struct GraphNodeObjectParent *)node->next;
+        objParentNode->sharedChild = &gConfroomObjectParent;
+        gConfroomObjectParent.parent = node->next;
+    }
+
+    return NULL;
+}
+
+Gfx *geo_assign_confroom_object_parent_prev(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) {
+    struct GraphNodeGenerated *currentGraphNode;
+
+    if (callContext == GEO_CONTEXT_CREATE) {
+        struct GraphNodeGenerated *curNode = (struct GraphNodeGenerated *) node;
+        struct GraphNodeObjectParent *objParentNode = (struct GraphNodeObjectParent *)node->prev;
+        objParentNode->sharedChild = &gConfroomObjectParent;
+        gConfroomObjectParent.parent = node->prev;
+    }
+
+    return NULL;
+}
+
+Gfx *geo_render_confroom_objects(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) {
+    if (gConfroomObjectParent.children != NULL) {
+        geo_process_node_and_siblings(gConfroomObjectParent.children);
+    }
+    return NULL;
 }
 
 Gfx *geo_render_projector_screen(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) {
@@ -110,3 +147,20 @@ Gfx *geo_render_projector_screen(s32 callContext, struct GraphNode *node, UNUSED
 
     return dlStart;
 }
+
+#if FALSE
+Gfx *geo_debug_print(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) {
+    osSyncPrintf("ping\n");
+    return NULL;
+}
+#endif
+
+void update_confroom_objects(void) {
+    for (int i = 0; i < get_num_confroom_objects(); i++) {
+        struct Object *obj = &gConfroomObjectPool[i];
+        obj->header.gfx.node.flags |= GRAPH_RENDER_HAS_ANIMATION;
+        gCurrentObject = obj;
+        cur_obj_update();
+    }
+}
+

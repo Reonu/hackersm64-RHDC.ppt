@@ -8,6 +8,7 @@
 #include "level_update.h"
 #include "area.h"
 #include "memory.h"
+#include "puppyprint.h"
 #include "debug.h"
 #include "confroom_collision.h"
 #include "engine/math_util.h"
@@ -71,6 +72,16 @@ static s32 get_move_dir(FPVPlayer *player, f32 *moveDir) {
     rotate_in_xz(moveDir, stickDir, player->dir[1]);
     return TRUE;
 }
+
+#if FALSE
+static void print_debug_fpv_info(FPVPlayer *player) {
+    static char buf[64];
+    sprintf(buf, "%4d %4d %4d", roundf(player->pos[0]), roundf(player->pos[1]), roundf(player->pos[2]));
+    print_small_text_buffered(20, 40, buf, PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);
+}
+#else
+#define print_debug_fpv_info(...)
+#endif
 
 static s32 update_free(FPVPlayer *player) {
     // TODO: Remove debug
@@ -179,6 +190,8 @@ static s32 update_free(FPVPlayer *player) {
         player->vel[1] = 0;
     }
 
+    print_debug_fpv_info(player);
+
     return FALSE;   
 }
 
@@ -237,6 +250,7 @@ void init_player(void) {
     player->cont = gPlayer1Controller;
     // TODO: Use correct initial action state
     player->actionState = PLAYER_PRESENTING;
+    // player->actionState = PLAYER_FREE;
     // TODO: copy init position from group0 data export
 
     confroom_initialize_collision();

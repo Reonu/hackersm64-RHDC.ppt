@@ -1,6 +1,7 @@
 #include <ultra64.h>
 #include "sm64.h"
 #include "game/level_update.h"
+#include "game/confroom_spawn.h"
 #include "level_commands.h"
 #include "game/area.h"
 
@@ -130,6 +131,7 @@ const LevelScript level_main_scripts_entry[] = {
     LOAD_MODEL_FROM_GEO(MODEL_SILVER_STAR,             silver_star_geo),
     FREE_LEVEL_POOL(),
     POP_POOL(),
+    CALL(/*arg*/ 0, /*func*/ spawn_confroom_objects),
     CALL(/*arg*/ 0, /*func*/ lvl_init_from_save_file),
     LOOP_BEGIN(),
         EXECUTE(/*seg*/ SEGMENT_MENU_INTRO, _menuSegmentRomStart, _menuSegmentRomEnd, level_main_menu_entry_act_select),
