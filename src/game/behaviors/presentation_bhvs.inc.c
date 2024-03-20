@@ -130,17 +130,6 @@ void bhv_checkpoint_loop(void) {
     }
 }
 
-void bhv_dudeguy_loop(void) {
-    cur_obj_init_animation(o->oAnimationIndex);
-    if (gPlayer1Controller->buttonPressed & R_JPAD) {
-        o->oAnimationIndex++;
-    } else if (gPlayer1Controller->buttonPressed & L_JPAD) {
-        o->oAnimationIndex--;
-    }
-
-    o->oFaceAngleYaw += DEGREES(5);
-}
-
 void bhv_circle_init(void) {
     o->oFaceAngleRoll += DEGREES(BPARAM2);
 }
