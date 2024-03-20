@@ -76,10 +76,10 @@ s32 spawn_confroom_objects(UNUSED s16 initOrUpdate, s32 reg) {
         obj->oFaceAngleRoll =  spawn->angle[2];
         vec3_same(obj->header.gfx.scale, 1);
         obj->oBehParams =
-            BPARAM_NSHIFT(spawn->bp1, 1) |
-            BPARAM_NSHIFT(spawn->bp2, 2) |
-            BPARAM_NSHIFT(spawn->bp3, 3) |
-            BPARAM_NSHIFT(spawn->bp4, 4);
+            (spawn->bp1 << 24) |
+            (spawn->bp2 << 16) |
+            (spawn->bp3 << 8) |
+            (spawn->bp4);
         obj->oBehParams2ndByte = GET_BPARAM2(obj->oBehParams);
     }
 
