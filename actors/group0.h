@@ -392,4 +392,16 @@ extern const GeoLayout geo_confroom_root[];
 #include "dudeguy/anim_header.h"
 #include "projector_screen/geo_header.h"
 
+#include "circle1/geo_header.h"
+
+#include "circle1/collision_header.h"
+
+#include "circle2/collision_header.h"
+
+#include "circle2/geo_header.h"
+
+#include "circle3/collision_header.h"
+
+#include "circle3/geo_header.h"
+
 #endif

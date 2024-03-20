@@ -1,0 +1,12 @@
+extern const GeoLayout circle3_geo[];
+extern Vtx circle3_circle3_mesh_layer_2_vtx_cull[8];
+extern Vtx circle3_circle3_mesh_layer_2_vtx_0[182];
+extern Gfx circle3_circle3_mesh_layer_2_tri_0[];
+extern Vtx circle3_circle3_mesh_layer_4_vtx_cull[8];
+extern Vtx circle3_circle3_mesh_layer_4_vtx_0[32];
+extern Gfx circle3_circle3_mesh_layer_4_tri_0[];
+extern Gfx mat_circle3_red_layer2[];
+extern Gfx mat_revert_circle3_red_layer2[];
+extern Gfx mat_circle3_invisible[];
+extern Gfx circle3_circle3_mesh_layer_2[];
+extern Gfx circle3_circle3_mesh_layer_4[];

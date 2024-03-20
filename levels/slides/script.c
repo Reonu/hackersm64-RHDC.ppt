@@ -160,6 +160,28 @@ const LevelScript level_slides_entry[] = {
 		/* Fast64 end persistent block [area commands] */
 	END_AREA(),
 
+	AREA(16, slides_area_16),
+		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF0, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF1, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0x01, LEVEL_SLIDES, 0x0B, 0x02, WARP_NO_CHECKPOINT),
+		WARP_NODE(0x02, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		OBJECT(MODEL_CIRCLE2, 0, -26, -3, 0, 0, 0, (0x02 << 24) | (110 << 16), bhvCircle2),
+		OBJECT(MODEL_CIRCLE3, 0, -26, -3, 0, 0, 0, (0x01 << 24), bhvCircle3),
+		OBJECT(MODEL_CIRCLE1, 0, -26, -3, 0, 0, 0, (0x03 << 24), bhvCircle1),
+		OBJECT(MODEL_STAR, 0, -26, -3, 0, 0, 0, (0x10 << 24), bhvStar),
+		OBJECT(MODEL_NONE, -2261, 1421, 0, 0, 0, 0, 0x00000000, bhvStartingPoint),
+		OBJECT(MODEL_PURPLE_SWITCH, 1634, -1273, 0, 0, 0, 0, (0x02 << 24), bhvFloorSwitchHiddenObjects),
+		OBJECT(MODEL_PURPLE_SWITCH, -1775, 1421, 0, 0, 0, 0, (0x03 << 24), bhvFloorSwitchHiddenObjects),
+		OBJECT(MODEL_PURPLE_SWITCH, -1674, -1273, 0, 0, 0, 0, (0x01 << 24), bhvFloorSwitchHiddenObjects),
+		TERRAIN(slides_area_16_collision),
+		MACRO_OBJECTS(slides_area_16_macro_objs),
+		STOP_MUSIC(0),
+		TERRAIN_TYPE(TERRAIN_GRASS),
+		/* Fast64 begin persistent block [area commands] */
+		/* Fast64 end persistent block [area commands] */
+	END_AREA(),
+
 	AREA(2, slides_area_2),
 		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF0, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),

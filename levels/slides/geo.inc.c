@@ -5,6 +5,7 @@
 #include "levels/slides/area_13/geo.inc.c"
 #include "levels/slides/area_14/geo.inc.c"
 #include "levels/slides/area_15/geo.inc.c"
+#include "levels/slides/area_16/geo.inc.c"
 #include "levels/slides/area_2/geo.inc.c"
 #include "levels/slides/area_3/geo.inc.c"
 #include "levels/slides/area_4/geo.inc.c"

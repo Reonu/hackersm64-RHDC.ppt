@@ -3,7 +3,7 @@
 const GeoLayout slides_area_6_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE_DECAL, -1606, -1012, 100, slides_dl_colors_mesh_layer_2),
+		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE_DECAL, -1606, -1012, 100, slides_dl_colors_001_mesh_layer_2),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE_DECAL, -93, -747, 54, slides_dl_correlation2_mesh_layer_2),
 		GEO_DISPLAY_LIST(LAYER_FORCE, slides_dl_slide6bg_mesh_layer_0),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_FORCE, 30, 1200, 0, slides_dl_slide6TitleMesh_mesh_layer_0),
