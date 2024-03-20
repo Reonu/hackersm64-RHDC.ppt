@@ -19,6 +19,7 @@
 #include "rendering_graph_node.h"
 #include "level_update.h"
 #include "confroom.h"
+#include "fpv_player.h"
 #include "engine/geo_layout.h"
 #include "save_file.h"
 #include "level_table.h"
@@ -403,11 +404,10 @@ void play_transition_after_delay(s16 transType, s16 time, u8 red, u8 green, u8 b
 void render_game(void) {
     PROFILER_GET_SNAPSHOT_TYPE(PROFILER_DELTA_COLLISION);
     if (gCurrentArea != NULL && !gWarpTransition.pauseRendering) {
-        if (gCurrentArea->graphNode) {
+        if (gCurrentArea->graphNode && gFPVPlayer.actionState == PLAYER_PRESENTING) {
             g2DCamActive = TRUE;
             gDPSetColorImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, VIRTUAL_TO_PHYSICAL(gAuxBuffers[0]));
             geo_process_root(gCurrentArea->graphNode, gViewportOverride, gViewportClip, gFBSetColor);
-            g2DCamActive = FALSE;
             // init_z_buffer(TRUE);
             gDPPipeSync(gDisplayListHead++);
             gDPSetRenderMode(gDisplayListHead++, G_RM_NOOP, G_RM_NOOP);
@@ -420,6 +420,7 @@ void render_game(void) {
             gDPSetCombineMode(gDisplayListHead++, G_CC_SHADE, G_CC_SHADE);
             select_framebuffer();
         }
+        g2DCamActive = FALSE;
         process_conf_room();
 #ifdef PUPPYPRINT
         bzero(gCurrEnvCol, sizeof(ColorRGBA));
