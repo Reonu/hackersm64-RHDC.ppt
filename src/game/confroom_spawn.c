@@ -14,8 +14,7 @@ ConfroomObjectSpawn gConfroomSpawns[] = {
         .angle = { 0, 0, 0 },
         .modelID = MODEL_DUDEGUY,
         .bhv = (uintptr_t)bhvDudeGuy,
-        .params = 0
-    }
+    },
 };
 
 s32 gNumConfroomSpawns = ARRAY_COUNT(gConfroomSpawns);
@@ -80,6 +79,12 @@ s32 spawn_confroom_objects(UNUSED s16 initOrUpdate, s32 reg) {
         obj->oFaceAngleYaw =   spawn->angle[1];
         obj->oFaceAngleRoll =  spawn->angle[2];
         vec3_same(obj->header.gfx.scale, 1);
+        obj->oBehParams =
+            BPARAM_NSHIFT(spawn->bp1, 1) |
+            BPARAM_NSHIFT(spawn->bp2, 2) |
+            BPARAM_NSHIFT(spawn->bp3, 3) |
+            BPARAM_NSHIFT(spawn->bp4, 4);
+        obj->oBehParams2ndByte = GET_BPARAM2(obj->oBehParams);
     }
 
     return reg;

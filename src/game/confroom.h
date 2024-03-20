@@ -25,8 +25,11 @@ extern struct Object gConfroomObjectPool[NUM_CONFROOM_OBJECTS];
 
 typedef struct {
     Vec3f pos;
-    BehaviorScript bhv;
-    u32 params;
-    u32 modelID;
     Vec3s angle;
+    u32 modelID;
+    BehaviorScript bhv;
+    u8 bp1;
+    u8 bp2;
+    u8 bp3;
+    u8 bp4;
 } ConfroomObjectSpawn;
