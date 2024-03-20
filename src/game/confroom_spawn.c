@@ -8,20 +8,15 @@
 #include "behavior_data.h"
 #include "actors/group0.h"
 
-ConfroomObjectSpawn gConfroomSpawns[] = {
-    {
-        .pos = { 166, 0, 814 },
-        .angle = { 0, 0, 0 },
-        .modelID = MODEL_DUDEGUY,
-        .bhv = (uintptr_t)bhvDudeGuy,
-    },
+ConfroomObjectSpawn *gConfroomSpawns[] = {
+    &spawn_dudeGuy1,
 };
 
 s32 gNumConfroomSpawns = ARRAY_COUNT(gConfroomSpawns);
 
 s32 spawn_confroom_objects(UNUSED s16 initOrUpdate, s32 reg) {
     for (int i = 0; i < ARRAY_COUNT(gConfroomSpawns); i++) {
-        ConfroomObjectSpawn *spawn = &gConfroomSpawns[i];
+        ConfroomObjectSpawn *spawn = (ConfroomObjectSpawn *)segmented_to_virtual(gConfroomSpawns[i]);
         const BehaviorScript *behaviorAddr = segmented_to_virtual((void *)spawn->bhv);
         struct Object *obj = &gConfroomObjectPool[i];
         obj->curBhvCommand = behaviorAddr;
