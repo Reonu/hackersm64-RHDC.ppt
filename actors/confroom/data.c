@@ -94,3 +94,14 @@ f32 confroom_colShelf1[2][3] = {
     {     0.3965254724f,     1.2529772520f,     0.6636835933f },
 };
 
+ConfroomObjectSpawn spawn_dudeGuy1 = {
+    {   182.7983736992f,    -0.0003099442f,   887.3201370239f },
+    { 0x0000, 0x0000, 0x0000 },
+    (uintptr_t)bhvDudeGuy,
+    MODEL_DUDEGUY,
+    0,
+    0,
+    0,
+    0,
+};
+

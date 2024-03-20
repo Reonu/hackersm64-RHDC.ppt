@@ -20,3 +20,4 @@ extern f32 confroom_colCornerDesk4A[2][3];
 extern f32 confroom_colReceptionDeskA[2][3];
 extern f32 confroom_colReceptionDeskB[2][3];
 extern f32 confroom_colShelf1[2][3];
+extern ConfroomObjectSpawn spawn_dudeGuy1;
