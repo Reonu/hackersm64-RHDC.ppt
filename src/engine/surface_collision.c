@@ -71,6 +71,10 @@ static s32 find_wall_collisions_from_list(struct SurfaceNode *surfaceNode, struc
         surfaceNode = surfaceNode->next;
         type        = surf->type;
 
+        if (type == SURFACE_INTANGIBLE) {
+            continue;
+        }
+
         // Exclude a large number of walls immediately to optimize.
         if (pos[1] < surf->lowerY || pos[1] > surf->upperY) continue;
 
@@ -309,6 +313,9 @@ static struct Surface *find_ceil_from_list(struct SurfaceNode *surfaceNode, s32 
         surfaceNode = surfaceNode->next;
         type = surf->type;
 
+        if (type == SURFACE_INTANGIBLE) {
+            continue;
+        }
         // Exclude all ceilings below the point
         if (y > surf->upperY) continue;
 
@@ -446,7 +453,7 @@ static struct Surface *find_floor_from_list(struct SurfaceNode *surfaceNode, s32
         // To prevent the Merry-Go-Round room from loading when Mario passes above the hole that leads
         // there, SURFACE_INTANGIBLE is used. This prevent the wrong room from loading, but can also allow
         // Mario to pass through.
-        if (!(gCollisionFlags & COLLISION_FLAG_INCLUDE_INTANGIBLE) && (type == SURFACE_INTANGIBLE)) {
+        if (type == SURFACE_INTANGIBLE) {
             continue;
         }
 
