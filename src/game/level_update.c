@@ -1072,6 +1072,9 @@ s32 play_mode_paused(void) {
             //initiate_warp(EXIT_COURSE_LEVEL, EXIT_COURSE_AREA, EXIT_COURSE_NODE, WARP_FLAG_EXIT_COURSE);
             //fade_into_special_warp(WARP_SPECIAL_NONE, 0);
             //gSavedCourseNum = COURSE_NONE;
+            raise_background_noise(1);
+            gCameraMovementFlags &= ~CAM_MOVE_PAUSE_SCREEN;
+            set_play_mode(PLAY_MODE_NORMAL);
             move_mario_to_respawn(gMarioState, DEATH_TYPE_MANUAL_RESPAWN);
 #endif
         }
