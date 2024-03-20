@@ -59,6 +59,12 @@ void move_mario_to_respawn(struct MarioState *m, u8 deathType) {
     if (!(gMarioState->action & ACT_FLAG_SWIMMING)) {
         set_mario_action(gMarioState,ACT_IDLE,0);
     }
+
+    if (deathType == DEATH_TYPE_MANUAL_RESPAWN) {
+        gJustRespawned = 1;
+    } else {
+        gJustRespawned = 2;
+    }
     
 }
 
