@@ -112,7 +112,7 @@ Gfx *geo_assign_confroom_object_parent_prev(s32 callContext, struct GraphNode *n
     return NULL;
 }
 
-Gfx *geo_render_confroom_objects(s32 callContext, UNUSED struct GraphNode *node, UNUSED Mat4 mtx) {
+Gfx *geo_render_confroom_objects(UNUSED s32 callContext, UNUSED struct GraphNode *node, UNUSED Mat4 mtx) {
     if (gConfroomObjectParent.children != NULL) {
         geo_process_node_and_siblings(gConfroomObjectParent.children);
     }
