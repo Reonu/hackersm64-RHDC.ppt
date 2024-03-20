@@ -28,6 +28,12 @@
 
 #define MODEL_SILVER_STAR                      0x113
 
+#define MODEL_PURPLE_SWITCH                    0x114
+
+#define MODEL_CIRCLE1                          0x115
+#define MODEL_CIRCLE2                          0x116
+#define MODEL_CIRCLE3                          0x117
+
 /* Various static level geometry, the geo layout differs but terrain object presets treat them the same.*/
 
 #define MODEL_LEVEL_GEOMETRY_03                0x03
@@ -545,7 +551,7 @@
 #define MODEL_BOWSER_KEY                  0xCC        // bowser_key_geo
 #define MODEL_EXPLOSION                   0xCD        // explosion_geo
 #define MODEL_SNUFIT                      0xCE        // snufit_geo
-#define MODEL_PURPLE_SWITCH               0xCF        // purple_switch_geo
+
 #define MODEL_CASTLE_STAR_DOOR_30_STARS   0xD0        // castle_geo_000F00
 #define MODEL_CASTLE_STAR_DOOR_50_STARS   0xD1        // castle_geo_000F00
 #define MODEL_CCM_SNOWMAN_BASE            0xD2        // ccm_geo_0003F0

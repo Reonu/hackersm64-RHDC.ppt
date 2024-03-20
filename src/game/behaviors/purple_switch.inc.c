@@ -6,6 +6,21 @@
  * This controls the purple switches that Mario can step on to affect parts of
  * the environment.
  */
+#include "game/game_init.h"
+
+void bhv_purple_switch_init(void) {
+    switch (BPARAM1) {
+        case 0x01:
+            o->oPrimRGB = 0xFF0000;
+            break;
+        case 0x02:
+            o->oPrimRGB = 0x0000FF;
+            break;
+        case 0x03:
+            o->oPrimRGB = 0xFF00D2;
+            break;
+    }
+}
 
 void bhv_purple_switch_loop(void) {
     switch (o->oAction) {
@@ -15,6 +30,7 @@ void bhv_purple_switch_loop(void) {
          */
         case PURPLE_SWITCH_ACT_IDLE:
             cur_obj_set_model(MODEL_PURPLE_SWITCH);
+            Y_SCALE = 2.f;
             cur_obj_scale(1.5f);
             if (
                 gMarioObject->platform == o
@@ -46,19 +62,11 @@ void bhv_purple_switch_loop(void) {
          * up. When time is up, move to a waiting-while-pressed state.
          */
         case PURPLE_SWITCH_ACT_TICKING:
-            if (o->oBehParams2ndByte != 0) {
-                if (o->oBehParams2ndByte == 1 && gMarioObject->platform != o) {
-                    o->oAction++;
-                } else {
-                    if (o->oTimer < 360) {
-                        play_sound(SOUND_GENERAL2_SWITCH_TICK_FAST, gGlobalSoundSource);
-                    } else {
-                        play_sound(SOUND_GENERAL2_SWITCH_TICK_SLOW, gGlobalSoundSource);
-                    }
-                    if (o->oTimer > 400) {
-                        o->oAction = PURPLE_SWITCH_ACT_WAIT_FOR_MARIO_TO_GET_OFF;
-                    }
-                }
+            if (gMarioObject->platform == o) {
+                gSwitchPressed = BPARAM1;
+            } else {
+                gSwitchPressed = 0;
+                o->oAction = PURPLE_SWITCH_ACT_UNPRESSED;
             }
             break;
 
@@ -84,4 +92,6 @@ void bhv_purple_switch_loop(void) {
             }
             break;
     }
+    X_SCALE = 2.f;
+    Z_SCALE = 2.f;
 }

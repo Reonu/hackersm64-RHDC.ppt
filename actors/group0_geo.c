@@ -37,3 +37,6 @@
 #include "donut6/geo.inc.c"
 #include "silver_star/geo.inc.c"
 #include "projector_screen/geo.inc.c"
+#include "circle1/geo.inc.c"
+#include "circle2/geo.inc.c"
+#include "circle3/geo.inc.c"

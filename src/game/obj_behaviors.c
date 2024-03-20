@@ -774,5 +774,6 @@ UNUSED s32 debug_sequence_tracker(s16 debugInputSequence[]) {
 #include "behaviors/treasure_chest.inc.c"
 #include "behaviors/mips.inc.c"
 #include "behaviors/yoshi.inc.c"
-#include "behaviors/moving_bar.inc.c"
+#include "behaviors/presentation_bhvs.inc.c"
 #include "behaviors/spring.inc.c"
+#include "behaviors/office_bhvs.inc.c"

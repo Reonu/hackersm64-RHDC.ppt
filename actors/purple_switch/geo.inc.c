@@ -2,6 +2,7 @@
 const GeoLayout purple_switch_geo[] = {
    GEO_CULLING_RADIUS(300),
    GEO_OPEN_NODE(),
+      GEO_ASM(LAYER_OPAQUE,geo_set_prim_color),
       GEO_DISPLAY_LIST(LAYER_OPAQUE, purple_switch_seg8_dl_0800C718),
    GEO_CLOSE_NODE(),
    GEO_END(),

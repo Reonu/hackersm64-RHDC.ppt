@@ -1776,7 +1776,9 @@ const BehaviorScript bhvFloorSwitchHardcodedModel[] = {
     BEGIN(OBJ_LIST_SURFACE),
     // Floor switch - common:
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_FLOAT(oDrawingDistance, 20000),
     LOAD_COLLISION_DATA(purple_switch_seg8_collision_0800C7A8),
+    CALL_NATIVE(bhv_purple_switch_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_purple_switch_loop),
         CALL_NATIVE(load_object_collision_model),
@@ -2830,6 +2832,7 @@ const BehaviorScript bhvWhitePuffSmoke2[] = {
 
 const BehaviorScript bhvPurpleSwitchHiddenBoxes[] = {
     BEGIN(OBJ_LIST_SURFACE),
+    SET_FLOAT(oDrawingDistance, 20000),
     SET_INT(oBehParams2ndByte, PURPLE_SWITCH_BP_REVEAL_HIDDEN),
     GOTO(bhvFloorSwitchHardcodedModel + 1),
 };
@@ -6279,4 +6282,40 @@ const BehaviorScript bhvDudeGuy[] = {
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_dudeguy_loop),
     END_LOOP(),   
+};
+
+const BehaviorScript bhvCircle1[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_FLOAT(oDrawingDistance, 20000),
+    SET_FLOAT(oCollisionDistance, 20000),
+    CALL_NATIVE(bhv_circle_init),
+    BEGIN_LOOP(),
+        LOAD_COLLISION_DATA(circle1_collision),
+        CALL_NATIVE(bhv_circle_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvCircle2[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_FLOAT(oDrawingDistance, 20000),
+    SET_FLOAT(oCollisionDistance, 20000),
+    CALL_NATIVE(bhv_circle_init),
+    BEGIN_LOOP(),
+        LOAD_COLLISION_DATA(circle2_collision),
+        CALL_NATIVE(bhv_circle_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvCircle3[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_FLOAT(oDrawingDistance, 20000),
+    SET_FLOAT(oCollisionDistance, 20000),
+    CALL_NATIVE(bhv_circle_init),
+    BEGIN_LOOP(),
+        LOAD_COLLISION_DATA(circle3_collision),
+        CALL_NATIVE(bhv_circle_loop),
+    END_LOOP(),
 };
