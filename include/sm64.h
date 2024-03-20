@@ -76,6 +76,16 @@ enum RenderLayers {
     LAYER_COUNT
 };
 
+enum NpcAnims {
+    NPC_ANIM_WALKING,
+    NPC_ANIM_PRESENTING,
+    NPC_ANIM_TALKING,
+    NPC_ANIM_IDLE,
+    NPC_ANIM_STOPWALKING,
+    NPC_ANIM_TYPING,
+    NPC_ANIM_PHONE
+};
+
 #define LAYER_FIRST                         LAYER_FORCE
 #define LAYER_LAST                          (LAYER_COUNT - 1)
 

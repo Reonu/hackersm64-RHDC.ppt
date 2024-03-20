@@ -6280,6 +6280,7 @@ const BehaviorScript bhvDudeGuy[] = {
     SET_INT(oDrawingDistance, 20000),
     SCALE(/*hi*/ 0, /*cozies*/ 18),
     LOAD_ANIMATIONS(oAnimations, dudeguy_anims),
+    CALL_NATIVE(bhv_dudeguy_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_dudeguy_loop),
     END_LOOP(),   
