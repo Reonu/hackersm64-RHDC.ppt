@@ -8,6 +8,12 @@
 #include "behavior_data.h"
 #include "actors/group0.h"
 
+#define CONF_SPLINE(var) { .size = ARRAY_COUNT(var), .points = var }
+
+ConfroomObjectSplineRef gConfroomSplines[] = {
+    // CONF_SPLINE(ExampleSplineArrayVariable),
+};
+
 ConfroomObjectSpawn *gConfroomSpawns[] = {
     &spawn_dudeGuy1,
     &spawn_dudeGuyPhone,

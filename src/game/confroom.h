@@ -33,3 +33,8 @@ typedef struct {
     u8 bp3;
     u8 bp4;
 } ConfroomObjectSpawn;
+
+typedef struct {
+    s32 size;
+    Vec3f *points;
+} ConfroomObjectSplineRef;
