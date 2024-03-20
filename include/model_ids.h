@@ -34,6 +34,8 @@
 #define MODEL_CIRCLE2                          0x116
 #define MODEL_CIRCLE3                          0x117
 
+#define MODEL_DUDEGUY_PHONE                    0x118
+
 /* Various static level geometry, the geo layout differs but terrain object presets treat them the same.*/
 
 #define MODEL_LEVEL_GEOMETRY_03                0x03
