@@ -16,6 +16,7 @@ const GeoLayout confroom_geo[] = {
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, confroom_officeDeskBig_mesh_layer_1),
 		GEO_DISPLAY_LIST(LAYER_ALPHA, confroom_officeDeskBig_mesh_layer_4),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, confroom_receptiondesk_mesh_layer_1),
+		GEO_DISPLAY_LIST(LAYER_ALPHA, confroom_receptiondesk_mesh_layer_4),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 0, 0, 85, confroom_shelf_mesh_layer_1),
 	GEO_CLOSE_NODE(),
 	GEO_END(),

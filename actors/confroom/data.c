@@ -106,11 +106,11 @@ ConfroomObjectSpawn spawn_dudeGuy1 = {
 };
 
 ConfroomObjectSpawn spawn_dudeGuyPhone = {
-    {   525.2958297729f,     5.9464279562f,  2346.9402313232f },
-    { 0x0000, 0x0000, 0x0000 },
-    MODEL_DUDEGUY,
+    {   554.7778606415f,     3.0011001974f,  2393.2786941528f },
+    { 0x0000, 0x18ec, 0x0000 },
+    MODEL_DUDEGUY_PHONE,
     (uintptr_t)bhvDudeGuy,
-    0,
+    NPC_ANIM_PHONE,
     0,
     0,
     0,
