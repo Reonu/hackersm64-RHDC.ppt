@@ -30,7 +30,7 @@ s32 spawn_confroom_objects(UNUSED s16 initOrUpdate, s32 reg) {
         for (i = 0; i < MAX_OBJECT_FIELDS; i++) {
             obj->rawData.asS32[i] = 0;
         }
-        obj->unused1 = 0;
+        obj->isOfficeObject = TRUE;
         obj->bhvStackIndex = 0;
         obj->bhvDelayTimer = 0;
 
