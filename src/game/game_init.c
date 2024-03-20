@@ -82,6 +82,7 @@ u8 *gAreaSkyboxStart[AREA_COUNT];
 u8 *gAreaSkyboxEnd[AREA_COUNT];
 u8 gBeatSlide;
 u8 gCurrentCheckpoint;
+u8 gSwitchPressed;
 
 // Framebuffer rendering values (max 3)
 u16 sRenderedFramebuffer = 0;

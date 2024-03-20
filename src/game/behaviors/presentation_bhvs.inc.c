@@ -7,7 +7,7 @@
 #include "engine/math_util.h"
 #include "game/mario.h"
 
-#define Y_SCALE o->header.gfx.scale[1]
+
 
 /*
 --MOVING BARS--
@@ -139,4 +139,15 @@ void bhv_dudeguy_loop(void) {
     }
 
     o->oFaceAngleYaw += DEGREES(5);
+}
+
+void bhv_circle_init(void) {
+    o->oFaceAngleRoll += DEGREES(BPARAM2);
+}
+
+void bhv_circle_loop(void) {
+    if (gSwitchPressed == BPARAM1) {
+        o->oFaceAngleRoll += DEGREES(1);
+    }
+    load_object_collision_model();
 }

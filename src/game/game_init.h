@@ -56,6 +56,7 @@ extern u8 *gAreaSkyboxStart[AREA_COUNT];
 extern u8 *gAreaSkyboxEnd[AREA_COUNT];
 extern u8 gBeatSlide;
 extern u8 gCurrentCheckpoint;
+extern u8 gSwitchPressed;
 #ifdef EEP
 extern s8 gEepromProbe;
 #endif

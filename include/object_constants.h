@@ -213,6 +213,10 @@ enum ActiveParticleFlags {
 #define BPARAM3 GET_BPARAM3(o->oBehParams)
 #define BPARAM4 GET_BPARAM4(o->oBehParams)
 
+#define X_SCALE o->header.gfx.scale[0]
+#define Y_SCALE o->header.gfx.scale[1]
+#define Z_SCALE o->header.gfx.scale[2]
+
 
 
 /* oBehParams2ndByte */
