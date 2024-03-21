@@ -6282,8 +6282,20 @@ const BehaviorScript bhvDudeGuy[] = {
     LOAD_ANIMATIONS(oAnimations, dudeguy_anims),
     CALL_NATIVE(bhv_dudeguy_init),
     BEGIN_LOOP(),
-        CALL_NATIVE(bhv_dudeguy_loop),
+    CALL_NATIVE(bhv_dudeguy_loop),
     END_LOOP(),   
+};
+
+const BehaviorScript bhvSplineDudeGuy[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_INT(oDrawingDistance, 20000),
+    SCALE(/*hi*/ 0, /*cozies*/ 18),
+    LOAD_ANIMATIONS(oAnimations, dudeguy_anims),
+    CALL_NATIVE(bhv_spline_dudeguy_init),
+    BEGIN_LOOP(),
+    CALL_NATIVE(bhv_spline_dudeguy_loop),
+    END_LOOP(),     
 };
 
 const BehaviorScript bhvCircle1[] = {

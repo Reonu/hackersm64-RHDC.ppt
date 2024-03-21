@@ -11,3 +11,11 @@ void bhv_dudeguy_loop(void) {
         o->oAnimationIndex--;
     }
 }
+
+void bhv_spline_dudeguy_init(void) {
+    o->oAnimationIndex = NPC_ANIM_WALKING;
+}
+
+void bhv_spline_dudeguy_loop(void) {
+    cur_obj_init_animation(o->oAnimationIndex);
+}

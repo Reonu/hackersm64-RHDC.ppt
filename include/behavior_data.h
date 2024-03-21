@@ -558,6 +558,7 @@ extern const BehaviorScript bhvCheesing[];
 extern const BehaviorScript bhvStartingPoint[];
 extern const BehaviorScript bhvCheckpoint[];
 extern const BehaviorScript bhvDudeGuy[];
+extern const BehaviorScript bhvSplineDudeGuy[];
 extern const BehaviorScript bhvCircle1[];
 extern const BehaviorScript bhvCircle2[];
 extern const BehaviorScript bhvCircle3[];

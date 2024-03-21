@@ -86,6 +86,9 @@ enum NpcAnims {
     NPC_ANIM_PHONE
 };
 
+#define NPC_SPLINE_NORMAL                   0x00
+#define NPC_SPLINE_BACK_AND_FORTH           0x01
+
 #define LAYER_FIRST                         LAYER_FORCE
 #define LAYER_LAST                          (LAYER_COUNT - 1)
 
