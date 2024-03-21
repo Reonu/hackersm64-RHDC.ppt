@@ -116,3 +116,64 @@ ConfroomObjectSpawn spawn_dudeGuyPhone = {
     0,
 };
 
+ConfroomObjectSpawn spawn_dudeGuyWalking = {
+    {   739.1613483429f,     3.0011001974f,  2112.3092651367f },
+    { 0x0000, 0x18ec, 0x0000 },
+    MODEL_DUDEGUY_PHONE,
+    (uintptr_t)bhvDudeGuy,
+    NPC_ANIM_WALKING,
+    0,
+    0,
+    0,
+};
+
+f32 confroom_pathAroundDesk[6][3] = {
+    {   882.3684692383f,    -0.0002205372f,  1623.1016159058f },
+    {  1387.4038696289f,    -0.0002205372f,  1623.1016159058f },
+    {  1387.4038696289f,    -0.0002205372f,   777.1015167236f },
+    {   478.3807754517f,    -0.0002205372f,   777.1015167236f },
+    {   478.3807754517f,    -0.0002205372f,  1623.1016159058f },
+    {   882.3683738708f,    -0.0002205372f,  1623.1016159058f },
+};
+
+ConfroomObjectSpawn spawn_dudeGuySpline = {
+    {   909.1053962708f,    -0.0001430511f,   969.7391510010f },
+    { 0x0000, 0x0000, 0x0000 },
+    MODEL_DUDEGUY,
+    (uintptr_t)bhvSplineDudeGuy,
+    0,
+    NPC_SPLINE_NORMAL,
+    0,
+    0,
+};
+
+ConfroomObjectSpawn spawn_dudeGuySpline2 = {
+    {   913.9183998108f,     0.0000816710f,   -85.1061820984f },
+    { 0x0000, 0x0000, 0x0000 },
+    MODEL_DUDEGUY,
+    (uintptr_t)bhvSplineDudeGuy,
+    1,
+    NPC_SPLINE_BACK_AND_FORTH,
+    0,
+    0,
+};
+
+ConfroomObjectSpawn spawn_dudeGuyTyping = {
+    {  1215.0610923767f,     0.0001062579f,   472.2057819366f },
+    { 0x0000, 0x0000, 0x0000 },
+    MODEL_DUDEGUY,
+    (uintptr_t)bhvDudeGuy,
+    NPC_ANIM_TYPING,
+    0,
+    0,
+    0,
+};
+
+f32 confroom_pathNextToConfroom[5][3] = {
+    {  1363.5737419128f,     0.0000238419f,   -85.2952301502f },
+    {  1152.8460502625f,     0.0000238419f,   -85.2952182293f },
+    {   942.1182632446f,     0.0000238419f,   -85.2952122688f },
+    {   731.3905715942f,     0.0000238419f,   -85.2952063084f },
+    {   520.6628799438f,     0.0000238419f,   -85.2951943874f },
+};
+
