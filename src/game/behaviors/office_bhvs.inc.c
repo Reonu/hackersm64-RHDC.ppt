@@ -16,6 +16,9 @@ void bhv_dudeguy_loop(void) {
 
 enum SplineDudeGuyActions {
     SPLINE_GUY_WALKING,
+    SPLINE_GUY_WAITING_TO_STOP,
+    SPLINE_GUY_STOPPING,
+    SPLINE_GUY_STOPPED,
 };
 
 #define SPLINE_GUY_PATROL_SPEED meters_sec(1.6f)
@@ -36,6 +39,23 @@ void bhv_spline_dudeguy_init(void) {
     vec3f_copy(&o->oPosX, curPoint);
 }
 
+struct Object *find_closest_office_obj_with_bhv(const BehaviorScript *behavior, f32 maxDist) {
+    struct Object *closestObject = NULL;
+    f32 dist = maxDist;
+    f32 distTemp;
+    u8 numObjects = get_num_confroom_objects();
+    for (int i = 0; i < numObjects; i++) {
+        if (gConfroomObjectPool[i].behavior == behavior) {
+            distTemp = vec3f_lat_dist(&gCurrentObject->oPosX, &gConfroomObjectPool[i].oPosX);
+            if (distTemp < dist) {
+                dist = distTemp;
+                closestObject = &gConfroomObjectPool[i];;
+            }
+        }
+    }
+    return closestObject;
+}
+
 void bhv_spline_dudeguy_loop(void) {
     cur_obj_init_animation(o->oAnimationIndex);
     ConfroomObjectSplineRef *spline = &gConfroomSplines[BPARAM2];
@@ -46,6 +66,15 @@ void bhv_spline_dudeguy_loop(void) {
     switch (o->oAction) {
         case SPLINE_GUY_WALKING: {
             // f32 *curPoint = spline->points[pIndex];
+            struct Object *splineStopper = find_closest_office_obj_with_bhv(segmented_to_virtual(bhvSplineStopper), 200.f);
+            o->oAnimationIndex = NPC_ANIM_WALKING;
+            if (splineStopper != NULL) {
+                if (o->oStopperObject != splineStopper) {
+                    o->oAction = SPLINE_GUY_WAITING_TO_STOP;
+                    o->oStopperObject = splineStopper;
+                    break;
+                }
+            }
             f32 *nextPoint = spline->points[pIndex + 1];
             s16 goalAngle = atan2s(nextPoint[2] - pos[2], nextPoint[0] - pos[0]);
             o->oFaceAngleYaw = approach_angle(o->oFaceAngleYaw, goalAngle, DEGREES(2));
@@ -62,9 +91,33 @@ void bhv_spline_dudeguy_loop(void) {
                 o->oSplineDudeGuyPointIndex++;
                 if (o->oSplineDudeGuyPointIndex >= spline->size - 1) {
                     o->oSplineDudeGuyPointIndex = 0;
+                    //o->oFinishedSplineLoop = 1;
+                    o->oStopperObject = NULL;
                 }
             }
+            break;
         }
-    }
+        case SPLINE_GUY_WAITING_TO_STOP: {
+            if (o->header.gfx.animInfo.animFrame == 0) {
+                o->oAction = SPLINE_GUY_STOPPING;
+            }
+            break;
+        }
+        case SPLINE_GUY_STOPPING: {
+            o->oAnimationIndex = NPC_ANIM_STOPWALKING;
+            if (o->header.gfx.animInfo.animFrame <= (o->header.gfx.animInfo.curAnim->loopEnd - 2)) {
+                o->oAction = SPLINE_GUY_STOPPED;
+            }
+            break;
+        }
+        case SPLINE_GUY_STOPPED:
+            o->oAnimationIndex = (o->oStopperObject->oBehParams >> 24) & 0xFF; 
+            if (o->oTimer >= 120) {
+                o->oAction = SPLINE_GUY_WALKING;
+            }
+            break;
 
+
+
+    }
 }

@@ -1286,9 +1286,9 @@ os16112*/
 #define /*0x0F4*/ oPrimRGB                                      OBJECT_FIELD_S32(0x1B)
 #define /*0x0F8*/ oBarTimer                                     OBJECT_FIELD_S32(0x1C)
 #define /*0x0FC*/ oCheckpointFlagCounter                        OBJECT_FIELD_S32(0x1D)
-#define /*0x100*/ oBreakableBoxSmallReleased                                          OBJECT_FIELD_S32(0x1E)
+#define /*0x100*/ oBreakableBoxSmallReleased                    OBJECT_FIELD_S32(0x1E)
 #define /*0x104*/ oAnimationIndex                               OBJECT_FIELD_S32(0x1F)
-#define /*0x108*/ o108                                          OBJECT_FIELD_S32(0x20)
+#define /*0x108*/ oSplineStopperInteracted                      OBJECT_FIELD_S32(0x20)
 #define /*0x110*/ oIdk                                          OBJECT_FIELD_S32(0x22)
 #define /*0x110*/ o110                                          OBJECT_FIELD_S32(0x22)
 
@@ -1301,7 +1301,7 @@ os16112*/
 #define /*0x10C*/ oFloat10C                                     OBJECT_FIELD_F32(0x21)
 #define /*0x110*/ oFloat110                                     OBJECT_FIELD_F32(0x22)
 
-#define /*0x0F4*/ oObjF4                                        OBJECT_FIELD_OBJ(0x1B)
+#define /*0x0F4*/ oObjF4                                OBJECT_FIELD_OBJ(0x1B)
 #define /*0x0F8*/ oObjF8                                        OBJECT_FIELD_OBJ(0x1C)
 #define /*0x0FC*/ oObjFC                                        OBJECT_FIELD_OBJ(0x1D)
 #define /*0x100*/ oObj100                                       OBJECT_FIELD_OBJ(0x1E)
@@ -1319,7 +1319,7 @@ os16112*/
 #define /*0x10C*/ oSurf10C                                  OBJECT_FIELD_SURFACE(0x21)
 #define /*0x110*/ oSurf110                                  OBJECT_FIELD_SURFACE(0x22)
 
-#define /*0x0F4*/ os16F4                                        OBJECT_FIELD_S16(0x1B, 0)
+#define /*0x0F4*/ oFinishedSplineLoop                           OBJECT_FIELD_S16(0x1B, 0)
 #define /*0x0F6*/ os16F6                                        OBJECT_FIELD_S16(0x1B, 1)
 #define /*0x0F8*/ os16F8                                        OBJECT_FIELD_S16(0x1C, 0)
 #define /*0x0FA*/ os16FA                                        OBJECT_FIELD_S16(0x1C, 1)
@@ -1337,6 +1337,7 @@ os16112*/
 #define /*0x112*/ os16112                                       OBJECT_FIELD_S16(0x22, 1)
 
 #define oSplineDudeGuyPointIndex OBJECT_FIELD_S32(0x1B)
+#define oStopperObject           OBJECT_FIELD_OBJ(0x1C)
 
 // Advanced lighting engine
 // These use previously unused object fields outside of the normal range

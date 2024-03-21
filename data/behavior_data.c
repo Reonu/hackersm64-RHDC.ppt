@@ -6333,3 +6333,8 @@ const BehaviorScript bhvCircle3[] = {
         CALL_NATIVE(bhv_circle_loop),
     END_LOOP(),
 };
+
+const BehaviorScript bhvSplineStopper[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    BREAK(),
+};

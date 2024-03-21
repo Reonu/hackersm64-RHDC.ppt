@@ -562,4 +562,5 @@ extern const BehaviorScript bhvSplineDudeGuy[];
 extern const BehaviorScript bhvCircle1[];
 extern const BehaviorScript bhvCircle2[];
 extern const BehaviorScript bhvCircle3[];
+extern const BehaviorScript bhvSplineStopper[];
 #endif // BEHAVIOR_DATA_H
