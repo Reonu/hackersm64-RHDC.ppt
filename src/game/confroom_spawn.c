@@ -22,7 +22,8 @@ ConfroomObjectSpawn *gConfroomSpawns[] = {
     &spawn_dudeGuyWalking,
     &spawn_dudeGuySpline,
     &spawn_dudeGuySpline2,
-    &spawn_dudeGuyTyping
+    &spawn_dudeGuyTyping,
+    &spawn_splineStopperShelf
 };
 
 s32 gNumConfroomSpawns = ARRAY_COUNT(gConfroomSpawns);

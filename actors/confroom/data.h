@@ -27,4 +27,5 @@ extern f32 confroom_pathAroundDesk[6][3];
 extern ConfroomObjectSpawn spawn_dudeGuySpline;
 extern ConfroomObjectSpawn spawn_dudeGuySpline2;
 extern ConfroomObjectSpawn spawn_dudeGuyTyping;
-extern f32 confroom_pathNextToConfroom[5][3];
+extern ConfroomObjectSpawn spawn_splineStopperShelf;
+extern f32 confroom_pathNextToConfroom[12][3];
