@@ -1338,6 +1338,7 @@ os16112*/
 
 #define oSplineDudeGuyPointIndex OBJECT_FIELD_S32(0x1B)
 #define oStopperObject           OBJECT_FIELD_OBJ(0x1C)
+#define oOldAngle                OBJECT_FIELD_S32(0x22)
 
 // Advanced lighting engine
 // These use previously unused object fields outside of the normal range

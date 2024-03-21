@@ -1,4 +1,5 @@
 #include "game/include_for_vsc.h"
+#include "game/print.h"
 
 void bhv_dudeguy_init(void) {
     o->oAnimationIndex = BPARAM1;
@@ -19,6 +20,7 @@ enum SplineDudeGuyActions {
     SPLINE_GUY_WAITING_TO_STOP,
     SPLINE_GUY_STOPPING,
     SPLINE_GUY_STOPPED,
+    SPLINE_GUY_STARTING_TO_WALK,
 };
 
 #define SPLINE_GUY_PATROL_SPEED meters_sec(1.6f)
@@ -57,7 +59,6 @@ struct Object *find_closest_office_obj_with_bhv(const BehaviorScript *behavior, 
 }
 
 void bhv_spline_dudeguy_loop(void) {
-    cur_obj_init_animation(o->oAnimationIndex);
     ConfroomObjectSplineRef *spline = &gConfroomSplines[BPARAM2];
     s32 pIndex = o->oSplineDudeGuyPointIndex;
     f32 *vel = &o->oVelX;
@@ -66,7 +67,7 @@ void bhv_spline_dudeguy_loop(void) {
     switch (o->oAction) {
         case SPLINE_GUY_WALKING: {
             // f32 *curPoint = spline->points[pIndex];
-            struct Object *splineStopper = find_closest_office_obj_with_bhv(segmented_to_virtual(bhvSplineStopper), 200.f);
+            struct Object *splineStopper = find_closest_office_obj_with_bhv(segmented_to_virtual(bhvSplineStopper), 75.f);
             o->oAnimationIndex = NPC_ANIM_WALKING;
             if (splineStopper != NULL) {
                 if (o->oStopperObject != splineStopper) {
@@ -99,25 +100,41 @@ void bhv_spline_dudeguy_loop(void) {
         }
         case SPLINE_GUY_WAITING_TO_STOP: {
             if (o->header.gfx.animInfo.animFrame == 0) {
+                o->oOldAngle = o->oFaceAngleYaw;
                 o->oAction = SPLINE_GUY_STOPPING;
             }
             break;
         }
         case SPLINE_GUY_STOPPING: {
             o->oAnimationIndex = NPC_ANIM_STOPWALKING;
-            if (o->header.gfx.animInfo.animFrame <= (o->header.gfx.animInfo.curAnim->loopEnd - 2)) {
+            o->oFaceAngleYaw = approach_angle(o->oFaceAngleYaw,(DEGREES((o->oStopperObject->oBehParams >> 16) & 0xFF)), DEGREES(10));
+            if (o->oTimer > 0) {
+                cur_obj_extend_animation_if_at_end();
+            }
+            if ((s16)o->oFaceAngleYaw == (s16)DEGREES((o->oStopperObject->oBehParams >> 16) & 0xFF)) {
                 o->oAction = SPLINE_GUY_STOPPED;
             }
             break;
         }
         case SPLINE_GUY_STOPPED:
-            o->oAnimationIndex = (o->oStopperObject->oBehParams >> 24) & 0xFF; 
-            if (o->oTimer >= 120) {
+            o->oAnimationIndex = (o->oStopperObject->oBehParams >> 24) & 0xFF; //bparam1
+            o->oFaceAngleYaw = DEGREES((o->oStopperObject->oBehParams >> 16) & 0xFF); //bparam2
+            if ((cur_obj_check_if_at_animation_end()) && (o->oTimer > 0)) {
+                o->oAction = SPLINE_GUY_STARTING_TO_WALK;
+            }
+            break;
+        case SPLINE_GUY_STARTING_TO_WALK:
+            o->oAnimationIndex = NPC_ANIM_IDLE;
+            o->oFaceAngleYaw = approach_angle(o->oFaceAngleYaw,o->oOldAngle,DEGREES(5));
+
+            if (o->oFaceAngleYaw == o->oOldAngle) {
                 o->oAction = SPLINE_GUY_WALKING;
             }
             break;
 
 
 
+
     }
+    cur_obj_init_animation(o->oAnimationIndex);
 }
