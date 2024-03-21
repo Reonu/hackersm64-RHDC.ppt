@@ -5,3 +5,4 @@
 #include "anim_stopwalking.inc.c"
 #include "anim_typing.inc.c"
 #include "anim_phone.inc.c"
+#include "anim_shelf.inc.c"

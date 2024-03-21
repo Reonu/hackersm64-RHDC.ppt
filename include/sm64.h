@@ -83,7 +83,8 @@ enum NpcAnims {
     NPC_ANIM_IDLE,
     NPC_ANIM_STOPWALKING,
     NPC_ANIM_TYPING,
-    NPC_ANIM_PHONE
+    NPC_ANIM_PHONE,
+    NPC_ANIM_SHELF
 };
 
 #define NPC_SPLINE_NORMAL                   0x00
