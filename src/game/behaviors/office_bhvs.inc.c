@@ -58,6 +58,8 @@ struct Object *find_closest_office_obj_with_bhv(const BehaviorScript *behavior, 
     return closestObject;
 }
 
+#define SPLINE_STOPPER_ANGLE DEGREES((o->oStopperObject->oBehParams >> 16) & 0xFF)
+
 void bhv_spline_dudeguy_loop(void) {
     ConfroomObjectSplineRef *spline = &gConfroomSplines[BPARAM2];
     s32 pIndex = o->oSplineDudeGuyPointIndex;
@@ -107,18 +109,18 @@ void bhv_spline_dudeguy_loop(void) {
         }
         case SPLINE_GUY_STOPPING: {
             o->oAnimationIndex = NPC_ANIM_STOPWALKING;
-            o->oFaceAngleYaw = approach_angle(o->oFaceAngleYaw,(DEGREES((o->oStopperObject->oBehParams >> 16) & 0xFF)), DEGREES(10));
+            o->oFaceAngleYaw = approach_angle(o->oFaceAngleYaw,(SPLINE_STOPPER_ANGLE), DEGREES(10));
             if (o->oTimer > 0) {
                 cur_obj_extend_animation_if_at_end();
             }
-            if ((s16)o->oFaceAngleYaw == (s16)DEGREES((o->oStopperObject->oBehParams >> 16) & 0xFF)) {
+            if ((s16)o->oFaceAngleYaw == (s16)SPLINE_STOPPER_ANGLE) {
                 o->oAction = SPLINE_GUY_STOPPED;
             }
             break;
         }
         case SPLINE_GUY_STOPPED:
             o->oAnimationIndex = (o->oStopperObject->oBehParams >> 24) & 0xFF; //bparam1
-            o->oFaceAngleYaw = DEGREES((o->oStopperObject->oBehParams >> 16) & 0xFF); //bparam2
+            o->oFaceAngleYaw = SPLINE_STOPPER_ANGLE; //bparam2
             if ((cur_obj_check_if_at_animation_end()) && (o->oTimer > 0)) {
                 o->oAction = SPLINE_GUY_STARTING_TO_WALK;
             }
