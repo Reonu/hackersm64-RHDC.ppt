@@ -9,6 +9,7 @@
 #include "confroom.h"
 
 extern ConfroomObjectSpawn gConfroomSpawns[];
+extern ConfroomObjectSplineRef gConfroomSplines[];
 extern s32 gNumConfroomSpawns;
 
 s32 spawn_confroom_objects(UNUSED s16 initOrUpdate, s32 reg);

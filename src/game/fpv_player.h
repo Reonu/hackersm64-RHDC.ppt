@@ -58,9 +58,6 @@ extern FPVPlayer gFPVPlayer;
 #define ROT_TILT_SPEED 0x100
 #define ROT_TILT_MAX   DEGREES(45)
 
-// go from meters/second to cm/frame
-#define meters_sec(ms) (((ms) * 100.0f) / 30.0f)
-
 // average walking speed in meters/second is 1.4
 // converting this to cm/frame:
 #define PLAYER_MAX_SPEED_WALK   meters_sec(1.6f)

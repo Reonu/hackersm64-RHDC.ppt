@@ -730,4 +730,14 @@ ALWAYS_INLINE f32 smoothstep(f32 from, f32 to, f32 amount) {
     return lerpf(from, to, amount);
 }
 
+ALWAYS_INLINE f32 vec3f_dist(Vec3f from, Vec3f to) {
+    Vec3f _d;
+    vec3_diff(_d, to, from);
+    return vec3_mag(_d);
+}
+
+ALWAYS_INLINE f32 vec3f_lat_dist(Vec3f from, Vec3f to) {
+    return sqrtf(sqrf(to[0] - from[0]) + sqrf(to[2] - from[2]));
+}
+
 #endif // MATH_UTIL_H

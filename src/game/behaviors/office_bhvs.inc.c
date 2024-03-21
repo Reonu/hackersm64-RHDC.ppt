@@ -1,3 +1,5 @@
+#include "game/include_for_vsc.h"
+
 void bhv_dudeguy_init(void) {
     o->oAnimationIndex = BPARAM1;
 }
@@ -12,10 +14,57 @@ void bhv_dudeguy_loop(void) {
     }
 }
 
+enum SplineDudeGuyActions {
+    SPLINE_GUY_WALKING,
+};
+
+#define SPLINE_GUY_PATROL_SPEED meters_sec(1.6f)
+#define SPLINE_GUY_CHASE_SPEED  meters_sec(1.75f)
+#define SPLINE_GUY_NEXT_POINT_THRESHOLD  160
+
 void bhv_spline_dudeguy_init(void) {
     o->oAnimationIndex = NPC_ANIM_WALKING;
+    o->oAction = SPLINE_GUY_WALKING;
+    o->oSplineDudeGuyPointIndex = 0;
+    o->oForwardVel = SPLINE_GUY_PATROL_SPEED;
+
+    ConfroomObjectSplineRef *spline = &gConfroomSplines[BPARAM2];
+    s32 pIndex = o->oSplineDudeGuyPointIndex;
+    f32 *curPoint = spline->points[pIndex];
+    f32 *nextPoint = spline->points[pIndex + 1];
+    o->oFaceAngleYaw = atan2s(nextPoint[2] - curPoint[2], nextPoint[0] - curPoint[0]);
+    vec3f_copy(&o->oPosX, curPoint);
 }
 
 void bhv_spline_dudeguy_loop(void) {
     cur_obj_init_animation(o->oAnimationIndex);
+    ConfroomObjectSplineRef *spline = &gConfroomSplines[BPARAM2];
+    s32 pIndex = o->oSplineDudeGuyPointIndex;
+    f32 *vel = &o->oVelX;
+    f32 *pos = &o->oPosX;
+
+    switch (o->oAction) {
+        case SPLINE_GUY_WALKING: {
+            // f32 *curPoint = spline->points[pIndex];
+            f32 *nextPoint = spline->points[pIndex + 1];
+            s16 goalAngle = atan2s(nextPoint[2] - pos[2], nextPoint[0] - pos[0]);
+            o->oFaceAngleYaw = approach_angle(o->oFaceAngleYaw, goalAngle, DEGREES(2));
+            if (o->oForwardVel < SPLINE_GUY_PATROL_SPEED) {
+                o->oForwardVel += SPLINE_GUY_PATROL_SPEED * 0.2f;
+            }
+            if (o->oForwardVel > SPLINE_GUY_PATROL_SPEED) {
+                o->oForwardVel = SPLINE_GUY_PATROL_SPEED;
+            }
+            vel[0] = sins(o->oFaceAngleYaw) * o->oForwardVel;
+            vel[2] = coss(o->oFaceAngleYaw) * o->oForwardVel;
+            vec3f_add(pos, vel);
+            if (vec3f_lat_dist(nextPoint, pos) < SPLINE_GUY_NEXT_POINT_THRESHOLD) {
+                o->oSplineDudeGuyPointIndex++;
+                if (o->oSplineDudeGuyPointIndex >= spline->size - 1) {
+                    o->oSplineDudeGuyPointIndex = 0;
+                }
+            }
+        }
+    }
+
 }

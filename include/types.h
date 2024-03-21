@@ -470,4 +470,7 @@ struct MarioState {
     // -- HackerSM64 MarioState fields end --
 };
 
+// go from meters/second to cm/frame
+#define meters_sec(ms) (((ms) * 100.0f) / 30.0f)
+
 #endif // TYPES_H
