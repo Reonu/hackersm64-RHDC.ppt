@@ -87,6 +87,12 @@ enum NpcAnims {
     NPC_ANIM_SHELF
 };
 
+enum NpcSplines {
+    NPC_SPLINE_AROUND_DESK,
+    NPC_SPLINE_NEXT_TO_CONFROOM,
+    NPC_SPLINE_NEXT_TO_KITCHEN
+};
+
 #define NPC_SPLINE_NORMAL                   0x00
 #define NPC_SPLINE_BACK_AND_FORTH           0x01
 
