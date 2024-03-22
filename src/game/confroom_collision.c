@@ -19,6 +19,7 @@ static AABB_src *sSrcOfficeSpaces[] = {
     &confroom_spaceHall,
     &confroom_spaceDoorToKitchen,
     &confroom_spaceKitchen,
+    &confroom_spaceReception,
 };
 AABB gOfficeSpaces[ARRAY_COUNT(sSrcOfficeSpaces)] = {};
 
