@@ -276,6 +276,9 @@ void update_cam_from_player(FPVPlayer *player, FPVCamState *cam) {
         cam->pos[0] += sy * PLAYER_WAIST_DIST_FROM_EYE;
         cam->pos[1] += cy * PLAYER_WAIST_DIST_FROM_EYE;
     }
+    if (player->dir[0] < DEGREES(-90) || player->dir[0] > DEGREES(90)) {
+        cam->dir[2] += DEGREES(180);
+    }
     player->focusPointFac = approach_f32(player->focusPointFac, (f32)player->focusPointActive, update_sec(0.5f), update_sec(0.5f));
 
     vec3_set_dist_and_angle(cam->pos, cam->focus, 1000, player->dir[0], player->dir[1]);
