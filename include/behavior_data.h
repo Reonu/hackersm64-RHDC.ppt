@@ -563,4 +563,5 @@ extern const BehaviorScript bhvCircle1[];
 extern const BehaviorScript bhvCircle2[];
 extern const BehaviorScript bhvCircle3[];
 extern const BehaviorScript bhvSplineStopper[];
+extern const BehaviorScript bhvCoffeeMachine[];
 #endif // BEHAVIOR_DATA_H

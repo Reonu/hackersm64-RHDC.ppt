@@ -140,3 +140,21 @@ void bhv_spline_dudeguy_loop(void) {
     }
     cur_obj_init_animation(o->oAnimationIndex);
 }
+
+void bhv_coffee_machine_init(void) {
+
+}
+
+void bhv_coffee_machine_loop(void) {
+    if (gPlayer1Controller->buttonPressed & R_TRIG) {
+        o->oAnimState += 1;
+    }
+
+    if (o->oAnimState == 0) {
+        o->oPrimRGB = 0x2C2C2C;
+    } else if (o->oAnimState <= 2) {
+        o->oPrimRGB = 0xFF0000;
+    } else {
+        o->oPrimRGB = 0x00FF00;
+    }
+}

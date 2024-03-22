@@ -69,3 +69,4 @@
 #include "circle3/collision.inc.c"
 #include "circle3/model.inc.c"
 #include "dudeguy_phone/model.inc.c"
+#include "coffee_machine/model.inc.c"

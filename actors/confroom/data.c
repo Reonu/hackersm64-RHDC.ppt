@@ -201,6 +201,17 @@ ConfroomObjectSpawn spawn_splineStopperWater = {
     0,
 };
 
+ConfroomObjectSpawn spawn_coffeeMachine = {
+    {   785.5184078217f,   115.8307909966f,  3360.5293273926f },
+    { 0x0000, 0x0000, 0x0000 },
+    MODEL_COFFEE_MACHINE,
+    (uintptr_t)bhvCoffeeMachine,
+    0,
+    0,
+    0,
+    0,
+};
+
 f32 confroom_pathNextToConfroom[12][3] = {
     {  1363.5737419128f,     0.0000238419f,   144.5634841919f },
     {  1152.8460502625f,     0.0000238419f,   144.5634961128f },

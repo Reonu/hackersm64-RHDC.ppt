@@ -6338,3 +6338,11 @@ const BehaviorScript bhvSplineStopper[] = {
     BEGIN(OBJ_LIST_DEFAULT),
     BREAK(),
 };
+
+const BehaviorScript bhvCoffeeMachine[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    CALL_NATIVE(bhv_coffee_machine_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_coffee_machine_loop),
+    END_LOOP(),
+};

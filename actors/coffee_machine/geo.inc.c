@@ -1,0 +1,55 @@
+#include "src/game/envfx_snow.h"
+
+const GeoLayout coffee_machine_armature_cup[] = {
+	GEO_NODE_START(),
+	GEO_OPEN_NODE(),
+		GEO_NODE_START(),
+		GEO_OPEN_NODE(),
+			GEO_ANIMATED_PART(LAYER_OPAQUE, 0, 0, 0, coffee_machine_switch_cup_mesh_layer_1),
+		GEO_CLOSE_NODE(),
+	GEO_CLOSE_NODE(),
+	GEO_RETURN(),
+};
+const GeoLayout coffee_machine_armature_cup_half[] = {
+	GEO_NODE_START(),
+	GEO_OPEN_NODE(),
+		GEO_NODE_START(),
+		GEO_OPEN_NODE(),
+			GEO_ANIMATED_PART(LAYER_OPAQUE, 0, 0, 0, coffee_machine_switch_cup_full_mesh_layer_1),
+		GEO_CLOSE_NODE(),
+	GEO_CLOSE_NODE(),
+	GEO_RETURN(),
+};
+const GeoLayout coffee_machine_armature_cup_full[] = {
+	GEO_NODE_START(),
+	GEO_OPEN_NODE(),
+		GEO_NODE_START(),
+		GEO_OPEN_NODE(),
+			GEO_ANIMATED_PART(LAYER_OPAQUE, 0, 0, 0, coffee_machine_switch_cup_half_mesh_layer_1),
+		GEO_CLOSE_NODE(),
+	GEO_CLOSE_NODE(),
+	GEO_RETURN(),
+};
+const GeoLayout coffee_machine_geo[] = {
+	GEO_NODE_START(),
+	GEO_OPEN_NODE(),
+		GEO_NODE_START(),
+		GEO_OPEN_NODE(),
+			GEO_ASM(3, geo_set_prim_color),
+			GEO_DISPLAY_LIST(LAYER_OPAQUE, coffee_machine_machine_mesh_layer_1),
+			GEO_DISPLAY_LIST(LAYER_TRANSPARENT, coffee_machine_machine_mesh_layer_5),
+			GEO_DISPLAY_LIST(LAYER_OPAQUE_DECAL, coffee_machine_machine_mesh_layer_2),
+			GEO_SWITCH_CASE(4, geo_switch_anim_state),
+			GEO_OPEN_NODE(),
+				GEO_NODE_START(),
+				GEO_OPEN_NODE(),
+					GEO_ANIMATED_PART(LAYER_OPAQUE, 0, 0, 0, NULL),
+				GEO_CLOSE_NODE(),
+				GEO_BRANCH(1, coffee_machine_armature_cup),
+				GEO_BRANCH(1, coffee_machine_armature_cup_half),
+				GEO_BRANCH(1, coffee_machine_armature_cup_full),
+			GEO_CLOSE_NODE(),
+		GEO_CLOSE_NODE(),
+	GEO_CLOSE_NODE(),
+	GEO_END(),
+};

@@ -31,5 +31,6 @@ extern ConfroomObjectSpawn spawn_dudeGuySplineWater;
 extern ConfroomObjectSpawn spawn_dudeGuyTyping;
 extern ConfroomObjectSpawn spawn_splineStopperShelf;
 extern ConfroomObjectSpawn spawn_splineStopperWater;
+extern ConfroomObjectSpawn spawn_coffeeMachine;
 extern f32 confroom_pathNextToConfroom[12][3];
 extern f32 confroom_pathNextToReception[15][3];
