@@ -568,6 +568,8 @@ void bhv_circle_init(void);
 void bhv_circle_loop(void);
 void bhv_coffee_machine_init(void);
 void bhv_coffee_machine_loop(void);
+void bhv_elevator_door_init(void);
+void bhv_elevator_door_loop(void);
 
 void bhv_spring_init(void);
 void bhv_spring_loop(void);

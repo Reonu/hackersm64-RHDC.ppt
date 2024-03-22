@@ -158,3 +158,32 @@ void bhv_coffee_machine_loop(void) {
         o->oPrimRGB = 0x00FF00;
     }
 }
+
+enum ElevatorDoorActions {
+    ELEVATOR_DOOR_IDLE,
+    ELEVATOR_DOOR_OPEN,
+    ELEVATOR_DOOR_CLOSED,
+};
+
+void bhv_elevator_door_init(void) {
+    if (BPARAM1 == 1)
+        o->oElevatorDoorIsOtherDoor = 1;
+
+    o->oAction = ELEVATOR_DOOR_IDLE;
+}
+
+void bhv_elevator_door_loop(void) {
+    switch (o->oAction) {
+        case ELEVATOR_DOOR_IDLE:
+            if (gPlayer1Controller->buttonPressed & D_JPAD) {
+                o->oAction = ELEVATOR_DOOR_OPEN;
+            }
+            break;
+        case ELEVATOR_DOOR_OPEN:
+            if (!o->oElevatorDoorIsOtherDoor) {
+                o->oPosZ = approach_f32_symmetric(o->oPosZ, o->oHomeZ - 250.0f, 12.0f);
+            } else {
+                o->oPosZ = approach_f32_symmetric(o->oPosZ, o->oHomeZ + 250.0f, 12.0f);
+            }
+    }
+}

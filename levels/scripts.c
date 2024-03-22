@@ -134,6 +134,7 @@ const LevelScript level_main_scripts_entry[] = {
     LOAD_MODEL_FROM_GEO(MODEL_CIRCLE3,                 circle3_geo),
     LOAD_MODEL_FROM_GEO(MODEL_DUDEGUY_PHONE,           dudeguy_phone_geo),
     LOAD_MODEL_FROM_GEO(MODEL_COFFEE_MACHINE,          coffee_machine_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_ELEVATOR_DOOR,           elevator_door_geo),
     FREE_LEVEL_POOL(),
     POP_POOL(),
     CALL(/*arg*/ 0, /*func*/ spawn_confroom_objects),
