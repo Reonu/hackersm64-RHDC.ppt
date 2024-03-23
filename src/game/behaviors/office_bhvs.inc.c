@@ -8,6 +8,9 @@ void bhv_dudeguy_init(void) {
 void bhv_dudeguy_loop(void) {
     cur_obj_init_animation(o->oAnimationIndex);
 
+    if (o->oTimer == 0)
+        o->header.gfx.animInfo.animFrame = (random_u16() % o->header.gfx.animInfo.curAnim->loopEnd);
+
     if (gPlayer1Controller->buttonPressed & R_JPAD) {
         o->oAnimationIndex++;
     } else if (gPlayer1Controller->buttonPressed & L_JPAD) {
