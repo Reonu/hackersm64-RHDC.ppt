@@ -131,6 +131,17 @@ ConfroomObjectSpawn spawn_dudeGuyPhone = {
     0,
 };
 
+ConfroomObjectSpawn spawn_dudeGuyTyping2 = {
+    {  1363.3869171143f,     0.0001002975f,   299.1379737854f },
+    { 0x0000, 0x4000, 0x0000 },
+    MODEL_DUDEGUY,
+    (uintptr_t)bhvDudeGuy,
+    NPC_ANIM_TYPING,
+    0,
+    0,
+    0,
+};
+
 f32 confroom_pathAroundDesk[6][3] = {
     {   882.3684692383f,    -0.0002205372f,  1623.1016159058f },
     {  1387.4038696289f,    -0.0002205372f,  1623.1016159058f },

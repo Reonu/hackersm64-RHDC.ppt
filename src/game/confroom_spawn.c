@@ -24,6 +24,7 @@ ConfroomObjectSpawn *gConfroomSpawns[] = {
     &spawn_dudeGuySpline2,
     &spawn_dudeGuySplineWater,
     &spawn_dudeGuyTyping,
+    &spawn_dudeGuyTyping2,
     &spawn_splineStopperShelf,
     &spawn_splineStopperWater,
     &spawn_coffeeMachine,

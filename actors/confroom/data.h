@@ -25,6 +25,7 @@ extern f32 confroom_colReceptionDeskB[2][3];
 extern f32 confroom_colShelf1[2][3];
 extern ConfroomObjectSpawn spawn_dudeGuy1;
 extern ConfroomObjectSpawn spawn_dudeGuyPhone;
+extern ConfroomObjectSpawn spawn_dudeGuyTyping2;
 extern f32 confroom_pathAroundDesk[6][3];
 extern ConfroomObjectSpawn spawn_dudeGuySpline;
 extern ConfroomObjectSpawn spawn_dudeGuySpline2;
