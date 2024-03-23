@@ -43,3 +43,5 @@
 #include "circle3/geo.inc.c"
 
 #include "dudeguy_phone/geo.inc.c"
+#include "coffee_machine/geo.inc.c"
+#include "elevator_door/geo.inc.c"

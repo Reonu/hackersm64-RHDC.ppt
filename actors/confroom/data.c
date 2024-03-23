@@ -10,13 +10,28 @@ f32 confroom_spaceMainRoom[2][3] = {
 };
 
 f32 confroom_spaceDoorToHall[2][3] = {
-    {   515.6302928925f,   131.7013859749f,  -101.3334989548f },
-    {     3.9584100246f,     1.4156515598f,     1.1320904493f },
+    {   515.6302928925f,   131.7013859749f,   -99.0627110004f },
+    {     3.9584100246f,     1.4156515598f,     0.7700467110f },
 };
 
 f32 confroom_spaceHall[2][3] = {
     {   917.2921180725f,   193.3988928795f,  1320.1182365417f },
     {     5.3370008469f,     2.1207835674f,    15.3766746521f },
+};
+
+f32 confroom_spaceDoorToKitchen[2][3] = {
+    {   994.9654579163f,    95.4727649689f,  2877.2825241089f },
+    {     0.9372369647f,     1.2468949556f,     3.1482713223f },
+};
+
+f32 confroom_spaceKitchen[2][3] = {
+    {   917.2921180725f,   179.5816779137f,  3101.9878387451f },
+    {     5.3888421059f,     1.9976686239f,     1.7677879333f },
+};
+
+f32 confroom_spaceReception[2][3] = {
+    {   236.0816478729f,   193.3988928795f,  2729.7191619873f },
+    {     6.2157278061f,     2.1207835674f,     1.3927677870f },
 };
 
 f32 confroom_colDesk2[2][3] = {
@@ -116,12 +131,12 @@ ConfroomObjectSpawn spawn_dudeGuyPhone = {
     0,
 };
 
-ConfroomObjectSpawn spawn_dudeGuyWalking = {
-    {   739.1613483429f,     3.0011001974f,  2112.3092651367f },
-    { 0x0000, 0x18ec, 0x0000 },
-    MODEL_DUDEGUY_PHONE,
+ConfroomObjectSpawn spawn_dudeGuyTyping2 = {
+    {  1363.3869171143f,     0.0001002975f,   299.1379737854f },
+    { 0x0000, 0x4000, 0x0000 },
+    MODEL_DUDEGUY,
     (uintptr_t)bhvDudeGuy,
-    NPC_ANIM_WALKING,
+    NPC_ANIM_TYPING,
     0,
     0,
     0,
@@ -142,7 +157,7 @@ ConfroomObjectSpawn spawn_dudeGuySpline = {
     MODEL_DUDEGUY,
     (uintptr_t)bhvSplineDudeGuy,
     0,
-    NPC_SPLINE_NORMAL,
+    NPC_SPLINE_NEXT_TO_CONFROOM,
     0,
     0,
 };
@@ -152,8 +167,19 @@ ConfroomObjectSpawn spawn_dudeGuySpline2 = {
     { 0x0000, 0x0000, 0x0000 },
     MODEL_DUDEGUY,
     (uintptr_t)bhvSplineDudeGuy,
-    1,
-    NPC_SPLINE_BACK_AND_FORTH,
+    0,
+    NPC_SPLINE_AROUND_DESK,
+    0,
+    0,
+};
+
+ConfroomObjectSpawn spawn_dudeGuySplineWater = {
+    {   689.2738819122f,    -0.0002861023f,  2197.1984863281f },
+    { 0x0000, 0x18ec, 0x0000 },
+    MODEL_DUDEGUY,
+    (uintptr_t)bhvSplineDudeGuy,
+    0,
+    NPC_SPLINE_NEXT_TO_KITCHEN,
     0,
     0,
 };
@@ -180,6 +206,28 @@ ConfroomObjectSpawn spawn_splineStopperShelf = {
     0,
 };
 
+ConfroomObjectSpawn spawn_splineStopperWater = {
+    {   809.4684600830f,    -0.0004053116f,  2789.1685485840f },
+    { 0x0000, 0x0000, 0x0000 },
+    MODEL_NONE,
+    (uintptr_t)bhvSplineStopper,
+    NPC_ANIM_SHELF,
+    0,
+    0,
+    0,
+};
+
+ConfroomObjectSpawn spawn_coffeeMachine = {
+    {   785.5184078217f,   115.8307909966f,  3360.5293273926f },
+    { 0x0000, 0x0000, 0x0000 },
+    MODEL_COFFEE_MACHINE,
+    (uintptr_t)bhvCoffeeMachine,
+    0,
+    0,
+    0,
+    0,
+};
+
 f32 confroom_pathNextToConfroom[12][3] = {
     {  1363.5737419128f,     0.0000238419f,   144.5634841919f },
     {  1152.8460502625f,     0.0000238419f,   144.5634961128f },
@@ -193,5 +241,45 @@ f32 confroom_pathNextToConfroom[12][3] = {
     {  1152.8460502625f,     0.0000238419f,  -123.5735774040f },
     {  1363.5737419128f,     0.0000238419f,  -123.5735774040f },
     {  1363.5737419128f,     0.0000238419f,   -74.1780877113f },
+};
+
+f32 confroom_pathNextToReception[15][3] = {
+    {   680.8061599731f,    -0.0003159046f,  2481.5467834473f },
+    {   703.9346694946f,    -0.0003099442f,  2263.4025573730f },
+    {   678.5711765289f,    -0.0003099442f,  2045.2484130859f },
+    {   604.9536705017f,    -0.0003099442f,  1801.8548965454f },
+    {   760.3292465210f,    -0.0003099442f,  1617.4201965332f },
+    {   979.0708541870f,    -0.0003099442f,  1617.4201965332f },
+    {  1022.4233627319f,    -0.0004410744f,  1647.3194122314f },
+    {  1078.1821250916f,    -0.0004768372f,  1820.8030700684f },
+    {  1215.3113365173f,    -0.0003099442f,  1961.7610931396f },
+    {  1121.7563629150f,    -0.0003099442f,  2138.0552291870f },
+    {  1028.4664154053f,    -0.0003099442f,  2249.6032714844f },
+    {  1028.4664154053f,    -0.0003099442f,  2460.3309631348f },
+    {   839.0400886536f,    -4.3546777219f,  2776.0625839233f },
+    {   780.8092117310f,    -0.0007271767f,  2745.3306198120f },
+    {   680.4683685303f,   -24.4187712669f,  2543.3353424072f },
+};
+
+ConfroomObjectSpawn spawn_elevatorDoorLeft = {
+    {   -89.8690700531f,   109.8803162575f,  2655.1017761230f },
+    { 0x0000, 0x0000, 0x0000 },
+    MODEL_ELEVATOR_DOOR,
+    (uintptr_t)bhvElevatorDoor,
+    0,
+    0,
+    0,
+    0,
+};
+
+ConfroomObjectSpawn spawn_elevatorDoorRight = {
+    {   -89.8690700531f,   109.8799824715f,  2803.2300949097f },
+    { 0x0000, -0x8000, 0x0000 },
+    MODEL_ELEVATOR_DOOR,
+    (uintptr_t)bhvElevatorDoor,
+    1,
+    0,
+    0,
+    0,
 };
 

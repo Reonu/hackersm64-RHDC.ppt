@@ -406,4 +406,8 @@ extern const GeoLayout geo_confroom_root[];
 
 #include "dudeguy_phone/geo_header.h"
 
+#include "coffee_machine/geo_header.h"
+
+#include "elevator_door/geo_header.h"
+
 #endif

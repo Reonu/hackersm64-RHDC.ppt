@@ -36,6 +36,10 @@
 
 #define MODEL_DUDEGUY_PHONE                    0x118
 
+#define MODEL_COFFEE_MACHINE                   0x119
+
+#define MODEL_ELEVATOR_DOOR                    0x11A
+
 /* Various static level geometry, the geo layout differs but terrain object presets treat them the same.*/
 
 #define MODEL_LEVEL_GEOMETRY_03                0x03

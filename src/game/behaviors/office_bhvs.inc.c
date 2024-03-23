@@ -8,6 +8,9 @@ void bhv_dudeguy_init(void) {
 void bhv_dudeguy_loop(void) {
     cur_obj_init_animation(o->oAnimationIndex);
 
+    if (o->oTimer == 0)
+        o->header.gfx.animInfo.animFrame = (random_u16() % o->header.gfx.animInfo.curAnim->loopEnd);
+
     if (gPlayer1Controller->buttonPressed & R_JPAD) {
         o->oAnimationIndex++;
     } else if (gPlayer1Controller->buttonPressed & L_JPAD) {
@@ -166,4 +169,51 @@ void bhv_spline_dudeguy_loop(void) {
             }
     }
     cur_obj_init_animation(o->oAnimationIndex);
+}
+
+void bhv_coffee_machine_init(void) {
+
+}
+
+void bhv_coffee_machine_loop(void) {
+    if (gPlayer1Controller->buttonPressed & R_TRIG) {
+        o->oAnimState += 1;
+    }
+
+    if (o->oAnimState == 0) {
+        o->oPrimRGB = 0x2C2C2C;
+    } else if (o->oAnimState <= 2) {
+        o->oPrimRGB = 0xFF0000;
+    } else {
+        o->oPrimRGB = 0x00FF00;
+    }
+}
+
+enum ElevatorDoorActions {
+    ELEVATOR_DOOR_IDLE,
+    ELEVATOR_DOOR_OPEN,
+    ELEVATOR_DOOR_CLOSED,
+};
+
+void bhv_elevator_door_init(void) {
+    if (BPARAM1 == 1)
+        o->oElevatorDoorIsOtherDoor = 1;
+
+    o->oAction = ELEVATOR_DOOR_IDLE;
+}
+
+void bhv_elevator_door_loop(void) {
+    switch (o->oAction) {
+        case ELEVATOR_DOOR_IDLE:
+            if (gPlayer1Controller->buttonPressed & D_JPAD) {
+                o->oAction = ELEVATOR_DOOR_OPEN;
+            }
+            break;
+        case ELEVATOR_DOOR_OPEN:
+            if (!o->oElevatorDoorIsOtherDoor) {
+                o->oPosZ = approach_f32_symmetric(o->oPosZ, o->oHomeZ - 250.0f, 12.0f);
+            } else {
+                o->oPosZ = approach_f32_symmetric(o->oPosZ, o->oHomeZ + 250.0f, 12.0f);
+            }
+    }
 }

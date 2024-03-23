@@ -13,17 +13,23 @@
 ConfroomObjectSplineRef gConfroomSplines[] = {
     // CONF_SPLINE(ExampleSplineArrayVariable),
     CONF_SPLINE(confroom_pathAroundDesk),
-    CONF_SPLINE(confroom_pathNextToConfroom)
+    CONF_SPLINE(confroom_pathNextToConfroom),
+    CONF_SPLINE(confroom_pathNextToReception)
 };
 
 ConfroomObjectSpawn *gConfroomSpawns[] = {
     &spawn_dudeGuy1,
     &spawn_dudeGuyPhone,
-    &spawn_dudeGuyWalking,
     &spawn_dudeGuySpline,
     &spawn_dudeGuySpline2,
+    &spawn_dudeGuySplineWater,
     &spawn_dudeGuyTyping,
-    &spawn_splineStopperShelf
+    &spawn_dudeGuyTyping2,
+    &spawn_splineStopperShelf,
+    &spawn_splineStopperWater,
+    &spawn_coffeeMachine,
+    &spawn_elevatorDoorLeft,
+    &spawn_elevatorDoorRight
 };
 
 s32 gNumConfroomSpawns = ARRAY_COUNT(gConfroomSpawns);
