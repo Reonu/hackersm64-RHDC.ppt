@@ -39,8 +39,8 @@ typedef struct {
 
 #define seconds(s) ((s32)(s * 30))
 
-#define CONVO_TALK_LENGTH seconds(4)
-#define CONVO_QTE_LENGTH  seconds(1.5f)
+#define CONVO_TALK_LENGTH seconds(7)
+#define CONVO_QTE_LENGTH  seconds(1.2f)
 
 #define CONVO_QTE_X_MIN  (16)
 #define CONVO_QTE_X_GOAL (90)

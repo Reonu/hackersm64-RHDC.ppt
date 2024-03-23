@@ -34,8 +34,8 @@ struct GraphNode gConfroomObjectParent = {
 static s32 sInitializedConfroomObjectPool = FALSE;
 
 OfficeState gOfficeState = {
-    .stage = OFFICE_STAGE_INTRO,
-    // .stage = OFFICE_STAGE_1,
+    //.stage = OFFICE_STAGE_INTRO,
+    .stage = OFFICE_STAGE_1,
     .presentationActive = FALSE,
 };
 

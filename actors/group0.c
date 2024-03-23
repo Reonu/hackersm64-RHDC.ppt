@@ -71,3 +71,4 @@
 #include "dudeguy_phone/model.inc.c"
 #include "coffee_machine/model.inc.c"
 #include "elevator_door/model.inc.c"
+#include "chattykathy/model.inc.c"

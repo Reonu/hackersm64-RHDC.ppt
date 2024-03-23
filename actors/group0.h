@@ -410,4 +410,6 @@ extern const GeoLayout geo_confroom_root[];
 
 #include "elevator_door/geo_header.h"
 
+#include "chattykathy/geo_header.h"
+
 #endif

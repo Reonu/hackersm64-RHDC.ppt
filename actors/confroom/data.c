@@ -154,7 +154,7 @@ f32 confroom_pathAroundDesk[6][3] = {
 ConfroomObjectSpawn spawn_dudeGuySpline = {
     {   909.1053962708f,    -0.0001430511f,   969.7391510010f },
     { 0x0000, 0x0000, 0x0000 },
-    MODEL_DUDEGUY,
+    MODEL_CHATTY_KATHY,
     (uintptr_t)bhvSplineDudeGuy,
     0,
     NPC_SPLINE_NEXT_TO_CONFROOM,

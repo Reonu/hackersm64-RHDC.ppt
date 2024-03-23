@@ -1,5 +1,7 @@
 #include "game/include_for_vsc.h"
 #include "game/print.h"
+#include "game/object_helpers.h"
+#include "include/model_ids.h"
 
 void bhv_dudeguy_init(void) {
     o->oAnimationIndex = BPARAM1;
@@ -160,7 +162,11 @@ void bhv_spline_dudeguy_loop(void) {
             } else if (gCurConvo.state == CONVO_TALKING) {
                 o->oAnimationIndex = NPC_ANIM_TALKING;
             } else {
-                o->oAnimationIndex = NPC_ANIM_IDLE;
+                if (cur_obj_has_model(MODEL_CHATTY_KATHY)) {
+                    o->oAnimationIndex = NPC_ANIM_AWAITING_RESPONSE_FEMALE;
+                } else {
+                    o->oAnimationIndex = NPC_ANIM_AWAITING_RESPONSE_MALE;
+                }
             }
             break;
         }
