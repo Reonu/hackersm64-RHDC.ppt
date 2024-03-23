@@ -29,6 +29,7 @@
 #include "engine/colors.h"
 #include "buffers/framebuffers.h"
 #include "profiling.h"
+#include "confroom_conversation.h"
 #ifdef S2DEX_TEXT_ENGINE
 #include "s2d_engine/init.h"
 #endif
@@ -434,6 +435,7 @@ void render_game(void) {
         gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 0, gBorderHeight, SCREEN_WIDTH,
                       SCREEN_HEIGHT - gBorderHeight);
         render_hud();
+        render_convo(&gDisplayListHead);
 
         gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         render_text_labels();

@@ -24,11 +24,15 @@ enum SplineDudeGuyActions {
     SPLINE_GUY_STOPPING,
     SPLINE_GUY_STOPPED,
     SPLINE_GUY_STARTING_TO_WALK,
+    SPLINE_GUY_CHASING_PLAYER,
+    SPLINE_GUY_CONVERSATION,
+    SPLINE_GUY_RETURNING_TO_SPLINE,
 };
 
 #define SPLINE_GUY_PATROL_SPEED meters_sec(1.6f)
 #define SPLINE_GUY_CHASE_SPEED  meters_sec(1.75f)
 #define SPLINE_GUY_NEXT_POINT_THRESHOLD  160
+#define SPLINE_GUY_PLAYER_START_CONVO_DIST 160
 
 void bhv_spline_dudeguy_init(void) {
     o->oAnimationIndex = NPC_ANIM_WALKING;
@@ -69,8 +73,20 @@ void bhv_spline_dudeguy_loop(void) {
     f32 *vel = &o->oVelX;
     f32 *pos = &o->oPosX;
 
+    f32 playerDist = vec3f_lat_dist(pos, gFPVPlayer.pos);
+
     switch (o->oAction) {
         case SPLINE_GUY_WALKING: {
+            if (playerDist < SPLINE_GUY_PLAYER_START_CONVO_DIST) {
+                o->oAction = SPLINE_GUY_CONVERSATION;
+                o->oFaceAngleYaw = atan2s(gFPVPlayer.pos[2] - pos[2], gFPVPlayer.pos[0] - pos[0]);
+                o->oOldAngle = o->oFaceAngleYaw;
+                o->oForwardVel = 0;
+                gFPVPlayer.dir[1] = o->oFaceAngleYaw + DEGREES(180);
+                Vec3f speakerPos = { o->oPosX, o->oPosY + 180, o->oPosZ };
+                start_convo(3, speakerPos);
+                break;
+            }
             // f32 *curPoint = spline->points[pIndex];
             struct Object *splineStopper = find_closest_office_obj_with_bhv(segmented_to_virtual(bhvSplineStopper), 75.f);
             o->oAnimationIndex = NPC_ANIM_WALKING;
@@ -136,10 +152,21 @@ void bhv_spline_dudeguy_loop(void) {
                 o->oAction = SPLINE_GUY_WALKING;
             }
             break;
-
-
-
-
+        case SPLINE_GUY_CONVERSATION:
+            if (gCurConvo.state == CONVO_INACTIVE) {
+                o->oAction = SPLINE_GUY_RETURNING_TO_SPLINE;
+            } else if (gCurConvo.state == CONVO_TALKING) {
+                o->oAnimationIndex = NPC_ANIM_TALKING;
+            } else {
+                o->oAnimationIndex = NPC_ANIM_IDLE;
+            }
+            break;
+        case SPLINE_GUY_RETURNING_TO_SPLINE:
+            if (o->oTimer > 3 * 30) {
+                // todo: more custom
+                o->oAction = SPLINE_GUY_STARTING_TO_WALK;
+                break;
+            }
     }
     cur_obj_init_animation(o->oAnimationIndex);
 }
