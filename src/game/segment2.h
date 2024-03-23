@@ -4,6 +4,10 @@
 #include <PR/ultratypes.h>
 #include <PR/gbi.h>
 
+extern Texture convo_qte_a[];
+extern Texture convo_qte_b[];
+extern Texture convo_qte_z[];
+
 extern void *puppyprint_font_lut[];
 extern void *puppyprint_kerning_lut[][82];
 extern const struct PPTextFont *const gPuppyPrintFontTable[];

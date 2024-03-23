@@ -13,6 +13,7 @@ enum FPVPlayerActionStates {
     PLAYER_FREE,
     PLAYER_BREWING_COFFEE,
     PLAYER_PRESENTING,
+    PLAYER_CONVO_QTE,
 };
 
 typedef struct {

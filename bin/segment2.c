@@ -9,6 +9,18 @@
 
 #include "make_const_nonconst.h"
 
+ALIGNED8 const Texture convo_qte_a[] = {
+#include "textures/segment2/convo_qte_a.rgba16.inc.c"
+};
+
+ALIGNED8 const Texture convo_qte_b[] = {
+#include "textures/segment2/convo_qte_b.rgba16.inc.c"
+};
+
+ALIGNED8 const Texture convo_qte_z[] = {
+#include "textures/segment2/convo_qte_z.rgba16.inc.c"
+};
+
 // SM64 (US/JP/EU/SH) Segment 02
 #ifdef PUPPYPRINT
 ALIGNED8 static const Texture small_font_default[] = {

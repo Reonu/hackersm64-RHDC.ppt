@@ -11,6 +11,7 @@
 #include "puppyprint.h"
 #include "debug.h"
 #include "confroom_collision.h"
+#include "confroom_conversation.h"
 #include "engine/math_util.h"
 #include "actors/group0.h"
 
@@ -89,6 +90,11 @@ static s32 update_free(FPVPlayer *player) {
         player->actionState = PLAYER_PRESENTING;
         return FALSE;
     }
+    if (gCurConvo.state != CONVO_INACTIVE) {
+        player->actionState = PLAYER_CONVO_QTE;
+        return TRUE;
+    }
+
     player->dir[2] = 0;
 
     player->focusPointActive = FALSE;
@@ -203,6 +209,18 @@ static s32 update_brewing_coffee(FPVPlayer *player) {
     return FALSE;
 }
 
+static s32 update_convo_qte(FPVPlayer *player) {
+    // player->focusPointActive = TRUE;
+    if (gCurConvo.state == CONVO_INACTIVE) {
+        player->actionState = PLAYER_FREE;
+        return TRUE;
+    }
+    // TODO: focus towards convo point
+    // vec3f_copy(player->focusPoint, (f32 *)segmented_to_virtual(confroom_coffeeMachinePos));
+    deplete_energy(E_COST_STANDING);
+    return FALSE;
+}
+
 static void stop_presenting(FPVPlayer *player) {
     player->actionState = PLAYER_FREE;
     player->focusPointActive = FALSE;
@@ -295,6 +313,7 @@ void update_cam_from_player(FPVPlayer *player, FPVCamState *cam) {
 // returns TRUE if gameplay is active
 s32 update_player(void) {
     init_player();
+    update_convo();
     static char healthBuf[64];
 
     FPVPlayer *player = &gFPVPlayer;
@@ -314,6 +333,11 @@ s32 update_player(void) {
                 continueUpdate = update_presenting(player);
                 print_small_text_buffered(20, 8, "presenting", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);
                 break;
+            case PLAYER_CONVO_QTE: {
+                continueUpdate = update_convo_qte(player);
+                print_small_text_buffered(20, 8, "qte", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);
+                break;
+            }
         }
     }
     sprintf(healthBuf, "Energy: %d%%", (s32)(100.0f * ((f32)player->energy) / (f32)MAX_ENERGY));

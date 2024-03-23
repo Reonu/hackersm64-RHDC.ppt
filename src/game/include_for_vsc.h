@@ -35,3 +35,5 @@
 #include "spawn_sound.h"
 #include "rumble_init.h"
 #include "confroom_spawn.h"
+#include "fpv_player.h"
+#include "confroom_conversation.h"
