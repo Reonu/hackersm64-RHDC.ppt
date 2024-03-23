@@ -52,6 +52,6 @@ typedef struct {
 
 extern Conversation gCurConvo;
 
-void start_convo(u8 req, f32 *speakerPos);
+s32 start_convo(f32 *speakerPos);
 void render_convo(Gfx **head);
 void update_convo(void);

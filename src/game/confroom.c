@@ -33,6 +33,38 @@ struct GraphNode gConfroomObjectParent = {
 
 static s32 sInitializedConfroomObjectPool = FALSE;
 
+OfficeState gOfficeState = {
+    .stage = OFFICE_STAGE_INTRO,
+    // .stage = OFFICE_STAGE_1,
+    .presentationActive = FALSE,
+};
+
+void init_office_state(void) {
+    OfficeState *office = &gOfficeState;
+    office->stage = OFFICE_STAGE_INTRO;
+    office->presentationActive = FALSE;
+    // reset player
+}
+
+void start_next_office_stage(void) {
+    OfficeState *office = &gOfficeState;
+    if (office->stage == OFFICE_STAGE_3) {
+        // TODO: game over
+    } else {
+        office->stage++;
+    }
+}
+
+s32 get_num_coffees_left(void) {
+    OfficeState *office = &gOfficeState;
+    return 4 - office->stage;
+}
+
+s32 get_num_req_qtes(void) {
+    OfficeState *office = &gOfficeState;
+    return office->stage;
+}
+
 s32 init_confroom_object_pool(void) {
     if (sInitializedConfroomObjectPool) return TRUE;
 

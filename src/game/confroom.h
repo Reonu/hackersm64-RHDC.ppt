@@ -38,3 +38,22 @@ typedef struct {
     s32 size;
     Vec3f *points;
 } ConfroomObjectSplineRef;
+
+enum OfficeStages {
+    OFFICE_STAGE_INTRO,
+    OFFICE_STAGE_1,
+    OFFICE_STAGE_2,
+    OFFICE_STAGE_3,
+};
+
+typedef struct {
+    u8 stage; // OfficeStages
+    u8 presentationActive;
+} OfficeState;
+
+void init_office_state(void);
+void start_next_office_stage(void);
+s32 get_num_coffees_left(void);
+s32 get_num_req_qtes(void);
+
+extern OfficeState gOfficeState;

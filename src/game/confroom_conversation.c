@@ -45,7 +45,7 @@ void full_reset_convo_state(void) {
     convo->prompt = QTE_PROMPT_A;
 }
 
-void reset_convo(Conversation *convo, u8 req) {
+void reset_convo(Conversation *convo, s32 req) {
     convo->timer = 0;
     convo->qteTriggerTime = 0;
     convo->points = 0;
@@ -53,13 +53,17 @@ void reset_convo(Conversation *convo, u8 req) {
     convo->state = CONVO_TALKING;
     convo->qteStatus = QTE_PENDING;
     convo->prompt = QTE_PROMPT_A;
-
 }
 
-void start_convo(u8 req, f32 *speakerPos) {
+s32 start_convo(f32 *speakerPos) {
     Conversation *convo = &gCurConvo;
-    reset_convo(convo, req);
-    vec3f_copy(convo->speakerPos, speakerPos);
+    s32 req = get_num_req_qtes();
+    if (req) {
+        reset_convo(convo, get_num_req_qtes());
+        vec3f_copy(convo->speakerPos, speakerPos);
+        return TRUE;
+    }
+    return FALSE;
 }
 
 s32 get_convo_state(void) {

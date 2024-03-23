@@ -78,13 +78,14 @@ void bhv_spline_dudeguy_loop(void) {
     switch (o->oAction) {
         case SPLINE_GUY_WALKING: {
             if (playerDist < SPLINE_GUY_PLAYER_START_CONVO_DIST) {
-                o->oAction = SPLINE_GUY_CONVERSATION;
-                o->oOldAngle = o->oFaceAngleYaw;
-                o->oFaceAngleYaw = atan2s(gFPVPlayer.pos[2] - pos[2], gFPVPlayer.pos[0] - pos[0]);
-                o->oForwardVel = 0;
                 Vec3f speakerPos = { o->oPosX, o->oPosY + 180, o->oPosZ };
-                start_convo(3, speakerPos);
-                break;
+                if (start_convo(speakerPos)) {
+                    o->oAction = SPLINE_GUY_CONVERSATION;
+                    o->oOldAngle = o->oFaceAngleYaw;
+                    o->oFaceAngleYaw = atan2s(gFPVPlayer.pos[2] - pos[2], gFPVPlayer.pos[0] - pos[0]);
+                    o->oForwardVel = 0;
+                    break;
+                }
             }
             // f32 *curPoint = spline->points[pIndex];
             struct Object *splineStopper = find_closest_office_obj_with_bhv(segmented_to_virtual(bhvSplineStopper), 75.f);
