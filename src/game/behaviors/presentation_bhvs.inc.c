@@ -5,6 +5,7 @@
 #include "game/spawn_sound.h"
 #include "game/print.h"
 #include "engine/math_util.h"
+#include "engine/surface_load.h"
 #include "game/mario.h"
 
 

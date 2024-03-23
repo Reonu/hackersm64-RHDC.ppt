@@ -39,6 +39,7 @@ void update_graph_node_fpv_camera(struct GraphNodeCamera *gc) {
     vec3f_copy(gc->focus, gFPVCam.focus);
 }
 
+extern void create_camera(struct GraphNodeCamera *gc, struct AllocOnlyPool *pool);
 Gfx *geo_fpv_camera_main(s32 callContext, struct GraphNode *g, void *context) {
     struct GraphNodeCamera *gc = (struct GraphNodeCamera *) g;
     switch (callContext) {

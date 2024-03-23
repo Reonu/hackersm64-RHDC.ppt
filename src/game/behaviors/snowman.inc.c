@@ -12,7 +12,7 @@ static struct ObjectHitbox sRollingSphereHitbox = {
     /* hurtboxHeight:     */ 0,
 };
 
-static const Vec3f sSnowmanHeadPos = { -4230.0f, -1344.0f, 1813.0f };
+static Vec3f sSnowmanHeadPos = { -4230.0f, -1344.0f, 1813.0f };
 
 void bhv_snowmans_bottom_init(void) {
     vec3f_copy(&o->oHomeVec, &o->oPosVec);

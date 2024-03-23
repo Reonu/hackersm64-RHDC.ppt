@@ -246,7 +246,7 @@ ALWAYS_INLINE void vec3s_copy(Vec3s dest, Vec3s src) {
 #define vec3f_to_vec3s vec3_copy
 #define vec3f_to_vec3i vec3_copy
 
-#define surface_normal_to_vec3f(dst, surf) vec3f_copy((dst), &((surf)->normal.x))
+#define surface_normal_to_vec3f(dst, surf) vec3_set((dst), (surf)->normal.x, (surf)->normal.y, (surf)->normal.z)
 
 // Copy vector 'src' to vector 'dst' and add a scalar to the y component
 #define vec3_copy_y_off(dst, src, y) {  \
