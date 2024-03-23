@@ -79,10 +79,9 @@ void bhv_spline_dudeguy_loop(void) {
         case SPLINE_GUY_WALKING: {
             if (playerDist < SPLINE_GUY_PLAYER_START_CONVO_DIST) {
                 o->oAction = SPLINE_GUY_CONVERSATION;
-                o->oFaceAngleYaw = atan2s(gFPVPlayer.pos[2] - pos[2], gFPVPlayer.pos[0] - pos[0]);
                 o->oOldAngle = o->oFaceAngleYaw;
+                o->oFaceAngleYaw = atan2s(gFPVPlayer.pos[2] - pos[2], gFPVPlayer.pos[0] - pos[0]);
                 o->oForwardVel = 0;
-                gFPVPlayer.dir[1] = o->oFaceAngleYaw + DEGREES(180);
                 Vec3f speakerPos = { o->oPosX, o->oPosY + 180, o->oPosZ };
                 start_convo(3, speakerPos);
                 break;
@@ -152,7 +151,9 @@ void bhv_spline_dudeguy_loop(void) {
                 o->oAction = SPLINE_GUY_WALKING;
             }
             break;
-        case SPLINE_GUY_CONVERSATION:
+        case SPLINE_GUY_CONVERSATION: {
+            s16 target = atan2s(gFPVPlayer.pos[2] - pos[2], gFPVPlayer.pos[0] - pos[0]);
+            o->oFaceAngleYaw = approach_angle(o->oFaceAngleYaw, target, DEGREES(10));
             if (gCurConvo.state == CONVO_INACTIVE) {
                 o->oAction = SPLINE_GUY_RETURNING_TO_SPLINE;
             } else if (gCurConvo.state == CONVO_TALKING) {
@@ -161,6 +162,7 @@ void bhv_spline_dudeguy_loop(void) {
                 o->oAnimationIndex = NPC_ANIM_IDLE;
             }
             break;
+        }
         case SPLINE_GUY_RETURNING_TO_SPLINE:
             if (o->oTimer > 3 * 30) {
                 // todo: more custom

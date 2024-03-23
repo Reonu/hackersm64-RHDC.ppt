@@ -216,6 +216,9 @@ static s32 update_convo_qte(FPVPlayer *player) {
         return TRUE;
     }
     // TODO: focus towards convo point
+    s16 goal;
+    vec3f_get_yaw(player->pos, gCurConvo.speakerPos, &goal);
+    player->dir[1] = approach_angle(player->dir[1], goal, DEGREES(10));
     // vec3f_copy(player->focusPoint, (f32 *)segmented_to_virtual(confroom_coffeeMachinePos));
     deplete_energy(E_COST_STANDING);
     return FALSE;
