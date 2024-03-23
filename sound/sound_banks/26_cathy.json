@@ -1,0 +1,94 @@
+{
+    "date": "2024-03-23",
+    "sample_bank": "sfx_cathy",
+    "envelopes": {
+        "envelope0": [
+            [2, 32700],
+            [1, 32700],
+            [32700, 29430],
+            "hang"
+        ]
+    },
+    "instruments": {
+        "inst0": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "lead-in-get-a-load-of-this"
+        },
+        "inst1": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "lead-in-happy-hour"
+        },
+        "inst2": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "lead-in-kelly-was-like"
+        },
+        "inst3": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "lead-in-mitchell"
+        },
+        "inst4": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "lead-in-youre-never-gonna-believe"
+        },
+        "inst5": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "mumble-and-ill-be-nice"
+        },
+        "inst6": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "mumble-foo-foo-cachoo"
+        },
+        "inst7": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "mumble-paddle-drunk"
+        },
+        "inst8": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "mumble-ugh-right"
+        },
+        "inst9": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "question-plan-stan"
+        },
+        "inst10": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "question-wait-shh-hes-coming"
+        },
+        "inst11": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "question-what-about-you"
+        },
+        "inst12": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "question-what-say-you"
+        }
+    },
+    "instrument_list": [
+        "inst0",
+        "inst1",
+        "inst2",
+        "inst3",
+        "inst4",
+        "inst5",
+        "inst6",
+        "inst7",
+        "inst8",
+        "inst9",
+        "inst10",
+        "inst11",
+        "inst12"
+    ]
+}

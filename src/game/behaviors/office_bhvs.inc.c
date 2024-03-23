@@ -3,6 +3,54 @@
 #include "game/object_helpers.h"
 #include "include/model_ids.h"
 
+u32 cathy_lead_ins[] = {
+    SOUND_CATHY_LEAD_IN_GET_A_LOAD_OF_THIS,
+    SOUND_CATHY_LEAD_IN_HAPPY_HOUR,
+    SOUND_CATHY_LEAD_IN_KELLY_WAS_LIKE,
+    SOUND_CATHY_LEAD_IN_MITCHELL,
+    SOUND_CATHY_LEAD_IN_YOURE_NEVER_GONNA_BELIEVE,
+};
+u32 cathy_mumbles[] = {
+    SOUND_CATHY_MUMBLE_AND_ILL_BE_NICE,
+    SOUND_CATHY_MUMBLE_FOO_FOO_CACHOO,
+    SOUND_CATHY_MUMBLE_PADDLE_DRUN,
+    SOUND_CATHY_MUMBLE_UGH_RIGHT,
+};
+u32 cathy_questions[] = {
+    SOUND_CATHY_QUESTION_PLAN_STAN,
+    SOUND_CATHY_QUESTION_WAIT_SHH_HES_COMING,
+    SOUND_CATHY_QUESTION_WHAT_ABOUT_YO,
+    SOUND_CATHY_QUESTION_WHAT_SAY_YOU,
+};
+
+static void _play_random_sound_from_array(u32 *soundArray, s32 length) {
+    cur_obj_play_sound_2(soundArray[random_u16() % length]);
+}
+#define play_random_sound_from_array(soundArray) _play_random_sound_from_array(soundArray, ARRAY_COUNT(soundArray))
+
+static void play_character_lead_in(s32 isCathy) {
+    if (isCathy) {
+        play_random_sound_from_array(cathy_lead_ins);
+    } else {
+        
+    }
+}
+static void play_character_mumble(s32 isCathy) {
+    if (isCathy) {
+        play_random_sound_from_array(cathy_mumbles);
+    } else {
+
+    }
+}
+static void play_character_question(s32 isCathy) {
+    if (isCathy) {
+        play_random_sound_from_array(cathy_questions);
+    } else {
+
+    }
+}
+
+
 void bhv_dudeguy_init(void) {
     o->oAnimationIndex = BPARAM1;
 }
@@ -155,14 +203,27 @@ void bhv_spline_dudeguy_loop(void) {
             }
             break;
         case SPLINE_GUY_CONVERSATION: {
+            s32 isCathy = cur_obj_has_model(MODEL_CHATTY_KATHY);
             s16 target = atan2s(gFPVPlayer.pos[2] - pos[2], gFPVPlayer.pos[0] - pos[0]);
+
             o->oFaceAngleYaw = approach_angle(o->oFaceAngleYaw, target, DEGREES(10));
             if (gCurConvo.state == CONVO_INACTIVE) {
                 o->oAction = SPLINE_GUY_RETURNING_TO_SPLINE;
             } else if (gCurConvo.state == CONVO_TALKING) {
                 o->oAnimationIndex = NPC_ANIM_TALKING;
+                switch (gCurConvo.timer) {
+                    case 1:
+                        play_character_lead_in(isCathy);
+                        break;
+                    case 76:
+                        play_character_mumble(isCathy);
+                        break;
+                    case 76+120:
+                        play_character_question(isCathy);
+                        break;
+                }
             } else {
-                if (cur_obj_has_model(MODEL_CHATTY_KATHY)) {
+                if (isCathy) {
                     o->oAnimationIndex = NPC_ANIM_AWAITING_RESPONSE_FEMALE;
                 } else {
                     o->oAnimationIndex = NPC_ANIM_AWAITING_RESPONSE_MALE;

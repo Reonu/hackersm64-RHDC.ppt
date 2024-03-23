@@ -7986,7 +7986,116 @@ layer_jump .layer_32B7
 #ifdef EXTRA_SFX_CHANNEL_BANKS
 
 .channelA_table:
-// Add custom sounds for Channel A here!
+// lead ins
+sound_ref .sound_cathy_lead_in_get_a_load_of_this
+sound_ref .sound_cathy_lead_in_happy_hour
+sound_ref .sound_cathy_lead_in_kelly_was_like
+sound_ref .sound_cathy_lead_in_mitchell
+sound_ref .sound_cathy_lead_in_youre_never_gonna_believe
+// mumbles
+sound_ref .sound_cathy_mumble_and_ill_be_nice
+sound_ref .sound_cathy_mumble_foo_foo_cachoo
+sound_ref .sound_cathy_mumble_paddle_drunk
+sound_ref .sound_cathy_mumble_ugh_right
+// questions
+sound_ref .sound_cathy_question_plan_stan
+sound_ref .sound_cathy_question_wait_shh_hes_coming
+sound_ref .sound_cathy_question_what_about_you
+sound_ref .sound_cathy_question_what_say_you
+
+
+.layer_lead_in:
+layer_note1 39, 240, 64
+layer_end
+
+.layer_mumble:
+layer_note1 39, 432, 64
+layer_end
+
+.layer_question:
+layer_note1 39, 180, 64
+layer_end
+
+# LEAD INS
+.sound_cathy_lead_in_get_a_load_of_this:
+chan_setbank 0xB
+chan_setinstr 0
+chan_setlayer 0, .layer_lead_in
+chan_end
+
+.sound_cathy_lead_in_happy_hour:
+chan_setbank 0xB
+chan_setinstr 1
+chan_setlayer 0, .layer_lead_in
+chan_end
+
+.sound_cathy_lead_in_kelly_was_like:
+chan_setbank 0xB
+chan_setinstr 2
+chan_setlayer 0, .layer_lead_in
+chan_end
+
+.sound_cathy_lead_in_mitchell:
+chan_setbank 0xB
+chan_setinstr 3
+chan_setlayer 0, .layer_lead_in
+chan_end
+
+.sound_cathy_lead_in_youre_never_gonna_believe:
+chan_setbank 0xB
+chan_setinstr 4
+chan_setlayer 0, .layer_lead_in
+chan_end
+
+# MUMBLES
+.sound_cathy_mumble_and_ill_be_nice:
+chan_setbank 0xB
+chan_setinstr 5
+chan_setlayer 0, .layer_mumble
+chan_end
+
+.sound_cathy_mumble_foo_foo_cachoo:
+chan_setbank 0xB
+chan_setinstr 6
+chan_setlayer 0, .layer_mumble
+chan_end
+
+.sound_cathy_mumble_paddle_drunk:
+chan_setbank 0xB
+chan_setinstr 7
+chan_setlayer 0, .layer_mumble
+chan_end
+
+.sound_cathy_mumble_ugh_right:
+chan_setbank 0xB
+chan_setinstr 8
+chan_setlayer 0, .layer_mumble
+chan_end
+
+# QUESTIONS
+.sound_cathy_question_plan_stan:
+chan_setbank 0xB
+chan_setinstr 9
+chan_setlayer 0, .layer_question
+chan_end
+
+.sound_cathy_question_wait_shh_hes_coming:
+chan_setbank 0xB
+chan_setinstr 10
+chan_setlayer 0, .layer_question
+chan_end
+
+.sound_cathy_question_what_about_you:
+chan_setbank 0xB
+chan_setinstr 11
+chan_setlayer 0, .layer_question
+chan_end
+
+.sound_cathy_question_what_say_you:
+chan_setbank 0xB
+chan_setinstr 12
+chan_setlayer 0, .layer_question
+chan_end
 
 .channelB_table:
 // Add custom sounds for Channel B here!
