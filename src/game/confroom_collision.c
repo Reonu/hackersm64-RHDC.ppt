@@ -40,6 +40,9 @@ static AABB_src *sSrcColAABBs[] = {
     &confroom_colReceptionDeskA,
     &confroom_colReceptionDeskB,
     &confroom_colShelf1,
+    &confroom_colWater,
+    &confroom_colFridge,
+    &confroom_colCouch
 };
 AABB gColAABBs[ARRAY_COUNT(sSrcColAABBs)] = {};
 

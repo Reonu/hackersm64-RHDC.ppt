@@ -1,5 +1,4 @@
 extern const GeoLayout confroom_geo[];
-extern Lights1 confroom_lunchtable_layer1_lights;
 extern u8 confroom_officewall_ci4[];
 extern u8 confroom_officewall_pal_rgba16[];
 extern u8 confroom_simple_rgba16[];

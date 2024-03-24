@@ -1,4 +1,3 @@
-
 Gfx confroom_officewall_ci4_aligner[] = {gsSPEndDisplayList()};
 u8 confroom_officewall_ci4[] = {
 	0x01, 0x11, 0x11, 0x01, 0x12, 0x03, 0x40, 0x01, 
@@ -30464,8 +30463,6 @@ Gfx mat_confroom_lunchtable_layer1[] = {
 	gsDPSetRenderMode(G_RM_PASS, G_RM_AA_ZB_OPA_SURF2),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPSetPrimColor(0, 0, 223, 223, 223, 255),
-    gsSPLightColor(LIGHT_1, 0xffffffff),
-    gsSPLightColor(LIGHT_2, 0x7f7f7fff),
 	gsSPEndDisplayList(),
 };
 
