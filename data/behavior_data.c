@@ -6360,6 +6360,8 @@ const BehaviorScript bhvElevatorDoor[] = {
 const BehaviorScript bhvArm[] = {
     BEGIN(OBJ_LIST_GENACTOR),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    LOAD_ANIMATIONS(oAnimations, arm_anims),
+    SCALE(/*hi*/ 0, /*cozies*/ 18),
     CALL_NATIVE(bhv_arm_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_arm_loop),

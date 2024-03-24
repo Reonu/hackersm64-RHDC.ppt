@@ -323,33 +323,48 @@ void bhv_arm_init(void) {
     o->oAction = ARM_INVISIBLE;
     o->oAnimState = 0;
     o->oAnimationIndex = 0;
+    cur_obj_init_animation(o->oAnimationIndex);
 }
 
 void bhv_arm_loop(void) {
     switch (o->oAction) {
         case ARM_INVISIBLE:
-            cur_obj_hide();
-            o->oAnimState = 0;
-            break;
+            if (gFPVPlayer.sipsLeft) {
+                o->oAction = ARM_RAISING;
+            } else {
+                cur_obj_hide();
+                o->oAnimState = 0;
+                return;
+            }
+        // fallthrough
         case ARM_RAISING:
-            cur_obj_unhide(),
+            cur_obj_unhide();
+            o->oAnimState = 0;
             o->oAnimationIndex = ARM_ANIM_RAISE;
             if ((cur_obj_check_if_at_animation_end()) && (o->oTimer > 0)) {
                 o->oAction = ARM_IDLE;
             }
             break;
         case ARM_IDLE:
-            cur_obj_unhide(),
+            cur_obj_unhide();
+            o->oAnimState = 0;
             o->oAnimationIndex = ARM_ANIM_IDLE;
+            if (gFPVPlayer.sipsLeft == 0 && gFPVPlayer.coffeeStolen) {
+                o->oAction = ARM_COFFEE_STOLEN;
+            }
             break; 
         case ARM_COFFEE_STOLEN:
-            cur_obj_unhide(),
-            o->oAnimState;
+            cur_obj_unhide();
+            o->oAnimState = 1;
             o->oAnimationIndex = ARM_ANIM_COFFEE_STOLEN;
+            if ((cur_obj_check_if_at_animation_end()) && (o->oTimer > 0)) {
+                o->oAction = ARM_INVISIBLE;
+                cur_obj_hide();
+                return;
+            }
             break;
-
-    cur_obj_init_animation(o->oAnimationIndex);
     }
+    cur_obj_init_animation(o->oAnimationIndex);
 }
 
 enum CoffeeCupActions {

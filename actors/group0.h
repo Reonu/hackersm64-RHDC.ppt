@@ -333,6 +333,9 @@ extern const Gfx white_particle_small_unused_dl[];
 
 extern const GeoLayout geo_confroom_root[];
 
+extern ConfroomObjectSpawn spawn_arm;
+extern ConfroomObjectSpawn spawn_coffeeCup;
+
 #include "confroom/data.h"
 
 #include "mario/geo_header.h"

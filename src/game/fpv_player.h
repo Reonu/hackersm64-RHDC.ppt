@@ -27,10 +27,14 @@ typedef struct {
     Vec3s dir;
     Cylinder hitbox;
     AABB *curSpace;
+    struct Object *arm;
+    struct Object *coffeeCup;
+    u8 sipsLeft;
     u8 actionState;
     u8 focusPointActive: 1;
     u8 crouching: 1;
     u8 running: 1;
+    u8 coffeeStolen: 1;
 } FPVPlayer;
 
 extern FPVPlayer gFPVPlayer;

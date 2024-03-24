@@ -20,6 +20,28 @@
 #include "confroom/data.c"
 #include "confroom/root.inc.c"
 
+ConfroomObjectSpawn spawn_arm = {
+    {   0,   999,  0 },
+    { 0, 0, 0 },
+    MODEL_ARM,
+    (uintptr_t)bhvArm,
+    0,
+    0,
+    0,
+    0,
+};
+
+ConfroomObjectSpawn spawn_coffeeCup = {
+    {   0,   999,  0 },
+    { 0, 0, 0 },
+    MODEL_COFFEE_CUP_EMPTY,
+    (uintptr_t)bhvCoffeeCup,
+    0,
+    0,
+    0,
+    0,
+};
+
 #include "dudeguy/geo.inc.c"
 #include "confroom/geo.inc.c"
 #include "bar/geo.inc.c"

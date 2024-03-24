@@ -2,6 +2,7 @@
 
 #include "sm64.h"
 #include "confroom.h"
+#include "fpv_player.h"
 #include "model_ids.h"
 #include "object_fields.h"
 #include "engine/math_util.h"
@@ -31,7 +32,9 @@ ConfroomObjectSpawn *gConfroomSpawns[] = {
     &spawn_splineStopperWater,
     &spawn_coffeeMachine,
     &spawn_elevatorDoorLeft,
-    &spawn_elevatorDoorRight
+    &spawn_elevatorDoorRight,
+    &spawn_arm,
+    &spawn_coffeeCup,
 };
 
 s32 gNumConfroomSpawns = ARRAY_COUNT(gConfroomSpawns);
@@ -47,6 +50,9 @@ s32 spawn_confroom_objects(UNUSED s16 initOrUpdate, s32 reg) {
         ConfroomObjectSpawn *spawn = (ConfroomObjectSpawn *)segmented_to_virtual(gConfroomSpawns[i]);
         const BehaviorScript *behaviorAddr = segmented_to_virtual((void *)spawn->bhv);
         struct Object *obj = &gConfroomObjectPool[i];
+        if ((void *)spawn->bhv == bhvArm) gFPVPlayer.arm = obj;
+        if ((void *)spawn->bhv == bhvCoffeeCup) gFPVPlayer.coffeeCup = obj;
+
         obj->curBhvCommand = behaviorAddr;
         obj->behavior = behaviorAddr;
 

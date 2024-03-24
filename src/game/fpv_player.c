@@ -33,6 +33,11 @@ FPVPlayer gFPVPlayer = {
     .actionState = PLAYER_FREE,
     .focusPointActive = FALSE,
     .crouching = FALSE,
+    .arm = NULL,
+    .coffeeCup = NULL,
+    // .sipsLeft = 0,
+    .sipsLeft = 3,
+    .coffeeStolen = FALSE,
 };
 
 #define update_sec(s) (1.0f / (30.0f * (s)))
@@ -89,6 +94,15 @@ static s32 update_free(FPVPlayer *player) {
     if (player->cont->buttonPressed & PLAYER_BTN_STOP_PRESENTATION) {
         player->actionState = PLAYER_PRESENTING;
         return FALSE;
+    }
+    if (player->cont->buttonPressed & PLAYER_BTN_INTERACT) {
+        if (player->sipsLeft) {
+            player->sipsLeft = 0;
+            player->coffeeStolen = TRUE;
+        } else {
+            player->sipsLeft = 3;
+            player->coffeeStolen = FALSE;
+        }
     }
     if (gCurConvo.state != CONVO_INACTIVE) {
         player->actionState = PLAYER_CONVO_QTE;
@@ -310,6 +324,17 @@ void update_cam_from_player(FPVPlayer *player, FPVCamState *cam) {
         cam->fov = approach_f32_asymptotic(cam->fov, 30, 0.1f);
     } else {
         cam->fov = approach_f32_asymptotic(cam->fov, FOV_24MM, 0.1f);
+    }
+
+    if (player->arm) {
+        f32 *armPos = &player->arm->oPosX;
+        Vec3f armOffset = { 0, 0, 0 };
+        vec3_set_dist_and_angle(gVec3fZero, armOffset, 22, 0, cam->dir[1] + DEGREES(-90));
+        vec3f_sum(armPos, cam->pos, armOffset);
+
+        player->arm->oFaceAnglePitch = -cam->dir[0];
+        player->arm->oFaceAngleYaw = cam->dir[1];
+        player->arm->oFaceAngleRoll = cam->dir[2];
     }
 }
 
