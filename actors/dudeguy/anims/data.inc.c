@@ -10,3 +10,4 @@
 #include "anim_awaiting_response_female.inc.c"
 #include "anim_eating.inc.c"
 #include "anim_bored.inc.c"
+#include "anim_steal_coffee.inc.c"
