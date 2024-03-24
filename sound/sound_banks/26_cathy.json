@@ -74,6 +74,38 @@
             "release_rate": 208,
             "envelope": "envelope0",
             "sound": "question-what-say-you"
+        },
+
+        "inst13": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "coffee-steal-howd-you-know"
+        },
+        "inst14": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "coffee-steal-ill-take-that"
+        },
+        "inst15": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "coffee-steal-such-a-sweetheart"
+        },
+
+        "inst16": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "coffee-sip-ahhh"
+        },
+        "inst17": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "coffee-sip-mmm"
+        },
+        "inst18": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "coffee-sip-good-mornin"
         }
     },
     "instrument_list": [
@@ -89,6 +121,12 @@
         "inst9",
         "inst10",
         "inst11",
-        "inst12"
+        "inst12",
+        "inst13",
+        "inst14",
+        "inst15",
+        "inst16",
+        "inst17",
+        "inst18"
     ]
 }

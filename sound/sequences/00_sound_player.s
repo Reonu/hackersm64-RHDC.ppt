@@ -7986,22 +7986,30 @@ layer_jump .layer_32B7
 #ifdef EXTRA_SFX_CHANNEL_BANKS
 
 .channelA_table:
-// lead ins
+# lead ins
 sound_ref .sound_cathy_lead_in_get_a_load_of_this
 sound_ref .sound_cathy_lead_in_happy_hour
 sound_ref .sound_cathy_lead_in_kelly_was_like
 sound_ref .sound_cathy_lead_in_mitchell
 sound_ref .sound_cathy_lead_in_youre_never_gonna_believe
-// mumbles
+# mumbles
 sound_ref .sound_cathy_mumble_and_ill_be_nice
 sound_ref .sound_cathy_mumble_foo_foo_cachoo
 sound_ref .sound_cathy_mumble_paddle_drunk
 sound_ref .sound_cathy_mumble_ugh_right
-// questions
+# questions
 sound_ref .sound_cathy_question_plan_stan
 sound_ref .sound_cathy_question_wait_shh_hes_coming
 sound_ref .sound_cathy_question_what_about_you
 sound_ref .sound_cathy_question_what_say_you
+# coffee steal
+sound_ref .sound_cathy_coffee_steal_howd_you_know
+sound_ref .sound_cathy_coffee_steal_ill_take_that
+sound_ref .sound_cathy_coffee_steal_such_a_sweetheart
+# coffee sip
+sound_ref .sound_cathy_coffee_sip_ahhh
+sound_ref .sound_cathy_coffee_sip_mmm
+sound_ref .sound_cathy_coffee_sip_good_mornin
 
 
 .layer_lead_in:
@@ -8096,6 +8104,49 @@ chan_setbank 0xB
 chan_setinstr 12
 chan_setlayer 0, .layer_question
 chan_end
+
+.layer_cathy_coffee:
+layer_note1 39, 328, 64
+layer_end
+
+# coffee steal
+.sound_cathy_coffee_steal_howd_you_know:
+chan_setbank 0xB
+chan_setinstr 13
+chan_setlayer 0, .layer_cathy_coffee
+chan_end
+
+.sound_cathy_coffee_steal_ill_take_that:
+chan_setbank 0xB
+chan_setinstr 14
+chan_setlayer 0, .layer_cathy_coffee
+chan_end
+
+.sound_cathy_coffee_steal_such_a_sweetheart:
+chan_setbank 0xB
+chan_setinstr 15
+chan_setlayer 0, .layer_cathy_coffee
+chan_end
+
+# coffee sip
+.sound_cathy_coffee_sip_ahhh:
+chan_setbank 0xB
+chan_setinstr 16
+chan_setlayer 0, .layer_cathy_coffee
+chan_end
+
+.sound_cathy_coffee_sip_mmm:
+chan_setbank 0xB
+chan_setinstr 17
+chan_setlayer 0, .layer_cathy_coffee
+chan_end
+
+.sound_cathy_coffee_sip_good_mornin:
+chan_setbank 0xB
+chan_setinstr 18
+chan_setlayer 0, .layer_cathy_coffee
+chan_end
+
 
 .channelB_table:
 // Add custom sounds for Channel B here!

@@ -22,6 +22,16 @@ u32 cathy_questions[] = {
     SOUND_CATHY_QUESTION_WHAT_ABOUT_YO,
     SOUND_CATHY_QUESTION_WHAT_SAY_YOU,
 };
+u32 cathy_coffee_steals[] = {
+    SOUND_CATHY_COFFEE_STEAL_HOWD_YOU_KNOW,
+    SOUND_CATHY_COFFEE_STEAL_ILL_TAKE_THAT,
+    SOUND_CATHY_COFFEE_STEAL_SUCH_A_SWEETHEART,
+};
+u32 cathy_coffee_sips[] = {
+    SOUND_CATHY_COFFEE_SIP_AHHH,
+    SOUND_CATHY_COFFEE_SIP_MMM,
+    SOUND_CATHY_COFFEE_SIP_GOOD_MORNIN,
+};
 
 static void _play_random_sound_from_array(u32 *soundArray, s32 length) {
     cur_obj_play_sound_2(soundArray[random_u16() % length]);
@@ -45,6 +55,20 @@ static void play_character_mumble(s32 isCathy) {
 static void play_character_question(s32 isCathy) {
     if (isCathy) {
         play_random_sound_from_array(cathy_questions);
+    } else {
+
+    }
+}
+static void play_character_coffee_steal(s32 isCathy) {
+    if (isCathy) {
+        play_random_sound_from_array(cathy_coffee_steals);
+    } else {
+
+    }
+}
+static void play_character_coffee_sip(s32 isCathy) {
+    if (isCathy) {
+        play_random_sound_from_array(cathy_coffee_sips);
     } else {
 
     }
