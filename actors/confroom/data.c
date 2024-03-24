@@ -131,12 +131,34 @@ ConfroomObjectSpawn spawn_dudeGuyPhone = {
     0,
 };
 
+ConfroomObjectSpawn spawn_dudeGuyEating = {
+    {  1287.4222755432f,     0.0001066305f,  3222.2709655762f },
+    { 0x0000, -0x8000, 0x0000 },
+    MODEL_DUDEGUY,
+    (uintptr_t)bhvDudeGuy,
+    NPC_ANIM_EATING,
+    0,
+    0,
+    0,
+};
+
 ConfroomObjectSpawn spawn_dudeGuyTyping2 = {
     {  1363.3869171143f,     0.0001002975f,   299.1379737854f },
     { 0x0000, 0x4000, 0x0000 },
     MODEL_DUDEGUY,
     (uintptr_t)bhvDudeGuy,
     NPC_ANIM_TYPING,
+    0,
+    0,
+    0,
+};
+
+ConfroomObjectSpawn spawn_dudeGuyBored = {
+    {  1188.0863189697f,     0.0001066305f,  1797.3791122437f },
+    { 0x0000, -0x8000, 0x0000 },
+    MODEL_DUDEGUY,
+    (uintptr_t)bhvDudeGuy,
+    NPC_ANIM_BORED,
     0,
     0,
     0,
