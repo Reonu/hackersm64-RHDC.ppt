@@ -6356,3 +6356,21 @@ const BehaviorScript bhvElevatorDoor[] = {
         CALL_NATIVE(bhv_elevator_door_loop),
     END_LOOP(),
 };
+
+const BehaviorScript bhvArm[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    CALL_NATIVE(bhv_arm_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_arm_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvCoffeeCup[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    CALL_NATIVE(bhv_coffee_cup_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_coffee_cup_loop),
+    END_LOOP(),
+};

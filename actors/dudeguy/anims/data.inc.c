@@ -8,3 +8,5 @@
 #include "anim_shelf.inc.c"
 #include "anim_awaiting_response_male.inc.c"
 #include "anim_awaiting_response_female.inc.c"
+#include "anim_eating.inc.c"
+#include "anim_bored.inc.c"

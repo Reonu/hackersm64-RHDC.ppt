@@ -72,3 +72,7 @@
 #include "coffee_machine/model.inc.c"
 #include "elevator_door/model.inc.c"
 #include "chattykathy/model.inc.c"
+#include "arm/model.inc.c"
+#include "coffee_cup_full/model.inc.c"
+#include "coffee_cup_half/model.inc.c"
+#include "coffee_cup_empty/model.inc.c"

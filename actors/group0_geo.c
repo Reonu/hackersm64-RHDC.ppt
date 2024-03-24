@@ -46,3 +46,7 @@
 #include "coffee_machine/geo.inc.c"
 #include "elevator_door/geo.inc.c"
 #include "chattykathy/geo.inc.c"
+#include "arm/geo.inc.c"
+#include "coffee_cup_full/geo.inc.c"
+#include "coffee_cup_half/geo.inc.c"
+#include "coffee_cup_empty/geo.inc.c"

@@ -287,3 +287,74 @@ void bhv_elevator_door_loop(void) {
             }
     }
 }
+
+enum ArmActions {
+    ARM_INVISIBLE,
+    ARM_RAISING,
+    ARM_IDLE,
+    ARM_COFFEE_STOLEN,
+};
+
+void bhv_arm_init(void) {
+    o->oAction = ARM_INVISIBLE;
+    o->oAnimState = 0;
+    o->oAnimationIndex = 0;
+}
+
+void bhv_arm_loop(void) {
+    switch (o->oAction) {
+        case ARM_INVISIBLE:
+            cur_obj_hide();
+            o->oAnimState = 0;
+            break;
+        case ARM_RAISING:
+            cur_obj_unhide(),
+            o->oAnimationIndex = ARM_ANIM_RAISE;
+            if ((cur_obj_check_if_at_animation_end()) && (o->oTimer > 0)) {
+                o->oAction = ARM_IDLE;
+            }
+            break;
+        case ARM_IDLE:
+            cur_obj_unhide(),
+            o->oAnimationIndex = ARM_ANIM_IDLE;
+            break; 
+        case ARM_COFFEE_STOLEN:
+            cur_obj_unhide(),
+            o->oAnimState;
+            o->oAnimationIndex = ARM_ANIM_COFFEE_STOLEN;
+            break;
+
+    cur_obj_init_animation(o->oAnimationIndex);
+    }
+}
+
+enum CoffeeCupActions {
+    COFFEE_CUP_INVISIBLE,
+    COFFEE_CUP_EMPTY,
+    COFFEE_CUP_HALF,
+    COFFEE_CUP_FULL,
+};
+
+void bhv_coffee_cup_init(void) {
+    o->oAction = COFFEE_CUP_EMPTY;
+}
+
+void bhv_coffee_cup_loop(void) {
+    switch (o->oAction) {
+        case COFFEE_CUP_INVISIBLE:
+            cur_obj_hide();
+            break;
+        case COFFEE_CUP_EMPTY:
+            cur_obj_set_model(MODEL_COFFEE_CUP_EMPTY);
+            break;
+        case COFFEE_CUP_HALF:
+            cur_obj_set_model(MODEL_COFFEE_CUP_HALF);
+            break;
+        case COFFEE_CUP_FULL:
+            cur_obj_set_model(MODEL_COFFEE_CUP_FULL);
+            break;
+    }
+
+    if (o->oAction != COFFEE_CUP_INVISIBLE)
+        cur_obj_unhide();
+}

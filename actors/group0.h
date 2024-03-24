@@ -412,4 +412,12 @@ extern const GeoLayout geo_confroom_root[];
 
 #include "chattykathy/geo_header.h"
 
+#include "arm/geo_header.h"
+
+#include "coffee_cup_full/geo_header.h"
+
+#include "coffee_cup_half/geo_header.h"
+
+#include "coffee_cup_empty/geo_header.h"
+
 #endif

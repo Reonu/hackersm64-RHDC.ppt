@@ -1,0 +1,18 @@
+extern const GeoLayout arm_switch_opt1[];
+extern const GeoLayout arm_geo[];
+extern Vtx arm_right_arm_1_mesh_layer_1_vtx_0[15];
+extern Vtx arm_right_arm_2_skinned_mesh_layer_1_vtx_0[6];
+extern Vtx arm_right_arm_2_mesh_layer_1_vtx_0[6];
+extern Vtx arm_right_arm_2_mesh_layer_1_vtx_1[12];
+extern Vtx arm_right_hand_skinned_mesh_layer_1_vtx_0[6];
+extern Vtx arm_right_hand_mesh_layer_1_vtx_0[4];
+extern Vtx arm_right_hand_mesh_layer_1_vtx_1[20];
+extern Vtx arm_cuptris_mesh_layer_1_vtx_0[24];
+extern Vtx arm_cuptris_mesh_layer_1_vtx_1[5];
+extern Gfx arm_right_arm_1_mesh_layer_1[];
+extern Gfx arm_right_arm_2_skinned_mesh_layer_1[];
+extern Gfx arm_right_arm_2_mesh_layer_1[];
+extern Gfx arm_right_hand_skinned_mesh_layer_1[];
+extern Gfx arm_right_hand_mesh_layer_1[];
+extern Gfx arm_cuptris_mesh_layer_1[];
+extern Gfx arm_cuptris_mesh_layer_1_mat_override_invisible_0[];
