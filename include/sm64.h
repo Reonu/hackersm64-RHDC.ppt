@@ -95,7 +95,8 @@ enum NpcAnims {
 enum ArmAnims {
     ARM_ANIM_RAISE,
     ARM_ANIM_IDLE,
-    ARM_ANIM_COFFEE_STOLEN,
+    ARM_ANIM_DRINK,
+    ARM_ANIM_COFFEE_STOLEN
 };
 
 enum NpcSplines {
