@@ -420,4 +420,6 @@ extern const GeoLayout geo_confroom_root[];
 
 #include "coffee_cup_empty/geo_header.h"
 
+
+#include "arm/anim_header.h"
 #endif

@@ -76,3 +76,5 @@
 #include "coffee_cup_full/model.inc.c"
 #include "coffee_cup_half/model.inc.c"
 #include "coffee_cup_empty/model.inc.c"
+#include "arm/anims/data.inc.c"
+#include "arm/anims/table.inc.c"
