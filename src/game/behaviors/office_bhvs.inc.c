@@ -367,6 +367,7 @@ enum ElevatorDoorActions {
     ELEVATOR_DOOR_IDLE,
     ELEVATOR_DOOR_OPEN,
     ELEVATOR_DOOR_CLOSED,
+    ELEVATOR_DOOR_GONE,
 };
 
 void bhv_elevator_door_init(void) {
@@ -389,6 +390,13 @@ void bhv_elevator_door_loop(void) {
             } else {
                 o->oPosZ = approach_f32_symmetric(o->oPosZ, o->oHomeZ + 250.0f, 12.0f);
             }
+            if (o->oTimer > 60) {
+                o->oAction = ELEVATOR_DOOR_GONE;
+            }
+            break;
+        case ELEVATOR_DOOR_GONE:
+            cur_obj_hide();
+            break;
     }
 }
 
