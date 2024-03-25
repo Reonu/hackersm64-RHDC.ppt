@@ -39,6 +39,7 @@ FPVPlayer gFPVPlayer = {
     // .sipsLeft = 3,
     .coffeeStolen = FALSE,
     .canSit = FALSE,
+    .hasRespawned = FALSE,
 #ifdef SLIDE_DEBUG
     .godMode = FALSE,
     .instaGo = FALSE,
@@ -401,6 +402,13 @@ s32 update_player(void) {
     }
     sprintf(healthBuf, "Energy: %d%%", (s32)(100.0f * ((f32)player->energy) / (f32)MAX_ENERGY));
     print_small_text_buffered(20, SCREEN_HEIGHT - 20, healthBuf, PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);
+    if (player->actionState == PLAYER_PRESENTING && !player->hasRespawned) {
+        print_small_text_buffered(100, SCREEN_HEIGHT - 20, "Press START anytime to retry current slide",PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);
+        if (gPlayer1Controller->buttonPressed & START_BUTTON) {
+            player->hasRespawned = TRUE;
+        }
+    }
+    
 
     update_cam_from_player(player, &gFPVCam);
 

@@ -1842,13 +1842,17 @@ s32 execute_mario_action(UNUSED struct Object *obj) {
             }
         }
 
+        if (gPlayer1Controller->buttonPressed & START_BUTTON) {
+            move_mario_to_respawn(gMarioState, DEATH_TYPE_MANUAL_RESPAWN);
+        }
+
 
         play_infinite_stairs_music();
         gMarioState->marioObj->oInteractStatus = INT_STATUS_NONE;
 #if ENABLE_RUMBLE
         queue_rumble_particles(gMarioState);
 #endif
-
+        
         return gMarioState->particleFlags;
     }
 
