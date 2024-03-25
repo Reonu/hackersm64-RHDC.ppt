@@ -35,8 +35,8 @@ FPVPlayer gFPVPlayer = {
     .crouching = FALSE,
     .arm = NULL,
     .coffeeCup = NULL,
-    // .sipsLeft = 0,
-    .sipsLeft = 3,
+    .sipsLeft = 0,
+    // .sipsLeft = 3,
     .coffeeStolen = FALSE,
     .introCutsceneTimer = 0,
 };
@@ -110,9 +110,6 @@ static s32 update_free(FPVPlayer *player) {
         if (player->sipsLeft) {
             player->sipsLeft = 0;
             player->coffeeStolen = TRUE;
-        } else {
-            player->sipsLeft = 3;
-            player->coffeeStolen = FALSE;
         }
     }
     if (gCurConvo.state != CONVO_INACTIVE) {
