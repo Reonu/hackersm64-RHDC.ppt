@@ -80,7 +80,7 @@ static s32 get_move_dir(FPVPlayer *player, f32 *moveDir) {
     return TRUE;
 }
 
-#if TRUE
+#ifdef SLIDE_DEBUG
 static void print_debug_fpv_info(FPVPlayer *player) {
     static char buf[64];
     sprintf(buf, "%4d %4d %4d", roundf(player->pos[0]), roundf(player->pos[1]), roundf(player->pos[2]));
