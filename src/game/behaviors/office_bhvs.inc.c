@@ -586,7 +586,11 @@ void bhv_b_button_loop(void) {
             cur_obj_hide();
             break;
         case B_BUTTON_VISIBLE:
-            cur_obj_unhide();
+            if (gFPVPlayer.actionState != PLAYER_PRESENTING) {
+                cur_obj_unhide();
+            } else {
+                cur_obj_hide(); //this is stupid
+            }
             o->oBButtonTimer += 1300;
             o->oPosY += sins(o->oBButtonTimer) * 1.1f;
             o->oFaceAngleYaw += 500;
