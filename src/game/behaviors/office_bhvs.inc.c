@@ -4,6 +4,7 @@
 #include "include/model_ids.h"
 #include "engine/math_util.h"
 #include "game/emutest.h"
+#include "game/fpv_player.h"
 
 u32 cathy_lead_ins[] = {
     SOUND_CATHY_LEAD_IN_GET_A_LOAD_OF_THIS,
@@ -572,7 +573,7 @@ void bhv_intro_kathy_loop(void) {
 
 }
 
-#define MAX_SITTING_DIST 300.f
+
 
 enum BButtonActions {
     B_BUTTON_INVISIBLE,
