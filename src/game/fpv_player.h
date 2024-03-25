@@ -14,6 +14,7 @@ enum FPVPlayerActionStates {
     PLAYER_BREWING_COFFEE,
     PLAYER_PRESENTING,
     PLAYER_CONVO_QTE,
+    PLAYER_INTRO_CUTSCENE
 };
 
 typedef struct {
@@ -35,6 +36,7 @@ typedef struct {
     u8 crouching: 1;
     u8 running: 1;
     u8 coffeeStolen: 1;
+    s32 introCutsceneTimer;
 } FPVPlayer;
 
 extern FPVPlayer gFPVPlayer;

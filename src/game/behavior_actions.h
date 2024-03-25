@@ -574,6 +574,8 @@ void bhv_arm_init(void);
 void bhv_arm_loop(void);
 void bhv_coffee_cup_init(void);
 void bhv_coffee_cup_loop(void);
+void bhv_intro_kathy_init(void);
+void bhv_intro_kathy_loop(void);
 
 void bhv_spring_init(void);
 void bhv_spring_loop(void);

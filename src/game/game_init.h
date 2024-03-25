@@ -58,6 +58,7 @@ extern u8 gBeatSlide;
 extern u8 gCurrentCheckpoint;
 extern u8 gSwitchPressed;
 extern u8 gJustRespawned;
+extern u8 gIntroCutscene;
 #ifdef EEP
 extern s8 gEepromProbe;
 #endif

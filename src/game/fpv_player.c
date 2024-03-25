@@ -15,7 +15,7 @@
 #include "engine/math_util.h"
 #include "actors/group0.h"
 
-#define STARTING_POSITION { 0.0f, 1.0f, 414.8766040802f }
+#define STARTING_POSITION { -355.f, 1.0f, 2720.f }
 
 FPVPlayer gFPVPlayer = {
     .cont = NULL,
@@ -23,14 +23,14 @@ FPVPlayer gFPVPlayer = {
     .vel = { 0, 0, 0 },
     .headPos = PLAYER_EYE_SITTING,
     .energy = MAX_ENERGY,
-    .dir = { 0, 0, 0 },
+    .dir = { 0, DEGREES(90), 0 },
     .hitbox = {
         .pos = STARTING_POSITION,
         .height = PLAYER_HEIGHT,
         .radius = PLAYER_RADIUS
     },
     .curSpace = NULL,
-    .actionState = PLAYER_FREE,
+    .actionState = PLAYER_INTRO_CUTSCENE,
     .focusPointActive = FALSE,
     .crouching = FALSE,
     .arm = NULL,
@@ -38,6 +38,7 @@ FPVPlayer gFPVPlayer = {
     // .sipsLeft = 0,
     .sipsLeft = 3,
     .coffeeStolen = FALSE,
+    .introCutsceneTimer = 0,
 };
 
 #define update_sec(s) (1.0f / (30.0f * (s)))
@@ -79,7 +80,7 @@ static s32 get_move_dir(FPVPlayer *player, f32 *moveDir) {
     return TRUE;
 }
 
-#if FALSE
+#if TRUE
 static void print_debug_fpv_info(FPVPlayer *player) {
     static char buf[64];
     sprintf(buf, "%4d %4d %4d", roundf(player->pos[0]), roundf(player->pos[1]), roundf(player->pos[2]));
@@ -88,6 +89,16 @@ static void print_debug_fpv_info(FPVPlayer *player) {
 #else
 #define print_debug_fpv_info(...)
 #endif
+
+static s32 update_intro_cutscene(FPVPlayer *player) {
+    if ((player->introCutsceneTimer++) >= 120 ) {
+        player->actionState = PLAYER_FREE;
+    }
+
+    update_direction(player);
+
+    return FALSE;
+}
 
 static s32 update_free(FPVPlayer *player) {
     // TODO: Remove debug
@@ -284,7 +295,7 @@ void init_player(void) {
     FPVPlayer *player = &gFPVPlayer;
     player->cont = gPlayer1Controller;
     // TODO: Use correct initial action state
-    player->actionState = PLAYER_PRESENTING;
+    player->actionState = PLAYER_INTRO_CUTSCENE;
     // player->actionState = PLAYER_FREE;
     // TODO: copy init position from group0 data export
 
@@ -349,6 +360,10 @@ s32 update_player(void) {
     s32 continueUpdate = TRUE;
     while (continueUpdate) {
         switch (player->actionState) {
+            case PLAYER_INTRO_CUTSCENE:
+                continueUpdate = update_intro_cutscene(player);
+                print_small_text_buffered(20, 8, "intro", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);
+                break;
             case PLAYER_FREE:
                 continueUpdate = update_free(player);
                 print_small_text_buffered(20, 8, "free", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);

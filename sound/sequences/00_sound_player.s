@@ -8010,6 +8010,9 @@ sound_ref .sound_cathy_coffee_steal_such_a_sweetheart
 sound_ref .sound_cathy_coffee_sip_ahhh
 sound_ref .sound_cathy_coffee_sip_mmm
 sound_ref .sound_cathy_coffee_sip_good_mornin
+# intro
+sound_ref .sound_cathy_intro_hay_wake_up
+sound_ref .sound_cathy_intro_you_look_terrible
 
 
 .layer_lead_in:
@@ -8023,6 +8026,12 @@ layer_end
 .layer_question:
 layer_note1 39, 180, 64
 layer_end
+
+.layer_intro1:
+layer_note1 39, 260, 64
+
+.layer_intro2:
+layer_note1 39, 528, 64
 
 # LEAD INS
 .sound_cathy_lead_in_get_a_load_of_this:
@@ -8145,6 +8154,19 @@ chan_end
 chan_setbank 0xB
 chan_setinstr 18
 chan_setlayer 0, .layer_cathy_coffee
+chan_end
+
+# intro
+.sound_cathy_intro_hay_wake_up:
+chan_setbank 0xB
+chan_setinstr 19
+chan_setlayer 0, .layer_intro1
+chan_end
+
+.sound_cathy_intro_you_look_terrible:
+chan_setbank 0xB
+chan_setinstr 20
+chan_setlayer 0, .layer_intro2
 chan_end
 
 

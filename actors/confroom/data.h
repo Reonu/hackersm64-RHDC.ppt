@@ -43,3 +43,4 @@ extern f32 confroom_pathNextToConfroom[12][3];
 extern f32 confroom_pathNextToReception[15][3];
 extern ConfroomObjectSpawn spawn_elevatorDoorLeft;
 extern ConfroomObjectSpawn spawn_elevatorDoorRight;
+extern ConfroomObjectSpawn spawn_introKathy;
