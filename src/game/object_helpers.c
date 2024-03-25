@@ -2361,6 +2361,37 @@ Gfx *geo_set_prim_color(s32 callContext, struct GraphNode *node, UNUSED void *co
     return dlStart;
 }
 
+Gfx *geo_set_confroom_lights(s32 callContext, struct GraphNode *node, UNUSED void *context) {
+    Gfx *dlStart, *dlHead;
+    struct Object *objectGraphNode;
+    struct GraphNodeGenerated *currentGraphNode;
+    u8 layer;
+    dlStart = NULL;
+    if (callContext == GEO_CONTEXT_RENDER) {
+        currentGraphNode = (struct GraphNodeGenerated *) node;
+        objectGraphNode = (struct Object *) gCurGraphNodeObject; 
+        if (gCurGraphNodeHeldObject) {
+            objectGraphNode = gCurGraphNodeHeldObject->objNode;
+        }
+        layer = currentGraphNode->parameter & 0xFF;
+
+        //if (layer != 0) {
+            currentGraphNode->fnNode.node.flags =
+                (layer << 8) | (currentGraphNode->fnNode.node.flags & 0xFF);
+        //}
+
+        dlStart = alloc_display_list(sizeof(Gfx) * 3);
+        dlHead = dlStart;
+        if (gConfroomLights) {
+            gDPSetPrimColor(dlHead++, 0, 0, 255, 255, 255, 255);
+        } else {
+            gDPSetPrimColor(dlHead++, 0, 0, 0, 0, 0, 0);
+        }
+        gSPEndDisplayList(dlHead);
+    }
+    return dlStart;
+}
+
 Gfx *geo_set_coffee_cup_position(UNUSED s32 callContext, UNUSED struct GraphNode *node, Mat4 matrix) {
     if (gFPVPlayer.coffeeCup && gFPVPlayer.sipsLeft) {
         mtxf_copy(gFPVPlayer.coffeeCup->transform, matrix);

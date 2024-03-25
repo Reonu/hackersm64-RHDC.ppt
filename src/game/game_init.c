@@ -85,6 +85,7 @@ u8 gCurrentCheckpoint;
 u8 gSwitchPressed;
 u8 gJustRespawned;
 u8 gIntroCutscene;
+u8 gConfroomLights = 1;
 // Framebuffer rendering values (max 3)
 u16 sRenderedFramebuffer = 0;
 u16 sRenderingFramebuffer = 0;
