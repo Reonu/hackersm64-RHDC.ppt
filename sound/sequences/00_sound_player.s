@@ -7984,7 +7984,7 @@ layer_delay 0x2a
 layer_jump .layer_32B7
 
 #ifdef EXTRA_SFX_CHANNEL_BANKS
-#include "channelA.inc.s"
+#include "channelA.s.inc"
 
 .channelB_table:
 // Add custom sounds for Channel B here!

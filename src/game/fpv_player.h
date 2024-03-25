@@ -30,13 +30,13 @@ typedef struct {
     AABB *curSpace;
     struct Object *arm;
     struct Object *coffeeCup;
+    s32 introCutsceneTimer;
     u8 sipsLeft;
     u8 actionState;
     u8 focusPointActive: 1;
     u8 crouching: 1;
     u8 running: 1;
     u8 coffeeStolen: 1;
-    s32 introCutsceneTimer;
 } FPVPlayer;
 
 extern FPVPlayer gFPVPlayer;
