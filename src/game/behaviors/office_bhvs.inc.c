@@ -445,5 +445,6 @@ void bhv_intro_kathy_loop(void) {
             o->oPosX += 2;
             break;
     }
-cur_obj_init_animation(o->oAnimationIndex);
+
+    cur_obj_init_animation(o->oAnimationIndex);
 }

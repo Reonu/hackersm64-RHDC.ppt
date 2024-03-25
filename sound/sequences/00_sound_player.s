@@ -8028,39 +8028,51 @@ layer_note1 39, 180, 64
 layer_end
 
 .layer_intro1:
-layer_note1 39, 260, 64
+layer_note1 39, 261, 64
+layer_end
 
 .layer_intro2:
-layer_note1 39, 528, 64
+layer_note1 39, 533, 64
+layer_end
 
 # LEAD INS
 .sound_cathy_lead_in_get_a_load_of_this:
 chan_setbank 0xB
 chan_setinstr 0
+chan_setval 20
+chan_call .set_reverb
 chan_setlayer 0, .layer_lead_in
 chan_end
 
 .sound_cathy_lead_in_happy_hour:
 chan_setbank 0xB
 chan_setinstr 1
+chan_setval 20
+chan_call .set_reverb
 chan_setlayer 0, .layer_lead_in
 chan_end
 
 .sound_cathy_lead_in_kelly_was_like:
 chan_setbank 0xB
 chan_setinstr 2
+chan_setval 20
+chan_call .set_reverb
 chan_setlayer 0, .layer_lead_in
 chan_end
 
 .sound_cathy_lead_in_mitchell:
 chan_setbank 0xB
 chan_setinstr 3
+chan_setval 20
+chan_call .set_reverb
 chan_setlayer 0, .layer_lead_in
 chan_end
 
 .sound_cathy_lead_in_youre_never_gonna_believe:
 chan_setbank 0xB
 chan_setinstr 4
+chan_setval 20
+chan_call .set_reverb
 chan_setlayer 0, .layer_lead_in
 chan_end
 
@@ -8068,24 +8080,32 @@ chan_end
 .sound_cathy_mumble_and_ill_be_nice:
 chan_setbank 0xB
 chan_setinstr 5
+chan_setval 20
+chan_call .set_reverb
 chan_setlayer 0, .layer_mumble
 chan_end
 
 .sound_cathy_mumble_foo_foo_cachoo:
 chan_setbank 0xB
 chan_setinstr 6
+chan_setval 20
+chan_call .set_reverb
 chan_setlayer 0, .layer_mumble
 chan_end
 
 .sound_cathy_mumble_paddle_drunk:
 chan_setbank 0xB
 chan_setinstr 7
+chan_setval 20
+chan_call .set_reverb
 chan_setlayer 0, .layer_mumble
 chan_end
 
 .sound_cathy_mumble_ugh_right:
 chan_setbank 0xB
 chan_setinstr 8
+chan_setval 20
+chan_call .set_reverb
 chan_setlayer 0, .layer_mumble
 chan_end
 
@@ -8093,24 +8113,32 @@ chan_end
 .sound_cathy_question_plan_stan:
 chan_setbank 0xB
 chan_setinstr 9
+chan_setval 20
+chan_call .set_reverb
 chan_setlayer 0, .layer_question
 chan_end
 
 .sound_cathy_question_wait_shh_hes_coming:
 chan_setbank 0xB
 chan_setinstr 10
+chan_setval 20
+chan_call .set_reverb
 chan_setlayer 0, .layer_question
 chan_end
 
 .sound_cathy_question_what_about_you:
 chan_setbank 0xB
 chan_setinstr 11
+chan_setval 20
+chan_call .set_reverb
 chan_setlayer 0, .layer_question
 chan_end
 
 .sound_cathy_question_what_say_you:
 chan_setbank 0xB
 chan_setinstr 12
+chan_setval 20
+chan_call .set_reverb
 chan_setlayer 0, .layer_question
 chan_end
 
@@ -8122,18 +8150,24 @@ layer_end
 .sound_cathy_coffee_steal_howd_you_know:
 chan_setbank 0xB
 chan_setinstr 13
+chan_setval 20
+chan_call .set_reverb
 chan_setlayer 0, .layer_cathy_coffee
 chan_end
 
 .sound_cathy_coffee_steal_ill_take_that:
 chan_setbank 0xB
 chan_setinstr 14
+chan_setval 20
+chan_call .set_reverb
 chan_setlayer 0, .layer_cathy_coffee
 chan_end
 
 .sound_cathy_coffee_steal_such_a_sweetheart:
 chan_setbank 0xB
 chan_setinstr 15
+chan_setval 20
+chan_call .set_reverb
 chan_setlayer 0, .layer_cathy_coffee
 chan_end
 
@@ -8141,18 +8175,24 @@ chan_end
 .sound_cathy_coffee_sip_ahhh:
 chan_setbank 0xB
 chan_setinstr 16
+chan_setval 20
+chan_call .set_reverb
 chan_setlayer 0, .layer_cathy_coffee
 chan_end
 
 .sound_cathy_coffee_sip_mmm:
 chan_setbank 0xB
 chan_setinstr 17
+chan_setval 20
+chan_call .set_reverb
 chan_setlayer 0, .layer_cathy_coffee
 chan_end
 
 .sound_cathy_coffee_sip_good_mornin:
 chan_setbank 0xB
 chan_setinstr 18
+chan_setval 20
+chan_call .set_reverb
 chan_setlayer 0, .layer_cathy_coffee
 chan_end
 
@@ -8160,12 +8200,16 @@ chan_end
 .sound_cathy_intro_hay_wake_up:
 chan_setbank 0xB
 chan_setinstr 19
+chan_setval 20
+chan_call .set_reverb
 chan_setlayer 0, .layer_intro1
 chan_end
 
 .sound_cathy_intro_you_look_terrible:
 chan_setbank 0xB
 chan_setinstr 20
+chan_setval 20
+chan_call .set_reverb
 chan_setlayer 0, .layer_intro2
 chan_end
 
