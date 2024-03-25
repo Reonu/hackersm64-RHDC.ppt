@@ -38,6 +38,7 @@ FPVPlayer gFPVPlayer = {
     .sipsLeft = 0,
     // .sipsLeft = 3,
     .coffeeStolen = FALSE,
+    .canSit = FALSE,
 };
 
 #define update_sec(s) (1.0f / (30.0f * (s)))
@@ -102,8 +103,8 @@ static s32 update_intro_cutscene(FPVPlayer *player) {
 }
 
 static s32 update_free(FPVPlayer *player) {
-    // TODO: Remove debug
-    if (player->cont->buttonPressed & PLAYER_BTN_STOP_PRESENTATION) {
+    // this isn't debug anymore!!!!
+    if ((player->cont->buttonPressed & PLAYER_BTN_START_PRESENTATION) && (player->canSit)) {
         player->actionState = PLAYER_PRESENTING;
         return FALSE;
     }

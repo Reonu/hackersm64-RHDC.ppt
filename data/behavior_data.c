@@ -6386,3 +6386,14 @@ const BehaviorScript bhvIntroKathy[] = {
         CALL_NATIVE(bhv_intro_kathy_loop),
     END_LOOP(),
 };
+
+const BehaviorScript bhvBButton[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SCALE(/*i am*/ 0, /*tired*/ 25),
+    SET_HOME(),
+    CALL_NATIVE(bhv_b_button_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_b_button_loop),
+    END_LOOP(),
+};

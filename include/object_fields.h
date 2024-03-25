@@ -1339,6 +1339,8 @@ os16112*/
 #define oSplineDudeGuyPointIndex OBJECT_FIELD_S32(0x1B)
 #define oStopperObject           OBJECT_FIELD_OBJ(0x1C)
 #define oOldAngle                OBJECT_FIELD_S32(0x22)
+#define oBButtonTimer            OBJECT_FIELD_S32(0x1B)
+#define oCoffeeMachine           OBJECT_FIELD_OBJ(0x1C)
 
 #define oElevatorDoorIsOtherDoor OBJECT_FIELD_S16(0x1B, 0)
 

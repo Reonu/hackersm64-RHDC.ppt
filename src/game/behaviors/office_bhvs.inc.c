@@ -2,6 +2,8 @@
 #include "game/print.h"
 #include "game/object_helpers.h"
 #include "include/model_ids.h"
+#include "engine/math_util.h"
+#include "game/emutest.h"
 
 u32 cathy_lead_ins[] = {
     SOUND_CATHY_LEAD_IN_GET_A_LOAD_OF_THIS,
@@ -77,6 +79,12 @@ static void play_character_coffee_sip(s32 isCathy) {
 
 void bhv_dudeguy_init(void) {
     o->oAnimationIndex = BPARAM1;
+
+    /*if (gEmulator == EMU_CONSOLE) {
+        o->oDrawingDistance = 2000.f;
+    } else {
+        o->oDrawingDistance = 100.f;
+    }*/
 }
 
 void bhv_dudeguy_loop(void) {
@@ -303,6 +311,8 @@ enum CoffeeMachineActions {
     COFFEE_MACHINE_READY,
 };
 
+#define MAX_COFFEE_MACHINE_DIST 200.f
+
 void bhv_coffee_machine_init(void) {
     o->oAction = COFFEE_MACHINE_WAITING;
 }
@@ -312,7 +322,7 @@ void bhv_coffee_machine_loop(void) {
         case COFFEE_MACHINE_WAITING: {
             f32 *pos = &o->oPosX;
             o->oAnimState = 0;
-            if (!gFPVPlayer.sipsLeft && vec3f_lat_dist(pos, gFPVPlayer.pos) < 200 && gPlayer1Controller->buttonPressed & PLAYER_BTN_INTERACT) {
+            if (!gFPVPlayer.sipsLeft && vec3f_lat_dist(pos, gFPVPlayer.pos) < MAX_COFFEE_MACHINE_DIST && gPlayer1Controller->buttonPressed & PLAYER_BTN_INTERACT) {
                 o->oAction = COFFEE_MACHINE_RUNNING;
                 o->oAnimState = 1;
             }
@@ -329,7 +339,7 @@ void bhv_coffee_machine_loop(void) {
         }
         case COFFEE_MACHINE_READY: {
             f32 *pos = &o->oPosX;
-            if (vec3f_lat_dist(pos, gFPVPlayer.pos) < 200 && gPlayer1Controller->buttonPressed & PLAYER_BTN_INTERACT) {
+            if (vec3f_lat_dist(pos, gFPVPlayer.pos) < MAX_COFFEE_MACHINE_DIST && gPlayer1Controller->buttonPressed & PLAYER_BTN_INTERACT) {
                 o->oAction = COFFEE_MACHINE_WAITING;
                 gFPVPlayer.sipsLeft = 3;
                 gFPVPlayer.energy = MAX_ENERGY;
@@ -364,7 +374,7 @@ void bhv_elevator_door_init(void) {
 void bhv_elevator_door_loop(void) {
     switch (o->oAction) {
         case ELEVATOR_DOOR_IDLE:
-            if (gIntroCutscene == INTRO_CUTSCENE_OPEN_ELEVATOR_DOORS) {
+            if (gIntroCutscene >= INTRO_CUTSCENE_OPEN_ELEVATOR_DOORS) {
                 o->oAction = ELEVATOR_DOOR_OPEN;
             }
             break;
@@ -547,4 +557,51 @@ void bhv_intro_kathy_loop(void) {
     if (!cur_obj_has_model(MODEL_NONE))
         cur_obj_init_animation(o->oAnimationIndex);
 
+}
+
+#define MAX_SITTING_DIST 300.f
+
+enum BButtonActions {
+    B_BUTTON_INVISIBLE,
+    B_BUTTON_VISIBLE,
+};
+
+void bhv_b_button_init(void) {
+    cur_obj_hide();
+    o->oAction = B_BUTTON_INVISIBLE;
+    o->oCoffeeMachine = find_closest_office_obj_with_bhv(segmented_to_virtual(bhvCoffeeMachine),100.f);
+}
+
+void bhv_b_button_loop(void) {
+    f32 *pos = &o->oPosX;
+    f32 playerDist = vec3f_lat_dist(pos, gFPVPlayer.pos);
+
+    switch (o->oAction) {
+        case B_BUTTON_INVISIBLE:
+            cur_obj_hide();
+            break;
+        case B_BUTTON_VISIBLE:
+            cur_obj_unhide();
+            o->oBButtonTimer += 1300;
+            o->oPosY += sins(o->oBButtonTimer) * 1.1f;
+            o->oFaceAngleYaw += 500;
+            break;
+    }
+    if (o->oCoffeeMachine != NULL) {
+        if ((o->oCoffeeMachine->oAction != COFFEE_MACHINE_WAITING) || (gFPVPlayer.sipsLeft) || (playerDist > MAX_COFFEE_MACHINE_DIST)) {
+            o->oAction = B_BUTTON_INVISIBLE;
+        } else {
+            o->oAction = B_BUTTON_VISIBLE;
+        }
+    } else {
+        if (playerDist > MAX_SITTING_DIST) {
+            o->oAction = B_BUTTON_INVISIBLE;
+            gFPVPlayer.canSit = FALSE;
+        } else {
+            if (gFPVPlayer.actionState != PLAYER_PRESENTING) {
+                o->oAction = B_BUTTON_VISIBLE;
+            }
+            gFPVPlayer.canSit = TRUE;
+        }
+    }
 }

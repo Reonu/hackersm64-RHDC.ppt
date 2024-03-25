@@ -46,7 +46,9 @@
 
 #define MODEL_COFFEE_CUP_EMPTY                 0x11D
 #define MODEL_COFFEE_CUP_HALF                  0x11E
-#define MODEL_COFFEE_CUP_FULL                   0x11F
+#define MODEL_COFFEE_CUP_FULL                  0x11F
+
+#define MODEL_B_BUTTON                         0x112
 
 /* Various static level geometry, the geo layout differs but terrain object presets treat them the same.*/
 

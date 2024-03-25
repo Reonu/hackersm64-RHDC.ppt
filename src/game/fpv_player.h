@@ -36,6 +36,7 @@ typedef struct {
     u8 crouching: 1;
     u8 running: 1;
     u8 coffeeStolen: 1;
+    u8 canSit: 1;
 } FPVPlayer;
 
 extern FPVPlayer gFPVPlayer;
@@ -83,6 +84,7 @@ extern FPVPlayer gFPVPlayer;
 #define PLAYER_BTN_INTERACT B_BUTTON
 #define PLAYER_BTN_RUN      R_TRIG
 #define PLAYER_BTN_CROUCH   Z_TRIG
+#define PLAYER_BTN_START_PRESENTATION   B_BUTTON
 // PLAYER_PRESENTING
 #define PLAYER_BTN_STOP_PRESENTATION L_TRIG
 
