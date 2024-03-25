@@ -91,6 +91,8 @@ static void print_debug_fpv_info(FPVPlayer *player) {
 #endif
 
 static s32 update_intro_cutscene(FPVPlayer *player) {
+    player->headPos = PLAYER_EYE_DEFAULT;
+    player->crouching = FALSE;
     if ((player->introCutsceneTimer++) >= 120 ) {
         player->actionState = PLAYER_FREE;
     }
