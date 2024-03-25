@@ -30,7 +30,6 @@ typedef struct {
     AABB *curSpace;
     struct Object *arm;
     struct Object *coffeeCup;
-    s32 introCutsceneTimer;
     u8 sipsLeft;
     u8 actionState;
     u8 focusPointActive: 1;

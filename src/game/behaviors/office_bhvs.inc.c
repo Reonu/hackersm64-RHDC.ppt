@@ -400,6 +400,7 @@ void bhv_coffee_cup_loop(void) {
 
 enum IntroKathyActions {
     INTRO_KATHY_WAKE_UP,
+    INTRO_KATHY_TURN_TOWARDS_DOOR,
     INTRO_KATHY_WALK_OUT_OF_ELEVATOR,
     INTRO_KATHY_YOU_LOOK_TERRIBLE,
     INTRO_KATHY_GO_AWAY,
@@ -418,33 +419,66 @@ void bhv_intro_kathy_loop(void) {
                 cur_obj_play_sound_2(SOUND_CATHY_INTRO_WAKE_UP);
             }
             if ((o->oTimer > 2) && (cur_obj_check_if_at_animation_end())) {
-                o->oFaceAngleYaw += DEGREES(180);
-                o->oAction = INTRO_KATHY_WALK_OUT_OF_ELEVATOR;
+                o->oAction = INTRO_KATHY_TURN_TOWARDS_DOOR;
                 gIntroCutscene = 1;
             }
-
+            break;
+        case INTRO_KATHY_TURN_TOWARDS_DOOR:
+            o->oAnimationIndex = NPC_ANIM_WALKING;
+            o->oFaceAngleYaw = approach_angle(o->oFaceAngleYaw,0x4000, DEGREES(10));
+            if (o->oFaceAngleYaw == 0x4000) {
+                o->oAction = INTRO_KATHY_WALK_OUT_OF_ELEVATOR;
+            }
             break;
         case INTRO_KATHY_WALK_OUT_OF_ELEVATOR:
             o->oAnimationIndex = NPC_ANIM_WALKING;
-            o->oPosX+= 2;
-            if (o->oTimer > 120) {
-                o->oFaceAngleYaw += DEGREES(180);
-                o->oAction = INTRO_KATHY_YOU_LOOK_TERRIBLE;
+            if (o->oTimer > 90) {
+                o->oFaceAngleYaw = approach_angle(o->oFaceAngleYaw,DEGREES(270), DEGREES(10));
+                if (o->oFaceAngleYaw <= DEGREES(-90)) {
+                    o->oAction = INTRO_KATHY_YOU_LOOK_TERRIBLE;
+                }
+            } else {
+                o->oPosX+= 3;
             }
             break;
         case INTRO_KATHY_YOU_LOOK_TERRIBLE:
-            o->oAnimationIndex = NPC_ANIM_TALKING;
+            o->oAnimationIndex = NPC_ANIM_INTRO_YOU_LOOK_TERRIBLE;
             if (o->oTimer == 0) {
                 cur_obj_play_sound_2(SOUND_CATHY_INTRO_YOU_LOOK_TERRIBLE);
             }
-            if (o->oTimer > 150) {
+            if ((o->oTimer > 2) && (cur_obj_check_if_at_animation_end())) {
                 o->oAction = INTRO_KATHY_GO_AWAY;
             }
             break;
         case INTRO_KATHY_GO_AWAY:
-            o->oPosX += 2;
+            o->oAnimationIndex = NPC_ANIM_WALKING;
+            if (o->oPosX < 700) {
+                o->oFaceAngleYaw = approach_angle(o->oFaceAngleYaw,0x4000, DEGREES(10));
+                o->oPosX += 7;
+            } else {
+                o->oFaceAngleYaw = approach_angle(o->oFaceAngleYaw,-0x8000, DEGREES(10));
+                o->oPosZ -= 7;
+            }
+            if (o->oPosZ < 2400) {
+                o->oAction = INTRO_KATHY_DISAPPEAR;
+            }
+            
+            break;
+        case INTRO_KATHY_DISAPPEAR:
+            gIntroCutscene = 2;
+            cur_obj_set_model(MODEL_NONE);
+            cur_obj_hide();
             break;
     }
+    //print_text_fmt_int(20,20, "%d", o->oPosZ);
+    //print_text_fmt_int(20,40, "%x", o->oFaceAngleYaw);
+    
+    #ifdef SLIDE_DEBUG
+    if (gPlayer1Controller->buttonPressed & R_TRIG)
+        o->oAction = INTRO_KATHY_DISAPPEAR;
+    #endif
 
-    cur_obj_init_animation(o->oAnimationIndex);
+    if (!cur_obj_has_model(MODEL_NONE))
+        cur_obj_init_animation(o->oAnimationIndex);
+
 }

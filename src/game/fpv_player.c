@@ -15,7 +15,7 @@
 #include "engine/math_util.h"
 #include "actors/group0.h"
 
-#define STARTING_POSITION { -355.f, 1.0f, 2720.f }
+#define STARTING_POSITION { -355.f, 2.0f, 2720.f }
 
 FPVPlayer gFPVPlayer = {
     .cont = NULL,
@@ -38,7 +38,6 @@ FPVPlayer gFPVPlayer = {
     // .sipsLeft = 0,
     .sipsLeft = 3,
     .coffeeStolen = FALSE,
-    .introCutsceneTimer = 0,
 };
 
 #define update_sec(s) (1.0f / (30.0f * (s)))
@@ -91,10 +90,10 @@ static void print_debug_fpv_info(FPVPlayer *player) {
 #endif
 
 static s32 update_intro_cutscene(FPVPlayer *player) {
-    if ((player->introCutsceneTimer++) >= 120 ) {
+    if (gIntroCutscene == 2 ) {
         player->actionState = PLAYER_FREE;
     }
-
+    player->headPos = approach_f32(player->headPos, player->crouching ? PLAYER_EYE_CROUCHING : PLAYER_EYE_DEFAULT, 10, 10);
     update_direction(player);
 
     return FALSE;
