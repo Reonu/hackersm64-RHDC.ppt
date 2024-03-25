@@ -101,12 +101,15 @@ enum SplineDudeGuyActions {
     SPLINE_GUY_CHASING_PLAYER,
     SPLINE_GUY_CONVERSATION,
     SPLINE_GUY_RETURNING_TO_SPLINE,
+    SPLINE_GUY_STOLE_COFFEE,
 };
 
 #define SPLINE_GUY_PATROL_SPEED meters_sec(1.6f)
 #define SPLINE_GUY_CHASE_SPEED  meters_sec(1.75f)
 #define SPLINE_GUY_NEXT_POINT_THRESHOLD  160
 #define SPLINE_GUY_PLAYER_START_CONVO_DIST 160
+#define SPLINE_GUY_STEAL_SIP_START 102
+#define SPLINE_GUY_STEAL_SIP_END 193
 
 void bhv_spline_dudeguy_init(void) {
     o->oAnimationIndex = NPC_ANIM_WALKING;
@@ -152,13 +155,24 @@ void bhv_spline_dudeguy_loop(void) {
     switch (o->oAction) {
         case SPLINE_GUY_WALKING: {
             if (playerDist < SPLINE_GUY_PLAYER_START_CONVO_DIST) {
-                Vec3f speakerPos = { o->oPosX, o->oPosY + 180, o->oPosZ };
-                if (start_convo(speakerPos)) {
-                    o->oAction = SPLINE_GUY_CONVERSATION;
+                if (gFPVPlayer.sipsLeft) { 
+                    gFPVPlayer.sipsLeft = 0;
+                    gFPVPlayer.coffeeStolen = TRUE;
+                    o->oAction = SPLINE_GUY_STOLE_COFFEE;
+                    o->oSubAction = 0;
                     o->oOldAngle = o->oFaceAngleYaw;
                     o->oFaceAngleYaw = atan2s(gFPVPlayer.pos[2] - pos[2], gFPVPlayer.pos[0] - pos[0]);
                     o->oForwardVel = 0;
-                    break;
+                    play_character_coffee_steal(cur_obj_has_model(MODEL_CHATTY_KATHY));
+                } else {
+                    Vec3f speakerPos = { o->oPosX, o->oPosY + 180, o->oPosZ };
+                    if (start_convo(speakerPos)) {
+                        o->oAction = SPLINE_GUY_CONVERSATION;
+                        o->oOldAngle = o->oFaceAngleYaw;
+                        o->oFaceAngleYaw = atan2s(gFPVPlayer.pos[2] - pos[2], gFPVPlayer.pos[0] - pos[0]);
+                        o->oForwardVel = 0;
+                        break;
+                    }
                 }
             }
             // f32 *curPoint = spline->points[pIndex];
@@ -255,6 +269,24 @@ void bhv_spline_dudeguy_loop(void) {
             }
             break;
         }
+        case SPLINE_GUY_STOLE_COFFEE: {
+            s32 isCathy = cur_obj_has_model(MODEL_CHATTY_KATHY);
+            o->oAnimationIndex = NPC_ANIM_STEAL_COFFEE;
+            if (o->oTimer > 0 && cur_obj_check_anim_frame(SPLINE_GUY_STEAL_SIP_END)) {
+                if (o->oSubAction == 3) {
+                    o->oAction = SPLINE_GUY_RETURNING_TO_SPLINE;
+                    o->oAnimationIndex = NPC_ANIM_IDLE;
+                } else {
+                    o->header.gfx.animInfo.animFrame = SPLINE_GUY_STEAL_SIP_START;
+                }
+            }
+            if (cur_obj_check_anim_frame(SPLINE_GUY_STEAL_SIP_START)) {
+                o->oSubAction++;
+                play_character_coffee_sip(isCathy);
+            };
+
+            break;
+        }
         case SPLINE_GUY_RETURNING_TO_SPLINE:
             if (o->oTimer > 3 * 30) {
                 // todo: more custom
@@ -265,13 +297,46 @@ void bhv_spline_dudeguy_loop(void) {
     cur_obj_init_animation(o->oAnimationIndex);
 }
 
-void bhv_coffee_machine_init(void) {
+enum CoffeeMachineActions {
+    COFFEE_MACHINE_WAITING,
+    COFFEE_MACHINE_RUNNING,
+    COFFEE_MACHINE_READY,
+};
 
+void bhv_coffee_machine_init(void) {
+    o->oAction = COFFEE_MACHINE_WAITING;
 }
 
 void bhv_coffee_machine_loop(void) {
-    if (gPlayer1Controller->buttonPressed & R_TRIG) {
-        o->oAnimState += 1;
+    switch (o->oAction) {
+        case COFFEE_MACHINE_WAITING: {
+            f32 *pos = &o->oPosX;
+            o->oAnimState = 0;
+            if (!gFPVPlayer.sipsLeft && vec3f_lat_dist(pos, gFPVPlayer.pos) < 200 && gPlayer1Controller->buttonPressed & PLAYER_BTN_INTERACT) {
+                o->oAction = COFFEE_MACHINE_RUNNING;
+                o->oAnimState = 1;
+            }
+            break;
+        }
+        case COFFEE_MACHINE_RUNNING: {
+            if (o->oTimer > 0 && (o->oTimer % 30 == 0)) {
+                o->oAnimState += 1;
+                if (o->oAnimState == 3) {
+                    o->oAction = COFFEE_MACHINE_READY;
+                }
+            }
+            break;
+        }
+        case COFFEE_MACHINE_READY: {
+            f32 *pos = &o->oPosX;
+            if (vec3f_lat_dist(pos, gFPVPlayer.pos) < 200 && gPlayer1Controller->buttonPressed & PLAYER_BTN_INTERACT) {
+                o->oAction = COFFEE_MACHINE_WAITING;
+                gFPVPlayer.sipsLeft = 3;
+                gFPVPlayer.energy = MAX_ENERGY;
+                gFPVPlayer.coffeeStolen = FALSE;
+            }
+        }
+
     }
 
     if (o->oAnimState == 0) {

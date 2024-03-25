@@ -35,8 +35,8 @@ FPVPlayer gFPVPlayer = {
     .crouching = FALSE,
     .arm = NULL,
     .coffeeCup = NULL,
-    // .sipsLeft = 0,
-    .sipsLeft = 3,
+    .sipsLeft = 0,
+    // .sipsLeft = 3,
     .coffeeStolen = FALSE,
 };
 
@@ -90,7 +90,9 @@ static void print_debug_fpv_info(FPVPlayer *player) {
 #endif
 
 static s32 update_intro_cutscene(FPVPlayer *player) {
-    if (gIntroCutscene == 2 ) {
+    player->headPos = PLAYER_EYE_DEFAULT;
+    player->crouching = FALSE;
+    if (gIntroCutscene == 2) {
         player->actionState = PLAYER_FREE;
     }
     player->headPos = approach_f32(player->headPos, player->crouching ? PLAYER_EYE_CROUCHING : PLAYER_EYE_DEFAULT, 10, 10);
@@ -105,15 +107,7 @@ static s32 update_free(FPVPlayer *player) {
         player->actionState = PLAYER_PRESENTING;
         return FALSE;
     }
-    if (player->cont->buttonPressed & PLAYER_BTN_INTERACT) {
-        if (player->sipsLeft) {
-            player->sipsLeft = 0;
-            player->coffeeStolen = TRUE;
-        } else {
-            player->sipsLeft = 3;
-            player->coffeeStolen = FALSE;
-        }
-    }
+
     if (gCurConvo.state != CONVO_INACTIVE) {
         player->actionState = PLAYER_CONVO_QTE;
         return TRUE;
