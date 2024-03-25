@@ -106,12 +106,7 @@ static s32 update_free(FPVPlayer *player) {
         player->actionState = PLAYER_PRESENTING;
         return FALSE;
     }
-    if (player->cont->buttonPressed & PLAYER_BTN_INTERACT) {
-        if (player->sipsLeft) {
-            player->sipsLeft = 0;
-            player->coffeeStolen = TRUE;
-        }
-    }
+
     if (gCurConvo.state != CONVO_INACTIVE) {
         player->actionState = PLAYER_CONVO_QTE;
         return TRUE;
