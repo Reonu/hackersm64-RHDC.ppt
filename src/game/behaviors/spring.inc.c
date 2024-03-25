@@ -89,4 +89,8 @@ void bhv_spring_loop(void) {
         o->oFaceAngleYaw = DEGREES(90);
     }
 
+    if (gJustRespawned) {
+        (cur_obj_set_pos_to_home);
+    }
+
 }
