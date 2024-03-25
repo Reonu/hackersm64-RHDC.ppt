@@ -299,7 +299,7 @@ void bhv_elevator_door_init(void) {
 void bhv_elevator_door_loop(void) {
     switch (o->oAction) {
         case ELEVATOR_DOOR_IDLE:
-            if (gPlayer1Controller->buttonPressed & D_JPAD) {
+            if (gIntroCutscene) {
                 o->oAction = ELEVATOR_DOOR_OPEN;
             }
             break;
@@ -396,4 +396,54 @@ void bhv_coffee_cup_loop(void) {
 
     if (o->oAction != COFFEE_CUP_INVISIBLE)
         cur_obj_unhide();
+}
+
+enum IntroKathyActions {
+    INTRO_KATHY_WAKE_UP,
+    INTRO_KATHY_WALK_OUT_OF_ELEVATOR,
+    INTRO_KATHY_YOU_LOOK_TERRIBLE,
+    INTRO_KATHY_GO_AWAY,
+    INTRO_KATHY_DISAPPEAR,
+};
+
+void bhv_intro_kathy_init(void) {
+    o->oAction = INTRO_KATHY_WAKE_UP;
+}
+
+void bhv_intro_kathy_loop(void) {
+    switch (o->oAction) {
+        case INTRO_KATHY_WAKE_UP:
+            o->oAnimationIndex = NPC_ANIM_INTRO_WAKE_UP;
+            if (o->oTimer == 0) {
+                cur_obj_play_sound_2(SOUND_CATHY_INTRO_WAKE_UP);
+            }
+            if ((o->oTimer > 2) && (cur_obj_check_if_at_animation_end())) {
+                o->oFaceAngleYaw += DEGREES(180);
+                o->oAction = INTRO_KATHY_WALK_OUT_OF_ELEVATOR;
+                gIntroCutscene = 1;
+            }
+
+            break;
+        case INTRO_KATHY_WALK_OUT_OF_ELEVATOR:
+            o->oAnimationIndex = NPC_ANIM_WALKING;
+            o->oPosX+= 2;
+            if (o->oTimer > 120) {
+                o->oFaceAngleYaw += DEGREES(180);
+                o->oAction = INTRO_KATHY_YOU_LOOK_TERRIBLE;
+            }
+            break;
+        case INTRO_KATHY_YOU_LOOK_TERRIBLE:
+            o->oAnimationIndex = NPC_ANIM_TALKING;
+            if (o->oTimer == 0) {
+                cur_obj_play_sound_2(SOUND_CATHY_INTRO_YOU_LOOK_TERRIBLE);
+            }
+            if (o->oTimer > 150) {
+                o->oAction = INTRO_KATHY_GO_AWAY;
+            }
+            break;
+        case INTRO_KATHY_GO_AWAY:
+            o->oPosX += 2;
+            break;
+    }
+cur_obj_init_animation(o->oAnimationIndex);
 }

@@ -106,6 +106,16 @@
             "release_rate": 208,
             "envelope": "envelope0",
             "sound": "coffee-sip-good-mornin"
+        },
+        "inst19": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "intro-hay-wake-up"
+        },
+        "inst20": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "intro-oh-you-look-terrible"
         }
     },
     "instrument_list": [
@@ -127,6 +137,8 @@
         "inst15",
         "inst16",
         "inst17",
-        "inst18"
+        "inst18",
+        "inst19",
+        "inst20"
     ]
 }

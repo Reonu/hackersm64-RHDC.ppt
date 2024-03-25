@@ -6376,3 +6376,14 @@ const BehaviorScript bhvCoffeeCup[] = {
         CALL_NATIVE(bhv_coffee_cup_loop),
     END_LOOP(),
 };
+
+const BehaviorScript bhvIntroKathy[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    LOAD_ANIMATIONS(oAnimations, dudeguy_anims),
+    SCALE(/*i am*/ 0, /*tired*/ 18),
+    CALL_NATIVE(bhv_intro_kathy_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_intro_kathy_loop),
+    END_LOOP(),
+};

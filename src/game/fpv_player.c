@@ -15,7 +15,7 @@
 #include "engine/math_util.h"
 #include "actors/group0.h"
 
-#define STARTING_POSITION { 0.0f, 1.0f, 414.8766040802f }
+#define STARTING_POSITION { -355.f, 1.0f, 2720.f }
 
 FPVPlayer gFPVPlayer = {
     .cont = NULL,
@@ -23,7 +23,7 @@ FPVPlayer gFPVPlayer = {
     .vel = { 0, 0, 0 },
     .headPos = PLAYER_EYE_SITTING,
     .energy = MAX_ENERGY,
-    .dir = { 0, 0, 0 },
+    .dir = { 0, DEGREES(90), 0 },
     .hitbox = {
         .pos = STARTING_POSITION,
         .height = PLAYER_HEIGHT,
@@ -38,7 +38,7 @@ FPVPlayer gFPVPlayer = {
     // .sipsLeft = 0,
     .sipsLeft = 3,
     .coffeeStolen = FALSE,
-    .introCutsceneTimer = 0;
+    .introCutsceneTimer = 0,
 };
 
 #define update_sec(s) (1.0f / (30.0f * (s)))
@@ -67,7 +67,7 @@ static void update_direction(FPVPlayer *player) {
 }
 
 static s32 get_move_dir(FPVPlayer *player, f32 *moveDir) {
-    if ((player->cont->stickMag < 8) || (gIntroCutscene)) {
+    if (player->cont->stickMag < 8) {
         vec3_zero(moveDir);
         return FALSE;
     }
@@ -92,8 +92,10 @@ static void print_debug_fpv_info(FPVPlayer *player) {
 
 static s32 update_intro_cutscene(FPVPlayer *player) {
     if ((player->introCutsceneTimer++) >= 120 ) {
-        player->actionState = PLAYER_PRESENTING;
+        player->actionState = PLAYER_FREE;
     }
+
+    update_direction(player);
 
     return FALSE;
 }

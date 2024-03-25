@@ -320,3 +320,14 @@ ConfroomObjectSpawn spawn_elevatorDoorRight = {
     0,
 };
 
+ConfroomObjectSpawn spawn_introKathy = {
+    {  -133.9462757111f,    -0.0007152557f,  2737.6806259155f },
+    { 0x0000, -0x4000, 0x0000 },
+    MODEL_CHATTY_KATHY,
+    (uintptr_t)bhvIntroKathy,
+    0,
+    0,
+    0,
+    0,
+};
+
