@@ -78,3 +78,4 @@
 #include "coffee_cup_empty/model.inc.c"
 #include "arm/anims/data.inc.c"
 #include "arm/anims/table.inc.c"
+#include "b_button/model.inc.c"

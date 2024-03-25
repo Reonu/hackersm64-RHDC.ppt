@@ -72,3 +72,5 @@ ConfroomObjectSpawn spawn_coffeeCup = {
 #include "coffee_cup_full/geo.inc.c"
 #include "coffee_cup_half/geo.inc.c"
 #include "coffee_cup_empty/geo.inc.c"
+
+#include "b_button/geo.inc.c"

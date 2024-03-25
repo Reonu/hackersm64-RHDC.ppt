@@ -232,6 +232,17 @@ ConfroomObjectSpawn spawn_dudeGuyTyping = {
     0,
 };
 
+ConfroomObjectSpawn spawn_dudeGuyTyping3 = {
+    {  1352.6915550232f,     0.0001066305f,  1926.2054443359f },
+    { 0x0000, 0x4000, 0x0000 },
+    MODEL_DUDEGUY,
+    (uintptr_t)bhvDudeGuy,
+    NPC_ANIM_TYPING,
+    0,
+    0,
+    0,
+};
+
 ConfroomObjectSpawn spawn_splineStopperShelf = {
     {   423.1918811798f,     2.6490926743f,  1655.8433532715f },
     { 0x0000, 0x0000, 0x0000 },
@@ -325,6 +336,28 @@ ConfroomObjectSpawn spawn_introKathy = {
     { 0x0000, -0x4000, 0x0000 },
     MODEL_CHATTY_KATHY,
     (uintptr_t)bhvIntroKathy,
+    0,
+    0,
+    0,
+    0,
+};
+
+ConfroomObjectSpawn spawn_bButtonCoffeeMachine = {
+    {   785.5184078217f,   187.9477262497f,  3360.5293273926f },
+    { 0x0000, 0x0000, 0x0000 },
+    MODEL_B_BUTTON,
+    (uintptr_t)bhvBButton,
+    0,
+    0,
+    0,
+    0,
+};
+
+ConfroomObjectSpawn spawn_bButtonProjectorScreen = {
+    {     0.0000000000f,   174.9475002289f,   414.8765563965f },
+    { 0x0000, 0x0000, 0x0000 },
+    MODEL_B_BUTTON,
+    (uintptr_t)bhvBButton,
     0,
     0,
     0,
