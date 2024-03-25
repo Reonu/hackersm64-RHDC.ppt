@@ -113,6 +113,12 @@ enum IntroCutsceneStates {
     INTRO_CUTSCENE_END
 };
 
+enum SpringColors {
+    SPRING_GREEN,
+    SPRING_YELLOW,
+    SPRING_RED,
+};
+
 #define NPC_SPLINE_NORMAL                   0x00
 #define NPC_SPLINE_BACK_AND_FORTH           0x01
 
