@@ -163,7 +163,12 @@ void bhv_spline_dudeguy_loop(void) {
     switch (o->oAction) {
         case SPLINE_GUY_WALKING: {
             if (playerDist < SPLINE_GUY_PLAYER_START_CONVO_DIST) {
+#ifdef SLIDE_DEBUG
+                if (gFPVPlayer.sipsLeft && !gFPVPlayer.godMode) { 
+#else
                 if (gFPVPlayer.sipsLeft) { 
+#endif
+
                     gFPVPlayer.sipsLeft = 0;
                     gFPVPlayer.coffeeStolen = TRUE;
                     o->oAction = SPLINE_GUY_STOLE_COFFEE;

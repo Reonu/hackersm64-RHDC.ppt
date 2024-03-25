@@ -10,6 +10,7 @@
 #include "actors/group0.h"
 #include "cozy_print.h"
 #include "segment2.h"
+#include "game/fpv_player.h"
 
 Conversation gCurConvo = {
     .speakerPos = {0, 0, 0},
@@ -58,6 +59,11 @@ void reset_convo(Conversation *convo, s32 req) {
 s32 start_convo(f32 *speakerPos) {
     Conversation *convo = &gCurConvo;
     s32 req = get_num_req_qtes();
+#ifdef SLIDE_DEBUG
+    if (gFPVPlayer.godMode) {
+        return FALSE;
+    }
+#endif
     if (req) {
         reset_convo(convo, get_num_req_qtes());
         vec3f_copy(convo->speakerPos, speakerPos);

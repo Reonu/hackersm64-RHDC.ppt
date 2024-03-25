@@ -37,6 +37,9 @@ typedef struct {
     u8 running: 1;
     u8 coffeeStolen: 1;
     u8 canSit: 1;
+#ifdef SLIDE_DEBUG
+    u8 godMode: 1;
+#endif
 } FPVPlayer;
 
 extern FPVPlayer gFPVPlayer;

@@ -39,6 +39,9 @@ FPVPlayer gFPVPlayer = {
     // .sipsLeft = 3,
     .coffeeStolen = FALSE,
     .canSit = FALSE,
+#ifdef SLIDE_DEBUG
+    .godMode = FALSE,
+#endif
 };
 
 #define update_sec(s) (1.0f / (30.0f * (s)))
@@ -376,11 +379,25 @@ s32 update_player(void) {
                 break;
             }
         }
+#ifdef SLIDE_DEBUG
+        if (player->godMode) {
+            print_small_text_buffered(20, 18, "godmode", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);
+        }
+#endif
     }
     sprintf(healthBuf, "Energy: %d%%", (s32)(100.0f * ((f32)player->energy) / (f32)MAX_ENERGY));
     print_small_text_buffered(20, SCREEN_HEIGHT - 20, healthBuf, PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);
 
     update_cam_from_player(player, &gFPVCam);
+
+#ifdef SLIDE_DEBUG
+    if (gPlayer1Controller->buttonPressed & D_JPAD) {
+        player->godMode ^= 1;
+    }
+    if (player->godMode) {
+        player->energy = MAX_ENERGY;
+    }
+#endif
     
     return player->actionState == PLAYER_PRESENTING;
 }
