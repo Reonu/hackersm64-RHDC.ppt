@@ -93,11 +93,11 @@ void bhv_dudeguy_loop(void) {
     if (o->oTimer == 0)
         o->header.gfx.animInfo.animFrame = (random_u16() % o->header.gfx.animInfo.curAnim->loopEnd);
 
-    if (gPlayer1Controller->buttonPressed & R_JPAD) {
+    /*if (gPlayer1Controller->buttonPressed & R_JPAD) {
         o->oAnimationIndex++;
     } else if (gPlayer1Controller->buttonPressed & L_JPAD) {
         o->oAnimationIndex--;
-    }
+    }*/
 }
 
 enum SplineDudeGuyActions {
@@ -594,7 +594,7 @@ void bhv_b_button_loop(void) {
             cur_obj_hide();
             break;
         case B_BUTTON_VISIBLE:
-            if (gFPVPlayer.actionState != PLAYER_PRESENTING) {
+            if ((gFPVPlayer.actionState != PLAYER_PRESENTING) && (playerDist > 30.f)) {
                 cur_obj_unhide();
             } else {
                 cur_obj_hide(); //this is stupid
