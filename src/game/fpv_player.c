@@ -41,6 +41,7 @@ FPVPlayer gFPVPlayer = {
     .canSit = FALSE,
 #ifdef SLIDE_DEBUG
     .godMode = FALSE,
+    .instaGo = FALSE,
 #endif
 };
 
@@ -257,6 +258,15 @@ static s32 update_presenting(FPVPlayer *player) {
     static f32 sittingSpeed = 2.0f;
     f32 *sittingPos = (f32 *)segmented_to_virtual(confroom_cameraPos);
 
+#ifdef SLIDE_DEBUG
+    if (player->instaGo) {
+        player->pos[0] = sittingPos[0];
+        player->pos[1] = sittingPos[1];
+        player->pos[2] = sittingPos[2];
+        player->instaGo = 0;        
+    }
+#endif
+
     if (player->cont->buttonPressed & PLAYER_BTN_STOP_PRESENTATION) {
         player->pos[0] = sittingPos[0];
         player->pos[1] = sittingPos[1];
@@ -404,6 +414,11 @@ s32 update_player(void) {
 
     if (gPlayer1Controller->buttonPressed & L_JPAD) {
         gConfroomLights ^= 1;
+    }
+
+    if (gPlayer1Controller->buttonPressed & R_JPAD) {
+        gFPVPlayer.actionState = PLAYER_PRESENTING;
+        gFPVPlayer.instaGo = 1;
     }
 #endif
     

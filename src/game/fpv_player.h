@@ -39,6 +39,7 @@ typedef struct {
     u8 canSit: 1;
 #ifdef SLIDE_DEBUG
     u8 godMode: 1;
+    u8 instaGo: 1;
 #endif
 } FPVPlayer;
 
