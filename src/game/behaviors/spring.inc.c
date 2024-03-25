@@ -90,7 +90,7 @@ void bhv_spring_loop(void) {
     }
 
     if (gJustRespawned) {
-        (cur_obj_set_pos_to_home);
+        (cur_obj_set_pos_to_home());
     }
 
 }
