@@ -2361,13 +2361,16 @@ Gfx *geo_set_prim_color(s32 callContext, struct GraphNode *node, UNUSED void *co
     return dlStart;
 }
 
-Gfx *geo_set_coffee_cup_position(s32 callContext, struct GraphNode *node, Mat4 matrix) {
+Gfx *geo_set_coffee_cup_position(UNUSED s32 callContext, UNUSED struct GraphNode *node, Mat4 matrix) {
     if (gFPVPlayer.coffeeCup && gFPVPlayer.sipsLeft) {
         mtxf_copy(gFPVPlayer.coffeeCup->transform, matrix);
         gFPVPlayer.coffeeCup->header.gfx.throwMatrix = &gFPVPlayer.coffeeCup->transform;
         gFPVPlayer.coffeeCup->oPosX = gFPVPlayer.coffeeCup->transform[3][0];
         gFPVPlayer.coffeeCup->oPosY = gFPVPlayer.coffeeCup->transform[3][1];
         gFPVPlayer.coffeeCup->oPosZ = gFPVPlayer.coffeeCup->transform[3][2];
+        gFPVPlayer.coffeeCup->oFaceAnglePitch = DEGREES(90);
+        gFPVPlayer.coffeeCup->oFaceAngleYaw = 0;
+        gFPVPlayer.coffeeCup->oFaceAngleRoll = 0;
     }
     return NULL;
 }
