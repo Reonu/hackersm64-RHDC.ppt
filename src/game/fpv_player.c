@@ -255,8 +255,12 @@ static void stop_presenting(FPVPlayer *player) {
 
 static s32 update_presenting(FPVPlayer *player) {
     static f32 sittingSpeed = 2.0f;
+    f32 *sittingPos = (f32 *)segmented_to_virtual(confroom_cameraPos);
 
     if (player->cont->buttonPressed & PLAYER_BTN_STOP_PRESENTATION) {
+        player->pos[0] = sittingPos[0];
+        player->pos[1] = sittingPos[1];
+        player->pos[2] = sittingPos[2];
         stop_presenting(player);
         return FALSE;
     }
@@ -272,7 +276,7 @@ static s32 update_presenting(FPVPlayer *player) {
     }
 
     vec3f_copy(player->focusPoint, (f32 *)segmented_to_virtual(confroom_projScreenPos));
-    f32 *sittingPos = (f32 *)segmented_to_virtual(confroom_cameraPos);
+    
     player->pos[0] = approach_f32(player->pos[0], sittingPos[0], sittingSpeed, sittingSpeed);
     player->pos[1] = approach_f32(player->pos[1],             0, sittingSpeed, sittingSpeed);
     player->pos[2] = approach_f32(player->pos[2], sittingPos[2], sittingSpeed, sittingSpeed);
@@ -396,6 +400,10 @@ s32 update_player(void) {
     }
     if (player->godMode) {
         player->energy = MAX_ENERGY;
+    }
+
+    if (gPlayer1Controller->buttonPressed & L_JPAD) {
+        gConfroomLights ^= 1;
     }
 #endif
     
