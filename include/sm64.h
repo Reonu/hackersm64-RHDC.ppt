@@ -107,6 +107,12 @@ enum NpcSplines {
     NPC_SPLINE_NEXT_TO_KITCHEN
 };
 
+enum IntroCutsceneStates {
+    INTRO_CUTSCENE_START,
+    INTRO_CUTSCENE_OPEN_ELEVATOR_DOORS,
+    INTRO_CUTSCENE_END
+};
+
 #define NPC_SPLINE_NORMAL                   0x00
 #define NPC_SPLINE_BACK_AND_FORTH           0x01
 

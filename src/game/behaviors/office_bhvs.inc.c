@@ -364,7 +364,7 @@ void bhv_elevator_door_init(void) {
 void bhv_elevator_door_loop(void) {
     switch (o->oAction) {
         case ELEVATOR_DOOR_IDLE:
-            if (gIntroCutscene) {
+            if (gIntroCutscene == INTRO_CUTSCENE_OPEN_ELEVATOR_DOORS) {
                 o->oAction = ELEVATOR_DOOR_OPEN;
             }
             break;
@@ -474,6 +474,7 @@ enum IntroKathyActions {
 
 void bhv_intro_kathy_init(void) {
     o->oAction = INTRO_KATHY_WAKE_UP;
+    gIntroCutscene = INTRO_CUTSCENE_START;
 }
 
 void bhv_intro_kathy_loop(void) {
@@ -485,7 +486,7 @@ void bhv_intro_kathy_loop(void) {
             }
             if ((o->oTimer > 2) && (cur_obj_check_if_at_animation_end())) {
                 o->oAction = INTRO_KATHY_TURN_TOWARDS_DOOR;
-                gIntroCutscene = 1;
+                gIntroCutscene = INTRO_CUTSCENE_OPEN_ELEVATOR_DOORS;
             }
             break;
         case INTRO_KATHY_TURN_TOWARDS_DOOR:
@@ -530,7 +531,7 @@ void bhv_intro_kathy_loop(void) {
             
             break;
         case INTRO_KATHY_DISAPPEAR:
-            gIntroCutscene = 2;
+            gIntroCutscene = INTRO_CUTSCENE_END;
             cur_obj_set_model(MODEL_NONE);
             cur_obj_hide();
             break;
