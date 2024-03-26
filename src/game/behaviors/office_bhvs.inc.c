@@ -612,7 +612,7 @@ void bhv_b_button_loop(void) {
             o->oAction = B_BUTTON_VISIBLE;
         }
     } else {
-        if (playerDist > MAX_SITTING_DIST) {
+        if (playerDist > MAX_SITTING_DIST) { //set in fpv_player.h
             o->oAction = B_BUTTON_INVISIBLE;
             gFPVPlayer.canSit = FALSE;
         } else {
