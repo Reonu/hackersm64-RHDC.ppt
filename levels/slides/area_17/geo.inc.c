@@ -5,7 +5,7 @@ const GeoLayout slides_area_17_geo[] = {
 	GEO_OPEN_NODE(),
 		GEO_ROTATION_NODE_WITH_DL(LAYER_FORCE, 90, 0, 0, slides_dl_0slide10bg_007_mesh_layer_0),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE_DECAL, -1851, -454, 0, slides_dl_Cube_005_mesh_layer_2),
-		GEO_TRANSLATE_NODE_WITH_DL(LAYER_FORCE, 1590, 482, 0, slides_dl_farmMesh_mesh_layer_0),
+		GEO_TRANSLATE_NODE_WITH_DL(LAYER_FORCE, 1590, 482, 23, slides_dl_farmMesh_mesh_layer_0),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
