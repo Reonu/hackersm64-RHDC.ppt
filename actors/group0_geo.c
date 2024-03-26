@@ -29,6 +29,7 @@ ConfroomObjectSpawn spawn_arm = {
     0,
     0,
     0,
+    0
 };
 
 ConfroomObjectSpawn spawn_coffeeCup = {
@@ -40,6 +41,7 @@ ConfroomObjectSpawn spawn_coffeeCup = {
     0,
     0,
     0,
+    0
 };
 
 #include "dudeguy/geo.inc.c"
