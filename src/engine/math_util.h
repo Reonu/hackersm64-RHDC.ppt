@@ -740,4 +740,12 @@ ALWAYS_INLINE f32 vec3f_lat_dist(Vec3f from, Vec3f to) {
     return sqrtf(sqrf(to[0] - from[0]) + sqrf(to[2] - from[2]));
 }
 
+ALWAYS_INLINE s16 approach_angle_asymp(s16 curYaw, s16 target, f32 speed) {
+    return (s16) (target - approach_f32_asymptotic(
+        (s16) (target - curYaw),
+        0,
+        speed
+    ));
+}
+
 #endif // MATH_UTIL_H

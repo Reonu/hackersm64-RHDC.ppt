@@ -242,7 +242,8 @@ static s32 update_convo_qte(FPVPlayer *player) {
     s16 goal;
     vec3f_get_yaw(player->pos, gCurConvo.speakerPos, &goal);
     player->dir[1] = approach_angle(player->dir[1], goal, DEGREES(10));
-    // vec3f_copy(player->focusPoint, (f32 *)segmented_to_virtual(confroom_coffeeMachinePos));
+    s16 goalPitch = (player->cont->buttonDown & PLAYER_BTN_ZOOM) ? DEGREES(-1) : DEGREES(-12);
+    player->dir[0] = approach_angle_asymp(player->dir[0], goalPitch, 0.15f);
     deplete_energy(E_COST_STANDING);
     return FALSE;
 }
@@ -343,9 +344,16 @@ void update_cam_from_player(FPVPlayer *player, FPVCamState *cam) {
     approach_vec3f_asymptotic(cam->focus, player->focusPoint, fac, fac, fac);
 
     if (player->actionState == PLAYER_PRESENTING) {
-        cam->fov = approach_f32_asymptotic(cam->fov, 30, 0.1f);
+        cam->fov = approach_f32_asymptotic(cam->fov, 30, 0.15f);
     } else {
-        cam->fov = approach_f32_asymptotic(cam->fov, FOV_24MM, 0.1f);
+        f32 goalFov = FOV_24MM;
+        s32 isZooming = (player->cont->buttonDown & PLAYER_BTN_ZOOM);
+        if (player->actionState ==  PLAYER_CONVO_QTE) {
+            goalFov = isZooming ? FOV_75MM : FOV_35MM;
+        } else if (isZooming && player->actionState ==  PLAYER_FREE) {
+            goalFov = FOV_50MM;
+        }
+        cam->fov = approach_f32_asymptotic(cam->fov, goalFov, 0.15f);
     }
 
     if (player->arm) {
