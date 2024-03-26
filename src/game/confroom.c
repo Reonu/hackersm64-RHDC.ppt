@@ -46,6 +46,15 @@ void init_office_state(void) {
     // reset player
 }
 
+#ifdef SLIDE_DEBUG
+void start_previous_office_stage(void) {
+    OfficeState *office = &gOfficeState;
+    if (office->stage != OFFICE_STAGE_INTRO) {
+        office->stage--;
+    }
+}
+#endif
+
 void start_next_office_stage(void) {
     OfficeState *office = &gOfficeState;
     if (office->stage == OFFICE_STAGE_3) {
