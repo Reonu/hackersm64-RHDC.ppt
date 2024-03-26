@@ -343,7 +343,7 @@ ConfroomObjectSpawn spawn_elevatorDoorRight = {
     0,
     0,
     0,
-    ,
+    0,
 };
 
 ConfroomObjectSpawn spawn_introKathy = {
