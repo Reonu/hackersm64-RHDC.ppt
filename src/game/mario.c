@@ -59,13 +59,23 @@ void move_mario_to_respawn(struct MarioState *m, u8 deathType) {
     if (!(gMarioState->action & ACT_FLAG_SWIMMING)) {
         set_mario_action(gMarioState,ACT_IDLE,0);
     }
-
-    if (deathType == DEATH_TYPE_MANUAL_RESPAWN) {
-        gJustRespawned = 1;
-    } else {
-        gJustRespawned = 2;
+    gMarioState->flags &= ~MARIO_ACTION_SOUND_PLAYED;
+    switch (deathType) {
+        case DEATH_TYPE_BURNED:
+            play_sound(SOUND_MARIO_ON_FIRE,gGlobalSoundSource);
+            break;
+        case DEATH_TYPE_QUICKSAND:
+        case DEATH_TYPE_VOIDOUT:
+            play_sound(SOUND_MARIO_MAMA_MIA,gGlobalSoundSource);
+            break;
+        case DEATH_TYPE_HURT:
+            play_sound(SOUND_MARIO_OOOF,gGlobalSoundSource);
+            break;
+        case DEATH_TYPE_MANUAL_RESPAWN:
+            play_sound(SOUND_MENU_STAR_SOUND_OKEY_DOKEY,gGlobalSoundSource);
+            break;
     }
-    
+    gJustRespawned = 2;
 }
 
 /**
@@ -1451,6 +1461,9 @@ void set_submerged_cam_preset_and_spawn_bubbles(struct MarioState *m) {
  */
 void update_mario_health(struct MarioState *m) {
     s32 terrainIsSnow;
+    //slidehack: force max health
+    m->health = 0x880;
+    return;
 
     if (m->health >= 0x100) {
         // When already healing or hurting Mario, Mario's HP is not changed any more here.
@@ -1844,6 +1857,7 @@ s32 execute_mario_action(UNUSED struct Object *obj) {
 
         if (gPlayer1Controller->buttonPressed & START_BUTTON) {
             move_mario_to_respawn(gMarioState, DEATH_TYPE_MANUAL_RESPAWN);
+
         }
 
 

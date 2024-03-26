@@ -7746,7 +7746,7 @@ chan_end
 .sound_menu_star_sound_okey_dokey:
 chan_setbank 4
 chan_setinstr 14
-chan_setlayer 0, .layer_1344
+#chan_setlayer 0, .layer_1344
 chan_setval 1
 chan_call .delay
 chan_setbank 10

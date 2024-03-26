@@ -755,7 +755,7 @@ s32 act_quicksand_death(struct MarioState *m) {
     }
     if (m->actionState == ACT_STATE_QUICKSAND_DEATH_SINK) {
         if (m->quicksandDepth >= 100.0f) {
-            play_sound_if_no_flag(m, SOUND_MARIO_WAAAOOOW, MARIO_ACTION_SOUND_PLAYED);
+            //play_sound_if_no_flag(m, SOUND_MARIO_WAAAOOOW, MARIO_ACTION_SOUND_PLAYED);
         }
         if (m->actionArg == 0)
         {
