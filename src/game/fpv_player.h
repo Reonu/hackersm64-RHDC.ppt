@@ -21,6 +21,7 @@ typedef struct {
     struct Controller *cont;
     Vec3f pos;
     Vec3f vel;
+    f32 runFac;
     f32 headPos;
     Vec3f focusPoint;
     f32 focusPointFac; // 0 to 1, 0 uses player direction and 1 uses focus point directly

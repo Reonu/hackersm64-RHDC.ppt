@@ -22,6 +22,7 @@ FPVPlayer gFPVPlayer = {
     .cont = NULL,
     .pos = STARTING_POSITION,
     .vel = { 0, 0, 0 },
+    .runFac = 0,
     .headPos = PLAYER_EYE_SITTING,
     .energy = MAX_ENERGY,
     .dir = { 0, DEGREES(90), 0 },
@@ -128,7 +129,12 @@ static s32 update_free(FPVPlayer *player) {
     Vec3f moveDir;
     s32 tryingToMove = get_move_dir(player, moveDir);
     player->crouching = (player->cont->buttonDown & PLAYER_BTN_CROUCH) ? TRUE : FALSE;
-    player->running = (player->cont->buttonDown & PLAYER_BTN_RUN) ? TRUE : FALSE;
+    player->running = (player->cont->buttonPressed & PLAYER_BTN_RUN) ? TRUE : FALSE;
+    if (player->running) {
+        player->runFac = 1; 
+    } else {
+        player->runFac = approach_f32_symmetric(player->runFac, 0, 0.1f); 
+    }
 
     f32 floorHeight = find_confroom_floor(player->pos);    
     if (floorHeight > player->pos[1]) {
@@ -148,8 +154,8 @@ static s32 update_free(FPVPlayer *player) {
         f32 maxSpeed = (player->cont->stickMag / 64.0f);
         if (player->crouching) {
             maxSpeed *= PLAYER_MAX_SPEED_CROUCH;
-        } else if (player->running) {
-            maxSpeed *= PLAYER_MAX_SPEED_RUN;
+        } else if (player->runFac > 0) {
+            maxSpeed *= smoothstop(PLAYER_MAX_SPEED_WALK, PLAYER_MAX_SPEED_RUN, player->runFac);
         } else {
             maxSpeed *= PLAYER_MAX_SPEED_WALK;
         }
