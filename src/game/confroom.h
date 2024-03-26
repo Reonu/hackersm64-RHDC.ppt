@@ -32,6 +32,7 @@ typedef struct {
     u8 bp2;
     u8 bp3;
     u8 bp4;
+    u8 activeOfficeStages;
 } ConfroomObjectSpawn;
 
 typedef struct {
@@ -44,6 +45,13 @@ enum OfficeStages {
     OFFICE_STAGE_1,
     OFFICE_STAGE_2,
     OFFICE_STAGE_3,
+};
+
+enum OfficeStageFlags {
+    OFFICE_STAGE_FLAG_ALL,
+    OFFICE_STAGE_FLAG_1 = (1 << 0),
+    OFFICE_STAGE_FLAG_2 = (1 << 1),
+    OFFICE_STAGE_FLAG_3 = (1 << 2),
 };
 
 typedef struct {

@@ -77,7 +77,7 @@ s32 spawn_confroom_objects(UNUSED s16 initOrUpdate, s32 reg) {
         obj->hurtboxRadius = 0.0f;
         obj->hurtboxHeight = 0.0f;
         obj->hitboxDownOffset = 0.0f;
-        obj->unused2 = 0;
+        obj->activeOfficeStages = spawn->activeOfficeStages;
 
         obj->platform = NULL;
         obj->collisionData = NULL;

@@ -182,11 +182,18 @@ Gfx *geo_debug_print(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) {
 #endif
 
 void update_confroom_objects(void) {
+    u32 stageFlag = (1 << (gOfficeState.stage - 1));
     for (int i = 0; i < get_num_confroom_objects(); i++) {
         struct Object *obj = &gConfroomObjectPool[i];
-        obj->header.gfx.node.flags |= GRAPH_RENDER_HAS_ANIMATION;
-        gCurrentObject = obj;
-        cur_obj_update();
+        if (!obj->activeOfficeStages || (obj->activeOfficeStages & stageFlag)) {
+            obj->activeFlags |= ACTIVE_FLAG_ACTIVE;
+            obj->header.gfx.node.flags |= GRAPH_RENDER_HAS_ANIMATION | GRAPH_RENDER_ACTIVE;
+            gCurrentObject = obj;
+            cur_obj_update();
+        } else {
+            obj->activeFlags &= ~ACTIVE_FLAG_ACTIVE;
+            obj->header.gfx.node.flags &= ~GRAPH_RENDER_ACTIVE;
+        }
     }
 }
 

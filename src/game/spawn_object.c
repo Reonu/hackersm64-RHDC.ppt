@@ -167,7 +167,7 @@ struct Object *allocate_object(struct ObjectNode *objList) {
     obj->hurtboxRadius = 0.0f;
     obj->hurtboxHeight = 0.0f;
     obj->hitboxDownOffset = 0.0f;
-    obj->unused2 = 0;
+    obj->activeOfficeStages = 0;
 
     obj->platform = NULL;
     obj->collisionData = NULL;
