@@ -52,6 +52,7 @@ enum OfficeStageFlags {
     OFFICE_STAGE_FLAG_1 = (1 << 0),
     OFFICE_STAGE_FLAG_2 = (1 << 1),
     OFFICE_STAGE_FLAG_3 = (1 << 2),
+    OFFICE_STAGE_FLAG_INTRO = (1 << 3),
 };
 
 typedef struct {

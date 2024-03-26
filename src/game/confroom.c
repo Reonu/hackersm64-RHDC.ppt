@@ -182,7 +182,9 @@ Gfx *geo_debug_print(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) {
 #endif
 
 void update_confroom_objects(void) {
-    u32 stageFlag = (1 << (gOfficeState.stage - 1));
+    u32 stageFlag = gOfficeState.stage == OFFICE_STAGE_INTRO
+        ? OFFICE_STAGE_FLAG_INTRO
+        : (1 << (gOfficeState.stage - 1));
     for (int i = 0; i < get_num_confroom_objects(); i++) {
         struct Object *obj = &gConfroomObjectPool[i];
         if (!obj->activeOfficeStages || (obj->activeOfficeStages & stageFlag)) {
