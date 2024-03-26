@@ -72,7 +72,7 @@ static void update_direction(FPVPlayer *player) {
 }
 
 static s32 get_move_dir(FPVPlayer *player, f32 *moveDir) {
-    if (player->cont->stickMag < 8) {
+    if (player->cont->stickMag < 1) {
         vec3_zero(moveDir);
         return FALSE;
     }
@@ -144,26 +144,21 @@ static s32 update_free(FPVPlayer *player) {
 
         Vec3f xzVel = { player->vel[0], 0, player->vel[2] };
         f32 curSpeedSq = vec3_sumsq(xzVel);
+        f32 maxSpeed = (player->cont->stickMag / 64.0f);
         if (player->crouching) {
-            if (curSpeedSq > (PLAYER_MAX_SPEED_CROUCH)) {
-                vec3f_normalize(xzVel);
-                player->vel[0] = xzVel[0] * PLAYER_MAX_SPEED_CROUCH;
-                player->vel[2] = xzVel[2] * PLAYER_MAX_SPEED_CROUCH;
-            }
+            maxSpeed *= PLAYER_MAX_SPEED_CROUCH;
         } else if (player->running) {
-            if (curSpeedSq > (PLAYER_MAX_SPEED_RUN * PLAYER_MAX_SPEED_RUN)) {
-                vec3f_normalize(xzVel);
-                player->vel[0] = xzVel[0] * PLAYER_MAX_SPEED_RUN;
-                player->vel[2] = xzVel[2] * PLAYER_MAX_SPEED_RUN;
-            }
+            maxSpeed *= PLAYER_MAX_SPEED_RUN;
         } else {
-            if (curSpeedSq > (PLAYER_MAX_SPEED_WALK * PLAYER_MAX_SPEED_WALK)) {
-                f32 curSpeed = sqrtf(curSpeedSq);
-                vec3f_normalize(xzVel);
-                curSpeed = approach_f32(curSpeed, PLAYER_MAX_SPEED_WALK, PLAYER_DECEL, PLAYER_DECEL);
-                player->vel[0] = xzVel[0] * curSpeed;
-                player->vel[2] = xzVel[2] * curSpeed;
-            }
+            maxSpeed *= PLAYER_MAX_SPEED_WALK;
+        }
+
+        if (curSpeedSq > maxSpeed*maxSpeed) {
+            f32 curSpeed = sqrtf(curSpeedSq);
+            vec3f_normalize(xzVel);
+            curSpeed = approach_f32(curSpeed, maxSpeed, PLAYER_DECEL, PLAYER_DECEL);
+            player->vel[0] = xzVel[0] * curSpeed;
+            player->vel[2] = xzVel[2] * curSpeed;
         }
     } else if (onGround) {
         deplete_energy(player->crouching ? E_COST_CROUCHING : E_COST_STANDING);
@@ -171,12 +166,15 @@ static s32 update_free(FPVPlayer *player) {
         player->vel[2] = approach_f32(player->vel[2], 0, PLAYER_DECEL, PLAYER_DECEL);
     }
 
+#ifdef PLAYER_BTN_JUMP
     if (
-        (player->cont->buttonPressed & A_BUTTON) &&
+        (player->cont->buttonPressed & PLAYER_BTN_JUMP) &&
         roundf(player->pos[1]) == roundf(floorHeight)
     ) {
         player->vel[1] += PLAYER_JUMP_VEL;
     }
+#endif
+
     player->headPos = approach_f32(player->headPos, player->crouching ? PLAYER_EYE_CROUCHING : PLAYER_EYE_DEFAULT, 10, 10);
     if (player->curSpace && player->curSpace->max_y < player->pos[1] + player->headPos + PLAYER_TOP_DIST_FROM_EYE + 5) {
         player->headPos = player->curSpace->max_y - player->pos[1] - PLAYER_TOP_DIST_FROM_EYE - 5;
