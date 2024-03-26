@@ -32,6 +32,7 @@
 #include "save_file.h"
 #include "sound_init.h"
 #include "rumble_init.h"
+#include "game/fpv_player.h"
 
 
 /**************************************************
@@ -74,6 +75,10 @@ void move_mario_to_respawn(struct MarioState *m, u8 deathType) {
         case DEATH_TYPE_MANUAL_RESPAWN:
             play_sound(SOUND_MENU_STAR_SOUND_OKEY_DOKEY,gGlobalSoundSource);
             break;
+    }
+
+    if ((deathType != DEATH_TYPE_MANUAL_RESPAWN) && (deathType != DEATH_TYPE_NO_DEATH)) {
+        gFPVPlayer.energy -= 0.05f * MAX_ENERGY;
     }
     gJustRespawned = 2;
 }

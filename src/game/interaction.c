@@ -702,6 +702,9 @@ u32 take_damage_from_interact_object(struct MarioState *m) {
 u32 take_damage_and_knock_back(struct MarioState *m, struct Object *obj) {
     u32 damage;
 
+    move_mario_to_respawn(m, DEATH_TYPE_HURT);
+    return FALSE;
+
     if (!sInvulnerable && !(m->flags & MARIO_VANISH_CAP)
         && !(obj->oInteractionSubtype & INT_SUBTYPE_DELAY_INVINCIBILITY)) {
         obj->oInteractStatus = INT_STATUS_INTERACTED | INT_STATUS_ATTACKED_MARIO;
