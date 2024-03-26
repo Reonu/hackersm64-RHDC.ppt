@@ -56,6 +56,7 @@ void deplete_energy(s32 amt) {
     if (gFPVPlayer.energy < 0) gFPVPlayer.energy = 0;
 }
 
+
 static void update_direction(FPVPlayer *player) {
     if (player->cont->buttonDown & L_CBUTTONS) {
         player->dir[1] += ROT_HZ_SPEED;
@@ -474,8 +475,8 @@ void render_player_hud(Gfx **head) {
     s32 xEnergyWidth = roundf(remap(player->energy, 0, MAX_ENERGY, 0, (SCREEN_WIDTH / 3) - BAR_MARGIN));
     s32 r, g, b;
     f32 energyPercent = ((f32)player->energy / (f32)MAX_ENERGY);
-    if (energyPercent < 0.2f) {
-        r = 255 * (energyPercent * 5.0f);
+    if (energyPercent < 0.25f) {
+        r = CLAMP(255 * (energyPercent * 5.0f),0,255);
         g = 0;
         b = 0;
     } else if (energyPercent < 0.5f) {

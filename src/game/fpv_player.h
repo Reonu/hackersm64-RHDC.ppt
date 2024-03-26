@@ -58,12 +58,14 @@ extern FPVPlayer gFPVPlayer;
 
 #define MINUTES_TO_FRAMES(t) (s32)(60 * 30 * (t))
 
-#define MAX_ENERGY MINUTES_TO_FRAMES(3.0f)
+#define MAX_ENERGY MINUTES_TO_FRAMES(4.0f)
 
 #define E_COST_PRESENTING 1
 #define E_COST_CROUCHING  1
 #define E_COST_STANDING   2
 #define E_COST_MOVING     3
+
+#define E_GAIN_KITCHEN    5
 
 #define ROT_HZ_SPEED   0x200
 #define ROT_VT_SPEED   0x200
@@ -101,3 +103,4 @@ extern FPVPlayer gFPVPlayer;
 void init_player(void);
 s32 update_player(void);
 void render_player_hud(Gfx **head);
+void deplete_energy(s32 amt);

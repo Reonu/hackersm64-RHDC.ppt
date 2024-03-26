@@ -13,3 +13,4 @@
 #include "anim_steal_coffee.inc.c"
 #include "anim_intro_scene_1.inc.c"
 #include "anim_intro_scene_2.inc.c"
+#include "anim_reception.inc.c"

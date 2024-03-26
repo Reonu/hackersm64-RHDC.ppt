@@ -34,7 +34,7 @@ typedef struct {
     f32 min_z;
     f32 max_z;
 } AABB;
-
+extern AABB gOfficeSpaces[];
 // root is at bottom
 typedef struct {
     Vec3f pos;
