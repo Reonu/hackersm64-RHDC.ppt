@@ -133,6 +133,7 @@ ConfroomObjectSpawn spawn_dudeGuy1 = {
     0,
     0,
     0,
+    0,
 };
 
 ConfroomObjectSpawn spawn_dudeGuyPhone = {
@@ -141,6 +142,7 @@ ConfroomObjectSpawn spawn_dudeGuyPhone = {
     MODEL_DUDEGUY_PHONE,
     (uintptr_t)bhvDudeGuy,
     NPC_ANIM_PHONE,
+    0,
     0,
     0,
     0,
@@ -155,6 +157,7 @@ ConfroomObjectSpawn spawn_dudeGuyEating = {
     0,
     0,
     0,
+    0,
 };
 
 ConfroomObjectSpawn spawn_dudeGuyTyping2 = {
@@ -166,6 +169,7 @@ ConfroomObjectSpawn spawn_dudeGuyTyping2 = {
     0,
     0,
     0,
+    0,
 };
 
 ConfroomObjectSpawn spawn_dudeGuyBored = {
@@ -174,6 +178,7 @@ ConfroomObjectSpawn spawn_dudeGuyBored = {
     MODEL_DUDEGUY,
     (uintptr_t)bhvDudeGuy,
     NPC_ANIM_BORED,
+    0,
     0,
     0,
     0,
@@ -197,6 +202,7 @@ ConfroomObjectSpawn spawn_dudeGuySpline = {
     NPC_SPLINE_NEXT_TO_CONFROOM,
     0,
     0,
+    0,
 };
 
 ConfroomObjectSpawn spawn_dudeGuySpline2 = {
@@ -206,6 +212,7 @@ ConfroomObjectSpawn spawn_dudeGuySpline2 = {
     (uintptr_t)bhvSplineDudeGuy,
     0,
     NPC_SPLINE_AROUND_DESK,
+    0,
     0,
     0,
 };
@@ -219,6 +226,7 @@ ConfroomObjectSpawn spawn_dudeGuySplineWater = {
     NPC_SPLINE_NEXT_TO_KITCHEN,
     0,
     0,
+    OFFICE_STAGE_FLAG_2,
 };
 
 ConfroomObjectSpawn spawn_dudeGuyTyping = {
@@ -227,6 +235,7 @@ ConfroomObjectSpawn spawn_dudeGuyTyping = {
     MODEL_DUDEGUY,
     (uintptr_t)bhvDudeGuy,
     NPC_ANIM_TYPING,
+    0,
     0,
     0,
     0,
@@ -241,6 +250,7 @@ ConfroomObjectSpawn spawn_dudeGuyTyping3 = {
     0,
     0,
     0,
+    0,
 };
 
 ConfroomObjectSpawn spawn_splineStopperShelf = {
@@ -250,6 +260,7 @@ ConfroomObjectSpawn spawn_splineStopperShelf = {
     (uintptr_t)bhvSplineStopper,
     NPC_ANIM_SHELF,
     255,
+    0,
     0,
     0,
 };
@@ -263,6 +274,7 @@ ConfroomObjectSpawn spawn_splineStopperWater = {
     0,
     0,
     0,
+    0,
 };
 
 ConfroomObjectSpawn spawn_coffeeMachine = {
@@ -270,6 +282,7 @@ ConfroomObjectSpawn spawn_coffeeMachine = {
     { 0x0000, 0x0000, 0x0000 },
     MODEL_COFFEE_MACHINE,
     (uintptr_t)bhvCoffeeMachine,
+    0,
     0,
     0,
     0,
@@ -318,6 +331,7 @@ ConfroomObjectSpawn spawn_elevatorDoorLeft = {
     0,
     0,
     0,
+    0,
 };
 
 ConfroomObjectSpawn spawn_elevatorDoorRight = {
@@ -329,6 +343,7 @@ ConfroomObjectSpawn spawn_elevatorDoorRight = {
     0,
     0,
     0,
+    ,
 };
 
 ConfroomObjectSpawn spawn_introKathy = {
@@ -336,6 +351,7 @@ ConfroomObjectSpawn spawn_introKathy = {
     { 0x0000, -0x4000, 0x0000 },
     MODEL_CHATTY_KATHY,
     (uintptr_t)bhvIntroKathy,
+    0,
     0,
     0,
     0,
@@ -351,6 +367,7 @@ ConfroomObjectSpawn spawn_bButtonCoffeeMachine = {
     0,
     0,
     0,
+    0,
 };
 
 ConfroomObjectSpawn spawn_bButtonProjectorScreen = {
@@ -358,6 +375,7 @@ ConfroomObjectSpawn spawn_bButtonProjectorScreen = {
     { 0x0000, 0x0000, 0x0000 },
     MODEL_B_BUTTON,
     (uintptr_t)bhvBButton,
+    0,
     0,
     0,
     0,
