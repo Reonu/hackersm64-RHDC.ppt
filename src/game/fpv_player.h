@@ -100,3 +100,4 @@ extern FPVPlayer gFPVPlayer;
 
 void init_player(void);
 s32 update_player(void);
+void render_player_hud(Gfx **head);

@@ -15,6 +15,7 @@
 #include "engine/math_util.h"
 #include "actors/group0.h"
 #include "confroom.h"
+#include "cozy_print.h"
 
 #define STARTING_POSITION { -355.f, 2.0f, 2720.f }
 
@@ -378,7 +379,6 @@ void update_cam_from_player(FPVPlayer *player, FPVCamState *cam) {
 s32 update_player(void) {
     init_player();
     update_convo();
-    static char healthBuf[64];
 
     FPVPlayer *player = &gFPVPlayer;
 
@@ -428,8 +428,7 @@ s32 update_player(void) {
         }
 #endif
     }
-    sprintf(healthBuf, "Energy: %d%%", (s32)(100.0f * ((f32)player->energy) / (f32)MAX_ENERGY));
-    print_small_text_buffered(20, SCREEN_HEIGHT - 20, healthBuf, PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);
+
     if (player->actionState == PLAYER_PRESENTING && !player->hasRespawned) {
         print_small_text_buffered(100, SCREEN_HEIGHT - 20, "Press START anytime to retry current slide",PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);
         if (gPlayer1Controller->buttonPressed & START_BUTTON) {
@@ -462,4 +461,38 @@ s32 update_player(void) {
 #endif
     
     return player->actionState == PLAYER_PRESENTING;
+}
+
+#define BAR_HEIGHT 8
+#define BAR_MARGIN 8
+#define BAR_RIGHT ((SCREEN_WIDTH / 3) - BAR_MARGIN)
+#define BAR_TOP (SCREEN_HEIGHT - (BAR_MARGIN + BAR_HEIGHT))
+
+void render_player_hud(Gfx **head) {
+    FPVPlayer *player = &gFPVPlayer;
+    Gfx *gfx = *head;
+    s32 xEnergyWidth = roundf(remap(player->energy, 0, MAX_ENERGY, 0, (SCREEN_WIDTH / 3) - BAR_MARGIN));
+    s32 r, g, b;
+    f32 energyPercent = ((f32)player->energy / (f32)MAX_ENERGY);
+    if (energyPercent < 0.2f) {
+        r = 255 * (energyPercent * 5.0f);
+        g = 0;
+        b = 0;
+    } else if (energyPercent < 0.5f) {
+        r = 255;
+        g = 255;
+        b = 127 * energyPercent;
+    } else if (energyPercent < 0.6f) {
+        r = 127 * energyPercent;
+        g = 255;
+        b = 0;
+    } else {
+        r = 50 * energyPercent;
+        g = 255;
+        b = 50 * energyPercent;
+    }
+    render_rect(&gfx, BAR_MARGIN, BAR_TOP, xEnergyWidth, BAR_HEIGHT, r, g, b, TRUE);
+    render_rect_xlu(&gfx, xEnergyWidth + BAR_MARGIN, BAR_TOP, BAR_RIGHT - xEnergyWidth, BAR_HEIGHT, r, g, b, 50, TRUE);
+
+    *head = gfx;
 }

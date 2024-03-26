@@ -436,6 +436,7 @@ void render_game(void) {
                       SCREEN_HEIGHT - gBorderHeight);
         render_hud();
         render_convo(&gDisplayListHead);
+        render_player_hud(&gDisplayListHead);
 
         gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         render_text_labels();

@@ -138,3 +138,53 @@ void render_rgba16_tex_rect_all(
     gSPDisplayList(gfx++, dl_hud_img_end);
     *head = gfx;
 }
+
+void render_rect(Gfx **head, s32 x, s32 y, s32 width, s32 height, s32 r, s32 g, s32 b, s32 init) {
+    Gfx *gfx = *head;
+    if (init) {
+        gDPSetCycleType(gfx++, G_CYC_1CYCLE);
+        gDPSetCombineLERP(gfx++,
+            0, 0, 0, PRIMITIVE,
+            0, 0, 0, 1,
+            0, 0, 0, PRIMITIVE,
+            0, 0, 0, 1
+        );
+        gDPSetRenderMode(gfx++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
+    }
+    gDPSetPrimColor(gfx++, 0, 0, r, g, b, 255);
+    gDPFillRectangle(gfx++,
+        x,
+        y,
+        x + width,
+        y + height
+    );
+    gDPPipeSync(gfx++);
+    *head = gfx;
+}
+
+void render_rect_xlu(Gfx **head, s32 x, s32 y, s32 width, s32 height, s32 r, s32 g, s32 b, s32 a, s32 init) {
+    Gfx *gfx = *head;
+    if (init) {
+        gDPSetCycleType(gfx++, G_CYC_1CYCLE);
+        gDPSetCombineLERP(gfx++,
+            0, 0, 0, PRIMITIVE,
+            0, 0, 0, PRIMITIVE,
+            0, 0, 0, PRIMITIVE,
+            0, 0, 0, PRIMITIVE
+        );
+    }
+    if (a == 255) {
+        gDPSetRenderMode(gfx++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
+    } else {
+        gDPSetRenderMode(gfx++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
+    }
+    gDPSetPrimColor(gfx++, 0, 0, r, g, b, a);
+    gDPFillRectangle(gfx++,
+        x,
+        y,
+        x + width,
+        y + height
+    );
+    gDPPipeSync(gfx++);
+    *head = gfx;
+}
