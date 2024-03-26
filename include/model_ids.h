@@ -22,33 +22,33 @@
 
 #define MODEL_CHEESING                         0x109
 
-#define MODEL_DONUT4                           0x110
-#define MODEL_DONUT5                           0x111
-#define MODEL_DONUT6                           0x112
+#define MODEL_DONUT4                           0x10A
+#define MODEL_DONUT5                           0x10B
+#define MODEL_DONUT6                           0x10C
 
-#define MODEL_SILVER_STAR                      0x113
+#define MODEL_SILVER_STAR                      0x10D
 
-#define MODEL_PURPLE_SWITCH                    0x114
+#define MODEL_PURPLE_SWITCH                    0x10E
 
-#define MODEL_CIRCLE1                          0x115
-#define MODEL_CIRCLE2                          0x116
-#define MODEL_CIRCLE3                          0x117
+#define MODEL_CIRCLE1                          0x10F
+#define MODEL_CIRCLE2                          0x110
+#define MODEL_CIRCLE3                          0x111
 
-#define MODEL_DUDEGUY_PHONE                    0x118
+#define MODEL_DUDEGUY_PHONE                    0x112
 
-#define MODEL_COFFEE_MACHINE                   0x119
+#define MODEL_COFFEE_MACHINE                   0x113
 
-#define MODEL_ELEVATOR_DOOR                    0x11A
+#define MODEL_ELEVATOR_DOOR                    0x114
 
-#define MODEL_CHATTY_KATHY                     0x11B
+#define MODEL_CHATTY_KATHY                     0x115
 
-#define MODEL_ARM                              0x11C
+#define MODEL_ARM                              0x116
 
-#define MODEL_COFFEE_CUP_EMPTY                 0x11D
-#define MODEL_COFFEE_CUP_HALF                  0x11E
-#define MODEL_COFFEE_CUP_FULL                  0x11F
+#define MODEL_COFFEE_CUP_EMPTY                 0x117
+#define MODEL_COFFEE_CUP_HALF                  0x118
+#define MODEL_COFFEE_CUP_FULL                  0x119
 
-#define MODEL_B_BUTTON                         0x112
+#define MODEL_B_BUTTON                         0x11A
 
 /* Various static level geometry, the geo layout differs but terrain object presets treat them the same.*/
 
