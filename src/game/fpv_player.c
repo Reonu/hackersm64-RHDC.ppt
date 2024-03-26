@@ -14,6 +14,7 @@
 #include "confroom_conversation.h"
 #include "engine/math_util.h"
 #include "actors/group0.h"
+#include "confroom.h"
 
 #define STARTING_POSITION { -355.f, 2.0f, 2720.f }
 
@@ -398,6 +399,21 @@ s32 update_player(void) {
         if (player->godMode) {
             print_small_text_buffered(20, 18, "godmode", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);
         }
+
+        switch (gOfficeState.stage) {
+            case OFFICE_STAGE_INTRO:
+                print_small_text_buffered(20, 28, "stage intro", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);
+                break;
+            case OFFICE_STAGE_1:
+                print_small_text_buffered(20, 28, "stage 1", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);
+                break;
+            case OFFICE_STAGE_2:
+                print_small_text_buffered(20, 28, "stage 2", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);
+                break;
+            case OFFICE_STAGE_3:
+                print_small_text_buffered(20, 28, "stage 3", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);
+                break;
+        }
 #endif
     }
     sprintf(healthBuf, "Energy: %d%%", (s32)(100.0f * ((f32)player->energy) / (f32)MAX_ENERGY));
@@ -415,18 +431,21 @@ s32 update_player(void) {
 #ifdef SLIDE_DEBUG
     if (gPlayer1Controller->buttonPressed & D_JPAD) {
         player->godMode ^= 1;
+        gConfroomLights ^= 1;
     }
     if (player->godMode) {
         player->energy = MAX_ENERGY;
     }
 
-    if (gPlayer1Controller->buttonPressed & L_JPAD) {
-        gConfroomLights ^= 1;
-    }
-
-    if (gPlayer1Controller->buttonPressed & R_JPAD) {
+    if (gPlayer1Controller->buttonPressed & U_JPAD) {
         gFPVPlayer.actionState = PLAYER_PRESENTING;
         gFPVPlayer.instaGo = 1;
+    }
+
+    if (gPlayer1Controller->buttonPressed & L_JPAD) {
+        start_previous_office_stage();
+    } else if (gPlayer1Controller->buttonPressed & R_JPAD) {
+        start_next_office_stage();
     }
 #endif
     

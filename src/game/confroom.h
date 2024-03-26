@@ -62,6 +62,9 @@ typedef struct {
 
 void init_office_state(void);
 void start_next_office_stage(void);
+#ifdef SLIDE_DEBUG
+void start_previous_office_stage(void);
+#endif
 s32 get_num_coffees_left(void);
 s32 get_num_req_qtes(void);
 
