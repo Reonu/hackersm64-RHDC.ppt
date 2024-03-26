@@ -58,7 +58,7 @@ extern FPVPlayer gFPVPlayer;
 
 #define MINUTES_TO_FRAMES(t) (s32)(60 * 30 * (t))
 
-#define MAX_ENERGY MINUTES_TO_FRAMES(2.0f)
+#define MAX_ENERGY MINUTES_TO_FRAMES(3.0f)
 
 #define E_COST_PRESENTING 1
 #define E_COST_CROUCHING  1
