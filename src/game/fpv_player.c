@@ -43,7 +43,9 @@ FPVPlayer gFPVPlayer = {
     .coffeeStolen = FALSE,
     .canSit = FALSE,
     .hasRespawned = FALSE,
-    .currentTutorial = 0,
+    .currentTutorial = -1,
+    .tutorialTimer = 0,
+    .curTutorialDone = 0,
 #ifdef SLIDE_DEBUG
     .godMode = FALSE,
     .instaGo = FALSE,
@@ -51,6 +53,27 @@ FPVPlayer gFPVPlayer = {
 };
 
 #define update_sec(s) (1.0f / (30.0f * (s)))
+
+void process_tutorial(FPVPlayer *player) {
+    Vec3f starting_pos = STARTING_POSITION;
+    switch  (player->currentTutorial) {
+        case 0:
+            if (vec3f_lat_dist(player->pos,starting_pos) > 100.f) {
+                player->curTutorialDone = 1;
+            } else {
+                player->curTutorialDone = 0;
+            }
+            break;
+        case 1:
+            if (player->sipsLeft) {
+                player->curTutorialDone = 1;
+            } else {
+                player->curTutorialDone = 0;
+            }
+            break;
+
+    }
+}
 
 void deplete_energy(s32 amt) {
     gFPVPlayer.energy -= amt;
@@ -443,7 +466,9 @@ s32 update_player(void) {
         }
     }
     
-
+    if (player->currentTutorial >= 0) {
+        process_tutorial(player);
+    }
     update_cam_from_player(player, &gFPVCam);
 
 #ifdef SLIDE_DEBUG

@@ -39,7 +39,9 @@ typedef struct {
     u8 coffeeStolen: 1;
     u8 canSit: 1;
     u8 hasRespawned: 1;
-    u8 currentTutorial;
+    s8 currentTutorial;
+    u32 tutorialTimer;
+    u8 curTutorialDone;
 #ifdef SLIDE_DEBUG
     u8 godMode: 1;
     u8 instaGo: 1;

@@ -10,6 +10,6 @@ struct TutorialMessage {
 
 extern s32 gDidFirstClick;
 
-void run_tut(struct MarioState *m);
+void run_tut(void);
 
 #endif

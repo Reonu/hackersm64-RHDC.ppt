@@ -10,8 +10,9 @@
 #include "object_list_processor.h"
 #include "debug.h"
 #include "engine/math_util.h"
+#include "game/fpv_player.h"
 
-#define MSG_LEN (10*30)
+#define MSG_LEN (2*30)
 #define MSG_FADE (1*30)
 
 char sFirstMessageForConsoleChads[] = "Welcome! Move the analog stick to\n"
@@ -28,21 +29,31 @@ char sFirstMessageForN64MouseGigachads[] = "N64 mouse detected! Welcome, you gig
 struct TutorialMessage sTutorialMessages[] = {
     { // 00
         .title = "Welcome to RHDC.ppt",
-        .body = "First of all, use the Control Stick to.\n"
-                "to move, and the C-Buttons to look around\n",
+        .body = "First of all, use the Control Stick to\n"
+                "move, and the C-Buttons to look around\n",
     },
+    { // 01
+        .title = "",
+        .body = "Press B to interact with the coffee machine\n"
+                "and get your first cup of coffee",
+    },
+    { // 02
+        .title = "",
+        .body = "Go to the conference room\n"
+                "to watch the presentation!",
+    }
 };
 
 
 s32 gDidFirstClick = 0;
 
-void run_tut(struct MarioState *m) {
+void run_tut(void) {
     static s32 curMsg = -1;
     static s32 msgTimer = 0;
     static s32 alpha = 0;
     static s32 init = FALSE;
 
-    if (gTutorialFinished) 
+    if (gTutorialFinished || (gFPVPlayer.currentTutorial < 0)) 
         return;
 
     /*if (!init && gIsConsole) {
@@ -51,9 +62,14 @@ void run_tut(struct MarioState *m) {
         else sTutorialMessages[0].body = sFirstMessageForConsoleChads;
     };*/
 
-    msgTimer = MSG_LEN+MSG_FADE;
-    curMsg = 0;
-    aggress(curMsg < ARRAY_COUNT(sTutorialMessages), "Reonu forgor the message");
+    if (gFPVPlayer.currentTutorial != curMsg) {
+        msgTimer = MSG_LEN+MSG_FADE;
+        curMsg = gFPVPlayer.currentTutorial;
+        aggress(curMsg < ARRAY_COUNT(sTutorialMessages), "Reonu forgor the message");
+    }
+
+    if (gFPVPlayer.curTutorialDone)
+        msgTimer = MAX(msgTimer-1, 0);
 
     //struct ContextMenuState *ctxMenuState = get_context_menu_state();
 

@@ -574,6 +574,9 @@ void bhv_intro_kathy_loop(void) {
             break;
         case INTRO_KATHY_DISAPPEAR:
             gIntroCutscene = INTRO_CUTSCENE_END;
+            if (o->oTimer == 0) {
+                gFPVPlayer.currentTutorial = 0;
+            }
             cur_obj_set_model(MODEL_NONE);
             cur_obj_hide();
             break;
@@ -629,6 +632,13 @@ void bhv_b_button_loop(void) {
         } else {
             o->oAction = B_BUTTON_VISIBLE;
         }
+
+        if (playerDist < MAX_COFFEE_MACHINE_DIST && !o->oCoffeeMachineTutorialTriggered) {
+            gFPVPlayer.currentTutorial = 1;
+            o->oCoffeeMachineTutorialTriggered = 1;
+        }
+        
+
     } else {
         if (playerDist > MAX_SITTING_DIST) { //set in fpv_player.h
             o->oAction = B_BUTTON_INVISIBLE;

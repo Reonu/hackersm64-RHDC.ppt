@@ -496,7 +496,7 @@ void render_game(void) {
     }
 
     if (!gTutorialFinished) {
-        //run_tut(gMarioState);
+        run_tut();
     }
 
     gViewportOverride = NULL;

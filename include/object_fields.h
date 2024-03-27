@@ -1344,6 +1344,8 @@ os16112*/
 
 #define oElevatorDoorIsOtherDoor OBJECT_FIELD_S16(0x1B, 0)
 
+#define oCoffeeMachineTutorialTriggered     OBJECT_FIELD_S32(0x22)
+
 // Advanced lighting engine
 // These use previously unused object fields outside of the normal range
 // for specific behaviors, so they shouldn't interfere with any custom ones
