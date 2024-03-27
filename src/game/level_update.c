@@ -1186,6 +1186,7 @@ void change_slide(s8 change) {
 }
 
 s32 update_level(void) {
+    static s32 wasActive = FALSE;
     s32 changeLevel = FALSE;
 
     if (gBeatSlide) {
@@ -1204,10 +1205,12 @@ s32 update_level(void) {
 
     s32 gameplayActive = update_player();
     update_confroom_objects();
-    if (!gameplayActive) {
+    if (!gameplayActive || !wasActive) {
         if (!gOfficeState.paused) gAreaUpdateCounter++;
+        wasActive = gameplayActive;
         return FALSE;
     }
+    wasActive = gameplayActive;
 
     switch (sCurrPlayMode) {
         case PLAY_MODE_NORMAL:
