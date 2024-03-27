@@ -33,6 +33,7 @@
 #include "puppyprint.h"
 #include "level_commands.h"
 #include "fpv_player.h"
+#include "confroom.h"
 
 #include "config.h"
 
@@ -1204,7 +1205,7 @@ s32 update_level(void) {
     s32 gameplayActive = update_player();
     update_confroom_objects();
     if (!gameplayActive) {
-        gAreaUpdateCounter++;
+        if (!gOfficeState.paused) gAreaUpdateCounter++;
         return FALSE;
     }
 
