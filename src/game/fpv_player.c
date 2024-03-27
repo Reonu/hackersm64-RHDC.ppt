@@ -71,7 +71,20 @@ void process_tutorial(FPVPlayer *player) {
                 player->curTutorialDone = 0;
             }
             break;
-
+        case 2:
+            if (player->tutorialTimer++ > 120) {
+                player->curTutorialDone = 1;
+            }
+            break;
+        case 3:
+            if (player->actionState == PLAYER_PRESENTING) {
+                player->curTutorialDone = 1;
+            }
+            break;
+        case 4:
+            if (player->tutorialTimer++ > 120) {
+                player->curTutorialDone = 1;
+            }
     }
 }
 
@@ -465,8 +478,15 @@ s32 update_player(void) {
             player->hasRespawned = TRUE;
         }
     }
+
+    if ((!player->sipsLeft) && (gOfficeState.stage == OFFICE_STAGE_INTRO) && ((player->pos[2] < 250.f))) {
+        player->pos[2] = 250.f;
+        player->currentTutorial = 4;
+        player->tutorialTimer = 0;
+        player->curTutorialDone = 0;
+    } 
     
-    if (player->currentTutorial >= 0) {
+    if ((player->currentTutorial >= 0) && (!gTutorialFinished)) {
         process_tutorial(player);
     }
     update_cam_from_player(player, &gFPVCam);

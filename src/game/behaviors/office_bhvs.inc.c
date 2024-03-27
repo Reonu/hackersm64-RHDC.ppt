@@ -94,6 +94,17 @@ void bhv_dudeguy_loop(void) {
     if (o->oTimer == 0)
         o->header.gfx.animInfo.animFrame = (random_u16() % o->header.gfx.animInfo.curAnim->loopEnd);
 
+    if (BPARAM1 == NPC_ANIM_EATING && !o->oEatingGuySpoke) {
+        if (gFPVPlayer.sipsLeft) {
+            o->oAnimationIndex = NPC_ANIM_EATING_TALKING;
+            if (cur_obj_check_if_at_animation_end()) {
+                gFPVPlayer.currentTutorial = 2;
+                o->oEatingGuySpoke = 1;
+                o->oAnimationIndex = NPC_ANIM_EATING;
+            }
+        }
+    }
+
     /*if (gPlayer1Controller->buttonPressed & R_JPAD) {
         o->oAnimationIndex++;
     } else if (gPlayer1Controller->buttonPressed & L_JPAD) {
@@ -627,13 +638,14 @@ void bhv_b_button_loop(void) {
             break;
     }
     if (o->oCoffeeMachine != NULL) {
-        if ((o->oCoffeeMachine->oAction != COFFEE_MACHINE_WAITING) || (gFPVPlayer.sipsLeft) || (playerDist > MAX_COFFEE_MACHINE_DIST)) {
+        if (((o->oCoffeeMachine->oAction != COFFEE_MACHINE_WAITING) && (o->oCoffeeMachine->oAction != COFFEE_MACHINE_READY)) || (gFPVPlayer.sipsLeft) || (playerDist > MAX_COFFEE_MACHINE_DIST)) {
             o->oAction = B_BUTTON_INVISIBLE;
         } else {
             o->oAction = B_BUTTON_VISIBLE;
         }
 
         if (playerDist < MAX_COFFEE_MACHINE_DIST && !o->oCoffeeMachineTutorialTriggered) {
+            gFPVPlayer.curTutorialDone = 0;
             gFPVPlayer.currentTutorial = 1;
             o->oCoffeeMachineTutorialTriggered = 1;
         }
@@ -645,6 +657,11 @@ void bhv_b_button_loop(void) {
             gFPVPlayer.canSit = FALSE;
         } else {
             if (gFPVPlayer.actionState != PLAYER_PRESENTING) {
+                if (!o->oSittingTutorialTriggered) {
+                    gFPVPlayer.curTutorialDone = 0;
+                    gFPVPlayer.currentTutorial = 3;
+                    o->oSittingTutorialTriggered = 1;
+                }
                 o->oAction = B_BUTTON_VISIBLE;
             }
             gFPVPlayer.canSit = TRUE;
