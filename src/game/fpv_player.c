@@ -43,6 +43,7 @@ FPVPlayer gFPVPlayer = {
     .coffeeStolen = FALSE,
     .canSit = FALSE,
     .hasRespawned = FALSE,
+    .currentTutorial = 0,
 #ifdef SLIDE_DEBUG
     .godMode = FALSE,
     .instaGo = FALSE,

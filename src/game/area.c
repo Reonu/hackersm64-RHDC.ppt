@@ -30,6 +30,7 @@
 #include "buffers/framebuffers.h"
 #include "profiling.h"
 #include "confroom_conversation.h"
+#include "office_tutorial.h"
 #ifdef S2DEX_TEXT_ENGINE
 #include "s2d_engine/init.h"
 #endif
@@ -492,6 +493,10 @@ void render_game(void) {
         } else {
             clear_framebuffer(gWarpTransFBSetColor);
         }
+    }
+
+    if (!gTutorialFinished) {
+        //run_tut(gMarioState);
     }
 
     gViewportOverride = NULL;
