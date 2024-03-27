@@ -15,3 +15,4 @@
 #include "anim_intro_scene_2.inc.c"
 #include "anim_reception.inc.c"
 #include "anim_sprinting.inc.c"
+#include "anim_talking_eating.inc.c"
