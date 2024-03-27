@@ -126,10 +126,10 @@ f32 confroom_colWater[2][3] = {
 
 ConfroomObjectSpawn spawn_dudeGuy1 = {
     {   182.7983736992f,    -0.0003099442f,   887.3201370239f },
-    { 0x0000, 0x0000, 0x0000 },
+    { 0x0000, -0x8000, 0x0000 },
     MODEL_DUDEGUY,
     (uintptr_t)bhvDudeGuy,
-    0,
+    NPC_ANIM_SPRINTING,
     0,
     0,
     0,

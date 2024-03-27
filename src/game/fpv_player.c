@@ -56,7 +56,6 @@ void deplete_energy(s32 amt) {
     if (gFPVPlayer.energy < 0) gFPVPlayer.energy = 0;
 }
 
-
 static void update_direction(FPVPlayer *player) {
     if (player->cont->buttonDown & L_CBUTTONS) {
         player->dir[1] += ROT_HZ_SPEED;

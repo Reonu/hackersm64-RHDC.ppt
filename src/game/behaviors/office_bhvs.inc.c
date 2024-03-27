@@ -113,12 +113,15 @@ enum SplineDudeGuyActions {
     SPLINE_GUY_STOLE_COFFEE,
 };
 
-#define SPLINE_GUY_PATROL_SPEED meters_sec(1.6f)
-#define SPLINE_GUY_CHASE_SPEED  meters_sec(1.75f)
-#define SPLINE_GUY_NEXT_POINT_THRESHOLD  160
-#define SPLINE_GUY_PLAYER_START_CONVO_DIST 160
-#define SPLINE_GUY_STEAL_SIP_START 102
-#define SPLINE_GUY_STEAL_SIP_END 193
+#define SPLINE_GUY_PATROL_SPEED             meters_sec(1.6f)
+#define SPLINE_GUY_RUN_SPEED                meters_sec(3.1f)
+#define SPLINE_GUY_TURNING_SPEED            DEGREES(3)
+#define SPLINE_GUY_TURNING_SPEED_RUNNING    DEGREES(6)
+#define SPLINE_GUY_CHASE_SPEED              meters_sec(1.75f)
+#define SPLINE_GUY_NEXT_POINT_THRESHOLD     160
+#define SPLINE_GUY_PLAYER_START_CONVO_DIST  160
+#define SPLINE_GUY_STEAL_SIP_START          102
+#define SPLINE_GUY_STEAL_SIP_END            193
 
 void bhv_spline_dudeguy_init(void) {
     o->oAnimationIndex = NPC_ANIM_WALKING;
@@ -160,6 +163,16 @@ void bhv_spline_dudeguy_loop(void) {
     f32 *pos = &o->oPosX;
 
     f32 playerDist = vec3f_lat_dist(pos, gFPVPlayer.pos);
+    f32 patrolSpeed;
+    f32 turningSpeed;
+
+    if (gOfficeState.stage == OFFICE_STAGE_3) {
+        patrolSpeed = SPLINE_GUY_RUN_SPEED;
+        turningSpeed = SPLINE_GUY_TURNING_SPEED_RUNNING;
+    } else {
+        turningSpeed = SPLINE_GUY_TURNING_SPEED;
+        patrolSpeed = SPLINE_GUY_PATROL_SPEED;
+    }
 
     switch (o->oAction) {
         case SPLINE_GUY_WALKING: {
@@ -191,7 +204,12 @@ void bhv_spline_dudeguy_loop(void) {
             }
             // f32 *curPoint = spline->points[pIndex];
             struct Object *splineStopper = find_closest_office_obj_with_bhv(segmented_to_virtual(bhvSplineStopper), 75.f);
-            o->oAnimationIndex = NPC_ANIM_WALKING;
+            if (gOfficeState.stage == OFFICE_STAGE_3) {
+                o->oAnimationIndex = NPC_ANIM_SPRINTING;
+            } else {
+                o->oAnimationIndex = NPC_ANIM_WALKING;
+            }
+            
             if (splineStopper != NULL) {
                 if (o->oStopperObject != splineStopper) {
                     o->oAction = SPLINE_GUY_WAITING_TO_STOP;
@@ -201,12 +219,12 @@ void bhv_spline_dudeguy_loop(void) {
             }
             f32 *nextPoint = spline->points[pIndex + 1];
             s16 goalAngle = atan2s(nextPoint[2] - pos[2], nextPoint[0] - pos[0]);
-            o->oFaceAngleYaw = approach_angle(o->oFaceAngleYaw, goalAngle, DEGREES(2));
-            if (o->oForwardVel < SPLINE_GUY_PATROL_SPEED) {
-                o->oForwardVel += SPLINE_GUY_PATROL_SPEED * 0.2f;
+            o->oFaceAngleYaw = approach_angle(o->oFaceAngleYaw, goalAngle, turningSpeed);
+            if (o->oForwardVel < patrolSpeed) {
+                o->oForwardVel += patrolSpeed * 0.2f;
             }
-            if (o->oForwardVel > SPLINE_GUY_PATROL_SPEED) {
-                o->oForwardVel = SPLINE_GUY_PATROL_SPEED;
+            if (o->oForwardVel > patrolSpeed) {
+                o->oForwardVel = patrolSpeed;
             }
             vel[0] = sins(o->oFaceAngleYaw) * o->oForwardVel;
             vel[2] = coss(o->oFaceAngleYaw) * o->oForwardVel;
