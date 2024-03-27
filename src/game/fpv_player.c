@@ -379,9 +379,15 @@ void update_cam_from_player(FPVPlayer *player, FPVCamState *cam) {
 // returns TRUE if gameplay is active
 s32 update_player(void) {
     init_player();
-    update_convo();
-
     FPVPlayer *player = &gFPVPlayer;
+    if (player->cont->buttonPressed & START_BUTTON) {
+        gOfficeState.paused = !gOfficeState.paused;
+    }
+    if (gOfficeState.paused) {
+        return FALSE;
+    }
+
+    update_convo();
 
     s32 continueUpdate = TRUE;
     while (continueUpdate) {

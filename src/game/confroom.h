@@ -58,6 +58,7 @@ enum OfficeStageFlags {
 typedef struct {
     u8 stage; // OfficeStages
     u8 presentationActive;
+    u8 paused;
 } OfficeState;
 
 void init_office_state(void);

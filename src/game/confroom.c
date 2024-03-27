@@ -37,6 +37,7 @@ OfficeState gOfficeState = {
     //.stage = OFFICE_STAGE_INTRO,
     .stage = OFFICE_STAGE_1,
     .presentationActive = FALSE,
+    .paused = FALSE,
 };
 
 void init_office_state(void) {
@@ -191,6 +192,8 @@ Gfx *geo_debug_print(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) {
 #endif
 
 void update_confroom_objects(void) {
+    if (gOfficeState.paused) return;
+
     u32 stageFlag = gOfficeState.stage == OFFICE_STAGE_INTRO
         ? OFFICE_STAGE_FLAG_INTRO
         : (1 << (gOfficeState.stage - 1));
