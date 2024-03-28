@@ -428,3 +428,39 @@ ConfroomObjectSpawn spawn_bButtonProjectorScreen = {
     0,
 };
 
+ConfroomObjectSpawn spawn_lightSwitchConfroom = {
+    {   337.0089054108f,   147.4854946136f,    16.2028312683f },
+    { 0x0000, 0x0000, 0x0000 },
+    MODEL_LIGHT_SWITCH_UP,
+    (uintptr_t)bhvLightSwitch,
+    0,
+    0,
+    0,
+    0,
+    0,
+};
+
+ConfroomObjectSpawn spawn_lightSwitchOffice = {
+    {   710.1377487183f,   147.4854946136f,  -238.7729644775f },
+    { 0x0000, 0x4000, 0x0000 },
+    MODEL_LIGHT_SWITCH_DOWN,
+    (uintptr_t)bhvLightSwitch,
+    0,
+    0,
+    0,
+    0,
+    0,
+};
+
+ConfroomObjectSpawn spawn_lightSwitchNextToKitchen = {
+    {  1327.3004531860f,   147.4854946136f,  2877.2941589355f },
+    { 0x0000, -0x4000, 0x0000 },
+    MODEL_LIGHT_SWITCH_UP,
+    (uintptr_t)bhvLightSwitch,
+    0,
+    0,
+    0,
+    0,
+    0,
+};
+

@@ -1301,7 +1301,7 @@ os16112*/
 #define /*0x10C*/ oFloat10C                                     OBJECT_FIELD_F32(0x21)
 #define /*0x110*/ oFloat110                                     OBJECT_FIELD_F32(0x22)
 
-#define /*0x0F4*/ oObjF4                                OBJECT_FIELD_OBJ(0x1B)
+#define /*0x0F4*/ oObjF4                                        OBJECT_FIELD_OBJ(0x1B)
 #define /*0x0F8*/ oObjF8                                        OBJECT_FIELD_OBJ(0x1C)
 #define /*0x0FC*/ oObjFC                                        OBJECT_FIELD_OBJ(0x1D)
 #define /*0x100*/ oObj100                                       OBJECT_FIELD_OBJ(0x1E)
@@ -1339,6 +1339,8 @@ os16112*/
 #define oSplineDudeGuyPointIndex OBJECT_FIELD_S32(0x1B)
 #define oStopperObject           OBJECT_FIELD_OBJ(0x1C)
 #define oOldAngle                OBJECT_FIELD_S32(0x22)
+
+#define oLightSwitch             OBJECT_FIELD_OBJ(0x1D)
 #define oBButtonTimer            OBJECT_FIELD_S32(0x1B)
 #define oCoffeeMachine           OBJECT_FIELD_OBJ(0x1C)
 

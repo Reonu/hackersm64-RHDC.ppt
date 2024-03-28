@@ -39,8 +39,8 @@ struct TutorialMessage sTutorialMessages[] = {
     },
     { // 02
         .title = "",
-        .body = "Go to the conference room\n"
-                "to watch the presentation!",
+        .body = "Now, head to the conference room.\n"
+                "Try tapping A repeatedly to run.",
     },
     { // 03
         .title = "",

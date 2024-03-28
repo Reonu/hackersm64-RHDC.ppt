@@ -38,6 +38,7 @@ OfficeState gOfficeState = {
     .stage = OFFICE_STAGE_1,
     .presentationActive = FALSE,
     .paused = FALSE,
+    .lightsOn = TRUE,
 };
 
 void init_office_state(void) {

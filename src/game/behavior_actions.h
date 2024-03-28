@@ -578,6 +578,8 @@ void bhv_intro_kathy_init(void);
 void bhv_intro_kathy_loop(void);
 void bhv_b_button_init(void);
 void bhv_b_button_loop(void);
+void bhv_point_light_loop(void);
+void bhv_light_switch_loop(void);
 
 void bhv_spring_init(void);
 void bhv_spring_loop(void);

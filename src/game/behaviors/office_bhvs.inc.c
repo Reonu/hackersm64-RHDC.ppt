@@ -611,6 +611,7 @@ void bhv_intro_kathy_loop(void) {
 }
 
 
+#define MAX_DIST_LIGHT_SWITCH 100.f
 
 enum BButtonActions {
     B_BUTTON_INVISIBLE,
@@ -656,6 +657,8 @@ void bhv_b_button_loop(void) {
         }
         
 
+    } else if (o->oLightSwitch != NULL) {
+        
     } else {
         if (playerDist > MAX_SITTING_DIST) { //set in fpv_player.h
             o->oAction = B_BUTTON_INVISIBLE;
@@ -670,6 +673,36 @@ void bhv_b_button_loop(void) {
                 o->oAction = B_BUTTON_VISIBLE;
             }
             gFPVPlayer.canSit = TRUE;
+        }
+    }
+}
+
+void bhv_point_light_loop(void) {
+    u8 r;
+    u8 g;
+    u8 b;
+    //u8 falloff;
+    Vec3f pos;
+    
+    pos[0] = o->oPosX;
+    pos[1] = o->oPosY;
+    pos[2] = o->oPosZ;
+
+    r = BPARAM1;
+    g = BPARAM2;
+    b = BPARAM4;
+
+    emit_light(pos, r, g, b, 4, 50, 8, 5);
+}
+
+void bhv_light_switch_loop(void) {
+    f32 *pos = &o->oPosX;
+    if ((vec3f_lat_dist(pos, gFPVPlayer.pos) < MAX_COFFEE_MACHINE_DIST) && (gPlayer1Controller->buttonPressed & B_BUTTON)) {
+        gOfficeState.lightsOn ^= 1;
+        if (cur_obj_has_model(MODEL_LIGHT_SWITCH_UP)) {
+            cur_obj_set_model(MODEL_LIGHT_SWITCH_DOWN);
+        } else {
+            cur_obj_set_model(MODEL_LIGHT_SWITCH_UP);
         }
     }
 }

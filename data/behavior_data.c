@@ -6397,3 +6397,17 @@ const BehaviorScript bhvBButton[] = {
         CALL_NATIVE(bhv_b_button_loop),
     END_LOOP(),
 };
+
+const BehaviorScript bhvPointLight[] = {
+    BEGIN(OBJ_LIST_DEFAULT),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_point_light_loop),
+    END_LOOP(),
+};
+
+const BehaviorScript bhvLightSwitch[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_light_switch_loop),
+    END_LOOP(),
+};

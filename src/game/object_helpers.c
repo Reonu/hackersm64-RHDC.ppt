@@ -2366,7 +2366,7 @@ Gfx *geo_set_confroom_lights(s32 callContext, struct GraphNode *node, UNUSED voi
     struct Object *objectGraphNode;
     struct GraphNodeGenerated *currentGraphNode;
     u8 layer;
-    Vec3f dir = {2,124,4};
+    Vec3f dir = {2,124,-4};
     dlStart = NULL;
     if (callContext == GEO_CONTEXT_RENDER) {
         currentGraphNode = (struct GraphNodeGenerated *) node;
@@ -2383,7 +2383,7 @@ Gfx *geo_set_confroom_lights(s32 callContext, struct GraphNode *node, UNUSED voi
 
         dlStart = alloc_display_list(sizeof(Gfx) * 3);
         dlHead = dlStart;
-        if (gConfroomLights) {
+        if (gOfficeState.lightsOn) {
             gDPSetPrimColor(dlHead++, 0, 0, 255, 255, 255, 255);
                 set_ambient_light(70, 70, 66);
                 set_directional_light(dir, 210, 210, 200);
@@ -2392,8 +2392,9 @@ Gfx *geo_set_confroom_lights(s32 callContext, struct GraphNode *node, UNUSED voi
                 //gCurDirectionalLight->a.l.colc[2] = 255;            
         } else {
             gDPSetPrimColor(dlHead++, 0, 0, 0, 0, 0, 0);
+                dir[0] = 0; dir[1] = 10; dir[2] = 100;
                 set_ambient_light(10,10,40);
-                set_directional_light(dir, 0, 0, 0);    
+                set_directional_light(dir, 15, 15, 50);    
                 //gCurDirectionalLight->a.l.colc[0] = 0;
                 //gCurDirectionalLight->a.l.colc[1] = 0;
                 //gCurDirectionalLight->a.l.colc[2] = 0;   

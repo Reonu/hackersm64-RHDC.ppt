@@ -50,6 +50,9 @@
 
 #define MODEL_B_BUTTON                         0x11A
 
+#define MODEL_LIGHT_SWITCH_UP                  0x11B
+#define MODEL_LIGHT_SWITCH_DOWN                0x11C
+
 /* Various static level geometry, the geo layout differs but terrain object presets treat them the same.*/
 
 #define MODEL_LEVEL_GEOMETRY_03                0x03

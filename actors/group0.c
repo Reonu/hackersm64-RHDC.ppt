@@ -79,3 +79,5 @@
 #include "arm/anims/data.inc.c"
 #include "arm/anims/table.inc.c"
 #include "b_button/model.inc.c"
+#include "light_switch_up/model.inc.c"
+#include "light_switch_down/model.inc.c"

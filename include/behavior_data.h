@@ -569,5 +569,7 @@ extern const BehaviorScript bhvArm[];
 extern const BehaviorScript bhvCoffeeCup[];
 extern const BehaviorScript bhvIntroKathy[];
 extern const BehaviorScript bhvBButton[];
+extern const BehaviorScript bhvPointLight[];
+extern const BehaviorScript bhvLightSwitch[];
 
 #endif // BEHAVIOR_DATA_H

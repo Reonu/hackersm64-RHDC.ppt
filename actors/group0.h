@@ -427,4 +427,8 @@ extern ConfroomObjectSpawn spawn_coffeeCup;
 #include "arm/anim_header.h"
 #include "b_button/geo_header.h"
 
+#include "light_switch_up/geo_header.h"
+
+#include "light_switch_down/geo_header.h"
+
 #endif

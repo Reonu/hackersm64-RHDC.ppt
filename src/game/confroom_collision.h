@@ -47,3 +47,4 @@ AABB *find_space(Cylinder *cyl);
 u32 resolve_exit_space(Cylinder *cyl, AABB *aabb, Vec3f res);
 void resolve_confroom_collisions(Cylinder *cyl, Vec3f res);
 f32 find_confroom_floor(Vec3f pos);
+extern f32 point_in_aabb_2d(AABB *aabb, Vec3f point);

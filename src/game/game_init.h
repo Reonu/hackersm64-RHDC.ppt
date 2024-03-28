@@ -59,7 +59,6 @@ extern u8 gCurrentCheckpoint;
 extern u8 gSwitchPressed;
 extern u8 gJustRespawned;
 extern u8 gIntroCutscene;
-extern u8 gConfroomLights;
 extern u8 gTutorialFinished;
 #ifdef EEP
 extern s8 gEepromProbe;

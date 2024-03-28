@@ -1,0 +1,10 @@
+extern const GeoLayout light_switch_up_geo[];
+extern Vtx light_switch_up_confroomMesh_001_mesh_layer_1_vtx_cull[8];
+extern Vtx light_switch_up_confroomMesh_001_mesh_layer_1_vtx_0[4];
+extern Gfx light_switch_up_confroomMesh_001_mesh_layer_1_tri_0[];
+extern Vtx light_switch_up_confroomMesh_001_mesh_layer_1_vtx_1[56];
+extern Gfx light_switch_up_confroomMesh_001_mesh_layer_1_tri_1[];
+extern Gfx mat_light_switch_up_fullbright_orange[];
+extern Gfx mat_light_switch_up_WHITEST_WHITE_EVER_WHITED_layer1[];
+extern Gfx mat_revert_light_switch_up_WHITEST_WHITE_EVER_WHITED_layer1[];
+extern Gfx light_switch_up_confroomMesh_001_mesh_layer_1[];

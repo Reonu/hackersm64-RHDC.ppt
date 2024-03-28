@@ -51,3 +51,6 @@ extern ConfroomObjectSpawn spawn_elevatorDoorRight;
 extern ConfroomObjectSpawn spawn_introKathy;
 extern ConfroomObjectSpawn spawn_bButtonCoffeeMachine;
 extern ConfroomObjectSpawn spawn_bButtonProjectorScreen;
+extern ConfroomObjectSpawn spawn_lightSwitchConfroom;
+extern ConfroomObjectSpawn spawn_lightSwitchOffice;
+extern ConfroomObjectSpawn spawn_lightSwitchNextToKitchen;

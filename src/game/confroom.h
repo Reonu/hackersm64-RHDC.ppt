@@ -59,6 +59,7 @@ typedef struct {
     u8 stage; // OfficeStages
     u8 presentationActive;
     u8 paused;
+    u8 lightsOn: 1;
 } OfficeState;
 
 void init_office_state(void);

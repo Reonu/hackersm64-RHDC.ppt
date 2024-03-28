@@ -240,7 +240,7 @@ void resolve_confroom_collisions(Cylinder *cyl, Vec3f res) {
     vec3f_copy(res, cyl->pos);
 }
 
-static f32 point_in_aabb_2d(AABB *aabb, Vec3f point) {
+f32 point_in_aabb_2d(AABB *aabb, Vec3f point) {
     return (
         point[0] > aabb->min_x &&
         point[0] < aabb->max_x &&

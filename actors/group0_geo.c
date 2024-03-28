@@ -76,3 +76,6 @@ ConfroomObjectSpawn spawn_coffeeCup = {
 #include "coffee_cup_empty/geo.inc.c"
 
 #include "b_button/geo.inc.c"
+
+#include "light_switch_up/geo.inc.c"
+#include "light_switch_down/geo.inc.c"

@@ -543,10 +543,16 @@ s32 update_player(void) {
     update_cam_from_player(player, &gFPVCam);
 
     fade_volume_scale(0, 127l, 1000);
+
+    /*if (point_in_aabb_2d(&gOfficeSpaces[0], gFPVPlayer.pos)) {
+        gConfroomLights = 0;
+    } else {
+        gConfroomLights = 1;
+    }*/
+
 #ifdef SLIDE_DEBUG
     if (gPlayer1Controller->buttonPressed & D_JPAD) {
         player->godMode ^= 1;
-        gConfroomLights ^= 1;
     }
     if (player->godMode) {
         player->energy = MAX_ENERGY;
