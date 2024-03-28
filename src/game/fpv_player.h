@@ -42,6 +42,7 @@ typedef struct {
     s8 currentTutorial;
     u32 tutorialTimer;
     u8 curTutorialDone;
+    u8 energyLowFirstTime;
 #ifdef SLIDE_DEBUG
     u8 godMode: 1;
     u8 instaGo: 1;

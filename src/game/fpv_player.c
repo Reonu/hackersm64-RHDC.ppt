@@ -16,6 +16,7 @@
 #include "actors/group0.h"
 #include "confroom.h"
 #include "cozy_print.h"
+#include "src/audio/external.h"
 
 #define STARTING_POSITION { -355.f, 2.0f, 2720.f }
 
@@ -46,6 +47,7 @@ FPVPlayer gFPVPlayer = {
     .currentTutorial = -1,
     .tutorialTimer = 0,
     .curTutorialDone = 0,
+    .energyLowFirstTime = 0,
 #ifdef SLIDE_DEBUG
     .godMode = FALSE,
     .instaGo = FALSE,
@@ -57,34 +59,48 @@ FPVPlayer gFPVPlayer = {
 void process_tutorial(FPVPlayer *player) {
     Vec3f starting_pos = STARTING_POSITION;
     switch  (player->currentTutorial) {
-        case 0:
+        case 0: // Welcome, movement controls
             if (vec3f_lat_dist(player->pos,starting_pos) > 100.f) {
                 player->curTutorialDone = 1;
             } else {
                 player->curTutorialDone = 0;
             }
             break;
-        case 1:
+        case 1: // Operate coffee machine
             if (player->sipsLeft) {
                 player->curTutorialDone = 1;
             } else {
                 player->curTutorialDone = 0;
             }
             break;
-        case 2:
+        case 2: // Go to confroom
             if (player->tutorialTimer++ > 120) {
                 player->curTutorialDone = 1;
+            } else {
+                player->curTutorialDone = 0;
             }
             break;
-        case 3:
+        case 3: // Enter presentation
             if (player->actionState == PLAYER_PRESENTING) {
                 player->curTutorialDone = 1;
+            } else {
+                player->curTutorialDone = 0;
             }
             break;
-        case 4:
+        case 4: // Grab a coffee first
             if (player->tutorialTimer++ > 120) {
                 player->curTutorialDone = 1;
+            } else {
+                player->curTutorialDone = 0;
             }
+            break;
+        case 5: // Low energy for the first time
+            if (((f32)player->energy / (f32)MAX_ENERGY) >= 0.26f) {
+                player->curTutorialDone = 1;
+            } else {
+                player->curTutorialDone = 0;
+            }
+            break;
     }
 }
 
@@ -526,6 +542,7 @@ s32 update_player(void) {
     }
     update_cam_from_player(player, &gFPVCam);
 
+    fade_volume_scale(0, 127l, 1000);
 #ifdef SLIDE_DEBUG
     if (gPlayer1Controller->buttonPressed & D_JPAD) {
         player->godMode ^= 1;
@@ -562,6 +579,9 @@ void render_player_hud(Gfx **head) {
     s32 r, g, b;
     f32 energyPercent = ((f32)player->energy / (f32)MAX_ENERGY);
     if (energyPercent < 0.25f) {
+        if (player->energyLowFirstTime == 0) {
+            player->energyLowFirstTime = 1;
+        }
         r = CLAMP(255 * (energyPercent * 5.0f),0,255);
         g = 0;
         b = 0;

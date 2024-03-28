@@ -53,6 +53,12 @@ struct TutorialMessage sTutorialMessages[] = {
     { // 04
         .title = "",
         .body = "Grab a coffee first.",
+    },
+    {
+        .title = "",
+        .body = "You're low on energy!\n"
+                "Press R to drink coffee. If you run out,\n"
+                "head to the kitchen and grab more."
     }
 };
 
@@ -91,7 +97,7 @@ void run_tut(void) {
         } else {
             alpha = remap(msgTimer, MSG_FADE, 0, 255, 0);
         }
-
+        
         s32 tmpAlpha = alpha;
         //if (menuIsShowing) tmpAlpha /= 3;
 
