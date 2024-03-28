@@ -2729,4 +2729,12 @@ enum SplineDudeGuyActions {
 };
 
 
+enum ArmActions {
+    ARM_INVISIBLE,
+    ARM_RAISING,
+    ARM_IDLE,
+    ARM_COFFEE_STOLEN,
+    ARM_DRINKING,
+};
+
 #endif // OBJECT_CONSTANTS_H

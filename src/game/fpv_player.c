@@ -93,6 +93,11 @@ void deplete_energy(s32 amt) {
     if (gFPVPlayer.energy < 0) gFPVPlayer.energy = 0;
 }
 
+void replenish_energy(s32 amt) {
+    gFPVPlayer.energy += amt;
+    if (gFPVPlayer.energy > MAX_ENERGY) gFPVPlayer.energy = MAX_ENERGY;
+}
+
 static void update_direction(FPVPlayer *player) {
     if (player->cont->buttonDown & L_CBUTTONS) {
         player->dir[1] += ROT_HZ_SPEED;
@@ -312,6 +317,15 @@ static s32 update_presenting(FPVPlayer *player) {
     }
 #endif
 
+    if (
+        player->sipsLeft &&
+        player->arm &&
+        player->arm->oAction != ARM_DRINKING &&
+        (player->cont->buttonPressed & PLAYER_BTN_DRINK_COFFEE)
+    ) {
+        player->arm->oAction = ARM_DRINKING;
+    }
+
     if (player->cont->buttonPressed & PLAYER_BTN_STOP_PRESENTATION) {
         player->pos[0] = sittingPos[0];
         player->pos[1] = sittingPos[1];
@@ -366,6 +380,8 @@ void init_player(void) {
 }
 
 void update_cam_from_player(FPVPlayer *player, FPVCamState *cam) {
+    static f32 presentationFac = 0;
+
     vec3f_copy_y_off(cam->pos, player->pos, player->headPos);
     vec3s_copy(cam->dir, player->dir);
     if (player->dir[2] != 0) {
@@ -401,13 +417,23 @@ void update_cam_from_player(FPVPlayer *player, FPVCamState *cam) {
     }
 
     if (player->arm) {
+        if (player->actionState == PLAYER_PRESENTING) {
+            presentationFac = approach_f32_symmetric(presentationFac, 1, 0.075f);
+        } else {
+            presentationFac = approach_f32_symmetric(presentationFac, 0, 0.0f);
+        }
         f32 *armPos = &player->arm->oPosX;
         Vec3f armOffset = { 0, 0, 0 };
         vec3_set_dist_and_angle(gVec3fZero, armOffset, 22, 0, cam->dir[1] + DEGREES(-90));
         vec3f_sum(armPos, cam->pos, armOffset);
 
-        player->arm->oFaceAnglePitch = -cam->dir[0];
-        player->arm->oFaceAngleYaw = cam->dir[1];
+        f32 armYOffset = lerpf(0, -12, presentationFac);
+        armPos[0] -= armYOffset * 0.5f;
+        armPos[1] += armYOffset;
+        armPos[2] -= armYOffset;
+
+        player->arm->oFaceAnglePitch = approach_angle_asymp(-cam->dir[0], 0, presentationFac);
+        player->arm->oFaceAngleYaw = approach_angle_asymp(cam->dir[1], 0, presentationFac);
         player->arm->oFaceAngleRoll = cam->dir[2];
     }
 }

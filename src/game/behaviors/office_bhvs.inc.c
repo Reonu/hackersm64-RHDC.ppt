@@ -426,13 +426,6 @@ void bhv_elevator_door_loop(void) {
     }
 }
 
-enum ArmActions {
-    ARM_INVISIBLE,
-    ARM_RAISING,
-    ARM_IDLE,
-    ARM_COFFEE_STOLEN,
-};
-
 void bhv_arm_init(void) {
     o->oAction = ARM_INVISIBLE;
     o->oAnimState = 0;
@@ -477,6 +470,23 @@ void bhv_arm_loop(void) {
                 return;
             }
             break;
+        case ARM_DRINKING:
+            o->oAnimationIndex = ARM_ANIM_DRINK;
+            cur_obj_init_animation(o->oAnimationIndex);
+            s32 eGain = roundf(((f32)E_GAIN_COFFEE_SIP) / (f32)o->header.gfx.animInfo.curAnim->loopEnd);
+            replenish_energy(eGain);
+            if (cur_obj_check_if_at_animation_end()) {
+                gFPVPlayer.sipsLeft--;
+                o->oAnimationIndex = ARM_ANIM_IDLE;
+                cur_obj_init_animation(o->oAnimationIndex);
+                if (gFPVPlayer.sipsLeft <= 0) {
+                    gFPVPlayer.sipsLeft = 0;
+                    o->oAction = ARM_INVISIBLE;
+                } else {
+                    o->oAction = ARM_IDLE;
+                }
+            }
+            return;
     }
     cur_obj_init_animation(o->oAnimationIndex);
 }

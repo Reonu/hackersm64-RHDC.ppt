@@ -69,6 +69,7 @@ extern FPVPlayer gFPVPlayer;
 #define E_COST_MOVING     3
 
 #define E_GAIN_KITCHEN    5
+#define E_GAIN_COFFEE_SIP (MAX_ENERGY / 4)
 
 #define ROT_HZ_SPEED   0x200
 #define ROT_VT_SPEED   0x200
@@ -99,6 +100,7 @@ extern FPVPlayer gFPVPlayer;
 #define PLAYER_BTN_START_PRESENTATION PLAYER_BTN_INTERACT
 // PLAYER_PRESENTING
 #define PLAYER_BTN_STOP_PRESENTATION L_TRIG
+#define PLAYER_BTN_DRINK_COFFEE      R_TRIG
 
 // Max distance from seat to sit in front of presentation
 #define MAX_SITTING_DIST 225.f
@@ -107,3 +109,4 @@ void init_player(void);
 s32 update_player(void);
 void render_player_hud(Gfx **head);
 void deplete_energy(s32 amt);
+void replenish_energy(s32 amt);
