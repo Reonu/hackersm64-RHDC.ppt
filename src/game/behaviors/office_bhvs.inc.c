@@ -6,6 +6,13 @@
 #include "game/emutest.h"
 #include "game/fpv_player.h"
 
+enum CoffeeCupActions {
+    COFFEE_CUP_INVISIBLE,
+    COFFEE_CUP_EMPTY,
+    COFFEE_CUP_HALF,
+    COFFEE_CUP_FULL,
+};
+
 u32 cathy_lead_ins[] = {
     SOUND_CATHY_LEAD_IN_GET_A_LOAD_OF_THIS,
     SOUND_CATHY_LEAD_IN_HAPPY_HOUR,
@@ -111,18 +118,6 @@ void bhv_dudeguy_loop(void) {
         o->oAnimationIndex--;
     }*/
 }
-
-enum SplineDudeGuyActions {
-    SPLINE_GUY_WALKING,
-    SPLINE_GUY_WAITING_TO_STOP,
-    SPLINE_GUY_STOPPING,
-    SPLINE_GUY_STOPPED,
-    SPLINE_GUY_STARTING_TO_WALK,
-    SPLINE_GUY_CHASING_PLAYER,
-    SPLINE_GUY_CONVERSATION,
-    SPLINE_GUY_RETURNING_TO_SPLINE,
-    SPLINE_GUY_STOLE_COFFEE,
-};
 
 #define SPLINE_GUY_PATROL_SPEED             meters_sec(1.6f)
 #define SPLINE_GUY_RUN_SPEED                meters_sec(3.1f)
@@ -319,6 +314,7 @@ void bhv_spline_dudeguy_loop(void) {
                 if (o->oSubAction == 3) {
                     o->oAction = SPLINE_GUY_RETURNING_TO_SPLINE;
                     o->oAnimationIndex = NPC_ANIM_IDLE;
+                    gFPVPlayer.coffeeCup->oAction = COFFEE_CUP_INVISIBLE;
                 } else {
                     o->header.gfx.animInfo.animFrame = SPLINE_GUY_STEAL_SIP_START;
                 }
@@ -485,18 +481,17 @@ void bhv_arm_loop(void) {
     cur_obj_init_animation(o->oAnimationIndex);
 }
 
-enum CoffeeCupActions {
-    COFFEE_CUP_INVISIBLE,
-    COFFEE_CUP_EMPTY,
-    COFFEE_CUP_HALF,
-    COFFEE_CUP_FULL,
-};
-
 void bhv_coffee_cup_init(void) {
     o->oAction = COFFEE_CUP_EMPTY;
 }
 
 void bhv_coffee_cup_loop(void) {
+    if (gFPVPlayer.sipsLeft) {
+        o->oAction = gFPVPlayer.sipsLeft;
+    } else if (!gFPVPlayer.coffeeStolen) {
+        o->oAction = COFFEE_CUP_INVISIBLE;
+    }
+
     switch (o->oAction) {
         case COFFEE_CUP_INVISIBLE:
             cur_obj_hide();

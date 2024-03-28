@@ -2403,16 +2403,35 @@ Gfx *geo_set_confroom_lights(s32 callContext, struct GraphNode *node, UNUSED voi
     return dlStart;
 }
 
+#define COFFEE_BASE_SCALE 0.25f
+#define SET_COFFEE_SCALE(scale, s) vec3f_set(scale, (s) * COFFEE_BASE_SCALE, (s) * COFFEE_BASE_SCALE, (s) * COFFEE_BASE_SCALE)
+
 Gfx *geo_set_coffee_cup_position(UNUSED s32 callContext, UNUSED struct GraphNode *node, Mat4 matrix) {
-    if (gFPVPlayer.coffeeCup && gFPVPlayer.sipsLeft) {
-        mtxf_copy(gFPVPlayer.coffeeCup->transform, matrix);
-        gFPVPlayer.coffeeCup->header.gfx.throwMatrix = &gFPVPlayer.coffeeCup->transform;
-        gFPVPlayer.coffeeCup->oPosX = gFPVPlayer.coffeeCup->transform[3][0];
-        gFPVPlayer.coffeeCup->oPosY = gFPVPlayer.coffeeCup->transform[3][1];
-        gFPVPlayer.coffeeCup->oPosZ = gFPVPlayer.coffeeCup->transform[3][2];
-        gFPVPlayer.coffeeCup->oFaceAnglePitch = DEGREES(90);
-        gFPVPlayer.coffeeCup->oFaceAngleYaw = 0;
-        gFPVPlayer.coffeeCup->oFaceAngleRoll = 0;
+    struct Object *obj = (struct Object *) gCurGraphNodeObject;
+    if (obj == gFPVPlayer.arm) {
+        if (gFPVPlayer.coffeeCup && gFPVPlayer.sipsLeft) {
+            mtxf_copy(gFPVPlayer.coffeeCup->transform, matrix);
+            gFPVPlayer.coffeeCup->header.gfx.throwMatrix = &gFPVPlayer.coffeeCup->transform;
+            gFPVPlayer.coffeeCup->oPosX = gFPVPlayer.coffeeCup->transform[3][0];
+            gFPVPlayer.coffeeCup->oPosY = gFPVPlayer.coffeeCup->transform[3][1];
+            gFPVPlayer.coffeeCup->oPosZ = gFPVPlayer.coffeeCup->transform[3][2];
+            gFPVPlayer.coffeeCup->oFaceAnglePitch = DEGREES(90);
+            gFPVPlayer.coffeeCup->oFaceAngleYaw = 0;
+            gFPVPlayer.coffeeCup->oFaceAngleRoll = 0;
+            SET_COFFEE_SCALE(gFPVPlayer.coffeeCup->header.gfx.scale, 1.0f);
+        }
+    } else if (obj->oAction == SPLINE_GUY_STOLE_COFFEE) {
+        if (gFPVPlayer.coffeeStolen) {
+            mtxf_copy(gFPVPlayer.coffeeCup->transform, matrix);
+            gFPVPlayer.coffeeCup->header.gfx.throwMatrix = &gFPVPlayer.coffeeCup->transform;
+            gFPVPlayer.coffeeCup->oPosX = gFPVPlayer.coffeeCup->transform[3][0];
+            gFPVPlayer.coffeeCup->oPosY = gFPVPlayer.coffeeCup->transform[3][1];
+            gFPVPlayer.coffeeCup->oPosZ = gFPVPlayer.coffeeCup->transform[3][2];
+            gFPVPlayer.coffeeCup->oFaceAnglePitch = DEGREES(90);
+            gFPVPlayer.coffeeCup->oFaceAngleYaw = 0;
+            gFPVPlayer.coffeeCup->oFaceAngleRoll = 0;
+            SET_COFFEE_SCALE(gFPVPlayer.coffeeCup->header.gfx.scale, 100.0f/18.0f);
+        }
     }
     return NULL;
 }
