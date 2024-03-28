@@ -91,16 +91,16 @@ extern FPVPlayer gFPVPlayer;
 
 
 // controls
+#define PLAYER_BTN_DRINK_COFFEE      R_TRIG
 // PLAYER_FREE
 // #define PLAYER_BTN_JUMP     A_BUTTON
 #define PLAYER_BTN_INTERACT B_BUTTON
 #define PLAYER_BTN_RUN      A_BUTTON
 #define PLAYER_BTN_CROUCH   Z_TRIG
-#define PLAYER_BTN_ZOOM     R_TRIG
+#define PLAYER_BTN_ZOOM     L_TRIG
 #define PLAYER_BTN_START_PRESENTATION PLAYER_BTN_INTERACT
 // PLAYER_PRESENTING
 #define PLAYER_BTN_STOP_PRESENTATION L_TRIG
-#define PLAYER_BTN_DRINK_COFFEE      R_TRIG
 
 // Max distance from seat to sit in front of presentation
 #define MAX_SITTING_DIST 225.f

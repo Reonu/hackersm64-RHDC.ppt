@@ -98,6 +98,19 @@ void replenish_energy(s32 amt) {
     if (gFPVPlayer.energy > MAX_ENERGY) gFPVPlayer.energy = MAX_ENERGY;
 }
 
+static s32 check_and_drink_coffee(FPVPlayer *player) {
+    if (
+        player->sipsLeft &&
+        player->arm &&
+        player->arm->oAction != ARM_DRINKING &&
+        (player->cont->buttonPressed & PLAYER_BTN_DRINK_COFFEE)
+    ) {
+        player->arm->oAction = ARM_DRINKING;
+        return TRUE;
+    }
+    return player->arm && player->arm->oAction == ARM_DRINKING;
+}
+
 static void update_direction(FPVPlayer *player) {
     if (player->cont->buttonDown & L_CBUTTONS) {
         player->dir[1] += ROT_HZ_SPEED;
@@ -163,6 +176,9 @@ static s32 update_free(FPVPlayer *player) {
         player->actionState = PLAYER_CONVO_QTE;
         return TRUE;
     }
+    
+    s32 drinkingCoffee = check_and_drink_coffee(player);
+    if (drinkingCoffee) player->cont->stickMag /= 6;
 
     player->dir[2] = 0;
 
@@ -317,14 +333,7 @@ static s32 update_presenting(FPVPlayer *player) {
     }
 #endif
 
-    if (
-        player->sipsLeft &&
-        player->arm &&
-        player->arm->oAction != ARM_DRINKING &&
-        (player->cont->buttonPressed & PLAYER_BTN_DRINK_COFFEE)
-    ) {
-        player->arm->oAction = ARM_DRINKING;
-    }
+    check_and_drink_coffee(player);
 
     if (player->cont->buttonPressed & PLAYER_BTN_STOP_PRESENTATION) {
         player->pos[0] = sittingPos[0];
