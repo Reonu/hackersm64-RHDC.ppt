@@ -117,15 +117,8 @@ Gfx coffee_cup_half_Cylinder_001_mesh_layer_1_tri_1[] = {
 Gfx mat_coffee_cup_half_cup[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(PRIMITIVE, 0, SHADE, 0, 0, 0, 0, 0, PRIMITIVE, 0, SHADE, 0, 0, 0, 0, 0),
-	gsSPGeometryMode(G_CULL_BACK, 0),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPSetPrimColor(0, 0, 255, 179, 82, 255),
-	gsSPEndDisplayList(),
-};
-
-Gfx mat_revert_coffee_cup_half_cup[] = {
-	gsDPPipeSync(),
-	gsSPGeometryMode(0, G_CULL_BACK),
 	gsSPEndDisplayList(),
 };
 
@@ -144,7 +137,6 @@ Gfx coffee_cup_half_Cylinder_001_mesh_layer_1[] = {
 	gsSPCullDisplayList(0, 7),
 	gsSPDisplayList(mat_coffee_cup_half_cup),
 	gsSPDisplayList(coffee_cup_half_Cylinder_001_mesh_layer_1_tri_0),
-	gsSPDisplayList(mat_revert_coffee_cup_half_cup),
 	gsSPDisplayList(mat_coffee_cup_half_coffee_001),
 	gsSPDisplayList(coffee_cup_half_Cylinder_001_mesh_layer_1_tri_1),
 	gsDPPipeSync(),
