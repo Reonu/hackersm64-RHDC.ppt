@@ -611,24 +611,89 @@ void bhv_intro_kathy_loop(void) {
 }
 
 
-#define MAX_DIST_LIGHT_SWITCH 100.f
+#define MAX_DIST_LIGHT_SWITCH 150.f
 
 enum BButtonActions {
-    B_BUTTON_INVISIBLE,
-    B_BUTTON_VISIBLE,
+    B_BUTTON_COFFEE_MACHINE,
+    B_BUTTON_LIGHT_SWITCH,
+    B_BUTTON_BENCH,
 };
 
 void bhv_b_button_init(void) {
     cur_obj_hide();
-    o->oAction = B_BUTTON_INVISIBLE;
     o->oCoffeeMachine = find_closest_office_obj_with_bhv(segmented_to_virtual(bhvCoffeeMachine),100.f);
+    o->oLightSwitch = find_closest_office_obj_with_bhv(segmented_to_virtual(bhvLightSwitch),100.f);
+
+    if (o->oCoffeeMachine != NULL) {
+        o->oAction = B_BUTTON_COFFEE_MACHINE;
+    } else if (o->oLightSwitch != NULL) {
+        o->oAction = B_BUTTON_LIGHT_SWITCH;
+    } else {
+        o->oAction = B_BUTTON_BENCH;
+    }
 }
 
 void bhv_b_button_loop(void) {
     f32 *pos = &o->oPosX;
-    f32 playerDist = vec3f_lat_dist(pos, gFPVPlayer.pos);
+    f32 playerDist = 0;
+    Vec3f parentPos;
+
+    if (o->oCoffeeMachine != NULL) {
+        parentPos[0] = o->oCoffeeMachine->oPosX; parentPos[1] = o->oCoffeeMachine->oPosY; parentPos[2] = o->oCoffeeMachine->oPosZ;
+        playerDist = vec3f_lat_dist(parentPos, gFPVPlayer.pos);
+    } else if (o->oLightSwitch != NULL) {
+        parentPos[0] = o->oLightSwitch->oPosX; parentPos[1] = o->oLightSwitch->oPosY; parentPos[2] = o->oLightSwitch->oPosZ;
+        playerDist = vec3f_lat_dist(parentPos, gFPVPlayer.pos);
+    } else {
+        playerDist = vec3f_lat_dist(pos, gFPVPlayer.pos);
+    }
 
     switch (o->oAction) {
+        case B_BUTTON_COFFEE_MACHINE:
+            if (((o->oCoffeeMachine->oAction != COFFEE_MACHINE_WAITING) && (o->oCoffeeMachine->oAction != COFFEE_MACHINE_READY)) || (gFPVPlayer.sipsLeft) || (playerDist > MAX_COFFEE_MACHINE_DIST)) {
+                cur_obj_hide();
+            } else {
+                if (!o->oCoffeeMachineTutorialTriggered) {
+                    gFPVPlayer.curTutorialDone = 0;
+                    gFPVPlayer.currentTutorial = 1;
+                    o->oCoffeeMachineTutorialTriggered = 1;                   
+                }
+                cur_obj_unhide();
+            }
+            break;
+        case B_BUTTON_LIGHT_SWITCH:
+            if (playerDist < MAX_DIST_LIGHT_SWITCH) {
+                cur_obj_unhide();
+            } else {
+                cur_obj_hide();
+            }
+            cur_obj_scale(0.12f);
+            break;
+        case B_BUTTON_BENCH:
+            if ((gFPVPlayer.actionState != PLAYER_PRESENTING) && (playerDist < MAX_SITTING_DIST)) {
+                if (!o->oSittingTutorialTriggered) {
+                    gFPVPlayer.curTutorialDone = 0;
+                    gFPVPlayer.currentTutorial = 3;
+                    o->oSittingTutorialTriggered = 1;
+                }
+                gFPVPlayer.canSit = 1;
+                if (playerDist > 30.f) {
+                    cur_obj_unhide();
+                } else {
+                    cur_obj_unhide();
+                }
+            } else {
+                gFPVPlayer.canSit = 0;
+                cur_obj_hide(); 
+            }
+            break;            
+
+    }
+    o->oBButtonTimer += 1300;
+    o->oPosY += sins(o->oBButtonTimer) * 1.1f;
+    o->oFaceAngleYaw += 500;
+
+    /*switch (o->oAction) {
         case B_BUTTON_INVISIBLE:
             cur_obj_hide();
             break;
@@ -674,7 +739,7 @@ void bhv_b_button_loop(void) {
             }
             gFPVPlayer.canSit = TRUE;
         }
-    }
+    }*/
 }
 
 void bhv_point_light_loop(void) {

@@ -54,3 +54,6 @@ extern ConfroomObjectSpawn spawn_bButtonProjectorScreen;
 extern ConfroomObjectSpawn spawn_lightSwitchConfroom;
 extern ConfroomObjectSpawn spawn_lightSwitchOffice;
 extern ConfroomObjectSpawn spawn_lightSwitchNextToKitchen;
+extern ConfroomObjectSpawn spawn_bButtonLightSwitchNextToKitchen;
+extern ConfroomObjectSpawn spawn_bButtonLightSwitchNextToConfroom;
+extern ConfroomObjectSpawn spawn_bButtonLightSwitchConfroom;

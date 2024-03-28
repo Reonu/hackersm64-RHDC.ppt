@@ -48,6 +48,7 @@ FPVPlayer gFPVPlayer = {
     .tutorialTimer = 0,
     .curTutorialDone = 0,
     .energyLowFirstTime = 0,
+    .firstCoffee = 0,
 #ifdef SLIDE_DEBUG
     .godMode = FALSE,
     .instaGo = FALSE,
@@ -61,7 +62,10 @@ void process_tutorial(FPVPlayer *player) {
     switch  (player->currentTutorial) {
         case 0: // Welcome, movement controls
             if (vec3f_lat_dist(player->pos,starting_pos) > 100.f) {
-                player->curTutorialDone = 1;
+                if (player->tutorialTimer++ >= 120) {
+                    player->curTutorialDone = 1;
+                    player->tutorialTimer = 0;
+                }
             } else {
                 player->curTutorialDone = 0;
             }
@@ -101,6 +105,13 @@ void process_tutorial(FPVPlayer *player) {
                 player->curTutorialDone = 0;
             }
             break;
+        case 06: // Hide tutorial
+            if (player->tutorialTimer++ > 120) {
+                player->curTutorialDone = 1;
+                gTutorialFinished = 1;
+            } else {
+                player->curTutorialDone = 0;
+            }           
     }
 }
 
@@ -523,32 +534,46 @@ s32 update_player(void) {
 #endif
     }
 
+    // Respawning info during first time presenting
     if (player->actionState == PLAYER_PRESENTING && !player->hasRespawned) {
         print_small_text_buffered(100, SCREEN_HEIGHT - 20, "Press START anytime to retry current slide",PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);
         if (gPlayer1Controller->buttonPressed & START_BUTTON) {
             player->hasRespawned = TRUE;
         }
     }
-
-    if ((!player->sipsLeft) && (gOfficeState.stage == OFFICE_STAGE_INTRO) && ((player->pos[2] < 250.f))) {
+    // Don't let the player into the confroom during the intro if they don't have a coffee
+    if ((!player->sipsLeft) && (gOfficeState.stage == OFFICE_STAGE_INTRO) && ((player->pos[2] < 250.f))) { 
         player->pos[2] = 250.f;
         player->currentTutorial = 4;
         player->tutorialTimer = 0;
         player->curTutorialDone = 0;
     } 
+
+    //Hardcode energy during intro, before the first coffee
+    if (gOfficeState.stage == OFFICE_STAGE_INTRO) { 
+        if ((!player->sipsLeft) && (!player->firstCoffee)) {
+            player->energy = 200;
+        }
+        if (player->sipsLeft) {
+            player->firstCoffee = 1;
+        }
+    }
     
     if ((player->currentTutorial >= 0) && (!gTutorialFinished)) {
         process_tutorial(player);
     }
     update_cam_from_player(player, &gFPVCam);
 
-    fade_volume_scale(0, 127l, 1000);
-
     /*if (point_in_aabb_2d(&gOfficeSpaces[0], gFPVPlayer.pos)) {
         gConfroomLights = 0;
     } else {
         gConfroomLights = 1;
     }*/
+
+    // Immediately end the tutorial if the player press Dpad down at the start
+    if ((player->currentTutorial == 0) && (gPlayer1Controller->buttonPressed & D_JPAD)) {
+        player->currentTutorial = 6;
+    }
 
 #ifdef SLIDE_DEBUG
     if (gPlayer1Controller->buttonPressed & D_JPAD) {

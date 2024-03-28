@@ -29,8 +29,11 @@ char sFirstMessageForN64MouseGigachads[] = "N64 mouse detected! Welcome, you gig
 struct TutorialMessage sTutorialMessages[] = {
     { // 00
         .title = "Welcome to RHDC.ppt",
-        .body = "First of all, use the Control Stick to\n"
-                "move, and the C-Buttons to look around\n",
+        .body = "Use control stick to move.\n"
+                "Use the C-Buttons to look around.\n"
+                "Press START to view the controls.\n"
+                "Press Dpad down if you want to hide\n"
+                "all future tutorial messages.",
     },
     { // 01
         .title = "",
@@ -54,11 +57,16 @@ struct TutorialMessage sTutorialMessages[] = {
         .title = "",
         .body = "Grab a coffee first.",
     },
-    {
+    { // 05
         .title = "",
         .body = "You're low on energy!\n"
                 "Press R to drink coffee. If you run out,\n"
                 "head to the kitchen and grab more."
+    },
+    {
+        .title = "",
+        .body = "All tutorials hidden.\n"
+                "Restart the game if you didn't mean to do this.",
     }
 };
 
@@ -73,12 +81,6 @@ void run_tut(void) {
 
     if (gTutorialFinished || (gFPVPlayer.currentTutorial < 0)) 
         return;
-
-    /*if (!init && gIsConsole) {
-        init = TRUE;
-        if (gPlayer2Controller->isMouse) sTutorialMessages[0].body = sFirstMessageForN64MouseGigachads;
-        else sTutorialMessages[0].body = sFirstMessageForConsoleChads;
-    };*/
 
     if (gFPVPlayer.currentTutorial != curMsg) {
         msgTimer = MSG_LEN+MSG_FADE;

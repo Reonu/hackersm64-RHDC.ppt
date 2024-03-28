@@ -464,3 +464,39 @@ ConfroomObjectSpawn spawn_lightSwitchNextToKitchen = {
     0,
 };
 
+ConfroomObjectSpawn spawn_bButtonLightSwitchNextToKitchen = {
+    {  1327.3004531860f,   183.8348746300f,  2860.0406646729f },
+    { 0x0000, -0x4000, 0x0000 },
+    MODEL_B_BUTTON,
+    (uintptr_t)bhvBButton,
+    0,
+    0,
+    0,
+    0,
+    0,
+};
+
+ConfroomObjectSpawn spawn_bButtonLightSwitchNextToConfroom = {
+    {   710.1377487183f,   181.2708735466f,  -223.4268188477f },
+    { 0x0000, 0x4000, 0x0000 },
+    MODEL_B_BUTTON,
+    (uintptr_t)bhvBButton,
+    0,
+    0,
+    0,
+    0,
+    0,
+};
+
+ConfroomObjectSpawn spawn_bButtonLightSwitchConfroom = {
+    {   325.0374317169f,   181.1922311783f,    16.2028312683f },
+    { 0x0000, 0x0000, 0x0000 },
+    MODEL_B_BUTTON,
+    (uintptr_t)bhvBButton,
+    0,
+    0,
+    0,
+    0,
+    0,
+};
+
