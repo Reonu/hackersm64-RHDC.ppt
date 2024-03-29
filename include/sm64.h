@@ -150,6 +150,12 @@ enum BarStart {
     BAR_START_MAX,
 };
 
+enum DudeGuyRoomsActive {
+    ACTIVE_BOTH,
+    ACTIVE_OFFICE,
+    ACTIVE_CONFROOM,
+};
+
 #define NPC_SPLINE_NORMAL                   0x00
 #define NPC_SPLINE_BACK_AND_FORTH           0x01
 

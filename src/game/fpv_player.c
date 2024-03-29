@@ -49,6 +49,7 @@ FPVPlayer gFPVPlayer = {
     .curTutorialDone = 0,
     .energyLowFirstTime = 0,
     .firstCoffee = 0,
+    .inConfroom = 0,
 #ifdef SLIDE_DEBUG
     .godMode = FALSE,
     .instaGo = FALSE,
@@ -574,6 +575,12 @@ s32 update_player(void) {
     if ((player->currentTutorial == 0) && (gPlayer1Controller->buttonPressed & D_JPAD)) {
         player->currentTutorial = 6;
     }
+
+     if (!(point_in_aabb_2d(&gOfficeSpaces[0], gFPVPlayer.pos))) {
+        player->inConfroom = 0;
+     } else {
+        player->inConfroom = 1;
+     }
 
 #ifdef SLIDE_DEBUG
     if (gPlayer1Controller->buttonPressed & D_JPAD) {

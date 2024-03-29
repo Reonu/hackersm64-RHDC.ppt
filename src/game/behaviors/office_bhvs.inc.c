@@ -96,6 +96,30 @@ void bhv_dudeguy_init(void) {
 }
 
 void bhv_dudeguy_loop(void) {
+
+    switch (BPARAM4) {
+        case ACTIVE_CONFROOM:
+            if (!gFPVPlayer.inConfroom) {
+                o->activeFlags &= ~ACTIVE_FLAG_ACTIVE;
+                o->header.gfx.node.flags &= ~GRAPH_RENDER_ACTIVE;   
+                return;             
+            } else {
+                o->activeFlags |= ACTIVE_FLAG_ACTIVE;
+                o->header.gfx.node.flags |= GRAPH_RENDER_HAS_ANIMATION | GRAPH_RENDER_ACTIVE;                
+            }
+            break;
+        case ACTIVE_OFFICE:
+            if (gFPVPlayer.inConfroom) {
+                o->activeFlags &= ~ACTIVE_FLAG_ACTIVE;
+                o->header.gfx.node.flags &= ~GRAPH_RENDER_ACTIVE;
+                return;              
+            } else {
+                o->activeFlags |= ACTIVE_FLAG_ACTIVE;
+                o->header.gfx.node.flags |= GRAPH_RENDER_HAS_ANIMATION | GRAPH_RENDER_ACTIVE;                
+            }            
+            break;
+    }    
+
     cur_obj_init_animation(o->oAnimationIndex);
 
     if (o->oTimer == 0)
@@ -135,6 +159,10 @@ void bhv_spline_dudeguy_init(void) {
     o->oSplineDudeGuyPointIndex = 0;
     o->oForwardVel = SPLINE_GUY_PATROL_SPEED;
 
+    if (BPARAM4) {
+        o->oDudeGuyRoomsActive = BPARAM4;
+    }
+
     ConfroomObjectSplineRef *spline = &gConfroomSplines[BPARAM2];
     s32 pIndex = o->oSplineDudeGuyPointIndex;
     f32 *curPoint = spline->points[pIndex];
@@ -172,6 +200,29 @@ void bhv_spline_dudeguy_loop(void) {
     f32 patrolSpeed;
     f32 turningSpeed;
 
+    switch (BPARAM4) {
+        case ACTIVE_CONFROOM:
+            if (!gFPVPlayer.inConfroom) {
+                o->activeFlags &= ~ACTIVE_FLAG_ACTIVE;
+                o->header.gfx.node.flags &= ~GRAPH_RENDER_ACTIVE;
+                return;                
+            } else {
+                o->activeFlags |= ACTIVE_FLAG_ACTIVE;
+                o->header.gfx.node.flags |= GRAPH_RENDER_HAS_ANIMATION | GRAPH_RENDER_ACTIVE;                
+            }
+            break;
+        case ACTIVE_OFFICE:
+            if (gFPVPlayer.inConfroom) {
+                o->activeFlags &= ~ACTIVE_FLAG_ACTIVE;
+                o->header.gfx.node.flags &= ~GRAPH_RENDER_ACTIVE;     
+                return;           
+            } else {
+                o->activeFlags |= ACTIVE_FLAG_ACTIVE;
+                o->header.gfx.node.flags |= GRAPH_RENDER_HAS_ANIMATION | GRAPH_RENDER_ACTIVE;                
+            }            
+            break;
+    }
+
     if (gOfficeState.stage == OFFICE_STAGE_3) {
         patrolSpeed = SPLINE_GUY_RUN_SPEED;
         turningSpeed = SPLINE_GUY_TURNING_SPEED_RUNNING;
@@ -179,6 +230,8 @@ void bhv_spline_dudeguy_loop(void) {
         turningSpeed = SPLINE_GUY_TURNING_SPEED;
         patrolSpeed = SPLINE_GUY_PATROL_SPEED;
     }
+
+
 
     switch (o->oAction) {
         case SPLINE_GUY_WALKING: {

@@ -44,6 +44,7 @@ typedef struct {
     u8 curTutorialDone;
     u8 energyLowFirstTime;
     u8 firstCoffee: 1;
+    u8 inConfroom: 1;
 #ifdef SLIDE_DEBUG
     u8 godMode: 1;
     u8 instaGo: 1;

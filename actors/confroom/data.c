@@ -132,7 +132,7 @@ ConfroomObjectSpawn spawn_dudeGuy1 = {
     NPC_ANIM_SPRINTING,
     0,
     0,
-    0,
+    ACTIVE_CONFROOM,
     0,
 };
 
@@ -144,7 +144,7 @@ ConfroomObjectSpawn spawn_dudeGuyPhone = {
     NPC_ANIM_PHONE,
     0,
     0,
-    0,
+    ACTIVE_OFFICE,
     0,
 };
 
@@ -156,7 +156,7 @@ ConfroomObjectSpawn spawn_dudeGuyEating = {
     NPC_ANIM_EATING,
     0,
     0,
-    0,
+    ACTIVE_OFFICE,
     0,
 };
 
@@ -168,7 +168,7 @@ ConfroomObjectSpawn spawn_dudeGuyTyping2 = {
     NPC_ANIM_TYPING,
     0,
     0,
-    0,
+    ACTIVE_OFFICE,
     0,
 };
 
@@ -180,7 +180,7 @@ ConfroomObjectSpawn spawn_dudeGuyBored = {
     NPC_ANIM_BORED,
     0,
     0,
-    0,
+    ACTIVE_OFFICE,
     0,
 };
 
@@ -256,7 +256,7 @@ ConfroomObjectSpawn spawn_dudeGuySpline2 = {
     0,
     NPC_SPLINE_AROUND_DESK,
     0,
-    0,
+    ACTIVE_OFFICE,
     0,
 };
 
@@ -268,7 +268,7 @@ ConfroomObjectSpawn spawn_dudeGuySplineWater = {
     0,
     NPC_SPLINE_NEXT_TO_ELEVATOR,
     0,
-    0,
+    ACTIVE_OFFICE,
     OFFICE_STAGE_FLAG_3,
 };
 
@@ -280,7 +280,7 @@ ConfroomObjectSpawn spawn_dudeGuySplineReception = {
     0,
     NPC_SPLINE_NEXT_TO_RECEPTION,
     0,
-    0,
+    ACTIVE_OFFICE,
     0,
 };
 
@@ -292,7 +292,7 @@ ConfroomObjectSpawn spawn_dudeGuyTyping = {
     NPC_ANIM_TYPING,
     0,
     0,
-    0,
+    ACTIVE_OFFICE,
     0,
 };
 
@@ -304,7 +304,7 @@ ConfroomObjectSpawn spawn_dudeGuyTyping3 = {
     NPC_ANIM_TYPING,
     0,
     0,
-    0,
+    ACTIVE_OFFICE,
     0,
 };
 
@@ -316,7 +316,7 @@ ConfroomObjectSpawn spawn_dudeguyConfroomSitting = {
     NPC_ANIM_BORED,
     0,
     0,
-    0,
+    ACTIVE_CONFROOM,
     0,
 };
 
