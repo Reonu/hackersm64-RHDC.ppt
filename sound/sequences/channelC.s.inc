@@ -8,7 +8,7 @@ layer_end
 
 # sounds
 .sound_office_sfx_mgs:
-chan_setbank 0xC
+chan_setbank 0xD
 chan_setinstr 0
 chan_setval 20
 chan_call .set_reverb

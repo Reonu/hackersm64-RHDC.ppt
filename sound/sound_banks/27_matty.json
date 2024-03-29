@@ -1,0 +1,132 @@
+{
+    "date": "2024-03-23",
+    "sample_bank": "sfx_matty",
+    "envelopes": {
+        "envelope0": [
+            [2, 32700],
+            [1, 32700],
+            [32700, 29430],
+            "hang"
+        ]
+    },
+    "instruments": {
+        "inst0": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "matty-lead-in-bandwidth"
+        },
+        "inst1": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "matty-lead-in-low-hangin-fruit"
+        },
+        "inst2": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "matty-lead-in-run-past-you"
+        },
+        "inst3": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "matty-lead-in-there-you-are"
+        },
+        "inst4": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "matty-lead-in-wheelhouse"
+        },
+        "inst5": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "matty-mumble-ducks-in-a-row"
+        },
+        "inst6": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "matty-mumble-first-and-foremost"
+        },
+        "inst7": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "matty-mumble-synergy"
+        },
+        "inst8": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "matty-mumble-the-new-normal"
+        },
+        "inst9": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "matty-question-circle-back"
+        },
+        "inst10": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "matty-question-hit-me"
+        },
+        "inst11": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "matty-question-hows-that-sound"
+        },
+        "inst12": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "matty-question-trigger"
+        },
+
+        "inst13": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "matty-coffee-steal-got-my-back"
+        },
+        "inst14": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "matty-coffee-steal-promotion"
+        },
+        "inst15": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "matty-coffee-steal-i-love-you"
+        },
+
+        "inst16": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "matty-coffee-sip-mmm"
+        },
+        "inst17": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "matty-coffee-sip-ooh"
+        },
+        "inst18": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "matty-coffee-sip-smack"
+        }
+    },
+    "instrument_list": [
+        "inst0",
+        "inst1",
+        "inst2",
+        "inst3",
+        "inst4",
+        "inst5",
+        "inst6",
+        "inst7",
+        "inst8",
+        "inst9",
+        "inst10",
+        "inst11",
+        "inst12",
+        "inst13",
+        "inst14",
+        "inst15",
+        "inst16",
+        "inst17",
+        "inst18"
+    ]
+}

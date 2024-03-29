@@ -43,6 +43,36 @@ u32 cathy_coffee_sips[] = {
     SOUND_CATHY_COFFEE_SIP_GOOD_MORNIN,
 };
 
+u32 matty_lead_ins[] = {
+    SOUND_MATTY_LEAD_IN_BANDWIDTH,
+    SOUND_MATTY_LEAD_IN_LOW_HANGIN_FRUIT,
+    SOUND_MATTY_LEAD_IN_RUN_PAST_YOU,
+    SOUND_MATTY_LEAD_IN_THERE_YOU_ARE,
+    SOUND_MATTY_LEAD_IN_WHEELHOUSE,
+};
+u32 matty_mumbles[] = {
+    SOUND_MATTY_MUMBLE_DUCKS_IN_A_ROW,
+    SOUND_MATTY_MUMBLE_FIRST_AND_FOREMOST,
+    SOUND_MATTY_MUMBLE_SYNERGY,
+    SOUND_MATTY_MUMBLE_THE_NEW_NORMAL,
+};
+u32 matty_questions[] = {
+    SOUND_MATTY_QUESTION_CIRCLE_BACK,
+    SOUND_MATTY_QUESTION_HIT_ME,
+    SOUND_MATTY_QUESTION_HOWS_THAT_SOUND,
+    SOUND_MATTY_QUESTION_TRIGGER,
+};
+u32 matty_coffee_steals[] = {
+    SOUND_MATTY_COFFEE_STEAL_GOT_MY_BACK,
+    SOUND_MATTY_COFFEE_STEAL_PROMOTION,
+    SOUND_MATTY_COFFEE_STEAL_I_LOVE_YOU,
+};
+u32 matty_coffee_sips[] = {
+    SOUND_MATTY_COFFEE_SIP_MMM,
+    SOUND_MATTY_COFFEE_SIP_OOH,
+    SOUND_MATTY_COFFEE_SIP_SMACK,
+};
+
 static void _play_random_sound_from_array(u32 *soundArray, s32 length) {
     cur_obj_play_sound_2(soundArray[random_u16() % length]);
 }
@@ -52,35 +82,35 @@ static void play_character_lead_in(s32 isCathy) {
     if (isCathy) {
         play_random_sound_from_array(cathy_lead_ins);
     } else {
-        
+        play_random_sound_from_array(matty_lead_ins);
     }
 }
 static void play_character_mumble(s32 isCathy) {
     if (isCathy) {
         play_random_sound_from_array(cathy_mumbles);
     } else {
-
+        play_random_sound_from_array(matty_mumbles);
     }
 }
 static void play_character_question(s32 isCathy) {
     if (isCathy) {
         play_random_sound_from_array(cathy_questions);
     } else {
-
+        play_random_sound_from_array(matty_questions);
     }
 }
 static void play_character_coffee_steal(s32 isCathy) {
     if (isCathy) {
         play_random_sound_from_array(cathy_coffee_steals);
     } else {
-
+        play_random_sound_from_array(matty_coffee_steals);
     }
 }
 static void play_character_coffee_sip(s32 isCathy) {
     if (isCathy) {
         play_random_sound_from_array(cathy_coffee_sips);
     } else {
-
+        play_random_sound_from_array(matty_coffee_sips);
     }
 }
 
