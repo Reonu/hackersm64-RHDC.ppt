@@ -12,6 +12,7 @@
 #include "actors/group0.h"
 #include "buffers/framebuffers.h"
 #include "object_list_processor.h"
+#include "cozy_print.h"
 
 #include "confroom.h"
 #include "confroom_spawn.h"
@@ -37,7 +38,7 @@ OfficeState gOfficeState = {
     .stage = OFFICE_STAGE_INTRO,
     //.stage = OFFICE_STAGE_1,
     .presentationActive = FALSE,
-    .paused = FALSE,
+    .paused = PAUSE_STATE_START,
     .lightsOn = TRUE,
 };
 
@@ -45,6 +46,7 @@ void init_office_state(void) {
     OfficeState *office = &gOfficeState;
     office->stage = OFFICE_STAGE_INTRO;
     office->presentationActive = FALSE;
+    office->paused = PAUSE_STATE_START;
     // reset player
 }
 
@@ -208,6 +210,55 @@ void update_confroom_objects(void) {
         } else {
             obj->activeFlags &= ~ACTIVE_FLAG_ACTIVE;
             obj->header.gfx.node.flags &= ~GRAPH_RENDER_ACTIVE;
+        }
+    }
+}
+
+void render_pause_hud(Gfx **head) {
+    static s32 lastState = PAUSE_STATE_UNPAUSED;
+    static s32 renderTimer = 0;
+    if (gOfficeState.paused != lastState) {
+        renderTimer = 0;
+    } else {
+        renderTimer++;
+        if (renderTimer > 0x8000000) renderTimer = 0x8000000;
+    }
+
+    lastState = gOfficeState.paused;
+
+    if (!gOfficeState.paused) return;
+    switch (gOfficeState.paused) {
+        case PAUSE_STATE_PAUSED: {
+            Gfx *gfx = *head;
+            render_rect_xlu(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, 100, TRUE);
+            *head = gfx;
+            print_set_envcolour(255, 255, 255, 255);
+            print_small_text(SCREEN_WIDTH / 2,  20, "PAUSE", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
+            break;
+        }
+        case PAUSE_STATE_START: {
+            Gfx *gfx = *head;
+            render_rect(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 20, 20, 20, TRUE);
+            *head = gfx;
+            print_set_envcolour(255, 255, 255, 255);
+            print_small_text(SCREEN_WIDTH / 2,  20, "Press start...", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
+            break;
+        }
+        case PAUSE_STATE_FIRED: {
+            Gfx *gfx = *head;
+            render_rect_xlu(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 127, 0, 0, MIN(renderTimer, 255), TRUE);
+            *head = gfx;
+            print_set_envcolour(255, 255, 255, MIN(renderTimer, 255));
+            print_small_text(SCREEN_WIDTH / 2,  20, "You were fired.", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
+            break;
+        }
+        case PAUSE_STATE_END: {
+            Gfx *gfx = *head;
+            render_rect_xlu(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, MIN(renderTimer, 255), TRUE);
+            *head = gfx;
+            print_set_envcolour(255, 255, 255, MIN(renderTimer, 255));
+            print_small_text(SCREEN_WIDTH / 2,  20, "The End", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
+            break;
         }
     }
 }
