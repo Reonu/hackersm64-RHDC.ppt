@@ -276,6 +276,9 @@ void bhv_presenting_dudeguy_loop(void) {
 #define SPLINE_GUY_CHASE_SPEED              meters_sec(1.75f)
 #define SPLINE_GUY_NEXT_POINT_THRESHOLD     160
 #define SPLINE_GUY_PLAYER_START_CONVO_DIST  160
+#define SPLINE_GUY_PLAYER_START_CHASE_DIST  400
+#define SPLINE_GUY_PLAYER_START_CHASE_DIST_BEHIND  260
+#define SPLINE_GUY_PLAYER_STOP_CHASE_DIST   600
 #define SPLINE_GUY_STEAL_SIP_START          102
 #define SPLINE_GUY_STEAL_SIP_END            193
 
@@ -297,6 +300,79 @@ void bhv_spline_dudeguy_init(void) {
     vec3f_copy(&o->oPosX, curPoint);
 }
 
+// returns TRUE if it should break
+s32 spline_guy_player_interact(f32 *pos, f32 playerDist) {
+    if (playerDist < SPLINE_GUY_PLAYER_START_CONVO_DIST) {
+#ifdef SLIDE_DEBUG
+        if (gFPVPlayer.sipsLeft && !gFPVPlayer.godMode) { 
+#else
+        if (gFPVPlayer.sipsLeft) { 
+#endif
+
+            gFPVPlayer.sipsLeft = 0;
+            gFPVPlayer.coffeeTracker = 0;
+            gFPVPlayer.coffeeStolen = TRUE;
+            o->oAction = SPLINE_GUY_STOLE_COFFEE;
+            o->oSubAction = 0;
+            o->oOldAngle = o->oFaceAngleYaw;
+            o->oFaceAngleYaw = atan2s(gFPVPlayer.pos[2] - pos[2], gFPVPlayer.pos[0] - pos[0]);
+            o->oForwardVel = 0;
+            play_character_coffee_steal(cur_obj_has_model(MODEL_CHATTY_KATHY));
+            return TRUE;
+        } else {
+            Vec3f speakerPos = { o->oPosX, o->oPosY + 180, o->oPosZ };
+            if (start_convo(speakerPos)) {
+                o->oAction = SPLINE_GUY_CONVERSATION;
+                o->oOldAngle = o->oFaceAngleYaw;
+                o->oFaceAngleYaw = atan2s(gFPVPlayer.pos[2] - pos[2], gFPVPlayer.pos[0] - pos[0]);
+                o->oForwardVel = 0;
+                return TRUE;
+            }
+        }
+    }
+    return FALSE;
+}
+
+void spline_guy_update_position(s16 goalAngle, f32 patrolSpeed, f32 turningSpeed, s32 resolveCollisions) {
+    f32 *pos = &o->oPosX;
+    f32 *vel = &o->oVelX;
+    o->oFaceAngleYaw = approach_angle(o->oFaceAngleYaw, goalAngle, turningSpeed);
+    if (o->oForwardVel < patrolSpeed) {
+        o->oForwardVel += patrolSpeed * 0.2f;
+    }
+    if (o->oForwardVel > patrolSpeed) {
+        o->oForwardVel = patrolSpeed;
+    }
+    vel[0] = sins(o->oFaceAngleYaw) * o->oForwardVel;
+    vel[2] = coss(o->oFaceAngleYaw) * o->oForwardVel;
+    vec3f_add(pos, vel);
+    if (!resolveCollisions) return;
+    Cylinder hitbox;
+    vec3f_copy(hitbox.pos, pos);
+    hitbox.height = 160.0f; // idk lol
+    hitbox.radius = PLAYER_RADIUS;
+    resolve_exit_space(&hitbox, &gOfficeSpaces[2], pos);
+    vec3f_copy(hitbox.pos, pos);
+    resolve_confroom_collisions(&hitbox, pos);
+}
+
+s32 should_chase_player(f32 *pos, f32 playerDist) {
+    if (
+        gOfficeState.stage == OFFICE_STAGE_INTRO ||
+        gFPVPlayer.curSpace != &gOfficeSpaces[2]
+    ) {
+        return FALSE;
+    }
+
+    s16 angleToPlayer;
+    vec3f_get_yaw(pos, gFPVPlayer.pos, &angleToPlayer);
+    f32 chaseDist = SPLINE_GUY_PLAYER_START_CHASE_DIST;
+    if (abs_angle_diff(angleToPlayer, o->oFaceAngleYaw) > DEGREES(89)) {
+        chaseDist = SPLINE_GUY_PLAYER_START_CHASE_DIST_BEHIND;
+    }
+
+    return playerDist < chaseDist;
+}
 
 #define SPLINE_STOPPER_ANGLE DEGREES((o->oStopperObject->oBehParams >> 16) & 0xFF)
 
@@ -341,36 +417,17 @@ void bhv_spline_dudeguy_loop(void) {
         patrolSpeed = SPLINE_GUY_PATROL_SPEED;
     }
 
-
-
     switch (o->oAction) {
         case SPLINE_GUY_WALKING: {
-            if (playerDist < SPLINE_GUY_PLAYER_START_CONVO_DIST) {
-#ifdef SLIDE_DEBUG
-                if (gFPVPlayer.sipsLeft && !gFPVPlayer.godMode) { 
-#else
-                if (gFPVPlayer.sipsLeft) { 
-#endif
-
-                    gFPVPlayer.sipsLeft = 0;
-                    gFPVPlayer.coffeeTracker = 0;
-                    gFPVPlayer.coffeeStolen = TRUE;
-                    o->oAction = SPLINE_GUY_STOLE_COFFEE;
-                    o->oSubAction = 0;
-                    o->oOldAngle = o->oFaceAngleYaw;
-                    o->oFaceAngleYaw = atan2s(gFPVPlayer.pos[2] - pos[2], gFPVPlayer.pos[0] - pos[0]);
-                    o->oForwardVel = 0;
-                    play_character_coffee_steal(cur_obj_has_model(MODEL_CHATTY_KATHY));
-                } else {
-                    Vec3f speakerPos = { o->oPosX, o->oPosY + 180, o->oPosZ };
-                    if (start_convo(speakerPos)) {
-                        o->oAction = SPLINE_GUY_CONVERSATION;
-                        o->oOldAngle = o->oFaceAngleYaw;
-                        o->oFaceAngleYaw = atan2s(gFPVPlayer.pos[2] - pos[2], gFPVPlayer.pos[0] - pos[0]);
-                        o->oForwardVel = 0;
-                        break;
-                    }
-                }
+            if (spline_guy_player_interact(pos, playerDist)) {
+                break;
+            } else if (
+                playerDist > SPLINE_GUY_PLAYER_START_CONVO_DIST &&
+                should_chase_player(pos, playerDist)
+            ) {
+                o->oAction = SPLINE_GUY_CHASING_PLAYER;
+                cur_obj_play_sound_2(SOUND_OFFICE_MGS);
+                break;
             }
             // f32 *curPoint = spline->points[pIndex];
             struct Object *splineStopper = find_closest_office_obj_with_bhv(segmented_to_virtual(bhvSplineStopper), 75.f);
@@ -389,16 +446,8 @@ void bhv_spline_dudeguy_loop(void) {
             }
             f32 *nextPoint = spline->points[pIndex + 1];
             s16 goalAngle = atan2s(nextPoint[2] - pos[2], nextPoint[0] - pos[0]);
-            o->oFaceAngleYaw = approach_angle(o->oFaceAngleYaw, goalAngle, turningSpeed);
-            if (o->oForwardVel < patrolSpeed) {
-                o->oForwardVel += patrolSpeed * 0.2f;
-            }
-            if (o->oForwardVel > patrolSpeed) {
-                o->oForwardVel = patrolSpeed;
-            }
-            vel[0] = sins(o->oFaceAngleYaw) * o->oForwardVel;
-            vel[2] = coss(o->oFaceAngleYaw) * o->oForwardVel;
-            vec3f_add(pos, vel);
+            spline_guy_update_position(goalAngle, patrolSpeed, turningSpeed, FALSE);
+
             if (vec3f_lat_dist(nextPoint, pos) < SPLINE_GUY_NEXT_POINT_THRESHOLD) {
                 o->oSplineDudeGuyPointIndex++;
                 if (o->oSplineDudeGuyPointIndex >= spline->size - 1) {
@@ -407,6 +456,28 @@ void bhv_spline_dudeguy_loop(void) {
                     o->oStopperObject = NULL;
                 }
             }
+            break;
+        }
+        case SPLINE_GUY_CHASING_PLAYER: {
+            if (spline_guy_player_interact(pos, playerDist)) {
+                break;
+            } else if (playerDist > SPLINE_GUY_PLAYER_STOP_CHASE_DIST || gFPVPlayer.curSpace != &gOfficeSpaces[2]) {
+                o->oAction = SPLINE_GUY_STARTING_TO_WALK;
+                f32 *nextPoint = spline->points[pIndex + 1];
+                o->oOldAngle = atan2s(nextPoint[2] - pos[2], nextPoint[0] - pos[0]);
+                break;
+            }
+
+            if (gOfficeState.stage == OFFICE_STAGE_3) {
+                o->oAnimationIndex = NPC_ANIM_SPRINTING;
+            } else {
+                o->oAnimationIndex = NPC_ANIM_WALKING;
+            }
+
+            s16 goalAngle;
+            vec3f_get_yaw(pos, gFPVPlayer.pos, &goalAngle);
+            spline_guy_update_position(goalAngle, patrolSpeed, turningSpeed, TRUE);
+
             break;
         }
         case SPLINE_GUY_WAITING_TO_STOP: {
@@ -449,6 +520,7 @@ void bhv_spline_dudeguy_loop(void) {
             o->oFaceAngleYaw = approach_angle(o->oFaceAngleYaw, target, DEGREES(10));
             if (gCurConvo.state == CONVO_INACTIVE) {
                 o->oAction = SPLINE_GUY_RETURNING_TO_SPLINE;
+                o->oAnimationIndex = NPC_ANIM_IDLE;
             } else if (gCurConvo.state == CONVO_TALKING) {
                 o->oAnimationIndex = NPC_ANIM_TALKING;
                 switch (gCurConvo.timer) {

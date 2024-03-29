@@ -566,8 +566,8 @@ ALWAYS_INLINE void vec3f_add(f32 *dest, f32 *src) {
     *(yaw) = atan2s(_dz, _dx);        \
 }
 
-#define vec3f_get_yaw vec3_get_yaw
-#define vec3s_get_yaw vec3_get_yaw
+#define vec3f_get_yaw(from, to, yaw) vec3_get_yaw(from, to, yaw)
+#define vec3s_get_yaw(from, to, yaw) vec3_get_yaw(from, to, yaw)
 
 // Finds the distance, pitch, and yaw between two vectors
 #define vec3_get_dist_and_angle(from, to, dist, pitch, yaw) { \
