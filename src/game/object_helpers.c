@@ -2404,6 +2404,10 @@ Gfx *geo_set_confroom_lights(s32 callContext, struct GraphNode *node, UNUSED voi
     return dlStart;
 }
 
+Gfx *geo_choose_room(s32 callContext, struct GraphNode *node, UNUSED void *context) {
+
+}
+
 #define COFFEE_BASE_SCALE 0.25f
 #define SET_COFFEE_SCALE(scale, s) vec3f_set(scale, (s) * COFFEE_BASE_SCALE, (s) * COFFEE_BASE_SCALE, (s) * COFFEE_BASE_SCALE)
 
