@@ -7,6 +7,7 @@
  * the environment.
  */
 #include "game/game_init.h"
+#include "include/sm64.h"
 
 void bhv_purple_switch_init(void) {
     switch (BPARAM1) {
@@ -18,6 +19,15 @@ void bhv_purple_switch_init(void) {
             break;
         case 0x03:
             o->oPrimRGB = 0xFF00D2;
+            break;
+        case SWITCH_COLOR_ORANGE:
+            o->oPrimRGB = 0xFF5700;
+            break;
+        case SWITCH_COLOR_GREEN:
+            o->oPrimRGB = 0x00FF00;
+            break;
+        case SWITCH_COLOR_GRAY:
+            o->oPrimRGB = 0xD3D3D3;
             break;
     }
 }

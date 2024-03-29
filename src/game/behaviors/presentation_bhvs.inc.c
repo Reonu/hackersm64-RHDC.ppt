@@ -56,6 +56,61 @@ void bhv_moving_bar_loop(void) {
     
 }
 
+void bhv_moving_bar_with_switch_init(void) {
+    switch (BPARAM1) {
+        case BAR_COLOR_ORANGE:
+            o->oPrimRGB = 0xFF5700;
+            break;
+        case BAR_COLOR_GREEN:
+            o->oPrimRGB = 0x00FF00;
+            
+            break;
+        case BAR_COLOR_GRAY:
+            o->oPrimRGB = 0xD3D3D3;
+            
+            break;
+    }
+
+    switch (BPARAM2) {
+        case BAR_START_MAX:
+            o->oBarTimer = DEGREES(90);
+            break;
+        case BAR_START_MED:
+            o->oBarTimer = DEGREES(180);
+            break;
+        case BAR_START_MIN:
+            o->oBarTimer = DEGREES(270);
+            break;
+    }
+    X_SCALE = 2.f;
+    
+}
+
+void bhv_moving_bar_with_switch_loop(void) {
+    Y_SCALE = ((sins(o->oBarTimer) + 1.1 ) * BPARAM3) * 0.2f;
+
+    if (gSwitchPressed == BPARAM1) {
+        o->oBarTimer += 460; 
+    }
+    
+    if (gJustRespawned) {
+        switch (BPARAM2) {
+            case BAR_START_MAX:
+                o->oBarTimer = DEGREES(90);
+                break;
+            case BAR_START_MED:
+                o->oBarTimer = DEGREES(180);
+                break;
+            case BAR_START_MIN:
+                o->oBarTimer = DEGREES(270);
+                break;
+        }        
+    }
+
+    load_object_collision_model();
+}
+
+
 /*
 --DONUT GRAPH
 it

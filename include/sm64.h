@@ -124,6 +124,32 @@ enum SpringColors {
     SPRING_RED,
 };
 
+enum BarColors {
+    BAR_COLOR_FILLER,
+    BAR_COLOR_FILLER1,
+    BAR_COLOR_FILLER2,
+    BAR_COLOR_FILLER3,
+    BAR_COLOR_ORANGE,
+    BAR_COLOR_GREEN,
+    BAR_COLOR_GRAY,
+};
+
+enum SwitchColors {
+    SWITCH_COLOR_0,
+    SWITCH_COLOR_1,
+    SWITCH_COLOR_2,
+    SWITCH_COLOR_3,
+    SWITCH_COLOR_ORANGE,
+    SWITCH_COLOR_GREEN,
+    SWITCH_COLOR_GRAY,
+};
+
+enum BarStart {
+    BAR_START_MIN,
+    BAR_START_MED,
+    BAR_START_MAX,
+};
+
 #define NPC_SPLINE_NORMAL                   0x00
 #define NPC_SPLINE_BACK_AND_FORTH           0x01
 
