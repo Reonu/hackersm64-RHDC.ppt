@@ -201,12 +201,11 @@ static s32 update_free(FPVPlayer *player) {
     if ((player->cont->buttonPressed & PLAYER_BTN_START_PRESENTATION)) {
         if (player->canSit == 1) {
             player->actionState = PLAYER_PRESENTING;
+            return FALSE;
         } else if (player->canSit == -1) {
             struct Object *presentationGuy = find_closest_office_obj_with_bhv(segmented_to_virtual(bhvPresentingDudeGuy),5000.f);
             presentationGuy->oAction = PRESENTING_DUDEGUY_TURN_OFF_LIGHTS;
         }
-        
-        return FALSE;
     }
 
     if (gCurConvo.state != CONVO_INACTIVE) {
