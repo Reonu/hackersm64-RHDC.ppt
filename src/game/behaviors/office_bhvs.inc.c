@@ -74,6 +74,7 @@ u32 matty_coffee_sips[] = {
 };
 
 static void _play_random_sound_from_array(u32 *soundArray, s32 length) {
+    // cur_obj_play_sound_2(soundArray[(s32)(random_float() * length)]);
     cur_obj_play_sound_2(soundArray[random_u16() % length]);
 }
 #define play_random_sound_from_array(soundArray) _play_random_sound_from_array(soundArray, ARRAY_COUNT(soundArray))
