@@ -191,6 +191,10 @@ void bhv_presenting_dudeguy_loop(void) {
             break;
         case PRESENTING_DUDEGUY_WALKING_IN_FIRST_TIME:
             o->oAnimationIndex = NPC_ANIM_WALKING_IN;
+            if (o->oTimer == 0) {
+                cur_obj_play_sound_2(SOUND_OFFICE_SFX_WALKING_IN);
+            }
+            
             if ((o->oTimer > 0) && (cur_obj_check_if_at_animation_end())) {
                 o->oAction = PRESENTING_DUDEGUY_WAITING_FOR_PLAYER_TO_SIT;
             }
@@ -208,6 +212,7 @@ void bhv_presenting_dudeguy_loop(void) {
             } else if (gFPVPlayer.actionState == PLAYER_PRESENTING) {
                 o->oAction = PRESENTING_DUDEGUY_PRESENTING;
             }
+            break;
         case PRESENTING_DUDEGUY_PRESENTING:
             o->oAnimationIndex = NPC_ANIM_PRESENTING;
             if (gFPVPlayer.actionState != PLAYER_PRESENTING) {
@@ -246,7 +251,7 @@ void bhv_presenting_dudeguy_loop(void) {
         o->activeFlags |= ACTIVE_FLAG_ACTIVE;
         o->header.gfx.node.flags |= GRAPH_RENDER_HAS_ANIMATION | GRAPH_RENDER_ACTIVE;                
     }
-
+    print_text_fmt_int(20, 20, "%d", o->oAction);
     cur_obj_init_animation(o->oAnimationIndex);
 }
 

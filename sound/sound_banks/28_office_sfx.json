@@ -14,9 +14,39 @@
             "release_rate": 208,
             "envelope": "envelope0",
             "sound": "office_sfx_mgs"
+        },
+        "inst1": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "office_sfx_done_making_coffee"
+        },
+        "inst2": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "office_sfx_ope_youre_back"
+        },
+        "inst3": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "office_sfx_turn_the_lights_off"
+        },
+        "inst4": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "office_sfx_walking_in"
+        },
+        "inst5": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "office_sfx_you_need_coffee_now"
         }
     },
     "instrument_list": [
-        "inst0"
+        "inst0",
+        "inst1",
+        "inst2",
+        "inst3",
+        "inst4",
+        "inst5"
     ]
 }
