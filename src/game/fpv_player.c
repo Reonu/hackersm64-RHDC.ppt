@@ -466,7 +466,7 @@ void update_cam_from_player(FPVPlayer *player, FPVCamState *cam) {
         if (player->actionState == PLAYER_PRESENTING) {
             presentationFac = approach_f32_symmetric(presentationFac, 1, 0.075f);
         } else {
-            presentationFac = approach_f32_symmetric(presentationFac, 0, 0.0f);
+            presentationFac = approach_f32_symmetric(presentationFac, 0, 0.075f);
         }
         f32 *armPos = &player->arm->oPosX;
         Vec3f armOffset = { 0, 0, 0 };
