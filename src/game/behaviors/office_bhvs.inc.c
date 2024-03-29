@@ -255,15 +255,15 @@ void bhv_presenting_dudeguy_loop(void) {
             o->oAnimationIndex = NPC_ANIM_TALKING;
             break;
     }
-    /*if (!gFPVPlayer.inConfroom) {
+    if (!gFPVPlayer.inConfroom) {
         o->activeFlags &= ~ACTIVE_FLAG_ACTIVE;
         o->header.gfx.node.flags &= ~GRAPH_RENDER_ACTIVE;   
         return;             
     } else {
         o->activeFlags |= ACTIVE_FLAG_ACTIVE;
         o->header.gfx.node.flags |= GRAPH_RENDER_HAS_ANIMATION | GRAPH_RENDER_ACTIVE;                
-    }*/
-    print_text_fmt_int(20, 20, "%d", o->oAction);
+    }
+    //print_text_fmt_int(20, 20, "%d", o->oAction);
     cur_obj_init_animation(o->oAnimationIndex);
 }
 
