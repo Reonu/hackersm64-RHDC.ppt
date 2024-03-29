@@ -353,6 +353,7 @@ void bhv_spline_dudeguy_loop(void) {
 #endif
 
                     gFPVPlayer.sipsLeft = 0;
+                    gFPVPlayer.coffeeTracker = 0;
                     gFPVPlayer.coffeeStolen = TRUE;
                     o->oAction = SPLINE_GUY_STOLE_COFFEE;
                     o->oSubAction = 0;
@@ -538,6 +539,7 @@ void bhv_coffee_machine_loop(void) {
                 gFPVPlayer.sipsLeft = 3;
                 gFPVPlayer.energy = MAX_ENERGY;
                 gFPVPlayer.coffeeStolen = FALSE;
+                gFPVPlayer.coffeeTracker = 1;
             }
         }
 
@@ -644,6 +646,7 @@ void bhv_arm_loop(void) {
                 cur_obj_init_animation(o->oAnimationIndex);
                 if (gFPVPlayer.sipsLeft <= 0) {
                     gFPVPlayer.sipsLeft = 0;
+                    gFPVPlayer.coffeeTracker = 0;
                     o->oAction = ARM_INVISIBLE;
                 } else {
                     o->oAction = ARM_IDLE;

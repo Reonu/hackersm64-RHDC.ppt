@@ -53,6 +53,7 @@ FPVPlayer gFPVPlayer = {
     .firstCoffee = 0,
     .inConfroom = 0,
     .confroomFirstTime = 0,
+    .coffeeTracker = 0,
 #ifdef SLIDE_DEBUG
     .godMode = FALSE,
     .instaGo = FALSE,
@@ -200,6 +201,9 @@ static s32 update_free(FPVPlayer *player) {
     // this isn't debug anymore!!!!
     if ((player->cont->buttonPressed & PLAYER_BTN_START_PRESENTATION)) {
         if (player->canSit == 1) {
+            if (player->coffeeTracker == 1) {
+                player->coffeeTracker = 2;
+            }
             player->actionState = PLAYER_PRESENTING;
             return FALSE;
         } else if (player->canSit == -1) {
@@ -483,6 +487,9 @@ void update_cam_from_player(FPVPlayer *player, FPVCamState *cam) {
     }
 }
 
+#define STAGE_2_AREA_THRESHOLD 6
+#define STAGE_3_AREA_THRESHOLD 12
+
 // returns TRUE if gameplay is active
 s32 update_player(void) {
     init_player();
@@ -582,6 +589,17 @@ s32 update_player(void) {
     // Immediately end the tutorial if the player press Dpad down at the start
     if ((player->currentTutorial == 0) && (gPlayer1Controller->buttonPressed & D_JPAD)) {
         player->currentTutorial = 6;
+    }
+
+    if (player->coffeeTracker == 2) {
+        if (gOfficeState.stage < OFFICE_STAGE_3) {
+            gOfficeState.stage += 1;
+            player->coffeeTracker = 0;
+        }
+    }
+
+    if ((gCurrAreaIndex >= STAGE_3_AREA_THRESHOLD) && (gOfficeState.stage < OFFICE_STAGE_3)) {
+        gOfficeState.stage = OFFICE_STAGE_3;
     }
 
      if (!(point_in_aabb_2d(&gOfficeSpaces[0], gFPVPlayer.pos))) {
