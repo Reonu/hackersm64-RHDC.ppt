@@ -16,3 +16,4 @@
 #include "anim_reception.inc.c"
 #include "anim_sprinting.inc.c"
 #include "anim_talking_eating.inc.c"
+#include "anim_walking_in.inc.c"

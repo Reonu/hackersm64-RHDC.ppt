@@ -17,6 +17,8 @@
 #include "confroom.h"
 #include "cozy_print.h"
 #include "src/audio/external.h"
+#include "include/behavior_data.h"
+#include "sm64.h"
 
 #define STARTING_POSITION { -355.f, 2.0f, 2720.f }
 
@@ -195,8 +197,14 @@ static s32 update_intro_cutscene(FPVPlayer *player) {
 
 static s32 update_free(FPVPlayer *player) {
     // this isn't debug anymore!!!!
-    if ((player->cont->buttonPressed & PLAYER_BTN_START_PRESENTATION) && (player->canSit)) {
-        player->actionState = PLAYER_PRESENTING;
+    if ((player->cont->buttonPressed & PLAYER_BTN_START_PRESENTATION)) {
+        if (player->canSit == 1) {
+            player->actionState = PLAYER_PRESENTING;
+        } else if (player->canSit == -1) {
+            struct Object *presentationGuy = find_closest_office_obj_with_bhv(segmented_to_virtual(bhvPresentingDudeGuy),5000.f);
+            presentationGuy->oAction = PRESENTING_DUDEGUY_TURN_OFF_LIGHTS;
+        }
+        
         return FALSE;
     }
 

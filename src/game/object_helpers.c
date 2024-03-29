@@ -2440,3 +2440,20 @@ Gfx *geo_set_coffee_cup_position(UNUSED s32 callContext, UNUSED struct GraphNode
     }
     return NULL;
 }
+
+struct Object *find_closest_office_obj_with_bhv(const BehaviorScript *behavior, f32 maxDist) {
+    struct Object *closestObject = NULL;
+    f32 dist = maxDist;
+    f32 distTemp;
+    u8 numObjects = get_num_confroom_objects();
+    for (int i = 0; i < numObjects; i++) {
+        if (gConfroomObjectPool[i].behavior == behavior) {
+            distTemp = vec3f_lat_dist(&gCurrentObject->oPosX, &gConfroomObjectPool[i].oPosX);
+            if (distTemp < dist) {
+                dist = distTemp;
+                closestObject = &gConfroomObjectPool[i];;
+            }
+        }
+    }
+    return closestObject;
+}

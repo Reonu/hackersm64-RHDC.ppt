@@ -26,7 +26,7 @@ extern f32 confroom_colShelf1[2][3];
 extern f32 confroom_colCouch[2][3];
 extern f32 confroom_colFridge[2][3];
 extern f32 confroom_colWater[2][3];
-extern ConfroomObjectSpawn spawn_dudeGuy1;
+extern ConfroomObjectSpawn spawn_presentingDudeGuy;
 extern ConfroomObjectSpawn spawn_dudeGuyPhone;
 extern ConfroomObjectSpawn spawn_dudeGuyEating;
 extern ConfroomObjectSpawn spawn_dudeGuyTyping2;

@@ -21,7 +21,7 @@ ConfroomObjectSplineRef gConfroomSplines[] = {
 };
 
 ConfroomObjectSpawn *gConfroomSpawns[] = {
-    &spawn_dudeGuy1,
+    &spawn_presentingDudeGuy,
     &spawn_dudeGuyPhone,
     &spawn_dudeGuySpline,
     &spawn_dudeGuySpline2,

@@ -37,7 +37,7 @@ typedef struct {
     u8 crouching: 1;
     u8 running: 1;
     u8 coffeeStolen: 1;
-    u8 canSit: 1;
+    s8 canSit;
     u8 hasRespawned: 1;
     s8 currentTutorial;
     u32 tutorialTimer;

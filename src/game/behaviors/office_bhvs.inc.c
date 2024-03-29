@@ -143,6 +143,81 @@ void bhv_dudeguy_loop(void) {
     }*/
 }
 
+
+
+void bhv_presenting_dudeguy_init(void) {
+    o->oAnimationIndex = NPC_ANIM_IDLE;
+    o->oAction = PRESENTING_DUDEGUY_START;
+    cur_obj_init_animation(o->oAnimationIndex);
+}
+
+void bhv_presenting_dudeguy_loop(void) {
+    switch (o->oAction) {
+        case PRESENTING_DUDEGUY_START:
+            o->oAnimationIndex = NPC_ANIM_IDLE;
+            if (gFPVPlayer.inConfroom) {
+                o->oAction = PRESENTING_DUDEGUY_WALKING_IN_FIRST_TIME;
+            }
+            break;
+        case PRESENTING_DUDEGUY_WALKING_IN_FIRST_TIME:
+            o->oAnimationIndex = NPC_ANIM_WALKING_IN;
+            if ((o->oTimer > 0) && (cur_obj_check_if_at_animation_end())) {
+                o->oAction = PRESENTING_DUDEGUY_WAITING_FOR_PLAYER_TO_SIT;
+            }
+            break;
+        case PRESENTING_DUDEGUY_WAITING_FOR_PLAYER_TO_SIT:
+            o->oAnimationIndex = NPC_ANIM_IDLE;
+            if (gFPVPlayer.actionState == PLAYER_PRESENTING) {
+                o->oAction = PRESENTING_DUDEGUY_PRESENTING;
+            }
+            break;
+        case PRESENTING_DUDEGUY_WAITING_FOR_PLAYER_TO_LEAVE_CONFROOM:
+            o->oAnimationIndex = NPC_ANIM_IDLE;
+            if (!gFPVPlayer.inConfroom) {
+                o->oAction = PRESENTING_DUDEGUY_WAITING_FOR_PLAYER_TO_SIT;
+            }
+        case PRESENTING_DUDEGUY_PRESENTING:
+            o->oAnimationIndex = NPC_ANIM_PRESENTING;
+            if (gFPVPlayer.actionState != PLAYER_PRESENTING) {
+                o->oAction = PRESENTING_DUDEGUY_GET_UP;
+            }
+            break;
+        case PRESENTING_DUDEGUY_GET_UP:
+            o->oAnimationIndex = NPC_ANIM_TALKING;
+            if ((o->oTimer > 0) && (cur_obj_check_if_at_animation_end())) {
+                o->oAction = PRESENTING_DUDEGUY_WAITING_FOR_PLAYER_TO_LEAVE_CONFROOM;
+            } else if (gFPVPlayer.actionState == PLAYER_PRESENTING) {
+                o->oAction = PRESENTING_DUDEGUY_PRESENTING;
+            }
+            break;
+        case PRESENTING_DUDEGUY_WALKING_IN_AGAIN:
+            o->oAnimationIndex = NPC_ANIM_TALKING;
+            if ((o->oTimer > 0) && (cur_obj_check_if_at_animation_end())) {
+                o->oAction = PRESENTING_DUDEGUY_WAITING_FOR_PLAYER_TO_SIT;
+            }
+            break;
+        case PRESENTING_DUDEGUY_TURN_OFF_LIGHTS:
+            o->oAnimationIndex = NPC_ANIM_TALKING;
+            if ((o->oTimer > 0) && (cur_obj_check_if_at_animation_end())) {
+                o->oAction = PRESENTING_DUDEGUY_WAITING_FOR_PLAYER_TO_SIT;
+            }
+            break;
+        case PRESENTING_DUDEGUY_ENDING:
+            o->oAnimationIndex = NPC_ANIM_TALKING;
+            break;
+    }
+    if (!gFPVPlayer.inConfroom) {
+        o->activeFlags &= ~ACTIVE_FLAG_ACTIVE;
+        o->header.gfx.node.flags &= ~GRAPH_RENDER_ACTIVE;   
+        return;             
+    } else {
+        o->activeFlags |= ACTIVE_FLAG_ACTIVE;
+        o->header.gfx.node.flags |= GRAPH_RENDER_HAS_ANIMATION | GRAPH_RENDER_ACTIVE;                
+    }
+
+    cur_obj_init_animation(o->oAnimationIndex);
+}
+
 #define SPLINE_GUY_PATROL_SPEED             meters_sec(1.6f)
 #define SPLINE_GUY_RUN_SPEED                meters_sec(3.1f)
 #define SPLINE_GUY_TURNING_SPEED            DEGREES(3)
@@ -171,22 +246,6 @@ void bhv_spline_dudeguy_init(void) {
     vec3f_copy(&o->oPosX, curPoint);
 }
 
-struct Object *find_closest_office_obj_with_bhv(const BehaviorScript *behavior, f32 maxDist) {
-    struct Object *closestObject = NULL;
-    f32 dist = maxDist;
-    f32 distTemp;
-    u8 numObjects = get_num_confroom_objects();
-    for (int i = 0; i < numObjects; i++) {
-        if (gConfroomObjectPool[i].behavior == behavior) {
-            distTemp = vec3f_lat_dist(&gCurrentObject->oPosX, &gConfroomObjectPool[i].oPosX);
-            if (distTemp < dist) {
-                dist = distTemp;
-                closestObject = &gConfroomObjectPool[i];;
-            }
-        }
-    }
-    return closestObject;
-}
 
 #define SPLINE_STOPPER_ANGLE DEGREES((o->oStopperObject->oBehParams >> 16) & 0xFF)
 
@@ -729,11 +788,15 @@ void bhv_b_button_loop(void) {
                     gFPVPlayer.currentTutorial = 3;
                     o->oSittingTutorialTriggered = 1;
                 }
-                gFPVPlayer.canSit = 1;
+                if (!gOfficeState.lightsOn) {
+                    gFPVPlayer.canSit = 1;
+                } else {
+                    gFPVPlayer.canSit = -1;
+                }
                 if (playerDist > 30.f) {
                     cur_obj_unhide();
                 } else {
-                    cur_obj_unhide();
+                    cur_obj_hide();
                 }
             } else {
                 gFPVPlayer.canSit = 0;
