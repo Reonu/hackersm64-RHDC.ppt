@@ -8,6 +8,7 @@
 #include "levels/slides/area_16/geo.inc.c"
 #include "levels/slides/area_17/geo.inc.c"
 #include "levels/slides/area_18/geo.inc.c"
+#include "levels/slides/area_19/geo.inc.c"
 #include "levels/slides/area_2/geo.inc.c"
 #include "levels/slides/area_3/geo.inc.c"
 #include "levels/slides/area_4/geo.inc.c"
