@@ -815,7 +815,7 @@ void bhv_point_light_loop(void) {
 
 void bhv_light_switch_loop(void) {
     f32 *pos = &o->oPosX;
-    if ((vec3f_lat_dist(pos, gFPVPlayer.pos) < MAX_COFFEE_MACHINE_DIST) && (gPlayer1Controller->buttonPressed & B_BUTTON)) {
+    if ((vec3f_lat_dist(pos, gFPVPlayer.pos) < MAX_COFFEE_MACHINE_DIST) && (gPlayer1Controller->buttonPressed & B_BUTTON) && (gFPVPlayer.actionState != PLAYER_CONVO_QTE)) {
         gOfficeState.lightsOn ^= 1;
         if (cur_obj_has_model(MODEL_LIGHT_SWITCH_UP)) {
             cur_obj_set_model(MODEL_LIGHT_SWITCH_DOWN);
