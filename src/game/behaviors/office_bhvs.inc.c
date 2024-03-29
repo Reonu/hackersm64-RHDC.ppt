@@ -159,6 +159,7 @@ void bhv_dudeguy_loop(void) {
         if (gFPVPlayer.sipsLeft) {
             o->oAnimationIndex = NPC_ANIM_EATING_TALKING;
             if (cur_obj_check_if_at_animation_end()) {
+                cur_obj_play_sound_2(SOUND_OFFICE_SFX_DONE_MAKING_COFFEE);
                 gFPVPlayer.currentTutorial = 2;
                 o->oEatingGuySpoke = 1;
                 o->oAnimationIndex = NPC_ANIM_EATING;
