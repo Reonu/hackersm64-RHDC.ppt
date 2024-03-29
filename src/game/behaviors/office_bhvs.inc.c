@@ -175,6 +175,8 @@ void bhv_presenting_dudeguy_loop(void) {
             o->oAnimationIndex = NPC_ANIM_IDLE;
             if (!gFPVPlayer.inConfroom) {
                 o->oAction = PRESENTING_DUDEGUY_WAITING_FOR_PLAYER_TO_SIT;
+            } else if (gFPVPlayer.actionState == PLAYER_PRESENTING) {
+                o->oAction = PRESENTING_DUDEGUY_PRESENTING;
             }
         case PRESENTING_DUDEGUY_PRESENTING:
             o->oAnimationIndex = NPC_ANIM_PRESENTING;
