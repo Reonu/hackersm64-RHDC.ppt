@@ -335,7 +335,7 @@ extern Vtx slides_dl_Cube_006_mesh_layer_2_vtx_cull[8];
 extern Vtx slides_dl_Cube_006_mesh_layer_2_vtx_0[36];
 extern Gfx slides_dl_Cube_006_mesh_layer_2_tri_0[];
 extern Vtx slides_dl_Cube_006_mesh_layer_0_vtx_cull[8];
-extern Vtx slides_dl_Cube_006_mesh_layer_0_vtx_0[216];
+extern Vtx slides_dl_Cube_006_mesh_layer_0_vtx_0[214];
 extern Gfx slides_dl_Cube_006_mesh_layer_0_tri_0[];
 extern Vtx slides_dl_account_creationMesh_mesh_layer_1_vtx_cull[8];
 extern Vtx slides_dl_account_creationMesh_mesh_layer_1_vtx_0[128];
