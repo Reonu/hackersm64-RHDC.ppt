@@ -1,0 +1,22 @@
+{
+    "date": "2024-03-23",
+    "sample_bank": "sfx_office",
+    "envelopes": {
+        "envelope0": [
+            [2, 32700],
+            [1, 32700],
+            [32700, 29430],
+            "hang"
+        ]
+    },
+    "instruments": {
+        "inst0": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "office_sfx_mgs"
+        }
+    },
+    "instrument_list": [
+        "inst0"
+    ]
+}
