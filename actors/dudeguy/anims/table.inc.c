@@ -18,5 +18,6 @@ const struct Animation *const dudeguy_anims[] = {
 	&dudeguy_anim_sprinting,
 	&dudeguy_anim_talking_eating,
 	&dudeguy_anim_walking_in,
+	&dudeguy_anim_talking_generic,
 	NULL,
 };

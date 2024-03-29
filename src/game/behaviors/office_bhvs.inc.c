@@ -193,9 +193,7 @@ void bhv_presenting_dudeguy_loop(void) {
             o->oAnimationIndex = NPC_ANIM_WALKING_IN;
             if (o->oTimer == 0) {
                 cur_obj_play_sound_2(SOUND_OFFICE_SFX_WALKING_IN);
-            }
-            
-            if ((o->oTimer > 0) && (cur_obj_check_if_at_animation_end())) {
+            } else if (cur_obj_check_if_at_animation_end()) {
                 o->oAction = PRESENTING_DUDEGUY_WAITING_FOR_PLAYER_TO_SIT;
             }
             break;
@@ -208,9 +206,15 @@ void bhv_presenting_dudeguy_loop(void) {
         case PRESENTING_DUDEGUY_WAITING_FOR_PLAYER_TO_LEAVE_CONFROOM:
             o->oAnimationIndex = NPC_ANIM_IDLE;
             if (!gFPVPlayer.inConfroom) {
-                o->oAction = PRESENTING_DUDEGUY_WAITING_FOR_PLAYER_TO_SIT;
+                o->oAction = PRESENTING_DUDEGUY_WAITING_FOR_PLAYER_TO_COME_BACK;
             } else if (gFPVPlayer.actionState == PLAYER_PRESENTING) {
                 o->oAction = PRESENTING_DUDEGUY_PRESENTING;
+            }
+            break;
+        case PRESENTING_DUDEGUY_WAITING_FOR_PLAYER_TO_COME_BACK:
+            o->oAnimationIndex = NPC_ANIM_IDLE;
+            if (gFPVPlayer.inConfroom) {
+                o->oAction = PRESENTING_DUDEGUY_WALKING_IN_AGAIN;
             }
             break;
         case PRESENTING_DUDEGUY_PRESENTING:
@@ -220,37 +224,45 @@ void bhv_presenting_dudeguy_loop(void) {
             }
             break;
         case PRESENTING_DUDEGUY_GET_UP:
-            o->oAnimationIndex = NPC_ANIM_TALKING;
-            if ((o->oTimer > 0) && (cur_obj_check_if_at_animation_end())) {
+            o->oAnimationIndex = NPC_ANIM_TALKING_GENERIC;
+            if (o->oTimer > 97) {
                 o->oAction = PRESENTING_DUDEGUY_WAITING_FOR_PLAYER_TO_LEAVE_CONFROOM;
             } else if (gFPVPlayer.actionState == PLAYER_PRESENTING) {
                 o->oAction = PRESENTING_DUDEGUY_PRESENTING;
+            } else if (o->oTimer == 0) {
+                cur_obj_play_sound_2(SOUND_OFFICE_SFX_YOU_NEED_COFFEE_NOW);
             }
             break;
         case PRESENTING_DUDEGUY_WALKING_IN_AGAIN:
-            o->oAnimationIndex = NPC_ANIM_TALKING;
-            if ((o->oTimer > 0) && (cur_obj_check_if_at_animation_end())) {
+            o->oAnimationIndex = NPC_ANIM_TALKING_GENERIC;
+            if (o->oTimer > 87) {
                 o->oAction = PRESENTING_DUDEGUY_WAITING_FOR_PLAYER_TO_SIT;
+            } else if (o->oTimer == 0) {
+                cur_obj_play_sound_2(SOUND_OFFICE_SFX_OPE_YOURE_BACK);
             }
             break;
         case PRESENTING_DUDEGUY_TURN_OFF_LIGHTS:
-            o->oAnimationIndex = NPC_ANIM_TALKING;
-            if ((o->oTimer > 0) && (cur_obj_check_if_at_animation_end())) {
+            o->oAnimationIndex = NPC_ANIM_TALKING_GENERIC;
+            if (o->oTimer > 116) {
                 o->oAction = PRESENTING_DUDEGUY_WAITING_FOR_PLAYER_TO_SIT;
+            } else if (o->oTimer == 0) {
+                cur_obj_play_sound_2(SOUND_OFFICE_SFX_TURN_THE_LIGHTS_OFF);
+            } else if (gFPVPlayer.actionState == PLAYER_PRESENTING) {
+                o->oAction = PRESENTING_DUDEGUY_PRESENTING;
             }
             break;
         case PRESENTING_DUDEGUY_ENDING:
             o->oAnimationIndex = NPC_ANIM_TALKING;
             break;
     }
-    if (!gFPVPlayer.inConfroom) {
+    /*if (!gFPVPlayer.inConfroom) {
         o->activeFlags &= ~ACTIVE_FLAG_ACTIVE;
         o->header.gfx.node.flags &= ~GRAPH_RENDER_ACTIVE;   
         return;             
     } else {
         o->activeFlags |= ACTIVE_FLAG_ACTIVE;
         o->header.gfx.node.flags |= GRAPH_RENDER_HAS_ANIMATION | GRAPH_RENDER_ACTIVE;                
-    }
+    }*/
     print_text_fmt_int(20, 20, "%d", o->oAction);
     cur_obj_init_animation(o->oAnimationIndex);
 }
