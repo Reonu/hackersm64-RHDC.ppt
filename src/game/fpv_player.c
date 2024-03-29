@@ -52,6 +52,7 @@ FPVPlayer gFPVPlayer = {
     .energyLowFirstTime = 0,
     .firstCoffee = 0,
     .inConfroom = 0,
+    .confroomFirstTime = 0,
 #ifdef SLIDE_DEBUG
     .godMode = FALSE,
     .instaGo = FALSE,
@@ -588,6 +589,7 @@ s32 update_player(void) {
         player->inConfroom = 0;
      } else {
         player->inConfroom = 1;
+        player->confroomFirstTime = 1;
      }
 
 #ifdef SLIDE_DEBUG

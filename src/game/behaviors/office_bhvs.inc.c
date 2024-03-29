@@ -806,7 +806,7 @@ void bhv_b_button_loop(void) {
             }
             break;
         case B_BUTTON_LIGHT_SWITCH:
-            if (playerDist < MAX_DIST_LIGHT_SWITCH) {
+            if ((playerDist < MAX_DIST_LIGHT_SWITCH) && (gFPVPlayer.confroomFirstTime)) {
                 cur_obj_unhide();
             } else {
                 cur_obj_hide();
@@ -840,54 +840,6 @@ void bhv_b_button_loop(void) {
     o->oBButtonTimer += 1300;
     o->oPosY += sins(o->oBButtonTimer) * 1.1f;
     o->oFaceAngleYaw += 500;
-
-    /*switch (o->oAction) {
-        case B_BUTTON_INVISIBLE:
-            cur_obj_hide();
-            break;
-        case B_BUTTON_VISIBLE:
-            if ((gFPVPlayer.actionState != PLAYER_PRESENTING) && (playerDist > 30.f)) {
-                cur_obj_unhide();
-            } else {
-                cur_obj_hide(); //this is stupid
-            }
-            o->oBButtonTimer += 1300;
-            o->oPosY += sins(o->oBButtonTimer) * 1.1f;
-            o->oFaceAngleYaw += 500;
-            break;
-    }
-    if (o->oCoffeeMachine != NULL) {
-        if (((o->oCoffeeMachine->oAction != COFFEE_MACHINE_WAITING) && (o->oCoffeeMachine->oAction != COFFEE_MACHINE_READY)) || (gFPVPlayer.sipsLeft) || (playerDist > MAX_COFFEE_MACHINE_DIST)) {
-            o->oAction = B_BUTTON_INVISIBLE;
-        } else {
-            o->oAction = B_BUTTON_VISIBLE;
-        }
-
-        if (playerDist < MAX_COFFEE_MACHINE_DIST && !o->oCoffeeMachineTutorialTriggered) {
-            gFPVPlayer.curTutorialDone = 0;
-            gFPVPlayer.currentTutorial = 1;
-            o->oCoffeeMachineTutorialTriggered = 1;
-        }
-        
-
-    } else if (o->oLightSwitch != NULL) {
-        
-    } else {
-        if (playerDist > MAX_SITTING_DIST) { //set in fpv_player.h
-            o->oAction = B_BUTTON_INVISIBLE;
-            gFPVPlayer.canSit = FALSE;
-        } else {
-            if (gFPVPlayer.actionState != PLAYER_PRESENTING) {
-                if (!o->oSittingTutorialTriggered) {
-                    gFPVPlayer.curTutorialDone = 0;
-                    gFPVPlayer.currentTutorial = 3;
-                    o->oSittingTutorialTriggered = 1;
-                }
-                o->oAction = B_BUTTON_VISIBLE;
-            }
-            gFPVPlayer.canSit = TRUE;
-        }
-    }*/
 }
 
 void bhv_point_light_loop(void) {
@@ -910,7 +862,7 @@ void bhv_point_light_loop(void) {
 
 void bhv_light_switch_loop(void) {
     f32 *pos = &o->oPosX;
-    if ((vec3f_lat_dist(pos, gFPVPlayer.pos) < MAX_COFFEE_MACHINE_DIST) && (gPlayer1Controller->buttonPressed & B_BUTTON) && (gFPVPlayer.actionState != PLAYER_CONVO_QTE)) {
+    if ((vec3f_lat_dist(pos, gFPVPlayer.pos) < MAX_COFFEE_MACHINE_DIST) && (gPlayer1Controller->buttonPressed & B_BUTTON) && (gFPVPlayer.actionState != PLAYER_CONVO_QTE) && (gFPVPlayer.confroomFirstTime)) {
         gOfficeState.lightsOn ^= 1;
         if (cur_obj_has_model(MODEL_LIGHT_SWITCH_UP)) {
             cur_obj_set_model(MODEL_LIGHT_SWITCH_DOWN);
