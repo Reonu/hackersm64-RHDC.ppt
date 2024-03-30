@@ -78,7 +78,7 @@ void move_mario_to_respawn(struct MarioState *m, u8 deathType) {
     }
 
     if ((deathType != DEATH_TYPE_MANUAL_RESPAWN) && (deathType != DEATH_TYPE_NO_DEATH)) {
-        deplete_energy(0.05f * MAX_ENERGY);
+        deplete_energy(E_COST_MARIO_HURT);
     }
     gJustRespawned = 2;
 }

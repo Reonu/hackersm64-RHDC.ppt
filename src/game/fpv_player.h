@@ -68,10 +68,14 @@ extern FPVPlayer gFPVPlayer;
 
 #define MAX_ENERGY MINUTES_TO_FRAMES(4.0f)
 
-#define E_COST_PRESENTING 1
-#define E_COST_CROUCHING  1
-#define E_COST_STANDING   2
-#define E_COST_MOVING     3
+#define E_COST_PRESENTING 2
+#define E_COST_CROUCHING  2
+#define E_COST_STANDING   1
+#define E_COST_MOVING     1
+#define E_COST_BEAT_SLIDE 150
+#define E_COST_MARIO_HURT 200
+
+#define MAX_SIPS 3
 
 #define E_GAIN_KITCHEN    5
 #define E_GAIN_COFFEE_SIP (MAX_ENERGY / 4)
@@ -85,7 +89,7 @@ extern FPVPlayer gFPVPlayer;
 // average walking speed in meters/second is 1.4
 // converting this to cm/frame:
 #define PLAYER_MAX_SPEED_WALK   meters_sec(1.6f)
-#define PLAYER_MAX_SPEED_RUN    meters_sec(3.0f)
+#define PLAYER_MAX_SPEED_RUN    meters_sec(3.2f)
 #define PLAYER_MAX_SPEED_CROUCH meters_sec(0.4f)
 #define PLAYER_MAX_ACCEL (PLAYER_MAX_SPEED_WALK * 0.2f)
 #define PLAYER_DECEL     (PLAYER_MAX_SPEED_WALK * 0.35f)

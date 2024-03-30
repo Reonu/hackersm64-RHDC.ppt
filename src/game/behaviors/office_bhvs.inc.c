@@ -271,13 +271,13 @@ void bhv_presenting_dudeguy_loop(void) {
 }
 
 #define SPLINE_GUY_PATROL_SPEED             meters_sec(1.6f)
-#define SPLINE_GUY_RUN_SPEED                meters_sec(3.1f)
+#define SPLINE_GUY_RUN_SPEED                meters_sec(3.05f)
 #define SPLINE_GUY_TURNING_SPEED            DEGREES(3)
 #define SPLINE_GUY_TURNING_SPEED_RUNNING    DEGREES(6)
 #define SPLINE_GUY_CHASE_SPEED              meters_sec(1.75f)
 #define SPLINE_GUY_NEXT_POINT_THRESHOLD     160
 #define SPLINE_GUY_PLAYER_START_CONVO_DIST  160
-#define SPLINE_GUY_PLAYER_START_CHASE_DIST  400
+#define SPLINE_GUY_PLAYER_START_CHASE_DIST  300
 #define SPLINE_GUY_PLAYER_START_CHASE_DIST_BEHIND  260
 #define SPLINE_GUY_PLAYER_STOP_CHASE_DIST   600
 #define SPLINE_GUY_STEAL_SIP_START          102
@@ -615,7 +615,7 @@ void bhv_coffee_machine_loop(void) {
             f32 *pos = &o->oPosX;
             if (vec3f_lat_dist(pos, gFPVPlayer.pos) < MAX_COFFEE_MACHINE_DIST && gPlayer1Controller->buttonPressed & PLAYER_BTN_INTERACT) {
                 o->oAction = COFFEE_MACHINE_WAITING;
-                gFPVPlayer.sipsLeft = 3;
+                gFPVPlayer.sipsLeft = MAX_SIPS;
                 gFPVPlayer.energy = MAX_ENERGY;
                 gFPVPlayer.coffeeStolen = FALSE;
                 gFPVPlayer.coffeeTracker = 1;

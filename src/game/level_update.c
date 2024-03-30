@@ -1181,6 +1181,7 @@ void change_slide(s8 change) {
     if (gAreaData[gCurrAreaIndex+change].graphNode != NULL) {
         change_area(gCurrAreaIndex+change);
         gMarioState->area = gCurrentArea;
+        deplete_energy(E_COST_BEAT_SLIDE);
         gBeatSlide = 0;
     }
 }
