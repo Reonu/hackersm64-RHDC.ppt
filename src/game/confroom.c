@@ -241,7 +241,8 @@ void render_pause_hud(Gfx **head) {
             render_rect(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 20, 20, 20, TRUE);
             *head = gfx;
             print_set_envcolour(255, 255, 255, 255);
-            print_small_text(SCREEN_WIDTH / 2,  20, "Press start...", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
+            print_small_text(SCREEN_WIDTH / 2,  20, "Make sure your game volume is high enough.", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
+            print_small_text(SCREEN_WIDTH / 2,  40, "Press start to wake up...", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
             break;
         }
         case PAUSE_STATE_FIRED: {
