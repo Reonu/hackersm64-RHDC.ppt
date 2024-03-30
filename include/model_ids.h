@@ -53,6 +53,8 @@
 #define MODEL_LIGHT_SWITCH_UP                  0x11B
 #define MODEL_LIGHT_SWITCH_DOWN                0x11C
 
+#define MODEL_ENDING_DUDEGUY                   0x11D
+
 /* Various static level geometry, the geo layout differs but terrain object presets treat them the same.*/
 
 #define MODEL_LEVEL_GEOMETRY_03                0x03

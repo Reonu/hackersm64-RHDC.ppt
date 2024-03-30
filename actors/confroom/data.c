@@ -515,7 +515,7 @@ ConfroomObjectSpawn spawn_bButtonLightSwitchConfroom = {
 ConfroomObjectSpawn spawn_endingDudeGuy = {
     { -2803.7384033203f,    32.7161788940f,  -292.2772407532f },
     { 0x0000, 0x0000, 0x0000 },
-    MODEL_DUDEGUY,
+    MODEL_ENDING_DUDEGUY,
     (uintptr_t)bhvEndingDudeGuy,
     0,
     0,

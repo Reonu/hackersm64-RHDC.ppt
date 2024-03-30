@@ -143,6 +143,7 @@ const LevelScript level_main_scripts_entry[] = {
     LOAD_MODEL_FROM_GEO(MODEL_B_BUTTON,                b_button_geo),
     LOAD_MODEL_FROM_GEO(MODEL_LIGHT_SWITCH_UP,         light_switch_up_geo),
     LOAD_MODEL_FROM_GEO(MODEL_LIGHT_SWITCH_DOWN,       light_switch_down_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_ENDING_DUDEGUY,          ending_dudeguy_geo),
     FREE_LEVEL_POOL(),
     POP_POOL(),
     CALL(/*arg*/ 0, /*func*/ spawn_confroom_objects),

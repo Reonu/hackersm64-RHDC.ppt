@@ -431,4 +431,6 @@ extern ConfroomObjectSpawn spawn_coffeeCup;
 
 #include "light_switch_down/geo_header.h"
 
+#include "ending_dudeguy/geo_header.h"
+
 #endif
