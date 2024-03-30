@@ -79,7 +79,7 @@ void run_tut(void) {
     static s32 alpha = 0;
     static s32 init = FALSE;
 
-    if (gTutorialFinished || (gFPVPlayer.currentTutorial < 0)) 
+    if (gTutorialFinished || (gFPVPlayer.currentTutorial < 0) || gOfficeState.paused == PAUSE_STATE_END) 
         return;
 
     if (gFPVPlayer.currentTutorial != curMsg) {
