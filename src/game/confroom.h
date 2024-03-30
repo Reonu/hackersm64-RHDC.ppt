@@ -40,6 +40,14 @@ typedef struct {
     Vec3f *points;
 } ConfroomObjectSplineRef;
 
+enum PauseStates {
+    PAUSE_STATE_UNPAUSED,
+    PAUSE_STATE_PAUSED,
+    PAUSE_STATE_START,
+    PAUSE_STATE_FIRED,
+    PAUSE_STATE_END
+};
+
 enum OfficeStages {
     OFFICE_STAGE_INTRO,
     OFFICE_STAGE_1,
@@ -69,5 +77,6 @@ void start_previous_office_stage(void);
 #endif
 s32 get_num_coffees_left(void);
 s32 get_num_req_qtes(void);
+void render_pause_hud(Gfx **head);
 
 extern OfficeState gOfficeState;
