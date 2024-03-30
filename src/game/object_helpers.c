@@ -2404,8 +2404,59 @@ Gfx *geo_set_confroom_lights(s32 callContext, struct GraphNode *node, UNUSED voi
     return dlStart;
 }
 
-Gfx *geo_choose_room(s32 callContext, struct GraphNode *node, UNUSED void *context) {
+enum OfficeRoomParams {
+    OFFICE_ROOM_PARAM_CONFROOM,
+    OFFICE_ROOM_PARAM_OFFICE,
+    OFFICE_ROOM_PARAM_PARTIAL_CONFROOM,
+    OFFICE_ROOM_PARAM_OCEAN,
+};
 
+Gfx *geo_choose_room(s32 callContext, struct GraphNode *node, UNUSED void *context) {
+    if (callContext == GEO_CONTEXT_RENDER) {
+        struct GraphNodeGenerated *currentGraphNode =  (struct GraphNodeGenerated *) node;
+        s32 param = currentGraphNode->parameter;
+        struct GraphNode *next = (struct GraphNode *)&(((struct GraphNodeTranslationRotation *) node->next)->node);
+        s32 canSeeBothRooms = gFPVPlayer.pos[2] < 60;
+        s32 renderOcean = gOfficeState.paused == PAUSE_STATE_END;
+        s32 renderConfroom = !renderOcean && (gFPVPlayer.inConfroom || canSeeBothRooms);
+        switch (param) {
+            case OFFICE_ROOM_PARAM_CONFROOM:
+                if (renderConfroom) {
+                    next->flags |= GRAPH_RENDER_ACTIVE;
+                } else {
+                    next->flags &= ~GRAPH_RENDER_ACTIVE;
+                }
+                break;
+            case OFFICE_ROOM_PARAM_OFFICE:
+                if (!renderOcean && (
+                    !renderConfroom ||
+                    canSeeBothRooms ||
+                    gFPVPlayer.dir[1] < DEGREES(-45) ||
+                    gFPVPlayer.dir[1] > DEGREES(45)
+                )) {
+                    next->flags |= GRAPH_RENDER_ACTIVE;
+                } else {
+                    next->flags &= ~GRAPH_RENDER_ACTIVE;
+                }
+                break;
+            case OFFICE_ROOM_PARAM_PARTIAL_CONFROOM:
+                if (!renderConfroom) {
+                    next->flags |= GRAPH_RENDER_ACTIVE;
+                } else {
+                    next->flags &= ~GRAPH_RENDER_ACTIVE;
+                }
+                break;
+            case OFFICE_ROOM_PARAM_OCEAN:
+                if (renderOcean) {
+                    next->flags |= GRAPH_RENDER_ACTIVE;
+                } else {
+                    next->flags &= ~GRAPH_RENDER_ACTIVE;
+                }
+                break;
+
+        }
+    }
+    return NULL;
 }
 
 #define COFFEE_BASE_SCALE 0.25f
