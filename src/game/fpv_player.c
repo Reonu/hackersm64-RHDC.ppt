@@ -510,8 +510,8 @@ s32 update_player(void) {
                 continueUpdate = update_intro_cutscene(player);
             #ifdef SLIDE_DEBUG
                 print_small_text_buffered(20, 8, "intro", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);
-                break;
             #endif
+                break;
             case PLAYER_FREE:
                 continueUpdate = update_free(player);
             #ifdef SLIDE_DEBUG
