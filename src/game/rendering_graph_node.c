@@ -834,6 +834,7 @@ void geo_process_camera(struct GraphNodeCamera *node) {
         mtxf_rotate_xy(rollMtx, node->rollScreen);
 
         gSPMatrix(gDisplayListHead++, VIRTUAL_TO_PHYSICAL(rollMtx), G_MTX_PROJECTION | G_MTX_MUL | G_MTX_NOPUSH);
+        geo_append_display_list(setLightsDL, LAYER_FORCE);
         geo_append_display_list(setLightsDL, LAYER_OPAQUE);
 
         mtxf_lookat(gCameraTransform, node->pos, node->focus, node->roll);
@@ -912,7 +913,7 @@ void geo_process_camera(struct GraphNodeCamera *node) {
     }
 
     // Enable the lights closes to the given probe position as the level's lighting
-    if (gMarioObject) {
+    if (gMarioObject && g2DCamActive) {
         vec3f_copy(probePos, gMarioState->pos);
     } else {
         vec3f_copy(probePos, node->pos);
