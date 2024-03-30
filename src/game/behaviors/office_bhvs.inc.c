@@ -386,6 +386,12 @@ void bhv_spline_dudeguy_loop(void) {
     f32 patrolSpeed;
     f32 turningSpeed;
 
+    if ((BPARAM3 > 0) && (BPARAM3 == gOfficeState.stage)) {
+        cur_obj_set_model(MODEL_CHATTY_KATHY);
+    } else {
+        cur_obj_set_model(MODEL_DUDEGUY);
+    }
+
     switch (BPARAM4) {
         case ACTIVE_CONFROOM:
             if (!gFPVPlayer.inConfroom) {

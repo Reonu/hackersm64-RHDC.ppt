@@ -243,9 +243,9 @@ ConfroomObjectSpawn spawn_dudeGuySpline = {
     (uintptr_t)bhvSplineDudeGuy,
     0,
     NPC_SPLINE_NEXT_TO_CONFROOM,
+    1,
     0,
-    0,
-    0,
+    OFFICE_STAGE_FLAG_1 | OFFICE_STAGE_FLAG_2 | OFFICE_STAGE_FLAG_3 ,
 };
 
 ConfroomObjectSpawn spawn_dudeGuySpline2 = {
@@ -255,7 +255,7 @@ ConfroomObjectSpawn spawn_dudeGuySpline2 = {
     (uintptr_t)bhvSplineDudeGuy,
     0,
     NPC_SPLINE_AROUND_DESK,
-    0,
+    2,
     ACTIVE_OFFICE,
     0,
 };
@@ -267,7 +267,7 @@ ConfroomObjectSpawn spawn_dudeGuySplineWater = {
     (uintptr_t)bhvSplineDudeGuy,
     0,
     NPC_SPLINE_NEXT_TO_ELEVATOR,
-    0,
+    3,
     ACTIVE_OFFICE,
     OFFICE_STAGE_FLAG_3,
 };
@@ -318,6 +318,18 @@ ConfroomObjectSpawn spawn_dudeguyConfroomSitting = {
     0,
     ACTIVE_CONFROOM,
     0,
+};
+
+ConfroomObjectSpawn spawn_staticCathy = {
+    {  1419.1994667053f,     0.0001192093f,  -190.4609918594f },
+    { 0x0000, 0x0000, 0x0000 },
+    MODEL_CHATTY_KATHY,
+    (uintptr_t)bhvDudeGuy,
+    NPC_ANIM_IDLE,
+    0,
+    0,
+    0,
+    OFFICE_STAGE_FLAG_INTRO,
 };
 
 ConfroomObjectSpawn spawn_splineStopperShelf = {

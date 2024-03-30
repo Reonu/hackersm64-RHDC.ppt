@@ -42,6 +42,7 @@ extern ConfroomObjectSpawn spawn_dudeGuySplineReception;
 extern ConfroomObjectSpawn spawn_dudeGuyTyping;
 extern ConfroomObjectSpawn spawn_dudeGuyTyping3;
 extern ConfroomObjectSpawn spawn_dudeguyConfroomSitting;
+extern ConfroomObjectSpawn spawn_staticCathy;
 extern ConfroomObjectSpawn spawn_splineStopperShelf;
 extern ConfroomObjectSpawn spawn_splineStopperWater;
 extern ConfroomObjectSpawn spawn_splineStopperReception;
