@@ -13,6 +13,8 @@
 #include "buffers/framebuffers.h"
 #include "object_list_processor.h"
 #include "cozy_print.h"
+#include "seq_ids.h"
+#include "audio/external.h"
 
 #include "confroom.h"
 #include "confroom_spawn.h"
@@ -255,23 +257,26 @@ void render_pause_hud(Gfx **head) {
             break;
         }
         case PAUSE_STATE_END: {
+            if (gOfficeState.pauseTimer == 0) {
+                play_secondary_music(SEQ_SEA, 0, 255, ENDING_OCEAN_START);
+            }
+
             Gfx *gfx = *head;
-            s32 finalAlpha = 0;
             if (gOfficeState.pauseTimer < ENDING_OCEAN_START) {
                 s32 alpha = roundf(remap(gOfficeState.pauseTimer, 0, ENDING_OCEAN_START, 0, 255));
                 render_rect_xlu(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0xFF, 0xFF, 0xFF, alpha, TRUE);
             } else if (gOfficeState.pauseTimer < ENDING_OCEAN_FADE_OUT_END) {
-                finalAlpha = 255;
                 s32 alpha = roundf(remap(gOfficeState.pauseTimer, ENDING_OCEAN_START, ENDING_OCEAN_FADE_OUT_END, 255, 0));
                 render_rect_xlu(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0xFF, 0xFF, 0xFF, alpha, TRUE);
-            } else if (gOfficeState.pauseTimer <= ENDING_OCEAN_END_FADE_OUT_START) {
-                finalAlpha = 255;
-            } else if (gOfficeState.pauseTimer > ENDING_OCEAN_END_FADE_OUT_START) {
-                finalAlpha = roundf(remap(MIN(gOfficeState.pauseTimer, ENDING_OCEAN_END), ENDING_OCEAN_END_FADE_OUT_START, ENDING_OCEAN_END, 255, 0));
             }
             *head = gfx;
-            print_set_envcolour(255, 255, 255, finalAlpha);
-            print_small_text(SCREEN_WIDTH / 2,  SCREEN_HEIGHT - 32, "The End", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
+
+            if (gOfficeState.pauseTimer > ENDING_OCEAN_TEXT_THE_END) {
+                s32 clampTimer = CLAMP(gOfficeState.pauseTimer, ENDING_OCEAN_TEXT_THE_END, ENDING_OCEAN_TEXT_THE_END + 30*3);
+                s32 alpha = roundf(remap(clampTimer, ENDING_OCEAN_TEXT_THE_END, ENDING_OCEAN_TEXT_THE_END + 30*3, 0, 255));
+                print_set_envcolour(255, 255, 255, alpha);
+                print_small_text(SCREEN_WIDTH / 2,  SCREEN_HEIGHT - 32, "The End", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
+            }
             break;
         }
     }

@@ -987,7 +987,7 @@ void bhv_ending_dudeguy_init(void) {
 }
 
 void bhv_ending_dudeguy_loop(void) {
-    if (gOfficeState.paused == PAUSE_STATE_END) {
+    if (gOfficeState.paused == PAUSE_STATE_END && gOfficeState.pauseTimer > ENDING_OCEAN_START) {
         o->oAction = ENDING_DUDEGUY_PLAY_ANIM;
     } 
 
@@ -998,6 +998,9 @@ void bhv_ending_dudeguy_loop(void) {
         case ENDING_DUDEGUY_PLAY_ANIM:
             cur_obj_unhide();
             cur_obj_init_animation(o->oAnimationIndex);
+            if (cur_obj_check_if_at_animation_end()) {
+                o->header.gfx.animInfo.animFrame = ENDING_OCEAN_TEXT_THE_END;
+            }
             break;
     }
 }
