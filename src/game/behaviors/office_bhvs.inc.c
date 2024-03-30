@@ -778,6 +778,8 @@ enum IntroKathyActions {
 void bhv_intro_kathy_init(void) {
     o->oAction = INTRO_KATHY_WAKE_UP;
     gIntroCutscene = INTRO_CUTSCENE_START;
+    o->oAnimationIndex = NPC_ANIM_INTRO_WAKE_UP;
+    cur_obj_init_animation(o->oAnimationIndex);
 }
 
 void bhv_intro_kathy_loop(void) {
@@ -790,6 +792,7 @@ void bhv_intro_kathy_loop(void) {
             if ((o->oTimer > 2) && (cur_obj_check_if_at_animation_end())) {
                 o->oAction = INTRO_KATHY_TURN_TOWARDS_DOOR;
                 gIntroCutscene = INTRO_CUTSCENE_OPEN_ELEVATOR_DOORS;
+                o->oAnimationIndex = NPC_ANIM_WALKING;
             }
             break;
         case INTRO_KATHY_TURN_TOWARDS_DOOR:
@@ -844,14 +847,14 @@ void bhv_intro_kathy_loop(void) {
     }
     //print_text_fmt_int(20,20, "%d", o->oPosZ);
     //print_text_fmt_int(20,40, "%x", o->oFaceAngleYaw);
-    
+    if (!cur_obj_has_model(MODEL_NONE)) {
+        cur_obj_init_animation(o->oAnimationIndex);
+    }
     #ifdef SLIDE_DEBUG
     if (gPlayer1Controller->buttonPressed & R_TRIG)
         o->oAction = INTRO_KATHY_DISAPPEAR;
     #endif
 
-    if (!cur_obj_has_model(MODEL_NONE))
-        cur_obj_init_animation(o->oAnimationIndex);
 
 }
 
