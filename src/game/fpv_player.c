@@ -488,13 +488,36 @@ void update_cam_from_player(FPVPlayer *player, FPVCamState *cam) {
 }
 
 void update_ending_cam(void) {
+    static s16 movement1 = 0;
+    static s16 movement2 = DEGREES(90);
+    static s16 movement3 = DEGREES(70);
+
     FPVCamState *cam = &gFPVCam;
     if (gOfficeState.pauseTimer > ENDING_OCEAN_START) {
+        movement1 += DEGREES(1);
+        movement2 += DEGREES(2.27f);
+        movement3 += DEGREES(5.2f);
         f32 *camPos = (f32 *)segmented_to_virtual(EndingCamera);
         f32 *camTarget = (f32 *)segmented_to_virtual(EndingCameraTarget);
+
+        f32 offset1 = sins(movement1) * 0.5 + sins(movement2) * 0.3f + sins(movement3) * 0.2f;
+        f32 offset2 = coss(movement1) * 0.5 + coss(movement2) * 0.3f + coss(movement3) * 0.2f;
+
+        offset1 *= 5.0f;
+        offset2 *= 5.0f;
+
         vec3f_copy(cam->pos, camPos);
+        cam->pos[0] += offset1;
+        cam->pos[1] += offset1;
+        cam->pos[2] += offset2;
+
         vec3f_copy(cam->focus, camTarget);
-        cam->fov = remap(CLAMP(gOfficeState.pauseTimer, ENDING_OCEAN_START, ENDING_OCEAN_END), ENDING_OCEAN_START, ENDING_OCEAN_END, FOV_50MM, FOV_100MM);
+        cam->pos[0] += offset2;
+        cam->pos[1] += offset2;
+        cam->pos[2] += offset1;
+
+        f32 fovFac = remap(CLAMP(gOfficeState.pauseTimer, ENDING_OCEAN_START, ENDING_OCEAN_END), ENDING_OCEAN_START, ENDING_OCEAN_END, 0, 1);
+        cam->fov = smoothstop(FOV_50MM, FOV_100MM, fovFac);
     }
 }
 

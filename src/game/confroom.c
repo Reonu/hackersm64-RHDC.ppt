@@ -266,15 +266,8 @@ void render_pause_hud(Gfx **head) {
                 render_rect_xlu(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0xFF, 0xFF, 0xFF, alpha, TRUE);
             } else if (gOfficeState.pauseTimer <= ENDING_OCEAN_END_FADE_OUT_START) {
                 finalAlpha = 255;
-            } else if (gOfficeState.pauseTimer >= ENDING_OCEAN_END) {
-                render_rect(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, TRUE);
-                *head = gfx;
-                gOfficeState.pauseTimer = ENDING_OCEAN_END;
-                return;
             } else if (gOfficeState.pauseTimer > ENDING_OCEAN_END_FADE_OUT_START) {
-                s32 alpha = roundf(remap(MIN(gOfficeState.pauseTimer, ENDING_OCEAN_END), ENDING_OCEAN_END_FADE_OUT_START, ENDING_OCEAN_END, 0, 255));
-                render_rect_xlu(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, alpha, TRUE);
-                finalAlpha = 255 - alpha;
+                finalAlpha = roundf(remap(MIN(gOfficeState.pauseTimer, ENDING_OCEAN_END), ENDING_OCEAN_END_FADE_OUT_START, ENDING_OCEAN_END, 255, 0));
             }
             *head = gfx;
             print_set_envcolour(255, 255, 255, finalAlpha);
