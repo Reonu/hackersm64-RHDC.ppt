@@ -58,3 +58,6 @@ extern ConfroomObjectSpawn spawn_lightSwitchNextToKitchen;
 extern ConfroomObjectSpawn spawn_bButtonLightSwitchNextToKitchen;
 extern ConfroomObjectSpawn spawn_bButtonLightSwitchNextToConfroom;
 extern ConfroomObjectSpawn spawn_bButtonLightSwitchConfroom;
+extern ConfroomObjectSpawn spawn_endingDudeGuy;
+extern f32 EndingCamera[3];
+extern f32 EndingCameraTarget[3];

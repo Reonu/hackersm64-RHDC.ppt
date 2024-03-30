@@ -512,3 +512,19 @@ ConfroomObjectSpawn spawn_bButtonLightSwitchConfroom = {
     0,
 };
 
+ConfroomObjectSpawn spawn_endingDudeGuy = {
+    { -2803.7384033203f,    32.7161788940f,  -292.2772407532f },
+    { 0x0000, 0x0000, 0x0000 },
+    MODEL_DUDEGUY,
+    (uintptr_t)bhvEndingDudeGuy,
+    0,
+    0,
+    0,
+    0,
+    0,
+};
+
+f32 EndingCamera[3] = { -2536.5198135376f,   149.8291134834f,  -953.5575866699f };
+
+f32 EndingCameraTarget[3] = { -3227.8923034668f,    26.1238753796f,   923.7863540649f };
+

@@ -50,7 +50,8 @@ ConfroomObjectSpawn *gConfroomSpawns[] = {
     &spawn_lightSwitchNextToKitchen,
     &spawn_bButtonLightSwitchNextToKitchen,
     &spawn_bButtonLightSwitchNextToConfroom,
-    &spawn_bButtonLightSwitchConfroom
+    &spawn_bButtonLightSwitchConfroom,
+    &spawn_endingDudeGuy
 };
 
 s32 gNumConfroomSpawns = ARRAY_COUNT(gConfroomSpawns);

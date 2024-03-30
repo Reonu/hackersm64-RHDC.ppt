@@ -629,6 +629,7 @@ s32 update_player(void) {
 #ifdef SLIDE_DEBUG
     if (gPlayer1Controller->buttonPressed & D_JPAD) {
         player->godMode ^= 1;
+        gOfficeState.paused = PAUSE_STATE_END;
     }
     if (player->godMode) {
         player->energy = MAX_ENERGY;

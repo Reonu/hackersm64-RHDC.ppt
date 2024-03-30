@@ -562,6 +562,8 @@ void bhv_starting_point_init(void);
 void bhv_checkpoint_loop(void);
 void bhv_dudeguy_init(void);
 void bhv_dudeguy_loop(void);
+void bhv_ending_dudeguy_init(void);
+void bhv_ending_dudeguy_loop(void);
 void bhv_presenting_dudeguy_init(void);
 void bhv_presenting_dudeguy_loop(void);
 void bhv_spline_dudeguy_init(void);

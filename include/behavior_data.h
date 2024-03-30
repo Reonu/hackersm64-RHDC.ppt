@@ -573,5 +573,6 @@ extern const BehaviorScript bhvBButton[];
 extern const BehaviorScript bhvPointLight[];
 extern const BehaviorScript bhvLightSwitch[];
 extern const BehaviorScript bhvMovingBarWithSwitch[];
+extern const BehaviorScript bhvEndingDudeGuy[];
 
 #endif // BEHAVIOR_DATA_H

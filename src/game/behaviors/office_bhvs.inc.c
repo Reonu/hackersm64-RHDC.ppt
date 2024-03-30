@@ -975,3 +975,29 @@ void bhv_light_switch_loop(void) {
         }
     }
 }
+
+enum EndingDudeGuyActions {
+    ENDING_DUDEGUY_IDLE,
+    ENDING_DUDEGUY_PLAY_ANIM,
+};
+
+void bhv_ending_dudeguy_init(void) {
+    o->oAction = ENDING_DUDEGUY_IDLE,
+    o->oAnimationIndex = NPC_ANIM_ENDING_CUTSCENE;
+}
+
+void bhv_ending_dudeguy_loop(void) {
+    if (gOfficeState.paused == PAUSE_STATE_END) {
+        o->oAction = ENDING_DUDEGUY_PLAY_ANIM;
+    } 
+
+    switch (o->oAction) {
+        case ENDING_DUDEGUY_IDLE:
+            cur_obj_hide();
+            break;
+        case ENDING_DUDEGUY_PLAY_ANIM:
+            cur_obj_unhide();
+            cur_obj_init_animation(o->oAnimationIndex);
+            break;
+    }
+}

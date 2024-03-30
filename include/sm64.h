@@ -97,6 +97,7 @@ enum NpcAnims {
     NPC_ANIM_EATING_TALKING,
     NPC_ANIM_WALKING_IN,
     NPC_ANIM_TALKING_GENERIC,
+    NPC_ANIM_ENDING_CUTSCENE,
 };
 
 enum PresentingDudeguyActions {
