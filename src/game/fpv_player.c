@@ -508,23 +508,33 @@ s32 update_player(void) {
         switch (player->actionState) {
             case PLAYER_INTRO_CUTSCENE:
                 continueUpdate = update_intro_cutscene(player);
+            #ifdef SLIDE_DEBUG
                 print_small_text_buffered(20, 8, "intro", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);
                 break;
+            #endif
             case PLAYER_FREE:
                 continueUpdate = update_free(player);
+            #ifdef SLIDE_DEBUG
                 print_small_text_buffered(20, 8, "free", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);
+            #endif
                 break;
             case PLAYER_BREWING_COFFEE:
                 continueUpdate = update_brewing_coffee(player);
+            #ifdef SLIDE_DEBUG
                 print_small_text_buffered(20, 8, "coffee", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);
+            #endif
                 break;
             case PLAYER_PRESENTING:
                 continueUpdate = update_presenting(player);
+            #ifdef SLIDE_DEBUG
                 print_small_text_buffered(20, 8, "presenting", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);
+            #endif
                 break;
             case PLAYER_CONVO_QTE: {
                 continueUpdate = update_convo_qte(player);
+            #ifdef SLIDE_DEBUG
                 print_small_text_buffered(20, 8, "qte", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);
+            #endif
                 break;
             }
         }
@@ -574,7 +584,7 @@ s32 update_player(void) {
             player->firstCoffee = 1;
         }
     }
-    
+
     if ((player->currentTutorial >= 0) && (!gTutorialFinished)) {
         process_tutorial(player);
     }
@@ -591,17 +601,19 @@ s32 update_player(void) {
         player->currentTutorial = 6;
     }
 
+    // Increase stage every time the player returns with coffee
     if (player->coffeeTracker == 2) {
         if (gOfficeState.stage < OFFICE_STAGE_3) {
             gOfficeState.stage += 1;
             player->coffeeTracker = 0;
         }
     }
-
+    // Force stage 3 if the player gets to a certain slide
     if ((gCurrAreaIndex >= STAGE_3_AREA_THRESHOLD) && (gOfficeState.stage < OFFICE_STAGE_3)) {
         gOfficeState.stage = OFFICE_STAGE_3;
     }
 
+    // Is the player in the conference room?
      if (!(point_in_aabb_2d(&gOfficeSpaces[0], gFPVPlayer.pos))) {
         player->inConfroom = 0;
      } else {
@@ -609,6 +621,7 @@ s32 update_player(void) {
         player->confroomFirstTime = 1;
      }
 
+    // Get fired IDIOT
     if (player->energy == 0) {
         gOfficeState.paused = PAUSE_STATE_FIRED;
     }
@@ -647,7 +660,7 @@ void render_player_hud(Gfx **head) {
     s32 xEnergyWidth = roundf(remap(player->energy, 0, MAX_ENERGY, 0, (SCREEN_WIDTH / 3) - BAR_MARGIN));
     s32 r, g, b;
     f32 energyPercent = ((f32)player->energy / (f32)MAX_ENERGY);
-    if (energyPercent < 0.25f) {
+    if (energyPercent < 0.30f) {
         if (player->energyLowFirstTime == 0) {
             player->energyLowFirstTime = 1;
         }
