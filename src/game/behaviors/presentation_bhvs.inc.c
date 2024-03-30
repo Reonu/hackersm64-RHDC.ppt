@@ -139,7 +139,7 @@ void bhv_checkpoint_flag_loop(void) {
     if (o->oCheckpointFlagCounter == 0) {
         if (o->oDistanceToMario < 100.f) {
             o->oCheckpointFlagCounter++;
-            vec3_copy(gMarioRespawn,gMarioState->pos);
+            gMarioRespawn[0] = o->oPosX; gMarioRespawn[1] = o->oPosY; gMarioRespawn[2] = o->oPosZ;
             cur_obj_play_sound_2(SOUND_GENERAL2_RIGHT_ANSWER);
         }
     }
