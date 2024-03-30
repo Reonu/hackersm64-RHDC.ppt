@@ -64,6 +64,7 @@ void move_mario_to_respawn(struct MarioState *m, u8 deathType) {
     switch (deathType) {
         case DEATH_TYPE_BURNED:
             play_sound(SOUND_MARIO_ON_FIRE,gGlobalSoundSource);
+            gMarioState->wall = NULL;
             break;
         case DEATH_TYPE_QUICKSAND:
         case DEATH_TYPE_VOIDOUT:
