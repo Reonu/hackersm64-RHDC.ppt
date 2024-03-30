@@ -1623,13 +1623,20 @@ Vtx chattykathy_left_foot_skinned_mesh_layer_1_vtx_0[6] = {
 };
 
 Vtx chattykathy_left_foot_mesh_layer_1_vtx_0[4] = {
-	{{ {29, -81, -43}, 0, {476, 1005}, {68, 150, 241, 255} }},
-	{{ {47, 12, -33}, 0, {492, 1015}, {109, 64, 247, 255} }},
-	{{ {-24, 38, -35}, 0, {229, 1014}, {208, 117, 255, 255} }},
-	{{ {-51, -52, -45}, 0, {175, 1004}, {143, 198, 249, 255} }},
+	{{ {29, -81, -43}, 0, {476, 1005}, {52, 159, 63, 255} }},
+	{{ {47, 12, -33}, 0, {492, 1015}, {89, 47, 77, 255} }},
+	{{ {-24, 38, -35}, 0, {229, 1014}, {210, 91, 76, 255} }},
+	{{ {-51, -52, -45}, 0, {175, 1004}, {161, 203, 65, 255} }},
 };
 
-Vtx chattykathy_left_foot_mesh_layer_1_vtx_1[10] = {
+Vtx chattykathy_left_foot_mesh_layer_1_vtx_1[4] = {
+	{{ {-24, 38, -35}, 0, {229, 1014}, {210, 91, 76, 255} }},
+	{{ {-51, -52, -45}, 0, {175, 1004}, {161, 203, 65, 255} }},
+	{{ {29, -81, -43}, 0, {476, 1005}, {52, 159, 63, 255} }},
+	{{ {47, 12, -33}, 0, {492, 1015}, {89, 47, 77, 255} }},
+};
+
+Vtx chattykathy_left_foot_mesh_layer_1_vtx_2[10] = {
 	{{ {15, -50, 27}, 0, {7, 934}, {52, 164, 71, 255} }},
 	{{ {-23, -35, -42}, 0, {35, 49}, {151, 188, 234, 255} }},
 	{{ {13, -48, -41}, 0, {11, 56}, {53, 141, 245, 255} }},
@@ -1829,13 +1836,20 @@ Vtx chattykathy_right_foot_skinned_mesh_layer_1_vtx_0[6] = {
 };
 
 Vtx chattykathy_right_foot_mesh_layer_1_vtx_0[4] = {
-	{{ {39, -49, -41}, 0, {277, 1006}, {98, 175, 250, 255} }},
-	{{ {-46, -58, -40}, 0, {564, 1008}, {167, 166, 246, 255} }},
-	{{ {-48, 37, -29}, 0, {603, 1018}, {164, 86, 245, 255} }},
-	{{ {34, 46, -32}, 0, {322, 1015}, {75, 102, 249, 255} }},
+	{{ {39, -49, -41}, 0, {277, 1006}, {81, 183, 66, 255} }},
+	{{ {-46, -58, -40}, 0, {564, 1008}, {185, 173, 65, 255} }},
+	{{ {-48, 37, -29}, 0, {603, 1018}, {178, 66, 75, 255} }},
+	{{ {34, 46, -32}, 0, {322, 1015}, {67, 79, 73, 255} }},
 };
 
-Vtx chattykathy_right_foot_mesh_layer_1_vtx_1[10] = {
+Vtx chattykathy_right_foot_mesh_layer_1_vtx_1[4] = {
+	{{ {34, 46, -32}, 0, {322, 1015}, {67, 79, 73, 255} }},
+	{{ {-46, -58, -40}, 0, {564, 1008}, {185, 173, 65, 255} }},
+	{{ {39, -49, -41}, 0, {277, 1006}, {81, 183, 66, 255} }},
+	{{ {-48, 37, -29}, 0, {603, 1018}, {178, 66, 75, 255} }},
+};
+
+Vtx chattykathy_right_foot_mesh_layer_1_vtx_2[10] = {
 	{{ {-23, -29, -38}, 0, {29, 23}, {178, 156, 251, 255} }},
 	{{ {-37, 137, 28}, 0, {449, 1016}, {167, 78, 46, 255} }},
 	{{ {-24, 14, -33}, 0, {146, 114}, {152, 15, 184, 255} }},
@@ -2234,9 +2248,13 @@ Gfx chattykathy_left_foot_mesh_layer_1[] = {
 	gsSP2Triangles(4, 9, 8, 0, 2, 9, 4, 0),
 	gsSP2Triangles(2, 6, 9, 0, 1, 6, 2, 0),
 	gsDPPipeSync(),
+	gsDPSetPrimColor(0, 0, 0, 0, 0, 255),
+	gsSPVertex(chattykathy_left_foot_mesh_layer_1_vtx_1 + 0, 4, 0),
+	gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
+	gsDPPipeSync(),
 	gsDPSetCombineLERP(PRIMITIVE, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT, PRIMITIVE, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT),
-	gsDPSetPrimColor(0, 0, 85, 45, 8, 255),
-	gsSPVertex(chattykathy_left_foot_mesh_layer_1_vtx_1 + 0, 10, 0),
+	gsDPSetPrimColor(0, 0, 29, 15, 3, 255),
+	gsSPVertex(chattykathy_left_foot_mesh_layer_1_vtx_2 + 0, 10, 0),
 	gsSP2Triangles(0, 1, 2, 0, 3, 1, 0, 0),
 	gsSP2Triangles(0, 4, 3, 0, 4, 0, 2, 0),
 	gsSP2Triangles(4, 2, 5, 0, 5, 2, 6, 0),
@@ -2428,9 +2446,13 @@ Gfx chattykathy_right_foot_mesh_layer_1[] = {
 	gsSP2Triangles(9, 2, 8, 0, 9, 3, 2, 0),
 	gsSP2Triangles(9, 1, 3, 0, 6, 1, 9, 0),
 	gsDPPipeSync(),
+	gsDPSetPrimColor(0, 0, 0, 0, 0, 255),
+	gsSPVertex(chattykathy_right_foot_mesh_layer_1_vtx_1 + 0, 4, 0),
+	gsSP2Triangles(0, 1, 2, 0, 0, 3, 1, 0),
+	gsDPPipeSync(),
 	gsDPSetCombineLERP(PRIMITIVE, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT, PRIMITIVE, 0, SHADE, 0, 0, 0, 0, ENVIRONMENT),
-	gsDPSetPrimColor(0, 0, 85, 45, 8, 255),
-	gsSPVertex(chattykathy_right_foot_mesh_layer_1_vtx_1 + 0, 10, 0),
+	gsDPSetPrimColor(0, 0, 29, 15, 3, 255),
+	gsSPVertex(chattykathy_right_foot_mesh_layer_1_vtx_2 + 0, 10, 0),
 	gsSP2Triangles(0, 1, 2, 0, 3, 1, 0, 0),
 	gsSP2Triangles(4, 3, 0, 0, 4, 5, 3, 0),
 	gsSP2Triangles(5, 4, 6, 0, 6, 4, 7, 0),

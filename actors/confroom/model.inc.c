@@ -1,6 +1,3 @@
-Lights1 confroom_black_nozbf_layer0_lights = gdSPDefLights1(
-	0x7F, 0x7F, 0x7F,
-	0xFF, 0xFF, 0xFF, 0x49, 0x49, 0x49);
 
 Gfx confroom_ceiling3_ia4_aligner[] = {gsSPEndDisplayList()};
 u8 confroom_ceiling3_ia4[] = {
@@ -20608,7 +20605,7 @@ Gfx confroom_office_mesh_layer_0_tri_0[] = {
 	gsSPEndDisplayList(),
 };
 
-Vtx confroom_office_mesh_layer_0_vtx_1[168] = {
+Vtx confroom_office_mesh_layer_0_vtx_1[158] = {
 	{{ {1469, 312, -239}, 0, {-421, 8059}, {129, 0, 0, 190} }},
 	{{ {1469, 388, -88}, 0, {-767, 7378}, {129, 0, 0, 95} }},
 	{{ {1469, 388, -239}, 0, {-767, 8059}, {129, 0, 0, 95} }},
@@ -20751,14 +20748,6 @@ Vtx confroom_office_mesh_layer_0_vtx_1[168] = {
 	{{ {-78, 220, 2581}, 0, {-116, 2207}, {127, 0, 0, 255} }},
 	{{ {-78, 388, 2581}, 0, {1250, 2207}, {127, 0, 0, 112} }},
 	{{ {-78, 388, 2877}, 0, {1250, -191}, {127, 0, 0, 95} }},
-	{{ {1410, 82, 2421}, 0, {-2044, -16}, {129, 0, 0, 156} }},
-	{{ {1410, 126, 2421}, 0, {-2044, 2032}, {129, 0, 0, 255} }},
-	{{ {1410, 126, 2238}, 0, {4061, 2032}, {129, 0, 0, 255} }},
-	{{ {1410, 82, 2238}, 0, {4061, -16}, {129, 0, 0, 156} }},
-	{{ {1410, 126, 2238}, 0, {4054, -5169}, {0, 127, 0, 255} }},
-	{{ {1410, 126, 2421}, 0, {-2038, -5169}, {0, 127, 0, 255} }},
-	{{ {1469, 126, 2421}, 0, {-2038, 12946}, {0, 127, 0, 156} }},
-	{{ {1469, 126, 2238}, 0, {4054, 12946}, {0, 127, 0, 156} }},
 	{{ {1469, 168, 845}, 0, {230, 3155}, {129, 0, 0, 255} }},
 	{{ {1469, 252, 999}, 0, {-149, 2460}, {129, 0, 0, 235} }},
 	{{ {1469, 220, 845}, 0, {-4, 3155}, {129, 0, 0, 255} }},
@@ -20770,8 +20759,6 @@ Vtx confroom_office_mesh_layer_0_vtx_1[168] = {
 	{{ {1469, 107, 1501}, 0, {505, 185}, {129, 0, 0, 255} }},
 	{{ {1469, 168, 1501}, 0, {230, 185}, {129, 0, 0, 255} }},
 	{{ {1469, 252, 1320}, 0, {-149, 1002}, {129, 0, 0, 235} }},
-	{{ {1469, 168, 1320}, 0, {230, 1002}, {129, 0, 0, 255} }},
-	{{ {1469, 168, 1501}, 0, {230, 185}, {129, 0, 0, 255} }},
 	{{ {1469, 220, 1501}, 0, {-4, 185}, {129, 0, 0, 255} }},
 	{{ {1469, 388, 1979}, 0, {-767, -1977}, {129, 0, 0, 95} }},
 	{{ {1469, 377, 2002}, 0, {-713, -2082}, {129, 0, 0, 117} }},
@@ -20842,20 +20829,17 @@ Gfx confroom_office_mesh_layer_0_tri_1[] = {
 	gsSP2Triangles(23, 26, 24, 0, 27, 26, 23, 0),
 	gsSP2Triangles(27, 28, 26, 0, 29, 28, 27, 0),
 	gsSP2Triangles(29, 30, 28, 0, 31, 30, 29, 0),
-	gsSPVertex(confroom_office_mesh_layer_0_vtx_1 + 128, 32, 0),
+	gsSPVertex(confroom_office_mesh_layer_0_vtx_1 + 128, 30, 0),
 	gsSP2Triangles(0, 1, 2, 0, 2, 3, 4, 0),
 	gsSP2Triangles(2, 5, 3, 0, 4, 3, 6, 0),
 	gsSP2Triangles(4, 6, 7, 0, 7, 6, 8, 0),
 	gsSP2Triangles(7, 8, 9, 0, 10, 11, 12, 0),
 	gsSP2Triangles(10, 12, 13, 0, 14, 15, 16, 0),
-	gsSP2Triangles(14, 16, 17, 0, 18, 19, 20, 0),
-	gsSP2Triangles(18, 20, 21, 0, 22, 23, 24, 0),
-	gsSP2Triangles(22, 25, 23, 0, 26, 25, 22, 0),
-	gsSP2Triangles(26, 27, 25, 0, 28, 29, 30, 0),
-	gsSP1Triangle(28, 30, 31, 0),
-	gsSPVertex(confroom_office_mesh_layer_0_vtx_1 + 160, 8, 0),
-	gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
-	gsSP2Triangles(4, 5, 6, 0, 4, 6, 7, 0),
+	gsSP2Triangles(14, 17, 15, 0, 18, 17, 14, 0),
+	gsSP2Triangles(18, 19, 17, 0, 20, 21, 22, 0),
+	gsSP2Triangles(20, 22, 23, 0, 24, 20, 23, 0),
+	gsSP2Triangles(24, 23, 25, 0, 26, 27, 28, 0),
+	gsSP1Triangle(26, 28, 29, 0),
 	gsSPEndDisplayList(),
 };
 
@@ -26971,7 +26955,7 @@ Gfx confroom_office_mesh_layer_1_tri_10[] = {
 	gsSPEndDisplayList(),
 };
 
-Vtx confroom_office_mesh_layer_1_vtx_11[44] = {
+Vtx confroom_office_mesh_layer_1_vtx_11[48] = {
 	{{ {424, 83, 385}, 0, {4061, 2032}, {127, 0, 0, 255} }},
 	{{ {424, 127, 385}, 0, {4061, -16}, {127, 0, 0, 255} }},
 	{{ {424, 127, 567}, 0, {-2044, -16}, {127, 0, 0, 255} }},
@@ -27016,6 +27000,10 @@ Vtx confroom_office_mesh_layer_1_vtx_11[44] = {
 	{{ {1299, 126, 1690}, 0, {4061, -16}, {0, 0, 129, 255} }},
 	{{ {1469, 126, 1690}, 0, {-1627, -16}, {0, 0, 129, 156} }},
 	{{ {1469, 82, 1690}, 0, {-1627, 2032}, {0, 0, 129, 156} }},
+	{{ {1410, 82, 2421}, 0, {-2044, -16}, {129, 0, 0, 156} }},
+	{{ {1410, 126, 2421}, 0, {-2044, 2032}, {129, 0, 0, 255} }},
+	{{ {1410, 126, 2238}, 0, {4061, 2032}, {129, 0, 0, 255} }},
+	{{ {1410, 82, 2238}, 0, {4061, -16}, {129, 0, 0, 156} }},
 };
 
 Gfx confroom_office_mesh_layer_1_tri_11[] = {
@@ -27028,10 +27016,11 @@ Gfx confroom_office_mesh_layer_1_tri_11[] = {
 	gsSP2Triangles(20, 21, 22, 0, 20, 22, 23, 0),
 	gsSP2Triangles(24, 25, 26, 0, 24, 26, 27, 0),
 	gsSP2Triangles(28, 29, 30, 0, 28, 30, 31, 0),
-	gsSPVertex(confroom_office_mesh_layer_1_vtx_11 + 32, 12, 0),
+	gsSPVertex(confroom_office_mesh_layer_1_vtx_11 + 32, 16, 0),
 	gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
 	gsSP2Triangles(4, 5, 6, 0, 4, 6, 7, 0),
 	gsSP2Triangles(8, 9, 10, 0, 8, 10, 11, 0),
+	gsSP2Triangles(12, 13, 14, 0, 12, 14, 15, 0),
 	gsSPEndDisplayList(),
 };
 
@@ -27447,7 +27436,7 @@ Gfx confroom_office_mesh_layer_1_tri_13[] = {
 	gsSPEndDisplayList(),
 };
 
-Vtx confroom_office_mesh_layer_1_vtx_14[32] = {
+Vtx confroom_office_mesh_layer_1_vtx_14[36] = {
 	{{ {364, 127, 385}, 0, {4054, -8074}, {0, 127, 0, 255} }},
 	{{ {364, 127, 567}, 0, {-2038, -8074}, {0, 127, 0, 255} }},
 	{{ {424, 127, 567}, 0, {-2038, 10090}, {0, 127, 0, 255} }},
@@ -27480,6 +27469,10 @@ Vtx confroom_office_mesh_layer_1_vtx_14[32] = {
 	{{ {1469, 126, 1750}, 0, {-1621, -8074}, {0, 127, 0, 156} }},
 	{{ {1469, 126, 1690}, 0, {-1621, 10090}, {0, 127, 0, 156} }},
 	{{ {1299, 126, 1690}, 0, {4054, 10090}, {0, 127, 0, 255} }},
+	{{ {1410, 126, 2238}, 0, {4054, -5169}, {0, 127, 0, 255} }},
+	{{ {1410, 126, 2421}, 0, {-2038, -5169}, {0, 127, 0, 255} }},
+	{{ {1469, 126, 2421}, 0, {-2038, 12946}, {0, 127, 0, 156} }},
+	{{ {1469, 126, 2238}, 0, {4054, 12946}, {0, 127, 0, 156} }},
 };
 
 Gfx confroom_office_mesh_layer_1_tri_14[] = {
@@ -27492,6 +27485,8 @@ Gfx confroom_office_mesh_layer_1_tri_14[] = {
 	gsSP2Triangles(20, 21, 22, 0, 20, 22, 23, 0),
 	gsSP2Triangles(24, 25, 26, 0, 24, 26, 27, 0),
 	gsSP2Triangles(28, 29, 30, 0, 28, 30, 31, 0),
+	gsSPVertex(confroom_office_mesh_layer_1_vtx_14 + 32, 4, 0),
+	gsSP2Triangles(0, 1, 2, 0, 0, 2, 3, 0),
 	gsSPEndDisplayList(),
 };
 
@@ -31906,7 +31901,8 @@ Gfx mat_confroom_black_nozbf_layer0[] = {
 	gsDPSetRenderMode(G_RM_OPA_SURF, G_RM_OPA_SURF2),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPSetPrimColor(0, 0, 0, 0, 0, 255),
-	gsSPSetLights1(confroom_black_nozbf_layer0_lights),
+    gsSPLightColor(LIGHT_1, 0xffffffff),
+    gsSPLightColor(LIGHT_2, 0x7f7f7fff),
 	gsSPEndDisplayList(),
 };
 
