@@ -60,7 +60,7 @@ const LevelScript level_slides_entry[] = {
 		OBJECT(MODEL_BAR, -1859, 268, 21, 0, 0, -90, (210 << 16) | (110 << 8) | (200), bhvMovingBar),
 		TERRAIN(slides_area_10_collision),
 		MACRO_OBJECTS(slides_area_10_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_OFFICE_BG),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -77,7 +77,7 @@ const LevelScript level_slides_entry[] = {
 		OBJECT(MODEL_NONE, 2108, -959, 0, 0, 0, 0, (0x02 << 16), bhvInstantActiveWarp),
 		TERRAIN(slides_area_11_collision),
 		MACRO_OBJECTS(slides_area_11_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_OFFICE_BG),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -98,7 +98,7 @@ const LevelScript level_slides_entry[] = {
 		OBJECT(MODEL_NONE, -1542, -1351, 0, 0, 0, 0, 0x00000000, bhvStartingPoint),
 		TERRAIN(slides_area_12_collision),
 		MACRO_OBJECTS(slides_area_12_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_OFFICE_BG),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -114,7 +114,7 @@ const LevelScript level_slides_entry[] = {
 		OBJECT(MODEL_NONE, -2092, 878, 0, 0, 0, 0, 0x00000000, bhvStartingPoint),
 		TERRAIN(slides_area_13_collision),
 		MACRO_OBJECTS(slides_area_13_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_OFFICE_BG),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -132,7 +132,7 @@ const LevelScript level_slides_entry[] = {
 		OBJECT(MODEL_STAR, -2100, 818, 0, 0, 0, 0, (0x0E << 24), bhvStar),
 		TERRAIN(slides_area_14_collision),
 		MACRO_OBJECTS(slides_area_14_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_OFFICE_BG),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -153,7 +153,7 @@ const LevelScript level_slides_entry[] = {
 		OBJECT(MODEL_STAR, 1738, -1038, 37, 0, 0, 0, (0x0F << 24), bhvStar),
 		TERRAIN(slides_area_15_collision),
 		MACRO_OBJECTS(slides_area_15_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_OFFICE_BG),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -175,7 +175,7 @@ const LevelScript level_slides_entry[] = {
 		OBJECT(MODEL_PURPLE_SWITCH, -1674, -1273, 0, 0, 0, 0, (0x01 << 24), bhvFloorSwitchHiddenObjects),
 		TERRAIN(slides_area_16_collision),
 		MACRO_OBJECTS(slides_area_16_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_OFFICE_BG),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -193,7 +193,7 @@ const LevelScript level_slides_entry[] = {
 		OBJECT(MODEL_NONE, -1985, -1205, 0, 0, 0, 0, (SPRING_RED << 24), bhvStartingPoint),
 		TERRAIN(slides_area_17_collision),
 		MACRO_OBJECTS(slides_area_17_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_OFFICE_BG),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -217,7 +217,7 @@ const LevelScript level_slides_entry[] = {
 		OBJECT(MODEL_PURPLE_SWITCH, -1989, -395, 0, 0, 0, 0, (SWITCH_COLOR_ORANGE << 24), bhvFloorSwitchHiddenObjects),
 		TERRAIN(slides_area_18_collision),
 		MACRO_OBJECTS(slides_area_18_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_OFFICE_BG),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -231,7 +231,7 @@ const LevelScript level_slides_entry[] = {
 		WARP_NODE(0x02, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		TERRAIN(slides_area_19_collision),
 		MACRO_OBJECTS(slides_area_19_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_OFFICE_BG),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -244,7 +244,7 @@ const LevelScript level_slides_entry[] = {
 		OBJECT(MODEL_STAR, -1642, -308, 74, 0, 0, 0, (0x02 << 24), bhvStar),
 		TERRAIN(slides_area_2_collision),
 		MACRO_OBJECTS(slides_area_2_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_OFFICE_BG),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -260,7 +260,7 @@ const LevelScript level_slides_entry[] = {
 		OBJECT(MODEL_STAR, 983, 362, 74, 0, 0, 0, (0x03 << 24), bhvStar),
 		TERRAIN(slides_area_3_collision),
 		MACRO_OBJECTS(slides_area_3_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_OFFICE_BG),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -275,7 +275,7 @@ const LevelScript level_slides_entry[] = {
 		OBJECT(MODEL_STAR, 561, 854, 74, 0, 0, 0, (0x04 << 24), bhvStar),
 		TERRAIN(slides_area_4_collision),
 		MACRO_OBJECTS(slides_area_4_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_OFFICE_BG),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -291,7 +291,7 @@ const LevelScript level_slides_entry[] = {
 		OBJECT(MODEL_STAR, 1753, -441, 33, 0, 0, 0, (0x05 << 24), bhvStar),
 		TERRAIN(slides_area_5_collision),
 		MACRO_OBJECTS(slides_area_5_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_OFFICE_BG),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -306,7 +306,7 @@ const LevelScript level_slides_entry[] = {
 		OBJECT(MODEL_NONE, 1753, -494, 0, 0, 0, 0, 0x00000000, bhvStartingPoint),
 		TERRAIN(slides_area_6_collision),
 		MACRO_OBJECTS(slides_area_6_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_OFFICE_BG),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -322,7 +322,7 @@ const LevelScript level_slides_entry[] = {
 		OBJECT(MODEL_STAR, 2206, 337, 33, 0, 0, 0, (0x07 << 24), bhvStar),
 		TERRAIN(slides_area_7_collision),
 		MACRO_OBJECTS(slides_area_7_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_OFFICE_BG),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -346,7 +346,7 @@ const LevelScript level_slides_entry[] = {
 		OBJECT(MODEL_STAR, -1978, 318, 33, 0, 0, 0, (0x08 << 24), bhvStar),
 		TERRAIN(slides_area_8_collision),
 		MACRO_OBJECTS(slides_area_8_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_OFFICE_BG),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
@@ -362,7 +362,7 @@ const LevelScript level_slides_entry[] = {
 		OBJECT(MODEL_STAR, 1820, 920, 33, 0, 0, 0, (0x09 << 24), bhvStar),
 		TERRAIN(slides_area_9_collision),
 		MACRO_OBJECTS(slides_area_9_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_OFFICE_BG),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
