@@ -2417,7 +2417,7 @@ Gfx *geo_choose_room(s32 callContext, struct GraphNode *node, UNUSED void *conte
         s32 param = currentGraphNode->parameter;
         struct GraphNode *next = (struct GraphNode *)&(((struct GraphNodeTranslationRotation *) node->next)->node);
         s32 canSeeBothRooms = gFPVPlayer.pos[2] < 60;
-        s32 renderOcean = gOfficeState.paused == PAUSE_STATE_END;
+        s32 renderOcean = gOfficeState.paused == PAUSE_STATE_END && gOfficeState.pauseTimer >= ENDING_OCEAN_START;
         s32 renderConfroom = !renderOcean && (gFPVPlayer.inConfroom || canSeeBothRooms);
         switch (param) {
             case OFFICE_ROOM_PARAM_CONFROOM:

@@ -39,6 +39,7 @@ OfficeState gOfficeState = {
     //.stage = OFFICE_STAGE_1,
     .presentationActive = FALSE,
     .paused = PAUSE_STATE_START,
+    .pauseTimer = 0,
     .lightsOn = TRUE,
 };
 
@@ -195,7 +196,7 @@ Gfx *geo_debug_print(s32 callContext, struct GraphNode *node, UNUSED Mat4 mtx) {
 #endif
 
 void update_confroom_objects(void) {
-    if (gOfficeState.paused) return;
+    if (gOfficeState.paused && gOfficeState.paused != PAUSE_STATE_END) return;
 
     u32 stageFlag = gOfficeState.stage == OFFICE_STAGE_INTRO
         ? OFFICE_STAGE_FLAG_INTRO
@@ -216,12 +217,12 @@ void update_confroom_objects(void) {
 
 void render_pause_hud(Gfx **head) {
     static s32 lastState = PAUSE_STATE_UNPAUSED;
-    static s32 renderTimer = 0;
+
     if (gOfficeState.paused != lastState) {
-        renderTimer = 0;
+        gOfficeState.pauseTimer = 0;
     } else {
-        renderTimer++;
-        if (renderTimer > 0x8000000) renderTimer = 0x8000000;
+        gOfficeState.pauseTimer++;
+        if (gOfficeState.pauseTimer > 0x8000000) gOfficeState.pauseTimer = 0x8000000;
     }
 
     lastState = gOfficeState.paused;
@@ -247,18 +248,37 @@ void render_pause_hud(Gfx **head) {
         }
         case PAUSE_STATE_FIRED: {
             Gfx *gfx = *head;
-            render_rect_xlu(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 127, 0, 0, MIN(renderTimer, 255), TRUE);
+            render_rect_xlu(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 127, 0, 0, MIN(gOfficeState.pauseTimer, 255), TRUE);
             *head = gfx;
-            print_set_envcolour(255, 255, 255, MIN(renderTimer, 255));
+            print_set_envcolour(255, 255, 255, MIN(gOfficeState.pauseTimer, 255));
             print_small_text(SCREEN_WIDTH / 2,  20, "You were fired.", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
             break;
         }
         case PAUSE_STATE_END: {
             Gfx *gfx = *head;
-            render_rect_xlu(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, MIN(renderTimer, 255), TRUE);
+            s32 finalAlpha = 0;
+            if (gOfficeState.pauseTimer < ENDING_OCEAN_START) {
+                s32 alpha = roundf(remap(gOfficeState.pauseTimer, 0, ENDING_OCEAN_START, 0, 255));
+                render_rect_xlu(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0xFF, 0xFF, 0xFF, alpha, TRUE);
+            } else if (gOfficeState.pauseTimer < ENDING_OCEAN_FADE_OUT_END) {
+                finalAlpha = 255;
+                s32 alpha = roundf(remap(gOfficeState.pauseTimer, ENDING_OCEAN_START, ENDING_OCEAN_FADE_OUT_END, 255, 0));
+                render_rect_xlu(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0xFF, 0xFF, 0xFF, alpha, TRUE);
+            } else if (gOfficeState.pauseTimer <= ENDING_OCEAN_END_FADE_OUT_START) {
+                finalAlpha = 255;
+            } else if (gOfficeState.pauseTimer >= ENDING_OCEAN_END) {
+                render_rect(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, TRUE);
+                *head = gfx;
+                gOfficeState.pauseTimer = ENDING_OCEAN_END;
+                return;
+            } else if (gOfficeState.pauseTimer > ENDING_OCEAN_END_FADE_OUT_START) {
+                s32 alpha = roundf(remap(MIN(gOfficeState.pauseTimer, ENDING_OCEAN_END), ENDING_OCEAN_END_FADE_OUT_START, ENDING_OCEAN_END, 0, 255));
+                render_rect_xlu(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, alpha, TRUE);
+                finalAlpha = 255 - alpha;
+            }
             *head = gfx;
-            print_set_envcolour(255, 255, 255, MIN(renderTimer, 255));
-            print_small_text(SCREEN_WIDTH / 2,  20, "The End", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
+            print_set_envcolour(255, 255, 255, finalAlpha);
+            print_small_text(SCREEN_WIDTH / 2,  SCREEN_HEIGHT - 32, "The End", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
             break;
         }
     }

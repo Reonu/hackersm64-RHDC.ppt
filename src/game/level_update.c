@@ -1207,7 +1207,7 @@ s32 update_level(void) {
     s32 gameplayActive = update_player();
     update_confroom_objects();
     if (!gameplayActive || !wasActive) {
-        if (!gOfficeState.paused) gAreaUpdateCounter++;
+        if (!gOfficeState.paused || gOfficeState.paused == PAUSE_STATE_END) gAreaUpdateCounter++;
         wasActive = gameplayActive;
         return FALSE;
     }

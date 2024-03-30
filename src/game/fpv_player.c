@@ -487,6 +487,17 @@ void update_cam_from_player(FPVPlayer *player, FPVCamState *cam) {
     }
 }
 
+void update_ending_cam(void) {
+    FPVCamState *cam = &gFPVCam;
+    if (gOfficeState.pauseTimer > ENDING_OCEAN_START) {
+        f32 *camPos = (f32 *)segmented_to_virtual(EndingCamera);
+        f32 *camTarget = (f32 *)segmented_to_virtual(EndingCameraTarget);
+        vec3f_copy(cam->pos, camPos);
+        vec3f_copy(cam->focus, camTarget);
+        cam->fov = remap(CLAMP(gOfficeState.pauseTimer, ENDING_OCEAN_START, ENDING_OCEAN_END), ENDING_OCEAN_START, ENDING_OCEAN_END, FOV_50MM, FOV_100MM);
+    }
+}
+
 #define STAGE_2_AREA_THRESHOLD 6
 #define STAGE_3_AREA_THRESHOLD 12
 
@@ -498,6 +509,7 @@ s32 update_player(void) {
         gOfficeState.paused = !gOfficeState.paused;
     }
     if (gOfficeState.paused) {
+        if (gOfficeState.paused == PAUSE_STATE_END) update_ending_cam();
         return FALSE;
     }
 
@@ -656,6 +668,8 @@ s32 update_player(void) {
 #define BAR_TOP (SCREEN_HEIGHT - (BAR_MARGIN + BAR_HEIGHT))
 
 void render_player_hud(Gfx **head) {
+    if (gOfficeState.paused == PAUSE_STATE_END) return;
+
     FPVPlayer *player = &gFPVPlayer;
     Gfx *gfx = *head;
     s32 xEnergyWidth = roundf(remap(player->energy, 0, MAX_ENERGY, 0, (SCREEN_WIDTH / 3) - BAR_MARGIN));

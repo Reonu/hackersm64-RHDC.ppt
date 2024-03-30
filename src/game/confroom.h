@@ -48,6 +48,12 @@ enum PauseStates {
     PAUSE_STATE_END
 };
 
+#define ENDING_OCEAN_START (30*3)
+#define ENDING_OCEAN_FADE_OUT_LEN (30*3)
+#define ENDING_OCEAN_FADE_OUT_END (ENDING_OCEAN_START+ENDING_OCEAN_FADE_OUT_LEN)
+#define ENDING_OCEAN_END (30*30)
+#define ENDING_OCEAN_END_FADE_OUT_START (ENDING_OCEAN_END - (30*3))
+
 enum OfficeStages {
     OFFICE_STAGE_INTRO,
     OFFICE_STAGE_1,
@@ -64,6 +70,7 @@ enum OfficeStageFlags {
 };
 
 typedef struct {
+    s32 pauseTimer;
     u8 stage; // OfficeStages
     u8 presentationActive;
     u8 paused;
