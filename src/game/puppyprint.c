@@ -1648,9 +1648,9 @@ void print_small_text(s32 x, s32 y, const char *str, s32 align, s32 amount, u8 f
             if (xlu != prevxlu) {
                 prevxlu = xlu;
                 if (xlu > 250) {
-                    gDPSetRenderMode(gDisplayListHead++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
+                    gDPSetRenderMode(gDisplayListHead++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
                 } else {
-                    gDPSetRenderMode(gDisplayListHead++, G_RM_XLU_SURF, G_RM_XLU_SURF);
+                    gDPSetRenderMode(gDisplayListHead++, G_RM_XLU_SURF, G_RM_XLU_SURF2);
                 }
             }
 
