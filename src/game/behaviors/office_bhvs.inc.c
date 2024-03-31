@@ -313,6 +313,7 @@ s32 spline_guy_player_interact(f32 *pos, f32 playerDist) {
             gFPVPlayer.sipsLeft = 0;
             gFPVPlayer.coffeeTracker = 0;
             gFPVPlayer.coffeeStolen = TRUE;
+            gFPVPlayer.chasingNPC = NULL;
             o->oAction = SPLINE_GUY_STOLE_COFFEE;
             o->oSubAction = 0;
             o->oOldAngle = o->oFaceAngleYaw;
@@ -323,6 +324,7 @@ s32 spline_guy_player_interact(f32 *pos, f32 playerDist) {
         } else {
             Vec3f speakerPos = { o->oPosX, o->oPosY + 180, o->oPosZ };
             if (start_convo(speakerPos)) {
+                gFPVPlayer.chasingNPC = NULL;
                 o->oAction = SPLINE_GUY_CONVERSATION;
                 o->oOldAngle = o->oFaceAngleYaw;
                 o->oFaceAngleYaw = atan2s(gFPVPlayer.pos[2] - pos[2], gFPVPlayer.pos[0] - pos[0]);
@@ -373,6 +375,14 @@ s32 should_chase_player(f32 *pos, f32 playerDist) {
     }
 
     return playerDist < chaseDist;
+}
+
+s32 closer_than_other_chasing_npc(f32 playerDist) {
+    if (!gFPVPlayer.chasingNPC) return TRUE;
+
+    f32 otherDist = vec3f_lat_dist(&gFPVPlayer.chasingNPC->oPosX, gFPVPlayer.pos);
+
+    return playerDist < otherDist;
 }
 
 #define SPLINE_STOPPER_ANGLE DEGREES((o->oStopperObject->oBehParams >> 16) & 0xFF)
@@ -427,13 +437,16 @@ void bhv_spline_dudeguy_loop(void) {
     switch (o->oAction) {
         case SPLINE_GUY_WALKING: {
             if (spline_guy_player_interact(pos, playerDist)) {
+                gFPVPlayer.chasingNPC = NULL;
                 break;
             } else if (
                 playerDist > SPLINE_GUY_PLAYER_START_CONVO_DIST &&
-                should_chase_player(pos, playerDist)
+                should_chase_player(pos, playerDist) &&
+                closer_than_other_chasing_npc(playerDist)
             ) {
                 o->oAction = SPLINE_GUY_CHASING_PLAYER;
                 cur_obj_play_sound_2(SOUND_OFFICE_MGS);
+                gFPVPlayer.chasingNPC = o;
                 break;
             }
             // f32 *curPoint = spline->points[pIndex];
@@ -468,10 +481,18 @@ void bhv_spline_dudeguy_loop(void) {
         case SPLINE_GUY_CHASING_PLAYER: {
             if (spline_guy_player_interact(pos, playerDist)) {
                 break;
-            } else if (playerDist > SPLINE_GUY_PLAYER_STOP_CHASE_DIST || gFPVPlayer.curSpace != &gOfficeSpaces[2]) {
+            } else if (
+                playerDist > SPLINE_GUY_PLAYER_STOP_CHASE_DIST ||
+                gFPVPlayer.curSpace != &gOfficeSpaces[2] ||
+                gFPVPlayer.chasingNPC != o
+            ) {
                 o->oAction = SPLINE_GUY_STARTING_TO_WALK;
                 f32 *nextPoint = spline->points[pIndex + 1];
                 o->oOldAngle = atan2s(nextPoint[2] - pos[2], nextPoint[0] - pos[0]);
+
+                if (gFPVPlayer.chasingNPC == o) {
+                    gFPVPlayer.chasingNPC = NULL;
+                }
                 break;
             }
 

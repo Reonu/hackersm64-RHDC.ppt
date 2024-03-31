@@ -41,6 +41,7 @@ FPVPlayer gFPVPlayer = {
     .crouching = FALSE,
     .arm = NULL,
     .coffeeCup = NULL,
+    .chasingNPC = NULL,
     .sipsLeft = 0,
     .coffeeStolen = FALSE,
     .canSit = FALSE,
@@ -362,6 +363,7 @@ static void stop_presenting(FPVPlayer *player) {
 static s32 update_presenting(FPVPlayer *player) {
     static f32 sittingSpeed = 2.0f;
     f32 *sittingPos = (f32 *)segmented_to_virtual(confroom_cameraPos);
+    player->chasingNPC = NULL;
 
 #ifdef SLIDE_DEBUG
     if (player->instaGo) {
@@ -653,6 +655,7 @@ s32 update_player(void) {
      } else {
         player->inConfroom = 1;
         player->confroomFirstTime = 1;
+        player->chasingNPC = NULL;
      }
 
     // Get fired IDIOT
