@@ -65,6 +65,8 @@ Color gWarpTransBlue = 0;
 s16 gCurrSaveFileNum = 1;
 s16 gCurrLevelNum = LEVEL_MIN;
 
+s8 gOneRender = FALSE;
+
 /*
  * The following two tables are used in get_mario_spawn_type() to determine spawn type
  * from warp behavior.
@@ -409,7 +411,9 @@ void play_transition_after_delay(s16 transType, s16 time, u8 red, u8 green, u8 b
 void render_game(void) {
     PROFILER_GET_SNAPSHOT_TYPE(PROFILER_DELTA_COLLISION);
     if (gCurrentArea != NULL && !gWarpTransition.pauseRendering) {
-        if (gCurrentArea->graphNode && gFPVPlayer.actionState == PLAYER_PRESENTING) {
+        if (gCurrentArea->graphNode && (gFPVPlayer.actionState == PLAYER_PRESENTING || gOneRender)) {
+            if (gOneRender) gOneRender = FALSE;
+
             g2DCamActive = TRUE;
             gDPSetColorImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, VIRTUAL_TO_PHYSICAL(gAuxBuffers[0]));
             geo_process_root(gCurrentArea->graphNode, gViewportOverride, gViewportClip, gFBSetColor);

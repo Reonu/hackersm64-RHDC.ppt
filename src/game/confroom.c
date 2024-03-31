@@ -227,12 +227,15 @@ void render_pause_hud(Gfx **head) {
         if (gOfficeState.pauseTimer > 0x8000000) gOfficeState.pauseTimer = 0x8000000;
     }
 
+    if (lastState == PAUSE_STATE_START && !gOfficeState.paused) {
+        func_80321080(0);
+    }
     lastState = gOfficeState.paused;
 
     if (!gOfficeState.paused) {
-        func_80321080(300);
         return;
     }
+
     switch (gOfficeState.paused) {
         case PAUSE_STATE_PAUSED: {
             Gfx *gfx = *head;

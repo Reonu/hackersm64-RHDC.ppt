@@ -10,7 +10,9 @@
 #include "actors/group0.h"
 #include "cozy_print.h"
 #include "segment2.h"
+#include "seq_ids.h"
 #include "game/fpv_player.h"
+#include "audio/external.h"
 
 Conversation gCurConvo = {
     .speakerPos = {0, 0, 0},
@@ -68,6 +70,7 @@ s32 start_convo(f32 *speakerPos) {
     if (req) {
         reset_convo(convo, get_num_req_qtes());
         vec3f_copy(convo->speakerPos, speakerPos);
+        play_secondary_music(SEQ_DSI, 0x70, 0x40, 0);
         return TRUE;
     }
     return FALSE;
@@ -89,6 +92,7 @@ void update_convo(void) {
         if (convo->coolDownTimer < 0) convo->coolDownTimer = 0; 
         return;
     }
+    play_secondary_music(SEQ_DSI, 0x70, 0x40, 0);
 
     convo->timer++;
     switch (convo->state) {
@@ -108,6 +112,7 @@ void update_convo(void) {
                     if (convo->points >= convo->pointsReq) {
                         full_reset_convo_state();
                         convo->coolDownTimer = CONVO_QTE_COOLDOWN;
+                        func_80321080(1);
                         break;
                     }
                     convo->state = CONVO_TALKING;

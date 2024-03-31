@@ -177,26 +177,26 @@ u16 level_control_timer(s32 timerOp) {
 }
 
 u32 pressed_pause(void) {
-    u32 dialogActive = get_dialog_id() >= 0;
-    u32 intangible = (gMarioState->action & ACT_FLAG_INTANGIBLE) != 0;
     //Slide hack: prevent vanilla pausing
     return FALSE;
-#ifdef PUPPYPRINT_DEBUG
-#ifdef BETTER_REVERB
-    if (sPPDebugPage == PUPPYPRINT_PAGE_RAM || sPPDebugPage == PUPPYPRINT_PAGE_LEVEL_SELECT || sPPDebugPage == PUPPYPRINT_PAGE_BETTER_REVERB) {
-#else
-    if (sPPDebugPage == PUPPYPRINT_PAGE_RAM || sPPDebugPage == PUPPYPRINT_PAGE_LEVEL_SELECT) {
-#endif
-        return FALSE;
-    }
-#endif
+//     u32 dialogActive = get_dialog_id() >= 0;
+//     u32 intangible = (gMarioState->action & ACT_FLAG_INTANGIBLE) != 0;
+// #ifdef PUPPYPRINT_DEBUG
+// #ifdef BETTER_REVERB
+//     if (sPPDebugPage == PUPPYPRINT_PAGE_RAM || sPPDebugPage == PUPPYPRINT_PAGE_LEVEL_SELECT || sPPDebugPage == PUPPYPRINT_PAGE_BETTER_REVERB) {
+// #else
+//     if (sPPDebugPage == PUPPYPRINT_PAGE_RAM || sPPDebugPage == PUPPYPRINT_PAGE_LEVEL_SELECT) {
+// #endif
+//         return FALSE;
+//     }
+// #endif
 
-    if (!intangible && !dialogActive && !gWarpTransition.isActive && sDelayedWarpOp == WARP_OP_NONE
-        && (gPlayer1Controller->buttonPressed & START_BUTTON)) {
-        return TRUE;
-    }
+//     if (!intangible && !dialogActive && !gWarpTransition.isActive && sDelayedWarpOp == WARP_OP_NONE
+//         && (gPlayer1Controller->buttonPressed & START_BUTTON)) {
+//         return TRUE;
+//     }
 
-    return FALSE;
+//     return FALSE;
 }
 
 void set_play_mode(s16 playMode) {
@@ -1188,6 +1188,7 @@ void change_slide(s8 change) {
 
 s32 update_level(void) {
     static s32 wasActive = FALSE;
+    static s32 oneUpdate = TRUE;
     s32 changeLevel = FALSE;
 
     if (gBeatSlide) {
@@ -1204,7 +1205,12 @@ s32 update_level(void) {
     }
 #endif
 
-    s32 gameplayActive = update_player();
+    s32 gameplayActive = update_player() || oneUpdate;
+    if (oneUpdate) {
+        oneUpdate = FALSE;
+        gOneRender = TRUE;
+    }
+
     update_confroom_objects();
     if (!gameplayActive || !wasActive) {
         if (!gOfficeState.paused || gOfficeState.paused == PAUSE_STATE_END) {
@@ -1315,11 +1321,8 @@ s32 init_level(void) {
             }
         }
 #endif
-        if (fadeFromColor) {
-            play_transition(WARP_TRANSITION_FADE_FROM_COLOR, 0x5A, 0xFF, 0xFF, 0xFF);
-        } else {
-            play_transition(WARP_TRANSITION_FADE_FROM_STAR, 0x10, 0xFF, 0xFF, 0xFF);
-        }
+
+        play_transition(WARP_TRANSITION_FADE_FROM_COLOR, 0x5A, 0xFF, 0xFF, 0xFF);
 
         if (gCurrDemoInput == NULL) {
 #ifdef BETTER_REVERB
@@ -1338,7 +1341,7 @@ s32 init_level(void) {
         sound_banks_disable(SEQ_PLAYER_SFX, SOUND_BANKS_DISABLED_DURING_INTRO_CUTSCENE);
     }
 
-    append_puppyprint_log("Level loaded in %d" PP_CYCLE_STRING ".", (s32)(PP_CYCLE_CONV(osGetTime() - first)));
+    append_puppyprint_log("Level loaded in %d" PP_CYCLE_STRING ".\n", (s32)(PP_CYCLE_CONV(osGetTime() - first)));
     return TRUE;
 }
 
