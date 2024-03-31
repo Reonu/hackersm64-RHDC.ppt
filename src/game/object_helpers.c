@@ -28,6 +28,7 @@
 #include "spawn_sound.h"
 #include "confroom.h"
 #include "fpv_player.h"
+#include "actors/group0.h"
 
 static s32 clear_move_flag(u32 *bitSet, s32 flag);
 
@@ -2449,6 +2450,12 @@ Gfx *geo_choose_room(s32 callContext, struct GraphNode *node, UNUSED void *conte
             case OFFICE_ROOM_PARAM_OCEAN:
                 if (renderOcean) {
                     next->flags |= GRAPH_RENDER_ACTIVE;
+                    f32 *fromDir = (f32 *)segmented_to_virtual(directionalLightOrigin);
+                    f32 *toDir = (f32 *)segmented_to_virtual(directionalLightDestination);
+                    Vec3f dir;
+                    vec3_diff(dir, fromDir, toDir);
+                    set_ambient_light(0x4A, 0x59, 0x5f); // 4A595F
+                    set_directional_light(dir, 0xFF, 0xE2, 0x2C); // FFE22C
                 } else {
                     next->flags &= ~GRAPH_RENDER_ACTIVE;
                 }
