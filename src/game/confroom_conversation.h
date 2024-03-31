@@ -28,6 +28,7 @@ enum QTEButtonPrompt {
 
 typedef struct {
     Vec3f speakerPos;
+    s32 coolDownTimer;
     s32 timer;
     s32 qteTriggerTime;
     u8 points;
@@ -39,8 +40,9 @@ typedef struct {
 
 #define seconds(s) ((s32)(s * 30))
 
-#define CONVO_TALK_LENGTH seconds(7)
-#define CONVO_QTE_LENGTH  seconds(1.2f)
+#define CONVO_TALK_LENGTH  seconds(7)
+#define CONVO_QTE_LENGTH   seconds(1.2f)
+#define CONVO_QTE_COOLDOWN seconds(4.7f)
 
 #define CONVO_QTE_X_MIN  (16)
 #define CONVO_QTE_X_GOAL (90)

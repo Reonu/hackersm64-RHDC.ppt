@@ -15,6 +15,7 @@
 Conversation gCurConvo = {
     .speakerPos = {0, 0, 0},
     .timer = 0,
+    .coolDownTimer = 0,
     .qteTriggerTime = 0,
     .points = 0,
     .pointsReq = 0,
@@ -82,7 +83,13 @@ static s32 get_prompt_pos_from_time(s32 t) {
 
 void update_convo(void) {
     Conversation *convo = &gCurConvo;
-    if (convo->state == CONVO_INACTIVE) return;
+
+    if (convo->state == CONVO_INACTIVE) {
+        convo->coolDownTimer--;
+        if (convo->coolDownTimer < 0) convo->coolDownTimer = 0; 
+        return;
+    }
+
     convo->timer++;
     switch (convo->state) {
         case CONVO_TALKING:
@@ -100,6 +107,7 @@ void update_convo(void) {
                     convo->points++;
                     if (convo->points >= convo->pointsReq) {
                         full_reset_convo_state();
+                        convo->coolDownTimer = CONVO_QTE_COOLDOWN;
                         break;
                     }
                     convo->state = CONVO_TALKING;
@@ -126,10 +134,25 @@ void update_convo(void) {
     }
 }
 
+void print_convo_req(Conversation *convo) {
+    static char textBuf[32]; 
+    sprintf(textBuf, "%d / %d", convo->points, convo->pointsReq);
+    if (convo->qteStatus == QTE_FAIL) {
+        print_set_envcolour(255, 20, 20, 255);
+    } else {
+        print_set_envcolour(255, 255, 255, 255);
+    }
+    print_small_text_buffered(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 32, textBuf, PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
+}
+
 void render_convo(Gfx **head) {
     Conversation *convo = &gCurConvo;
     if (convo->state == CONVO_INACTIVE) return;
-    if (convo->state == CONVO_TALKING) return;
+    if (convo->state == CONVO_TALKING) {
+        print_convo_req(convo);
+        return;
+    }
+
     Gfx *gfx = *head;
 
     Texture *tex = prompt_to_texture[convo->prompt];
@@ -153,4 +176,5 @@ void render_convo(Gfx **head) {
     }
 
     *head = gfx;
+    print_convo_req(convo);
 }

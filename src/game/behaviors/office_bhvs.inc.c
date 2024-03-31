@@ -303,7 +303,7 @@ void bhv_spline_dudeguy_init(void) {
 
 // returns TRUE if it should break
 s32 spline_guy_player_interact(f32 *pos, f32 playerDist) {
-    if (playerDist < SPLINE_GUY_PLAYER_START_CONVO_DIST) {
+    if (gCurConvo.coolDownTimer == 0 && playerDist < SPLINE_GUY_PLAYER_START_CONVO_DIST) {
 #ifdef SLIDE_DEBUG
         if (gFPVPlayer.sipsLeft && !gFPVPlayer.godMode) { 
 #else
@@ -440,6 +440,7 @@ void bhv_spline_dudeguy_loop(void) {
                 gFPVPlayer.chasingNPC = NULL;
                 break;
             } else if (
+                gCurConvo.coolDownTimer == 0 &&
                 playerDist > SPLINE_GUY_PLAYER_START_CONVO_DIST &&
                 should_chase_player(pos, playerDist) &&
                 closer_than_other_chasing_npc(playerDist)
@@ -482,6 +483,7 @@ void bhv_spline_dudeguy_loop(void) {
             if (spline_guy_player_interact(pos, playerDist)) {
                 break;
             } else if (
+                gCurConvo.coolDownTimer != 0 ||
                 playerDist > SPLINE_GUY_PLAYER_STOP_CHASE_DIST ||
                 gFPVPlayer.curSpace != &gOfficeSpaces[2] ||
                 gFPVPlayer.chasingNPC != o
