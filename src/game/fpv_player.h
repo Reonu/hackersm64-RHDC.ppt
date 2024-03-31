@@ -48,6 +48,7 @@ typedef struct {
     u8 inConfroom: 1;
     u8 confroomFirstTime: 1;
     u8 coffeeTracker: 2;
+    u16 lastSlideTimer;
 #ifdef SLIDE_DEBUG
     u8 godMode: 1;
     u8 instaGo: 1;

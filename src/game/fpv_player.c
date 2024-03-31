@@ -54,6 +54,7 @@ static const FPVPlayer sInitFPVPlayerState = {
     .inConfroom = 0,
     .confroomFirstTime = 0,
     .coffeeTracker = 0,
+    .lastSlideTimer = 0,
 #ifdef SLIDE_DEBUG
     .godMode = FALSE,
     .instaGo = FALSE,
@@ -92,6 +93,7 @@ FPVPlayer gFPVPlayer = {
     .inConfroom = 0,
     .confroomFirstTime = 0,
     .coffeeTracker = 0,
+    .lastSlideTimer = 0,
 #ifdef SLIDE_DEBUG
     .godMode = FALSE,
     .instaGo = FALSE,
@@ -414,7 +416,7 @@ static s32 update_presenting(FPVPlayer *player) {
 
     check_and_drink_coffee(player);
 
-    if (player->cont->buttonPressed & PLAYER_BTN_STOP_PRESENTATION) {
+    if ((player->cont->buttonPressed & PLAYER_BTN_STOP_PRESENTATION) && (gCurrAreaIndex != 19)) {
         player->pos[0] = sittingPos[0];
         player->pos[1] = sittingPos[1];
         player->pos[2] = sittingPos[2];
@@ -731,7 +733,11 @@ s32 update_player(void) {
 
     // Get woken up IDIOT
     if (gCurrAreaIndex == 19) {
-        gOfficeState.paused = PAUSE_STATE_END;
+        player->lastSlideTimer++;
+        player->energy = MAX_ENERGY;
+        if (player->lastSlideTimer >= 300 ) {
+            gOfficeState.paused = PAUSE_STATE_END;
+        }
     }
 
 #ifdef SLIDE_DEBUG
@@ -765,6 +771,8 @@ s32 update_player(void) {
 
 void render_player_hud(Gfx **head) {
     if (gOfficeState.paused == PAUSE_STATE_END) return;
+
+    if (gCurrAreaIndex == 19) return;
 
     FPVPlayer *player = &gFPVPlayer;
     Gfx *gfx = *head;
