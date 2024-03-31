@@ -131,8 +131,15 @@ void update_convo(void) {
                         convo->coolDownTimer = CONVO_QTE_COOLDOWN;
                         func_80321080(1);
                         break;
+                    } else {
+                        convo->state = CONVO_QTE;
+                        convo->timer = 0;
+                        convo->qteTriggerTime = 0;
+                        convo->qteStatus = QTE_PENDING;
+                        convo->prompt = random_u16() % QTE_PROMPT_NUM;
+                        // before when it was restarting the convo
+                        // convo->state = CONVO_TALKING;
                     }
-                    convo->state = CONVO_TALKING;
                 } else {
                     reset_convo(convo, convo->pointsReq);
                 }
