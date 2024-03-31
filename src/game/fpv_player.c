@@ -431,6 +431,7 @@ void init_player(void) {
 
 void update_cam_from_player(FPVPlayer *player, FPVCamState *cam) {
     static f32 presentationFac = 0;
+    static f32 armDrinkingFac = 0;
 
     vec3f_copy_y_off(cam->pos, player->pos, player->headPos);
     vec3s_copy(cam->dir, player->dir);
@@ -472,6 +473,13 @@ void update_cam_from_player(FPVPlayer *player, FPVCamState *cam) {
         } else {
             presentationFac = approach_f32_symmetric(presentationFac, 0, 0.075f);
         }
+
+        if (player->arm->oAction == ARM_DRINKING) {
+            armDrinkingFac = approach_f32_symmetric(armDrinkingFac, 1, 0.15f);
+        } else {
+            armDrinkingFac = approach_f32_symmetric(armDrinkingFac, 0, 0.1f);
+        }
+
         f32 *armPos = &player->arm->oPosX;
         Vec3f armOffset = { 0, 0, 0 };
         vec3_set_dist_and_angle(gVec3fZero, armOffset, 22, 0, cam->dir[1] + DEGREES(-90));
@@ -482,8 +490,16 @@ void update_cam_from_player(FPVPlayer *player, FPVCamState *cam) {
         armPos[1] += armYOffset;
         armPos[2] -= armYOffset;
 
-        player->arm->oFaceAnglePitch = approach_angle_asymp(-cam->dir[0], 0, presentationFac);
-        player->arm->oFaceAngleYaw = approach_angle_asymp(cam->dir[1], 0, presentationFac);
+        player->arm->oFaceAnglePitch = approach_angle_asymp(
+            -cam->dir[0],
+            approach_angle_asymp(DEGREES(4.5f), 0, smoothstep(0, 1, armDrinkingFac)),
+            presentationFac
+        );
+        player->arm->oFaceAngleYaw = approach_angle_asymp(
+            cam->dir[1],
+            approach_angle_asymp(DEGREES(-4), 0, smoothstep(0, 1, armDrinkingFac)),
+            presentationFac
+        );
         player->arm->oFaceAngleRoll = cam->dir[2];
     }
 }
