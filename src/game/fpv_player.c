@@ -457,7 +457,7 @@ void update_cam_from_player(FPVPlayer *player, FPVCamState *cam) {
         f32 goalFov = FOV_24MM;
         s32 isZooming = (player->cont->buttonDown & PLAYER_BTN_ZOOM);
         if (player->actionState ==  PLAYER_CONVO_QTE) {
-            goalFov = isZooming ? FOV_75MM : FOV_35MM;
+            goalFov = isZooming ? FOV_75MM : FOV_24MM;
         } else if (isZooming && player->actionState ==  PLAYER_FREE) {
             goalFov = FOV_50MM;
         }
@@ -668,7 +668,7 @@ s32 update_player(void) {
 #ifdef SLIDE_DEBUG
     if (gPlayer1Controller->buttonPressed & D_JPAD) {
         player->godMode ^= 1;
-        gOfficeState.paused = PAUSE_STATE_END;
+        // gOfficeState.paused = PAUSE_STATE_END;
     }
     if (player->godMode) {
         player->energy = MAX_ENERGY;
