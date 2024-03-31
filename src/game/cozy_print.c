@@ -215,3 +215,63 @@ void render_rect_cld(Gfx **head, s32 x, s32 y, s32 width, s32 height, s32 r, s32
     gDPPipeSync(gfx++);
     *head = gfx;
 }
+
+void render_tiled_texrect_rgba16(Gfx **head, const Texture *image, s32 width, s32 height, s32 x, s32 y) {
+    Gfx *gfx = *head;
+    gDPSetCycleType(gfx++, G_CYC_1CYCLE);
+    gDPSetCombineLERP(gfx++,
+        0, 0, 0, TEXEL0,
+        0, 0, 0, TEXEL0,
+        0, 0, 0, TEXEL0,
+        0, 0, 0, TEXEL0
+    );
+    gDPSetTexturePersp(gfx++, G_TP_NONE);
+    gDPSetRenderMode(gfx++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
+    gDPSetTextureFilter(gfx++, G_TF_POINT);
+
+    const s32 maxTMEM = 32 * 64; // texels
+    const s32 tileHeight = maxTMEM / width;
+    const s32 numRows = (height / tileHeight);
+
+    for (s32 i = 0; i < numRows; i++) {
+        s32 yPos = (i * tileHeight);
+
+        gDPLoadSync(gfx++);
+
+        gDPLoadTextureTile(gfx++, // pkt
+            image, // timg
+            G_IM_FMT_RGBA, // fmt
+            G_IM_SIZ_16b, // siz
+            width, // width
+            height, // height
+            0, // uls
+            yPos, // ult
+            width - 1, // lrs
+            yPos + tileHeight - 1, // lrt
+            0, // pal
+            (G_TX_NOMIRROR | G_TX_CLAMP), // cms
+            (G_TX_NOMIRROR | G_TX_CLAMP), // cmt
+            0, // masks
+            0, // maskt
+            0, // shifts
+            0 // shiftt
+        );
+
+        s32 t = yPos;
+        yPos += y;
+
+        gSPScisTextureRectangle(gfx++,
+            qs102(x),
+            qs102(yPos),
+            qs102(x + width),
+            qs102((yPos + tileHeight)),
+            G_TX_RENDERTILE,
+            qs105(0),
+            qs105(t),
+            qs510(1),
+            qs510(1)
+        );
+    }
+
+    *head = gfx;
+}

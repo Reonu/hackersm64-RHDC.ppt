@@ -4,6 +4,7 @@
 #include <PR/ultratypes.h>
 #include <PR/gbi.h>
 
+extern const Texture pause_controls[];
 extern Texture convo_qte_a[];
 extern Texture convo_qte_b[];
 extern Texture convo_qte_z[];

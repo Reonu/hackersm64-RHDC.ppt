@@ -18,6 +18,7 @@
 #include "level_update.h"
 #include "game_init.h"
 #include "seq_ids.h"
+#include "mario.h"
 #include "audio/external.h"
 
 #include "confroom.h"
@@ -308,10 +309,18 @@ void render_pause_hud(Gfx **head) {
     switch (gOfficeState.paused) {
         case PAUSE_STATE_PAUSED: {
             Gfx *gfx = *head;
-            render_rect_cld(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, 100, TRUE);
+            render_rect_cld(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, 180, TRUE);
+            render_tiled_texrect_rgba16(&gfx, pause_controls, 256, 128, (SCREEN_WIDTH - 256) / 2, (SCREEN_HEIGHT - 128) / 2);
             *head = gfx;
             print_set_envcolour(255, 255, 255, 255);
             print_small_text(SCREEN_WIDTH / 2,  20, "PAUSE", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
+            if (gFPVPlayer.actionState == PLAYER_PRESENTING) {
+                print_small_text(SCREEN_WIDTH / 2,  SCREEN_HEIGHT - 40, "Press L to respawn Mario.", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
+                if (gPlayer1Controller->buttonPressed & L_TRIG) {
+                    move_mario_to_respawn(gMarioState, DEATH_TYPE_MANUAL_RESPAWN);
+                    gOfficeState.paused = PAUSE_STATE_UNPAUSED;
+                }
+            }
             break;
         }
         case PAUSE_STATE_START: {

@@ -9,6 +9,10 @@
 
 #include "make_const_nonconst.h"
 
+ALIGNED8 const Texture pause_controls[] = {
+#include "textures/segment2/controls.rgba16.inc.c"
+};
+
 ALIGNED8 const Texture convo_qte_a[] = {
 #include "textures/segment2/convo_qte_a.rgba16.inc.c"
 };

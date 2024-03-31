@@ -12,3 +12,4 @@ void render_rgba16_tex_rect_all(
 void render_rect(Gfx **head, s32 x, s32 y, s32 width, s32 height, s32 r, s32 g, s32 b, s32 init);
 void render_rect_xlu(Gfx **head, s32 x, s32 y, s32 width, s32 height, s32 r, s32 g, s32 b, s32 a, s32 init);
 void render_rect_cld(Gfx **head, s32 x, s32 y, s32 width, s32 height, s32 r, s32 g, s32 b, s32 a, s32 init);
+void render_tiled_texrect_rgba16(Gfx **head, const Texture *image, s32 width, s32 height, s32 x, s32 y);
