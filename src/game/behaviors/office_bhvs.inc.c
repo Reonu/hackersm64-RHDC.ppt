@@ -984,6 +984,7 @@ enum EndingDudeGuyActions {
 void bhv_ending_dudeguy_init(void) {
     o->oAction = ENDING_DUDEGUY_IDLE,
     o->oAnimationIndex = NPC_ANIM_ENDING_CUTSCENE;
+    cur_obj_init_animation(o->oAnimationIndex);
 }
 
 void bhv_ending_dudeguy_loop(void) {
@@ -998,10 +999,15 @@ void bhv_ending_dudeguy_loop(void) {
     switch (o->oAction) {
         case ENDING_DUDEGUY_IDLE:
             cur_obj_hide();
+            o->header.gfx.animInfo.animFrame = 0;
             break;
         case ENDING_DUDEGUY_PLAY_ANIM:
             cur_obj_unhide();
             cur_obj_init_animation(o->oAnimationIndex);
+            if (cur_obj_check_anim_frame(79) && o->oSubAction < 2) {
+                o->header.gfx.animInfo.animFrame = 0;
+                o->oSubAction++;
+            }
 
             if (cur_obj_check_if_at_animation_end()) {
                 o->header.gfx.animInfo.animFrame = ENDING_OCEAN_TEXT_THE_END;
