@@ -661,7 +661,7 @@ s32 update_player(void) {
     }
 
     // Get woken up IDIOT
-    if (gCurrAreaIndex = 19) {
+    if (gCurrAreaIndex == 19) {
         gOfficeState.paused = PAUSE_STATE_END;
     }
 
