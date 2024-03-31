@@ -160,6 +160,11 @@ void bhv_cheesing_loop(void) {
 }
 
 void bhv_starting_point_init(void) {
+
+    if (!cur_obj_has_model(MODEL_NONE)) {
+        (cur_obj_set_model(MODEL_NONE));
+    }
+
     gMarioState->pos[0] = o->oPosX;
     gMarioState->pos[1] = o->oPosY;
     gMarioState->pos[2] = o->oPosZ;

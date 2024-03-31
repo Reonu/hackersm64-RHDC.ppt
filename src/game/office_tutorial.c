@@ -47,10 +47,10 @@ struct TutorialMessage sTutorialMessages[] = {
     },
     { // 03
         .title = "",
-        .body = "Press B to watch the presentation.\n"
-                "Press L to stop watching. Watch your\n"
-                "energy! If you fall asleep, you'll get\n"
-                "fired. You can refill it by getting coffee.",
+        .body = "Press B to watch the presentation, and\n"
+                "R to sip from the coffee to regain energy.\n"
+                "If you fall asleep, you'll get fired! You can\n"
+                "always get up to get more coffee with L",
 
     },
     { // 04
