@@ -309,7 +309,7 @@ extern Gfx slides_dl_0slide10bg_006_mesh_layer_0_tri_3[];
 extern Vtx slides_dl_0slide10bg_006_mesh_layer_0_vtx_4[4];
 extern Gfx slides_dl_0slide10bg_006_mesh_layer_0_tri_4[];
 extern Vtx slides_dl_colors_mesh_layer_0_vtx_cull[8];
-extern Vtx slides_dl_colors_mesh_layer_0_vtx_0[8];
+extern Vtx slides_dl_colors_mesh_layer_0_vtx_0[4];
 extern Gfx slides_dl_colors_mesh_layer_0_tri_0[];
 extern Vtx slides_dl_colors_mesh_layer_0_vtx_1[4];
 extern Gfx slides_dl_colors_mesh_layer_0_tri_1[];
