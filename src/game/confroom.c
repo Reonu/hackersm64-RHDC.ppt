@@ -233,7 +233,7 @@ void render_pause_hud(Gfx **head) {
     switch (gOfficeState.paused) {
         case PAUSE_STATE_PAUSED: {
             Gfx *gfx = *head;
-            render_rect_xlu(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, 100, TRUE);
+            render_rect_cld(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, 100, TRUE);
             *head = gfx;
             print_set_envcolour(255, 255, 255, 255);
             print_small_text(SCREEN_WIDTH / 2,  20, "PAUSE", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
@@ -250,7 +250,7 @@ void render_pause_hud(Gfx **head) {
         }
         case PAUSE_STATE_FIRED: {
             Gfx *gfx = *head;
-            render_rect_xlu(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 127, 0, 0, MIN(gOfficeState.pauseTimer, 255), TRUE);
+            render_rect_cld(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 127, 0, 0, MIN(gOfficeState.pauseTimer, 255), TRUE);
             *head = gfx;
             print_set_envcolour(255, 255, 255, MIN(gOfficeState.pauseTimer, 255));
             print_small_text(SCREEN_WIDTH / 2,  20, "You were fired.", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
@@ -264,10 +264,10 @@ void render_pause_hud(Gfx **head) {
             Gfx *gfx = *head;
             if (gOfficeState.pauseTimer < ENDING_OCEAN_START) {
                 s32 alpha = roundf(remap(gOfficeState.pauseTimer, 0, ENDING_OCEAN_START, 0, 255));
-                render_rect_xlu(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0xFF, 0xFF, 0xFF, alpha, TRUE);
+                render_rect_cld(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0xFF, 0xFF, 0xFF, alpha, TRUE);
             } else if (gOfficeState.pauseTimer < ENDING_OCEAN_FADE_OUT_END) {
                 s32 alpha = roundf(remap(gOfficeState.pauseTimer, ENDING_OCEAN_START, ENDING_OCEAN_FADE_OUT_END, 255, 0));
-                render_rect_xlu(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0xFF, 0xFF, 0xFF, alpha, TRUE);
+                render_rect_cld(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0xFF, 0xFF, 0xFF, alpha, TRUE);
             }
             *head = gfx;
 
