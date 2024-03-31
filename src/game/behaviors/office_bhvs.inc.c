@@ -516,7 +516,11 @@ void bhv_spline_dudeguy_loop(void) {
                     ? (curFrame == 1 || curFrame == 9)
                     : (curFrame == 2 || curFrame == 13)
             ) {
-                cur_obj_play_sound_2(SOUND_ACTION_TERRAIN_STEP + (isRunning ? SOUND_TERRAIN_STONE : SOUND_TERRAIN_GRASS));
+                cur_obj_play_sound_2(
+                    (SOUND_ACTION_TERRAIN_STEP & ~SOUND_DISCRETE) + (
+                        isRunning ? SOUND_TERRAIN_STONE : SOUND_TERRAIN_GRASS
+                    )
+                );
             }
 
             break;
