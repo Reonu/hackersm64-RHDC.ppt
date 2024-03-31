@@ -229,7 +229,10 @@ void render_pause_hud(Gfx **head) {
 
     lastState = gOfficeState.paused;
 
-    if (!gOfficeState.paused) return;
+    if (!gOfficeState.paused) {
+        func_80321080(300);
+        return;
+    }
     switch (gOfficeState.paused) {
         case PAUSE_STATE_PAUSED: {
             Gfx *gfx = *head;
@@ -243,9 +246,14 @@ void render_pause_hud(Gfx **head) {
             Gfx *gfx = *head;
             render_rect(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 20, 20, 20, TRUE);
             *head = gfx;
+            play_secondary_music(SEQ_SEA, 0, 255,0);
             print_set_envcolour(255, 255, 255, 255);
-            print_small_text(SCREEN_WIDTH / 2,  20, "Make sure your game volume is high enough.", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
-            print_small_text(SCREEN_WIDTH / 2,  40, "Press start to wake up...", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
+            print_small_text(SCREEN_WIDTH / 2,  20, "You're on a boat.", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
+            print_small_text(SCREEN_WIDTH / 2,  40, "You're no longer a product manager.", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
+            print_small_text(SCREEN_WIDTH / 2,  60, "You're finally living your dream as a fisherman.", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
+            print_small_text(SCREEN_WIDTH / 2,  80, "But..", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
+            print_small_text(SCREEN_WIDTH / 2,  180, "Check that your game volume is high enough, and", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
+            print_small_text(SCREEN_WIDTH / 2,  200, "press START to begin...", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
             break;
         }
         case PAUSE_STATE_FIRED: {
