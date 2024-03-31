@@ -426,7 +426,9 @@ void bhv_spline_dudeguy_loop(void) {
             break;
     }
 
-    if (gOfficeState.stage == OFFICE_STAGE_3) {
+    s32 isRunning = gOfficeState.stage == OFFICE_STAGE_3;
+
+    if (isRunning) {
         patrolSpeed = SPLINE_GUY_RUN_SPEED;
         turningSpeed = SPLINE_GUY_TURNING_SPEED_RUNNING;
     } else {
@@ -507,6 +509,15 @@ void bhv_spline_dudeguy_loop(void) {
             s16 goalAngle;
             vec3f_get_yaw(pos, gFPVPlayer.pos, &goalAngle);
             spline_guy_update_position(goalAngle, patrolSpeed, turningSpeed, TRUE);
+
+            s16 curFrame = o->header.gfx.animInfo.animFrame;
+            if (
+                isRunning
+                    ? (curFrame == 1 || curFrame == 9)
+                    : (curFrame == 2 || curFrame == 13)
+            ) {
+                cur_obj_play_sound_2(SOUND_ACTION_TERRAIN_STEP + (isRunning ? SOUND_TERRAIN_STONE : SOUND_TERRAIN_GRASS));
+            }
 
             break;
         }
