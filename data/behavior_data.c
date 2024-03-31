@@ -6446,3 +6446,14 @@ const BehaviorScript bhvEndingDudeGuy[] = {
     CALL_NATIVE(bhv_ending_dudeguy_loop),
     END_LOOP(),   
 };
+
+const BehaviorScript bhvExclamationMark[] = {
+    BEGIN(OBJ_LIST_GENACTOR),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_INT(oDrawingDistance, 20000),
+    BILLBOARD(),
+    CALL_NATIVE(bhv_exclamation_mark_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_exclamation_mark_loop),
+    END_LOOP(),
+};

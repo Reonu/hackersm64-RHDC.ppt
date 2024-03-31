@@ -512,6 +512,18 @@ ConfroomObjectSpawn spawn_bButtonLightSwitchConfroom = {
     0,
 };
 
+ConfroomObjectSpawn spawn_exclamationMark = {
+    {  1233.0183029175f,     0.0001062579f,   309.7402572632f },
+    { 0x0000, 0x0000, 0x0000 },
+    MODEL_EXCLAMATION_MARK,
+    (uintptr_t)bhvExclamationMark,
+    0,
+    0,
+    0,
+    0,
+    0,
+};
+
 ConfroomObjectSpawn spawn_endingDudeGuy = {
     { -2803.7384033203f,    20.6529945135f,  -244.3169355392f },
     { 0x0000, 0x0000, 0x0000 },

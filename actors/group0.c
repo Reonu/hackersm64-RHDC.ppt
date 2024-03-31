@@ -82,3 +82,4 @@
 #include "light_switch_up/model.inc.c"
 #include "light_switch_down/model.inc.c"
 #include "ending_dudeguy/model.inc.c"
+#include "exclamation_mark/model.inc.c"

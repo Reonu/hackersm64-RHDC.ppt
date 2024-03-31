@@ -1038,3 +1038,57 @@ void bhv_ending_dudeguy_loop(void) {
             break;
     }
 }
+
+enum ExclamationMarkActions {
+    EXCLAMATION_MARK_BEGONE,
+    EXCLAMATION_MARK_APPEAR,
+    EXCLAMATION_MARK_DISAPPEAR,
+};
+
+void bhv_exclamation_mark_init(void) {
+    cur_obj_hide();
+    o->oAction = EXCLAMATION_MARK_BEGONE;
+}
+
+void bhv_exclamation_mark_loop(void) {
+    struct Object *chasingDude = gFPVPlayer.chasingNPC;
+
+    switch (o->oAction) {
+        case EXCLAMATION_MARK_BEGONE:
+            cur_obj_hide();
+            if (chasingDude != NULL) {
+                o->oAction = EXCLAMATION_MARK_APPEAR;
+            }
+            Y_SCALE = 0.10f;
+            X_SCALE = 3.f;
+            break;
+        case EXCLAMATION_MARK_APPEAR:
+            cur_obj_unhide();
+            Y_SCALE = approach_f32(Y_SCALE, 1.f, 0.2, 0.2);
+            X_SCALE = approach_f32(X_SCALE, 1.f, 0.6f, 0.6f);
+            if (o->oTimer > 60) {
+                o->oAction = EXCLAMATION_MARK_DISAPPEAR;
+            }
+            if (chasingDude != NULL) {
+                o->oPosX = chasingDude->oPosX;
+                o->oPosZ = chasingDude->oPosZ;
+                o->oPosY = chasingDude->oPosY + 270.f;
+            } else {
+                o->oAction = EXCLAMATION_MARK_BEGONE;
+            }
+            break;
+        case EXCLAMATION_MARK_DISAPPEAR:
+            X_SCALE = Y_SCALE = Z_SCALE = approach_f32(X_SCALE, 0, 0.3f, 0.3f);
+            if (o->oTimer > 30) {
+                o->oAction = EXCLAMATION_MARK_BEGONE;
+            }
+            if (chasingDude != NULL) {
+                o->oPosX = chasingDude->oPosX;
+                o->oPosZ = chasingDude->oPosZ;
+                o->oPosY = chasingDude->oPosY + 270.f;
+            } else {
+                o->oAction = EXCLAMATION_MARK_BEGONE;
+            }
+            break;
+    }
+}

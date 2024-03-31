@@ -574,5 +574,6 @@ extern const BehaviorScript bhvPointLight[];
 extern const BehaviorScript bhvLightSwitch[];
 extern const BehaviorScript bhvMovingBarWithSwitch[];
 extern const BehaviorScript bhvEndingDudeGuy[];
+extern const BehaviorScript bhvExclamationMark[];
 
 #endif // BEHAVIOR_DATA_H
