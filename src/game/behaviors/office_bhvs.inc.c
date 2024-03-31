@@ -1043,6 +1043,7 @@ enum ExclamationMarkActions {
     EXCLAMATION_MARK_BEGONE,
     EXCLAMATION_MARK_APPEAR,
     EXCLAMATION_MARK_DISAPPEAR,
+    EXCLAMATION_MARK_WAITING,
 };
 
 void bhv_exclamation_mark_init(void) {
@@ -1080,7 +1081,7 @@ void bhv_exclamation_mark_loop(void) {
         case EXCLAMATION_MARK_DISAPPEAR:
             X_SCALE = Y_SCALE = Z_SCALE = approach_f32(X_SCALE, 0, 0.3f, 0.3f);
             if (o->oTimer > 30) {
-                o->oAction = EXCLAMATION_MARK_BEGONE;
+                o->oAction = EXCLAMATION_MARK_WAITING;
             }
             if (chasingDude != NULL) {
                 o->oPosX = chasingDude->oPosX;
@@ -1089,6 +1090,12 @@ void bhv_exclamation_mark_loop(void) {
             } else {
                 o->oAction = EXCLAMATION_MARK_BEGONE;
             }
+            break;
+        case EXCLAMATION_MARK_WAITING:
+            if (chasingDude == NULL) {
+                o->oAction = EXCLAMATION_MARK_BEGONE;
+            }
+            cur_obj_hide();
             break;
     }
 }
