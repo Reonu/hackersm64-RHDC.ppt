@@ -12,7 +12,11 @@
 #include "actors/group0.h"
 #include "buffers/framebuffers.h"
 #include "object_list_processor.h"
+#include "fpv_player.h"
+#include "fpv_camera.h"
 #include "cozy_print.h"
+#include "level_update.h"
+#include "game_init.h"
 #include "seq_ids.h"
 #include "audio/external.h"
 
@@ -36,13 +40,24 @@ struct GraphNode gConfroomObjectParent = {
 
 static s32 sInitializedConfroomObjectPool = FALSE;
 
-OfficeState gOfficeState = {
+static const OfficeState sInitialOfficeState = {
     .stage = OFFICE_STAGE_INTRO,
-    //.stage = OFFICE_STAGE_1,
     .presentationActive = FALSE,
     .paused = PAUSE_STATE_START,
     .pauseTimer = 0,
     .lightsOn = TRUE,
+    .fadeOutTimer = 0,
+    .fadeOutLength = 0
+};
+
+OfficeState gOfficeState = {
+    .stage = OFFICE_STAGE_INTRO,
+    .presentationActive = FALSE,
+    .paused = PAUSE_STATE_START,
+    .pauseTimer = 0,
+    .lightsOn = TRUE,
+    .fadeOutTimer = 0,
+    .fadeOutLength = 0
 };
 
 void init_office_state(void) {
@@ -95,6 +110,18 @@ s32 init_confroom_object_pool(void) {
     }
     
     return TRUE;
+}
+
+void reset_confroom_objects(void) {
+    init_scene_graph_node_links(&gConfroomObjectParent, GRAPH_NODE_TYPE_OBJECT_PARENT);
+
+    for (int i = 0; i < NUM_CONFROOM_OBJECTS; i++) {
+        gConfroomObjectPool[i].activeFlags = ACTIVE_FLAG_DEACTIVATED;
+        struct GraphNodeObject *graphNode = &gConfroomObjectPool[i].header.gfx;
+        init_graph_node_object(NULL, graphNode, 0, gVec3fZero, gVec3sZero, gVec3fOne);
+        geo_add_child(&gConfroomObjectParent, &graphNode->node);
+        graphNode->node.flags &= ~GRAPH_RENDER_ACTIVE;
+    }
 }
 
 s32 alloc_conf_room_pool(void) {
@@ -217,6 +244,48 @@ void update_confroom_objects(void) {
     }
 }
 
+void start_fadeout(s32 time) {
+    gOfficeState.fadeOutTimer = time;
+    gOfficeState.fadeOutLength = time;
+}
+
+void reset_game(void) {
+    reset_confroom_objects();
+    init_player();
+    spawn_confroom_objects(0, 0);
+    init_fpv_cam();
+    gOfficeState = sInitialOfficeState;
+    start_fadeout(30);
+
+    initiate_warp(LEVEL_SLIDES, 1, 0x0A, 8);
+    warp_special(0);
+    gOneUpdate = TRUE;
+}
+
+void render_fadeout(Gfx **head) {
+    if (gOfficeState.fadeOutLength) {
+        gOfficeState.fadeOutTimer--;
+        if (gOfficeState.fadeOutTimer <= 0) {
+            gOfficeState.fadeOutTimer = 0;
+            gOfficeState.fadeOutLength = 0;
+            return;
+        }
+
+        s32 alpha = roundf(
+            smoothstep(255, 0,
+                remap(
+                    gOfficeState.fadeOutTimer,
+                    gOfficeState.fadeOutLength, 0,
+                    0, 1
+                )
+            )
+        );
+        Gfx *gfx = *head;
+        render_rect_cld(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 20, 20, 20, alpha, TRUE);
+        *head = gfx;
+    }
+}
+
 void render_pause_hud(Gfx **head) {
     static s32 lastState = PAUSE_STATE_UNPAUSED;
 
@@ -257,14 +326,38 @@ void render_pause_hud(Gfx **head) {
             print_small_text(SCREEN_WIDTH / 2,  80, "But..", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
             print_small_text(SCREEN_WIDTH / 2,  180, "Check that your game volume is high enough, and", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
             print_small_text(SCREEN_WIDTH / 2,  200, "press START to begin...", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
+
+            if (gPlayer1Controller->buttonPressed & START_BUTTON) {
+                gOfficeState.paused = FALSE;
+                start_fadeout(30);
+            }
+
             break;
         }
         case PAUSE_STATE_FIRED: {
+            const s32 fadeLen = 45;
+
+            f32 alphaFac = remap(MIN(gOfficeState.pauseTimer, fadeLen), 0, fadeLen, 0, 1);
+            s32 alpha = roundf(smoothstep(0, 255, alphaFac));
+
             Gfx *gfx = *head;
-            render_rect_cld(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 127, 0, 0, MIN(gOfficeState.pauseTimer, 255), TRUE);
+            render_rect_cld(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 127, 0, 0, alpha, TRUE);
             *head = gfx;
-            print_set_envcolour(255, 255, 255, MIN(gOfficeState.pauseTimer, 255));
-            print_small_text(SCREEN_WIDTH / 2,  20, "You were fired.", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
+
+            print_set_envcolour(255, 255, 255, alpha);
+            print_small_text(SCREEN_WIDTH / 2,  SCREEN_HEIGHT / 2, "You were fired.", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
+
+            if (gOfficeState.pauseTimer >= fadeLen) {
+                alphaFac = remap(MIN(gOfficeState.pauseTimer, fadeLen + 30), fadeLen, fadeLen + 30, 0, 1);
+                print_set_envcolour(255, 255, 255, roundf(smoothstep(0, 255, alphaFac)));
+                print_small_text(SCREEN_WIDTH / 2,  (SCREEN_HEIGHT / 2) + 40, "Press start to start your day over.", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
+
+                if (gPlayer1Controller->buttonPressed & START_BUTTON) {
+                    reset_game();
+                    lastState = PAUSE_STATE_UNPAUSED;
+                }
+            }
+
             break;
         }
         case PAUSE_STATE_END: {

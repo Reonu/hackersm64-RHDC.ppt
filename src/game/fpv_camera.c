@@ -8,13 +8,23 @@
 #include "engine/math_util.h"
 #include "actors/group0.h"
 
+static const FPVCamState sInitFPVCam = {
+    .pos = {0, 0, 0},
+    .focus = {0, 0, 0},
+    .dir = {0, 0, 0},
+    .fov = 30
+};
+
 FPVCamState gFPVCam = {
     .pos = {0, 0, 0},
     .focus = {0, 0, 0},
     .dir = {0, 0, 0},
-    // .fov = 40.0f
     .fov = 30
 };
+
+void init_fpv_cam(void) {
+    gFPVCam = sInitFPVCam;
+}
 
 /**
  * Sets the field of view for the GraphNodeCamera

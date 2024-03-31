@@ -146,6 +146,7 @@ s8 sTimerRunning;
 s8 gNeverEnteredCastle;
 // Prevent multiple 100 coin stars from spawning
 u8 g100CoinStarSpawned = FALSE;
+s32 gOneUpdate = TRUE;
 
 struct MarioState *gMarioState = &gMarioStates[0];
 s8 sWarpCheckpointActive = FALSE;
@@ -383,25 +384,26 @@ void init_mario_after_warp(void) {
     reset_camera(gCurrentArea->camera);
     sWarpDest.type = WARP_TYPE_NOT_WARPING;
     sDelayedWarpOp = WARP_OP_NONE;
-
-    switch (marioSpawnType) {
-        case MARIO_SPAWN_DOOR_WARP:
-        case MARIO_SPAWN_SPIN_AIRBORNE_CIRCLE:
-            play_transition(WARP_TRANSITION_FADE_FROM_CIRCLE, 0x10, 0x00, 0x00, 0x00);
-            break;
-        case MARIO_SPAWN_TELEPORT:
-            play_transition(WARP_TRANSITION_FADE_FROM_COLOR, 0x14, 0xFF, 0xFF, 0xFF);
-            break;
-        case MARIO_SPAWN_SPIN_AIRBORNE:
-            play_transition(WARP_TRANSITION_FADE_FROM_COLOR, 0x1A, 0xFF, 0xFF, 0xFF);
-            break;
-        case MARIO_SPAWN_FADE_FROM_BLACK:
-            play_transition(WARP_TRANSITION_FADE_FROM_COLOR, 0x10, 0x00, 0x00, 0x00);
-            break;
-        default:
-            play_transition(WARP_TRANSITION_FADE_FROM_STAR, 0x10, 0x00, 0x00, 0x00);
-            break;
-    }
+    
+    play_transition(WARP_TRANSITION_FADE_FROM_COLOR, 0x10, 0x00, 0x00, 0x00);
+    // switch (marioSpawnType) {
+    //     case MARIO_SPAWN_DOOR_WARP:
+    //     case MARIO_SPAWN_SPIN_AIRBORNE_CIRCLE:
+    //         play_transition(WARP_TRANSITION_FADE_FROM_CIRCLE, 0x10, 0x00, 0x00, 0x00);
+    //         break;
+    //     case MARIO_SPAWN_TELEPORT:
+    //         play_transition(WARP_TRANSITION_FADE_FROM_COLOR, 0x14, 0xFF, 0xFF, 0xFF);
+    //         break;
+    //     case MARIO_SPAWN_SPIN_AIRBORNE:
+    //         play_transition(WARP_TRANSITION_FADE_FROM_COLOR, 0x1A, 0xFF, 0xFF, 0xFF);
+    //         break;
+    //     case MARIO_SPAWN_FADE_FROM_BLACK:
+    //         play_transition(WARP_TRANSITION_FADE_FROM_COLOR, 0x10, 0x00, 0x00, 0x00);
+    //         break;
+    //     default:
+    //         play_transition(WARP_TRANSITION_FADE_FROM_STAR, 0x10, 0x00, 0x00, 0x00);
+    //         break;
+    // }
 
     if (gCurrDemoInput == NULL) {
 #ifdef BETTER_REVERB
@@ -436,9 +438,9 @@ void init_mario_after_warp(void) {
         }
 #endif
 #ifndef DISABLE_EXIT_COURSE
-       if (sWarpDest.arg == WARP_FLAG_EXIT_COURSE) {
-            play_sound(SOUND_MENU_MARIO_CASTLE_WARP, gGlobalSoundSource);
-        }
+    //    if (sWarpDest.arg == WARP_FLAG_EXIT_COURSE) {
+    //         play_sound(SOUND_MENU_MARIO_CASTLE_WARP, gGlobalSoundSource);
+    //     }
 #endif
     }
 #ifdef PUPPYPRINT_DEBUG
@@ -1188,7 +1190,7 @@ void change_slide(s8 change) {
 
 s32 update_level(void) {
     static s32 wasActive = FALSE;
-    static s32 oneUpdate = TRUE;
+
     s32 changeLevel = FALSE;
 
     if (gBeatSlide) {
@@ -1205,9 +1207,9 @@ s32 update_level(void) {
     }
 #endif
 
-    s32 gameplayActive = update_player() || oneUpdate;
-    if (oneUpdate) {
-        oneUpdate = FALSE;
+    s32 gameplayActive = update_player() || gOneUpdate;
+    if (gOneUpdate) {
+        gOneUpdate = FALSE;
         gOneRender = TRUE;
     }
 

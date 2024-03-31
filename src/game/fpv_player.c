@@ -22,6 +22,44 @@
 
 #define STARTING_POSITION { -355.f, 2.0f, 2720.f }
 
+static const FPVPlayer sInitFPVPlayerState = {
+    .cont = NULL,
+    .pos = STARTING_POSITION,
+    .vel = { 0, 0, 0 },
+    .runFac = 0,
+    .headPos = PLAYER_EYE_SITTING,
+    .energy = MAX_ENERGY,
+    .dir = { 0, DEGREES(90), 0 },
+    .hitbox = {
+        .pos = STARTING_POSITION,
+        .height = PLAYER_HEIGHT,
+        .radius = PLAYER_RADIUS
+    },
+    .curSpace = NULL,
+    .actionState = PLAYER_INTRO_CUTSCENE,
+    .focusPointActive = FALSE,
+    .crouching = FALSE,
+    .arm = NULL,
+    .coffeeCup = NULL,
+    .chasingNPC = NULL,
+    .sipsLeft = 0,
+    .coffeeStolen = FALSE,
+    .canSit = FALSE,
+    .hasRespawned = FALSE,
+    .currentTutorial = -1,
+    .tutorialTimer = 0,
+    .curTutorialDone = 0,
+    .energyLowFirstTime = 0,
+    .firstCoffee = 0,
+    .inConfroom = 0,
+    .confroomFirstTime = 0,
+    .coffeeTracker = 0,
+#ifdef SLIDE_DEBUG
+    .godMode = FALSE,
+    .instaGo = FALSE,
+#endif
+};
+
 FPVPlayer gFPVPlayer = {
     .cont = NULL,
     .pos = STARTING_POSITION,
@@ -409,15 +447,19 @@ static s32 update_presenting(FPVPlayer *player) {
 }
 
 void init_player(void) {
-    static s32 init = FALSE;
-    if (init) return;
-    init = TRUE;
     FPVPlayer *player = &gFPVPlayer;
+    // save these, might already be set
+    struct Object *arm = player->arm;
+    struct Object *coffeeCup = player->coffeeCup;
+
+    gFPVPlayer = sInitFPVPlayerState;
+
+    // reattach these
+    player->arm = arm;
+    player->coffeeCup = coffeeCup;
+
     player->cont = gPlayer1Controller;
-    // TODO: Use correct initial action state
     player->actionState = PLAYER_INTRO_CUTSCENE;
-    // player->actionState = PLAYER_FREE;
-    // TODO: copy init position from group0 data export
 
     confroom_initialize_collision();
 
@@ -543,11 +585,19 @@ void update_ending_cam(void) {
 
 // returns TRUE if gameplay is active
 s32 update_player(void) {
-    init_player();
+    static s32 didInit = FALSE;
+    if (!didInit) {
+        init_player();
+        didInit = TRUE;
+    }
+
     FPVPlayer *player = &gFPVPlayer;
-    if (player->cont->buttonPressed & START_BUTTON) {
+    if (
+        (player->cont->buttonPressed & START_BUTTON) &&
+        (!gOfficeState.paused || gOfficeState.paused == PAUSE_STATE_PAUSED)) {
         gOfficeState.paused = !gOfficeState.paused;
     }
+
     if (gOfficeState.paused) {
         if (gOfficeState.paused == PAUSE_STATE_END) update_ending_cam();
         return FALSE;

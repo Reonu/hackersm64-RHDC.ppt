@@ -57,10 +57,15 @@ ConfroomObjectSpawn *gConfroomSpawns[] = {
 s32 gNumConfroomSpawns = ARRAY_COUNT(gConfroomSpawns);
 
 s32 spawn_confroom_objects(UNUSED s16 initOrUpdate, s32 reg) {
-    for (int i = 0; i < ARRAY_COUNT(gConfroomSplines); i++) {
-        ConfroomObjectSplineRef *spline = &gConfroomSplines[i];
-        // fix segmented address now
-        spline->points = (Vec3f *)segmented_to_virtual(spline->points);
+    static s32 initSplines = TRUE;
+    // only init splines once, its just for seg2virt
+    if (initSplines) {
+        for (int i = 0; i < ARRAY_COUNT(gConfroomSplines); i++) {
+            ConfroomObjectSplineRef *spline = &gConfroomSplines[i];
+            // fix segmented address now
+            spline->points = (Vec3f *)segmented_to_virtual(spline->points);
+        }
+        initSplines = FALSE;
     }
 
     for (int i = 0; i < ARRAY_COUNT(gConfroomSpawns); i++) {

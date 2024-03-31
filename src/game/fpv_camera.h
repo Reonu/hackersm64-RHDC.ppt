@@ -18,3 +18,4 @@ extern FPVCamState gFPVCam;
 
 Gfx *geo_fpv_camera_perspective(s32 callContext, struct GraphNode *g, UNUSED void *context);
 Gfx *geo_fpv_camera_main(s32 callContext, struct GraphNode *g, void *context);
+void init_fpv_cam(void);

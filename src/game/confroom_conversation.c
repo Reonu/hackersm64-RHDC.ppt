@@ -14,6 +14,18 @@
 #include "game/fpv_player.h"
 #include "audio/external.h"
 
+static const Conversation sInitConvo = {
+    .speakerPos = {0, 0, 0},
+    .timer = 0,
+    .coolDownTimer = 0,
+    .qteTriggerTime = 0,
+    .points = 0,
+    .pointsReq = 0,
+    .qteStatus = QTE_PENDING,
+    .state = CONVO_INACTIVE,
+    .prompt = QTE_PROMPT_A,
+};
+
 Conversation gCurConvo = {
     .speakerPos = {0, 0, 0},
     .timer = 0,
@@ -21,6 +33,7 @@ Conversation gCurConvo = {
     .qteTriggerTime = 0,
     .points = 0,
     .pointsReq = 0,
+    .qteStatus = QTE_PENDING,
     .state = CONVO_INACTIVE,
     .prompt = QTE_PROMPT_A,
 };
@@ -37,6 +50,10 @@ static Texture *prompt_to_texture[QTE_PROMPT_NUM] = {
     [QTE_PROMPT_Z] = convo_qte_z,
 };
 #define QTE_PROMPT_BUTTON_ANY (A_BUTTON | B_BUTTON | Z_TRIG)
+
+void init_convo_state(void) {
+    gCurConvo = sInitConvo;
+}
 
 void full_reset_convo_state(void) {
     Conversation *convo = &gCurConvo;

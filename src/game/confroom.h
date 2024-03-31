@@ -72,6 +72,8 @@ enum OfficeStageFlags {
 
 typedef struct {
     s32 pauseTimer;
+    s32 fadeOutTimer;
+    s32 fadeOutLength;
     u8 stage; // OfficeStages
     u8 presentationActive;
     u8 paused;
@@ -86,5 +88,6 @@ void start_previous_office_stage(void);
 s32 get_num_coffees_left(void);
 s32 get_num_req_qtes(void);
 void render_pause_hud(Gfx **head);
+void render_fadeout(Gfx **head);
 
 extern OfficeState gOfficeState;

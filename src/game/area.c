@@ -443,6 +443,7 @@ void render_game(void) {
         render_convo(&gDisplayListHead);
         render_player_hud(&gDisplayListHead);
         render_pause_hud(&gDisplayListHead);
+        render_fadeout(&gDisplayListHead);
 
         gDPSetScissor(gDisplayListHead++, G_SC_NON_INTERLACE, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         render_text_labels();
