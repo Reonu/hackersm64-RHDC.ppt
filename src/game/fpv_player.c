@@ -42,7 +42,6 @@ FPVPlayer gFPVPlayer = {
     .arm = NULL,
     .coffeeCup = NULL,
     .sipsLeft = 0,
-    // .sipsLeft = 3,
     .coffeeStolen = FALSE,
     .canSit = FALSE,
     .hasRespawned = FALSE,
@@ -631,7 +630,7 @@ s32 update_player(void) {
         gConfroomLights = 1;
     }*/
 
-    // Immediately end the tutorial if the player press Dpad down at the start
+    // Immediately end the tutorial if the player presses Dpad down at the start
     if ((player->currentTutorial == 0) && (gPlayer1Controller->buttonPressed & D_JPAD)) {
         player->currentTutorial = 6;
     }
@@ -659,6 +658,11 @@ s32 update_player(void) {
     // Get fired IDIOT
     if (player->energy == 0) {
         gOfficeState.paused = PAUSE_STATE_FIRED;
+    }
+
+    // Get woken up IDIOT
+    if (gCurrAreaIndex = 19) {
+        gOfficeState.paused = PAUSE_STATE_END;
     }
 
 #ifdef SLIDE_DEBUG
