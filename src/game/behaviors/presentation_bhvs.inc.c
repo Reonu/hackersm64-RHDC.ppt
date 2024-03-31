@@ -201,6 +201,6 @@ void bhv_circle_loop(void) {
     }
     load_object_collision_model();
     if (gJustRespawned) {
-         o->oFaceAngleRoll = 0;
+         o->oFaceAngleRoll = DEGREES(BPARAM2);
     }
 }
