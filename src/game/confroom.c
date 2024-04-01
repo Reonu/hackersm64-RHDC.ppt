@@ -390,6 +390,37 @@ void render_pause_hud(Gfx **head) {
                 print_set_envcolour(255, 255, 255, alpha);
                 print_small_text(SCREEN_WIDTH / 2,  SCREEN_HEIGHT - 32, "The End", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
             }
+
+            s32 minAlpha = 255;
+            if (gOfficeState.pauseTimer > ENDING_OCEAN_TEXT_CREDITS2 + 30*6) {
+                s32 a = ENDING_OCEAN_TEXT_CREDITS2 + 30*6;
+                s32 b = a + 30*2;
+                s32 clampTimer = CLAMP(gOfficeState.pauseTimer, a, b);
+                minAlpha = roundf(remap(clampTimer, a, b, 255, 0));
+            }
+
+            if (minAlpha && gOfficeState.pauseTimer > ENDING_OCEAN_TEXT_CREATED) {
+                s32 clampTimer = CLAMP(gOfficeState.pauseTimer, ENDING_OCEAN_TEXT_CREATED, ENDING_OCEAN_TEXT_CREATED + 30*3);
+                s32 alpha = roundf(remap(clampTimer, ENDING_OCEAN_TEXT_CREATED, ENDING_OCEAN_TEXT_CREATED + 30*3, 0, 255));
+                alpha = MIN(alpha, minAlpha);
+                print_set_envcolour(255, 255, 255, alpha);
+                print_small_text(16,  16, "created by reonu & thecozies", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);
+            }
+            if (minAlpha && gOfficeState.pauseTimer > ENDING_OCEAN_TEXT_CREDITS2) {
+                s32 clampTimer = CLAMP(gOfficeState.pauseTimer, ENDING_OCEAN_TEXT_CREDITS2, ENDING_OCEAN_TEXT_CREDITS2 + 30*3);
+                s32 alpha = roundf(remap(clampTimer, ENDING_OCEAN_TEXT_CREDITS2, ENDING_OCEAN_TEXT_CREDITS2 + 30*3, 0, 255));
+                alpha = MIN(alpha, minAlpha);
+                print_set_envcolour(255, 255, 255, alpha);
+                print_small_text(16, 34,
+                "special thanks to:\n"
+                "- lurf\n"
+                "- ArcticJaguar725\n"
+                "- MrComit\n"
+                "- anonymous_moose\n"
+                "- nesdude\n"
+                "- wiseguy",
+                PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);
+            }
             break;
         }
     }

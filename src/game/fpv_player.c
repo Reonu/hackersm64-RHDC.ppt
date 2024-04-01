@@ -194,10 +194,16 @@ static void update_direction(FPVPlayer *player) {
 
     if (player->cont->buttonDown & U_CBUTTONS) {
         player->dir[0] += ROT_VT_SPEED;
+        if (player->dir[0] > DEGREES(90) - ROT_VT_SPEED) {
+            player->dir[0] = DEGREES(90) - ROT_VT_SPEED;
+        }
     }
 
     if (player->cont->buttonDown & D_CBUTTONS) {
         player->dir[0] -= ROT_VT_SPEED;
+        if (player->dir[0] < DEGREES(-90) + ROT_VT_SPEED) {
+            player->dir[0] = DEGREES(-90) + ROT_VT_SPEED;
+        }
     }
 }
 
