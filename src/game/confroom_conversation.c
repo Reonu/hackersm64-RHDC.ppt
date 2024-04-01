@@ -4,6 +4,7 @@
 #include "confroom.h"
 #include "confroom_conversation.h"
 #include "object_fields.h"
+#include "object_list_processor.h"
 #include "engine/math_util.h"
 #include "behavior_data.h"
 #include "game_init.h"
@@ -16,6 +17,7 @@
 
 static const Conversation sInitConvo = {
     .speakerPos = {0, 0, 0},
+    .conversationalist = NULL,
     .timer = 0,
     .coolDownTimer = 0,
     .qteTriggerTime = 0,
@@ -28,6 +30,7 @@ static const Conversation sInitConvo = {
 
 Conversation gCurConvo = {
     .speakerPos = {0, 0, 0},
+    .conversationalist = NULL,
     .timer = 0,
     .coolDownTimer = 0,
     .qteTriggerTime = 0,
@@ -64,6 +67,7 @@ void full_reset_convo_state(void) {
     convo->state = CONVO_INACTIVE;
     convo->qteStatus = QTE_PENDING;
     convo->prompt = QTE_PROMPT_A;
+    convo->conversationalist = NULL;
 }
 
 void reset_convo(Conversation *convo, s32 req) {
@@ -88,6 +92,7 @@ s32 start_convo(f32 *speakerPos) {
         reset_convo(convo, get_num_req_qtes());
         vec3f_copy(convo->speakerPos, speakerPos);
         play_secondary_music(SEQ_DSI, 0x70, 0x40, 0);
+        convo->conversationalist = o;
         return TRUE;
     }
     return FALSE;

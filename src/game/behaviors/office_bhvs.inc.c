@@ -516,7 +516,11 @@ void bhv_spline_dudeguy_loop(void) {
                     ? (curFrame == 1 || curFrame == 9)
                     : (curFrame == 2 || curFrame == 13)
             ) {
-                cur_obj_play_sound_2(SOUND_ACTION_TERRAIN_STEP + (isRunning ? SOUND_TERRAIN_STONE : SOUND_TERRAIN_GRASS));
+                cur_obj_play_sound_2(
+                    (SOUND_ACTION_TERRAIN_STEP & ~SOUND_DISCRETE) + (
+                        isRunning ? SOUND_TERRAIN_STONE : SOUND_TERRAIN_GRASS
+                    )
+                );
             }
 
             break;
@@ -564,16 +568,18 @@ void bhv_spline_dudeguy_loop(void) {
                 o->oAnimationIndex = NPC_ANIM_IDLE;
             } else if (gCurConvo.state == CONVO_TALKING) {
                 o->oAnimationIndex = NPC_ANIM_TALKING;
-                switch (gCurConvo.timer) {
-                    case 1:
-                        play_character_lead_in(isCathy);
-                        break;
-                    case 76:
-                        play_character_mumble(isCathy);
-                        break;
-                    case 76+120:
-                        play_character_question(isCathy);
-                        break;
+                if (gCurConvo.conversationalist == o) {
+                    switch (gCurConvo.timer) {
+                        case 1:
+                            play_character_lead_in(isCathy);
+                            break;
+                        case 76:
+                            play_character_mumble(isCathy);
+                            break;
+                        case 76+120:
+                            play_character_question(isCathy);
+                            break;
+                    }
                 }
             } else {
                 if (isCathy) {
