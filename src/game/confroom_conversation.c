@@ -126,6 +126,7 @@ void update_convo(void) {
             if (convo->timer > CONVO_QTE_LENGTH) {
                 if (convo->qteStatus == QTE_SUCCESS) {
                     convo->points++;
+                    play_sound(SOUND_GENERAL2_RIGHT_ANSWER, gGlobalSoundSource);
                     if (convo->points >= convo->pointsReq) {
                         full_reset_convo_state();
                         convo->coolDownTimer = CONVO_QTE_COOLDOWN;
@@ -155,6 +156,7 @@ void update_convo(void) {
                     convo->qteStatus = QTE_SUCCESS;
                 } else {
                     convo->qteStatus = QTE_FAIL;
+                    play_sound(SOUND_MENU_CAMERA_BUZZ, gGlobalSoundSource);
                 }
             } else if (get_prompt_pos_from_time(convo->timer) < CONVO_QTE_X_GOAL - CONVO_QTE_GOAL_LEEWAY) {
                 convo->qteStatus = QTE_FAIL;
