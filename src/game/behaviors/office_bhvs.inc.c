@@ -623,6 +623,8 @@ enum CoffeeMachineActions {
 
 void bhv_coffee_machine_init(void) {
     o->oAction = COFFEE_MACHINE_WAITING;
+    o->oCoffeeMachineShake = 2.0f;
+    o->oCoffeeMachineShake2 = 2.0f;
 }
 
 void bhv_coffee_machine_loop(void) {
@@ -631,12 +633,27 @@ void bhv_coffee_machine_loop(void) {
             f32 *pos = &o->oPosX;
             o->oAnimState = 0;
             if (!gFPVPlayer.sipsLeft && vec3f_lat_dist(pos, gFPVPlayer.pos) < MAX_COFFEE_MACHINE_DIST && gPlayer1Controller->buttonPressed & PLAYER_BTN_INTERACT) {
+                o->oCoffeeMachineShake = 2.0f;
+                o->oCoffeeMachineShake2 = 2.0f;
                 o->oAction = COFFEE_MACHINE_RUNNING;
                 o->oAnimState = 1;
             }
             break;
         }
         case COFFEE_MACHINE_RUNNING: {
+            o->oPosX += o->oCoffeeMachineShake2;
+            o->oPosY += o->oCoffeeMachineShake;
+            //o->oPosZ += o->oCoffeeMachineShake2;
+            o->oCoffeeMachineShake *= -1;
+            if (o->oCoffeeMachineShake2 == 2.0f) {
+                o->oCoffeeMachineShake2 = 0.0f; 
+                 } 
+            else if (o->oCoffeeMachineShake2 == 0.0f) { 
+                o->oCoffeeMachineShake2 = -2.0f; 
+                } 
+            else if (o->oCoffeeMachineShake2 == -2.0f) { 
+                o->oCoffeeMachineShake2 = 2.0f;
+                }
             if (o->oTimer > 0 && (o->oTimer % 30 == 0)) {
                 o->oAnimState += 1;
                 if (o->oAnimState == 3) {
@@ -646,6 +663,9 @@ void bhv_coffee_machine_loop(void) {
             break;
         }
         case COFFEE_MACHINE_READY: {
+            o->oPosX = o->oHomeX;
+            o->oPosY = o->oHomeY;
+            o->oPosZ = o->oHomeZ;
             f32 *pos = &o->oPosX;
             if (vec3f_lat_dist(pos, gFPVPlayer.pos) < MAX_COFFEE_MACHINE_DIST && gPlayer1Controller->buttonPressed & PLAYER_BTN_INTERACT) {
                 o->oAction = COFFEE_MACHINE_WAITING;

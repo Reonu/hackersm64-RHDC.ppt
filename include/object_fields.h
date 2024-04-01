@@ -1352,6 +1352,9 @@ os16112*/
 
 #define oEatingGuySpoke                     OBJECT_FIELD_S32(0x1B)
 
+#define oCoffeeMachineShake                 OBJECT_FIELD_F32(0x1F)
+#define oCoffeeMachineShake2                OBJECT_FIELD_F32(0x1E)                                
+
 // Advanced lighting engine
 // These use previously unused object fields outside of the normal range
 // for specific behaviors, so they shouldn't interfere with any custom ones
