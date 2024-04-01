@@ -687,13 +687,6 @@ s32 update_player(void) {
 #endif
     }
 
-    // Respawning info during first time presenting
-    if (player->actionState == PLAYER_PRESENTING && !player->hasRespawned) {
-        print_small_text_buffered(100, SCREEN_HEIGHT - 20, "Press START anytime to retry current slide",PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);
-        if (gPlayer1Controller->buttonPressed & START_BUTTON) {
-            player->hasRespawned = TRUE;
-        }
-    }
     // Don't let the player into the confroom during the intro if they don't have a coffee
     if ((!player->sipsLeft) && (gOfficeState.stage == OFFICE_STAGE_INTRO) && ((player->pos[2] < 250.f))) { 
         player->pos[2] = 250.f;
