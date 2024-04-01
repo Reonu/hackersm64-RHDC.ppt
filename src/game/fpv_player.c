@@ -606,8 +606,21 @@ s32 update_player(void) {
     }
     if (
         (player->cont->buttonPressed & START_BUTTON) &&
-        (!gOfficeState.paused || gOfficeState.paused == PAUSE_STATE_PAUSED) && (gMarioState->action != ACT_STAR_DANCE_WATER) && (gMarioState->action != ACT_STAR_DANCE_NO_EXIT) && (gMarioState->action != ACT_STAR_DANCE_EXIT)) {
-        gOfficeState.paused = !gOfficeState.paused;
+        (!gOfficeState.paused || gOfficeState.paused == PAUSE_STATE_PAUSED)
+    ) {
+        if (
+            player->actionState == PLAYER_PRESENTING && (
+                (gMarioState->action == ACT_STAR_DANCE_WATER) ||
+                (gMarioState->action == ACT_STAR_DANCE_NO_EXIT) ||
+                (gMarioState->action == ACT_PULLING_DOOR) ||
+                (gMarioState->action == ACT_PUSHING_DOOR) ||
+                (gMarioState->action == ACT_STAR_DANCE_EXIT)
+            )
+        ) {
+            // dooo??????
+        } else {
+            gOfficeState.paused = !gOfficeState.paused;
+        }
     }
 
     if (gOfficeState.paused) {
