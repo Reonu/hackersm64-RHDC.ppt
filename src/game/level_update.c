@@ -1056,6 +1056,7 @@ s32 play_mode_normal(void) {
 }
 
 s32 play_mode_paused(void) {
+    return FALSE;
     if (gMenuOptSelectIndex == MENU_OPT_NONE) {
         set_menu_mode(MENU_MODE_RENDER_PAUSE_SCREEN);
     } else if (gMenuOptSelectIndex == MENU_OPT_DEFAULT) {

@@ -594,9 +594,13 @@ s32 update_player(void) {
     }
 
     FPVPlayer *player = &gFPVPlayer;
+
+    if ((gMarioState != NULL) && (gMarioState->action != ACT_STAR_DANCE_WATER) && (gMarioState->action != ACT_STAR_DANCE_NO_EXIT) && (gMarioState->action != ACT_STAR_DANCE_EXIT)) {
+        
+    }
     if (
         (player->cont->buttonPressed & START_BUTTON) &&
-        (!gOfficeState.paused || gOfficeState.paused == PAUSE_STATE_PAUSED)) {
+        (!gOfficeState.paused || gOfficeState.paused == PAUSE_STATE_PAUSED) && (gMarioState->action != ACT_STAR_DANCE_WATER) && (gMarioState->action != ACT_STAR_DANCE_NO_EXIT) && (gMarioState->action != ACT_STAR_DANCE_EXIT)) {
         gOfficeState.paused = !gOfficeState.paused;
     }
 
