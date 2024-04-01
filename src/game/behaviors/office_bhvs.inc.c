@@ -224,6 +224,8 @@ void bhv_presenting_dudeguy_loop(void) {
             o->oAnimationIndex = NPC_ANIM_PRESENTING;
             if (gFPVPlayer.actionState != PLAYER_PRESENTING) {
                 o->oAction = PRESENTING_DUDEGUY_GET_UP;
+            } else if (gCurrAreaIndex == 19) {
+                o->oAction = PRESENTING_DUDEGUY_ENDING;
             }
             break;
         case PRESENTING_DUDEGUY_GET_UP:
@@ -256,6 +258,9 @@ void bhv_presenting_dudeguy_loop(void) {
             break;
         case PRESENTING_DUDEGUY_ENDING:
             o->oAnimationIndex = NPC_ANIM_TALKING;
+            if (o->oTimer == 1) {
+                cur_obj_play_sound_2(SOUND_OFFICE_SFX_END_OF_PRESENTATION);
+            }
             break;
     }
     if (!gFPVPlayer.inConfroom) {
@@ -1069,6 +1074,9 @@ void bhv_ending_dudeguy_loop(void) {
             if (cur_obj_check_anim_frame(79) && o->oSubAction < 2) {
                 o->header.gfx.animInfo.animFrame = 0;
                 o->oSubAction++;
+            }
+            if (cur_obj_check_anim_frame(80)) {
+                cur_obj_play_sound_2(SOUND_OFFICE_SFX_JUST_A_NIGHTMARE);
             }
 
             if (cur_obj_check_if_at_animation_end()) {
