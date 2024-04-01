@@ -49,6 +49,11 @@
             "release_rate": 208,
             "envelope": "envelope0",
             "sound": "office_sfx_end_of_presentation"
+        },
+        "inst8": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "office_sfx_just_a_nightmare"
         }
     },
     "instrument_list": [
@@ -59,6 +64,7 @@
         "inst4",
         "inst5",
         "inst6",
-        "inst7"
+        "inst7",
+        "inst8"
     ]
 }

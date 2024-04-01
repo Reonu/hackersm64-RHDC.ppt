@@ -8,6 +8,7 @@ sound_ref .sound_office_sfx_walking_in
 sound_ref .sound_office_sfx_you_need_coffee_now
 sound_ref .sound_office_sfx_coffeemachine
 sound_ref .sound_office_sfx_end_of_presentation
+sound_ref .sound_office_sfx_just_a_nightmare
 
 .layer_office_sfx:
 layer_note1 39, 168, 64
@@ -32,6 +33,9 @@ layer_note1 39, 192, 64
 layer_end
 .layer_office_sfx_end_of_presentation:
 layer_note1 39, 1773, 64
+layer_end
+.layer_office_sfx_just_a_nightmare:
+layer_note1 39, 1684, 64
 layer_end
 
 # sounds
@@ -97,4 +101,12 @@ chan_setinstr 7
 chan_setval 20
 chan_call .set_reverb
 chan_setlayer 0, .layer_office_sfx_end_of_presentation
+chan_end
+
+.sound_office_sfx_just_a_nightmare:
+chan_setbank 0xD
+chan_setinstr 8
+chan_setval 20
+chan_call .set_reverb
+chan_setlayer 0, .layer_office_sfx_just_a_nightmare
 chan_end
