@@ -1075,6 +1075,9 @@ void bhv_ending_dudeguy_loop(void) {
                 o->header.gfx.animInfo.animFrame = 0;
                 o->oSubAction++;
             }
+            if (cur_obj_check_anim_frame(80)) {
+                cur_obj_play_sound_2(SOUND_OFFICE_SFX_JUST_A_NIGHTMARE);
+            }
 
             if (cur_obj_check_if_at_animation_end()) {
                 o->header.gfx.animInfo.animFrame = ENDING_OCEAN_TEXT_THE_END;
