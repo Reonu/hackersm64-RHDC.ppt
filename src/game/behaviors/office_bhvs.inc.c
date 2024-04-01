@@ -665,6 +665,8 @@ void bhv_coffee_machine_loop(void) {
                 if (o->oAnimState == 3) {
                     o->oAction = COFFEE_MACHINE_READY;
                 }
+            } else if (o->oTimer == 0) {
+                cur_obj_play_sound_2(SOUND_OFFICE_SFX_COFFEEMACHINE);
             }
             break;
         }

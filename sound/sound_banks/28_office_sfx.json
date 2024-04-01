@@ -39,6 +39,11 @@
             "release_rate": 208,
             "envelope": "envelope0",
             "sound": "office_sfx_you_need_coffee_now"
+        },
+        "inst6": {
+            "release_rate": 208,
+            "envelope": "envelope0",
+            "sound": "office_sfx_coffeemachine"
         }
     },
     "instrument_list": [
@@ -47,6 +52,7 @@
         "inst2",
         "inst3",
         "inst4",
-        "inst5"
+        "inst5",
+        "inst6"
     ]
 }

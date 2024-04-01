@@ -6,6 +6,7 @@ sound_ref .sound_office_sfx_ope_youre_back
 sound_ref .sound_office_sfx_turn_the_lights_off
 sound_ref .sound_office_sfx_walking_in
 sound_ref .sound_office_sfx_you_need_coffee_now
+sound_ref .sound_office_sfx_coffeemachine
 
 .layer_office_sfx:
 layer_note1 39, 168, 64
@@ -24,6 +25,9 @@ layer_note1 39, 1092, 64
 layer_end
 .layer_office_sfx_you_need_coffee_now:
 layer_note1 39, 311, 64
+layer_end
+.layer_office_sfx_coffeemachine:
+layer_note1 39, 192, 64
 layer_end
 
 # sounds
@@ -73,4 +77,12 @@ chan_setinstr 5
 chan_setval 20
 chan_call .set_reverb
 chan_setlayer 0, .layer_office_sfx_you_need_coffee_now
+chan_end
+
+.sound_office_sfx_coffeemachine:
+chan_setbank 0xD
+chan_setinstr 6
+chan_setval 20
+chan_call .set_reverb
+chan_setlayer 0, .layer_office_sfx_coffeemachine
 chan_end
