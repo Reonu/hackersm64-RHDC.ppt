@@ -114,7 +114,7 @@ extern FPVPlayer gFPVPlayer;
 #define PLAYER_BTN_STOP_PRESENTATION L_TRIG
 
 // Max distance from seat to sit in front of presentation
-#define MAX_SITTING_DIST 225.f
+#define MAX_SITTING_DIST 270.f
 
 void init_player(void);
 s32 update_player(void);
