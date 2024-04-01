@@ -359,12 +359,12 @@ void render_pause_hud(Gfx **head) {
             if (gOfficeState.pauseTimer >= fadeLen) {
                 alphaFac = remap(MIN(gOfficeState.pauseTimer, fadeLen + 30), fadeLen, fadeLen + 30, 0, 1);
                 print_set_envcolour(255, 255, 255, roundf(smoothstep(0, 255, alphaFac)));
-                print_small_text(SCREEN_WIDTH / 2,  (SCREEN_HEIGHT / 2) + 40, "Press start to start your day over.", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
+                print_small_text(SCREEN_WIDTH / 2,  (SCREEN_HEIGHT / 2) + 40, "Press the reset button on your console.", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
 
-                if (gPlayer1Controller->buttonPressed & START_BUTTON) {
-                    reset_game();
-                    lastState = PAUSE_STATE_UNPAUSED;
-                }
+                // if (gPlayer1Controller->buttonPressed & START_BUTTON) {
+                //     reset_game();
+                //     lastState = PAUSE_STATE_UNPAUSED;
+                // }
             }
 
             break;
