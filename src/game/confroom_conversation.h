@@ -31,6 +31,7 @@ typedef struct {
     s32 coolDownTimer;
     s32 timer;
     s32 qteTriggerTime;
+    struct Object *conversationalist;
     u8 points;
     u8 pointsReq;
     u8 state;

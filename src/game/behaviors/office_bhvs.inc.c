@@ -568,16 +568,18 @@ void bhv_spline_dudeguy_loop(void) {
                 o->oAnimationIndex = NPC_ANIM_IDLE;
             } else if (gCurConvo.state == CONVO_TALKING) {
                 o->oAnimationIndex = NPC_ANIM_TALKING;
-                switch (gCurConvo.timer) {
-                    case 1:
-                        play_character_lead_in(isCathy);
-                        break;
-                    case 76:
-                        play_character_mumble(isCathy);
-                        break;
-                    case 76+120:
-                        play_character_question(isCathy);
-                        break;
+                if (gCurConvo.conversationalist == o) {
+                    switch (gCurConvo.timer) {
+                        case 1:
+                            play_character_lead_in(isCathy);
+                            break;
+                        case 76:
+                            play_character_mumble(isCathy);
+                            break;
+                        case 76+120:
+                            play_character_question(isCathy);
+                            break;
+                    }
                 }
             } else {
                 if (isCathy) {
