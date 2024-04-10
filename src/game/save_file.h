@@ -32,7 +32,7 @@ struct SaveFile {
     u8 capArea;
     // Note: the coordinates get set, but are never actually used, since the
     // cap can always be found in a fixed spot within the course
-    Vec3s capPos; // 48 bits
+    //Vec3s capPos; // 48 bits
 
     u32 flags;
 
@@ -183,8 +183,8 @@ void save_file_set_star_flags(s32 fileIndex, s32 courseIndex, u32 starFlags);
 s32 save_file_get_course_coin_score(s32 fileIndex, s32 courseIndex);
 s32 save_file_is_cannon_unlocked(void);
 void save_file_set_cannon_unlocked(void);
-void save_file_set_cap_pos(s16 x, s16 y, s16 z);
-s32 save_file_get_cap_pos(Vec3s capPos);
+// void save_file_set_cap_pos(s16 x, s16 y, s16 z);
+// s32 save_file_get_cap_pos(Vec3s capPos);
 void save_file_set_sound_mode(u16 mode);
 u32 save_file_get_sound_mode(void);
 #ifdef WIDE
