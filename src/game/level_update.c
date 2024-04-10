@@ -1192,6 +1192,9 @@ void change_slide(s8 change) {
         } else if (gCurrAreaIndex == STAGE_2_AREA_THRESHOLD) {
             save_file_set_office_checkpoint(OFFICE_STAGE_2);
             gOfficeState.checkpoint = OFFICE_STAGE_2;
+        } else if (gCurrAreaIndex == STAGE_1_AREA_THRESHOLD) {
+            save_file_set_office_checkpoint(OFFICE_STAGE_1);
+            gOfficeState.checkpoint = OFFICE_STAGE_1;
         }
     }
 }

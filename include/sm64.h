@@ -173,6 +173,7 @@ enum DudeGuyRoomsActive {
     ACTIVE_CONFROOM,
 };
 
+#define STAGE_1_AREA_THRESHOLD 3
 #define STAGE_2_AREA_THRESHOLD 6
 #define STAGE_3_AREA_THRESHOLD 12
 

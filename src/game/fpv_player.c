@@ -481,6 +481,9 @@ void init_player(void) {
         player->dir[1] = 70;
         gTutorialFinished = 1;
         switch (gOfficeState.stage) {
+            case OFFICE_STAGE_1:
+                change_slide_absolute(STAGE_1_AREA_THRESHOLD);
+                break;
             case OFFICE_STAGE_2:
                 change_slide_absolute(STAGE_2_AREA_THRESHOLD);
                 break;
