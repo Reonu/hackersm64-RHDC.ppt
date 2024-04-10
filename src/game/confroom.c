@@ -20,6 +20,7 @@
 #include "seq_ids.h"
 #include "mario.h"
 #include "audio/external.h"
+#include "src/game/save_file.h"
 
 #include "confroom.h"
 #include "confroom_spawn.h"
@@ -58,14 +59,20 @@ OfficeState gOfficeState = {
     .pauseTimer = 0,
     .lightsOn = TRUE,
     .fadeOutTimer = 0,
-    .fadeOutLength = 0
+    .fadeOutLength = 0,
+    .checkpoint = 0
 };
 
 void init_office_state(void) {
     OfficeState *office = &gOfficeState;
     office->stage = OFFICE_STAGE_INTRO;
     office->presentationActive = FALSE;
-    office->paused = PAUSE_STATE_START;
+    if (save_file_get_office_checkpoint() != 0) {
+        office->paused = PAUSE_STATE_MAIN_MENU;
+    } else {
+        office->paused = PAUSE_STATE_START;
+    }
+    
     // reset player
 }
 
@@ -297,7 +304,7 @@ void render_pause_hud(Gfx **head) {
         if (gOfficeState.pauseTimer > 0x8000000) gOfficeState.pauseTimer = 0x8000000;
     }
 
-    if (lastState == PAUSE_STATE_START && !gOfficeState.paused) {
+    if ((lastState == PAUSE_STATE_START || lastState == PAUSE_STATE_MAIN_MENU) && !gOfficeState.paused) {
         func_80321080(0);
     }
     lastState = gOfficeState.paused;
@@ -423,6 +430,24 @@ void render_pause_hud(Gfx **head) {
             }
             break;
         }
+        case PAUSE_STATE_MAIN_MENU:
+            Gfx *gfx = *head;
+            render_rect(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 20, 20, 20, TRUE);
+            *head = gfx;
+            play_secondary_music(SEQ_SEA, 0, 255,0);
+            print_set_envcolour(255, 255, 255, 255);
+            print_small_text(SCREEN_WIDTH / 2,  20, "Press A to start from checkpoint.", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);     
+            print_small_text(SCREEN_WIDTH / 2,  40, "Press B to start over.", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA); 
+            if (gPlayer1Controller->buttonPressed & A_BUTTON) {
+                gOfficeState.checkpoint = save_file_get_office_checkpoint();
+                init_player();
+                gOfficeState.paused = FALSE;
+                start_fadeout(30);
+            } else if (gPlayer1Controller->buttonPressed & B_BUTTON) {
+                gOfficeState.paused = PAUSE_STATE_START;
+                save_file_set_office_checkpoint(0);
+                start_fadeout(30);               
+            }
     }
 }
 

@@ -45,7 +45,8 @@ enum PauseStates {
     PAUSE_STATE_PAUSED,
     PAUSE_STATE_START,
     PAUSE_STATE_FIRED,
-    PAUSE_STATE_END
+    PAUSE_STATE_END,
+    PAUSE_STATE_MAIN_MENU
 };
 
 #define ENDING_OCEAN_START (30*3)
@@ -80,6 +81,7 @@ typedef struct {
     u8 presentationActive;
     u8 paused;
     u8 lightsOn: 1;
+    u8 checkpoint: 2;
 } OfficeState;
 
 void init_office_state(void);

@@ -185,4 +185,5 @@ s32 lvl_play_the_end_screen_sound(UNUSED s16 initOrUpdate, UNUSED s32 levelNum);
 void basic_update(void);
 void warp_special(s32 arg);
 
+void change_slide_absolute(u8 change);
 #endif // LEVEL_UPDATE_H

@@ -62,6 +62,7 @@ struct MainMenuSaveData {
 #ifdef WIDE
     u8 wideMode: 1;
 #endif
+    u8 officeCheckpoint: 2;
 
 #if MULTILANG
     u8 language: 2;
@@ -191,6 +192,8 @@ u32 save_file_get_sound_mode(void);
 u32 save_file_get_widescreen_mode(void);
 void save_file_set_widescreen_mode(u8 mode);
 #endif
+void save_file_set_office_checkpoint(u8);
+u32 save_file_get_office_checkpoint(void);
 void save_file_move_cap_to_default_location(void);
 
 void disable_warp_checkpoint(void);

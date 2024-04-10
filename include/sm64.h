@@ -171,6 +171,9 @@ enum DudeGuyRoomsActive {
     ACTIVE_CONFROOM,
 };
 
+#define STAGE_2_AREA_THRESHOLD 6
+#define STAGE_3_AREA_THRESHOLD 12
+
 #define NPC_SPLINE_NORMAL                   0x00
 #define NPC_SPLINE_BACK_AND_FORTH           0x01
 

@@ -853,7 +853,7 @@ void bhv_intro_kathy_loop(void) {
     switch (o->oAction) {
         case INTRO_KATHY_WAKE_UP:
             o->oAnimationIndex = NPC_ANIM_INTRO_WAKE_UP;
-            if (o->oTimer == 0) {
+            if (o->oTimer == 1) {
                 cur_obj_play_sound_2(SOUND_CATHY_INTRO_WAKE_UP);
             }
             if ((o->oTimer > 2) && (cur_obj_check_if_at_animation_end())) {
@@ -921,6 +921,10 @@ void bhv_intro_kathy_loop(void) {
     if (gPlayer1Controller->buttonPressed & R_TRIG)
         o->oAction = INTRO_KATHY_DISAPPEAR;
     #endif
+
+    if (gOfficeState.checkpoint != 0) {
+        o->oAction = INTRO_KATHY_DISAPPEAR;
+    }
 
 
 }

@@ -717,6 +717,17 @@ void save_file_set_widescreen_mode(u8 mode) {
 }
 #endif
 
+void save_file_set_office_checkpoint(u8 checkpoint) {
+    gSaveBuffer.menuData.officeCheckpoint = checkpoint;
+
+    gMainMenuDataModified = TRUE;
+    save_main_menu_data();
+}
+
+u32 save_file_get_office_checkpoint(void) {
+    return gSaveBuffer.menuData.officeCheckpoint;
+}
+
 u32 save_file_get_sound_mode(void) {
     if (gSaveBuffer.menuData.soundMode >= SOUND_MODE_COUNT) {
         return 0;
