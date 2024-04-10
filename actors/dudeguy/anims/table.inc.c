@@ -20,5 +20,7 @@ const struct Animation *const dudeguy_anims[] = {
 	&dudeguy_anim_walking_in,
 	&dudeguy_anim_talking_generic,
 	&dudeguy_anim_ending_cutscene,
+	&dudeguy_anim_walking_quarter_speed,
+	&dudeguy_anim_sprinting_quarter_speed,
 	NULL,
 };
