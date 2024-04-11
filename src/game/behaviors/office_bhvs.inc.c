@@ -154,6 +154,15 @@ void bhv_dudeguy_loop(void) {
             break;
     }    
 
+    if (gFPVPlayer.actionState == PLAYER_INTRO_CUTSCENE) {
+        o->activeFlags &= ~ACTIVE_FLAG_ACTIVE;
+        o->header.gfx.node.flags &= ~GRAPH_RENDER_ACTIVE;
+        return;    
+    } else if (!BPARAM4) {
+        o->activeFlags |= ACTIVE_FLAG_ACTIVE;
+        o->header.gfx.node.flags |= GRAPH_RENDER_HAS_ANIMATION | GRAPH_RENDER_ACTIVE;          
+    }
+
     cur_obj_init_animation(o->oAnimationIndex);
 
     if (o->oTimer == 0)
@@ -436,6 +445,15 @@ void bhv_spline_dudeguy_loop(void) {
                 o->header.gfx.node.flags |= GRAPH_RENDER_HAS_ANIMATION | GRAPH_RENDER_ACTIVE;                
             }            
             break;
+    }
+
+    if (gFPVPlayer.actionState == PLAYER_INTRO_CUTSCENE) {
+        o->activeFlags &= ~ACTIVE_FLAG_ACTIVE;
+        o->header.gfx.node.flags &= ~GRAPH_RENDER_ACTIVE; 
+        return;      
+    } else if (!BPARAM4) {
+        o->activeFlags |= ACTIVE_FLAG_ACTIVE;
+        o->header.gfx.node.flags |= GRAPH_RENDER_HAS_ANIMATION | GRAPH_RENDER_ACTIVE;          
     }
 
     s32 isRunning = gOfficeState.stage == OFFICE_STAGE_3;
