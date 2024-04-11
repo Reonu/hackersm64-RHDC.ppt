@@ -27,15 +27,19 @@ sound_ref .sound_matty_coffee_sip_smack
 
 
 .layer_matty_lead_in:
-layer_note1 39, 240, 64
+layer_note1 39, 240, MATTY_VOLUME
 layer_end
 
 .layer_matty_mumble:
-layer_note1 39, 432, 64
+layer_note1 39, 432, MATTY_VOLUME
 layer_end
 
 .layer_matty_question:
-layer_note1 39, 180, 64
+layer_note1 39, 180, MATTY_VOLUME
+layer_end
+
+.layer_matty_coffee:
+layer_note1 39, 328, MATTY_VOLUME
 layer_end
 
 # LEAD INS
@@ -144,10 +148,6 @@ chan_setval 20
 chan_call .set_reverb
 chan_setlayer 0, .layer_matty_question
 chan_end
-
-.layer_matty_coffee:
-layer_note1 39, 328, 64
-layer_end
 
 # coffee steal
 .sound_matty_coffee_steal_got_my_back:

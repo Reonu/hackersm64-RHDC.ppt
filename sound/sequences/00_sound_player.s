@@ -1,4 +1,5 @@
 #include "seq_macros.inc"
+#include "config/office_sound.h"
 
 .section .rodata
 .align 0

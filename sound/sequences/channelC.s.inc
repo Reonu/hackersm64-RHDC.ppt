@@ -11,31 +11,31 @@ sound_ref .sound_office_sfx_end_of_presentation
 sound_ref .sound_office_sfx_just_a_nightmare
 
 .layer_office_sfx:
-layer_note1 39, 168, 64
+layer_note1 39, 168, SFX_MGS_VOLUME
 layer_end
 .layer_office_sfx_done_making_coffee:
-layer_note1 39, 708, 64
+layer_note1 39, 708, PRESENTER_VOLUME
 layer_end
 .layer_office_sfx_ope_youre_back:
-layer_note1 39, 276, 64
+layer_note1 39, 276, PRESENTER_VOLUME
 layer_end
 .layer_office_sfx_turn_the_lights_off:
-layer_note1 39, 371, 64
+layer_note1 39, 371, PRESENTER_VOLUME
 layer_end
 .layer_office_sfx_walking_in:
-layer_note1 39, 1092, 64
+layer_note1 39, 1092, PRESENTER_VOLUME
 layer_end
 .layer_office_sfx_you_need_coffee_now:
-layer_note1 39, 311, 64
+layer_note1 39, 311, PRESENTER_VOLUME
 layer_end
 .layer_office_sfx_coffeemachine:
-layer_note1 39, 192, 64
+layer_note1 39, 192, SFX_COFFEE_MACHINE
 layer_end
 .layer_office_sfx_end_of_presentation:
-layer_note1 39, 1773, 64
+layer_note1 39, 1773, PRESENTER_VOLUME
 layer_end
 .layer_office_sfx_just_a_nightmare:
-layer_note1 39, 1684, 64
+layer_note1 39, 1684, MAIN_CHARACTER_VOLUME
 layer_end
 
 # sounds

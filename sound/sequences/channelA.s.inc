@@ -30,23 +30,27 @@ sound_ref .sound_cathy_intro_you_look_terrible
 
 
 .layer_lead_in:
-layer_note1 39, 240, 64
+layer_note1 39, 240, CATHY_VOLUME
 layer_end
 
 .layer_mumble:
-layer_note1 39, 432, 64
+layer_note1 39, 432, CATHY_VOLUME
 layer_end
 
 .layer_question:
-layer_note1 39, 180, 64
+layer_note1 39, 180, CATHY_VOLUME
 layer_end
 
 .layer_intro1:
-layer_note1 39, 261, 64
+layer_note1 39, 261, CATHY_VOLUME
 layer_end
 
 .layer_intro2:
-layer_note1 39, 533, 64
+layer_note1 39, 533, CATHY_VOLUME
+layer_end
+
+.layer_cathy_coffee:
+layer_note1 39, 328, CATHY_VOLUME
 layer_end
 
 # LEAD INS
@@ -155,10 +159,6 @@ chan_setval 20
 chan_call .set_reverb
 chan_setlayer 0, .layer_question
 chan_end
-
-.layer_cathy_coffee:
-layer_note1 39, 328, 64
-layer_end
 
 # coffee steal
 .sound_cathy_coffee_steal_howd_you_know:
