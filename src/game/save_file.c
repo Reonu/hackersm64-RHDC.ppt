@@ -675,26 +675,26 @@ void save_file_set_cannon_unlocked(void) {
     gSaveFileModified = TRUE;
 }
 
-void save_file_set_cap_pos(s16 x, s16 y, s16 z) {
-    struct SaveFile *saveFile = &gSaveBuffer.files[gCurrSaveFileNum - 1][0];
+// void save_file_set_cap_pos(s16 x, s16 y, s16 z) {
+//     struct SaveFile *saveFile = &gSaveBuffer.files[gCurrSaveFileNum - 1][0];
 
-    saveFile->capLevel = gCurrLevelNum;
-    saveFile->capArea = gCurrAreaIndex;
-    vec3s_set(saveFile->capPos, x, y, z);
-    save_file_set_flags(SAVE_FLAG_CAP_ON_GROUND);
-}
+//     saveFile->capLevel = gCurrLevelNum;
+//     saveFile->capArea = gCurrAreaIndex;
+//     vec3s_set(saveFile->capPos, x, y, z);
+//     save_file_set_flags(SAVE_FLAG_CAP_ON_GROUND);
+// }
 
-s32 save_file_get_cap_pos(Vec3s capPos) {
-    struct SaveFile *saveFile = &gSaveBuffer.files[gCurrSaveFileNum - 1][0];
-    s32 flags = save_file_get_flags();
+// s32 save_file_get_cap_pos(Vec3s capPos) {
+//     struct SaveFile *saveFile = &gSaveBuffer.files[gCurrSaveFileNum - 1][0];
+//     s32 flags = save_file_get_flags();
 
-    if (saveFile->capLevel == gCurrLevelNum && saveFile->capArea == gCurrAreaIndex
-        && (flags & SAVE_FLAG_CAP_ON_GROUND)) {
-        vec3s_copy(capPos, saveFile->capPos);
-        return TRUE;
-    }
-    return FALSE;
-}
+//     if (saveFile->capLevel == gCurrLevelNum && saveFile->capArea == gCurrAreaIndex
+//         && (flags & SAVE_FLAG_CAP_ON_GROUND)) {
+//         vec3s_copy(capPos, saveFile->capPos);
+//         return TRUE;
+//     }
+//     return FALSE;
+// }
 
 void save_file_set_sound_mode(u16 mode) {
     set_sound_mode(mode);
@@ -716,6 +716,17 @@ void save_file_set_widescreen_mode(u8 mode) {
     save_main_menu_data();
 }
 #endif
+
+void save_file_set_office_checkpoint(u8 checkpoint) {
+    gSaveBuffer.menuData.officeCheckpoint = checkpoint;
+
+    gMainMenuDataModified = TRUE;
+    save_main_menu_data();
+}
+
+u32 save_file_get_office_checkpoint(void) {
+    return gSaveBuffer.menuData.officeCheckpoint;
+}
 
 u32 save_file_get_sound_mode(void) {
     if (gSaveBuffer.menuData.soundMode >= SOUND_MODE_COUNT) {

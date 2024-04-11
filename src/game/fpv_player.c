@@ -19,8 +19,14 @@
 #include "src/audio/external.h"
 #include "include/behavior_data.h"
 #include "sm64.h"
+#include "src/game/save_file.h"
+#include "game/print.h"
+#include "engine/math_util.h"
 
 #define STARTING_POSITION { -355.f, 2.0f, 2720.f }
+#define KITCHEN_POSITION_X 764.f
+#define KITCHEN_POSITION_Y 0.f
+#define KITCHEN_POSITION_Z 3249.f
 
 static const FPVPlayer sInitFPVPlayerState = {
     .cont = NULL,
@@ -467,8 +473,28 @@ void init_player(void) {
     player->coffeeCup = coffeeCup;
 
     player->cont = gPlayer1Controller;
-    player->actionState = PLAYER_INTRO_CUTSCENE;
-
+    if (gOfficeState.checkpoint != 0) {
+        gOfficeState.stage = gOfficeState.checkpoint;
+        player->actionState = PLAYER_FREE;
+        player->energy = MAX_ENERGY;
+        vec3f_set(player->pos,KITCHEN_POSITION_X,KITCHEN_POSITION_Y,KITCHEN_POSITION_Z);
+        player->dir[1] = 70;
+        gTutorialFinished = 1;
+        switch (gOfficeState.stage) {
+            case OFFICE_STAGE_1:
+                change_slide_absolute(STAGE_1_AREA_THRESHOLD);
+                break;
+            case OFFICE_STAGE_2:
+                change_slide_absolute(STAGE_2_AREA_THRESHOLD);
+                break;
+            case OFFICE_STAGE_3:
+                change_slide_absolute(STAGE_3_AREA_THRESHOLD);
+                break;
+        }
+    } else {
+        player->actionState = PLAYER_INTRO_CUTSCENE;
+    }
+    
     confroom_initialize_collision();
 
     Cylinder hitbox;
@@ -588,8 +614,7 @@ void update_ending_cam(void) {
     }
 }
 
-#define STAGE_2_AREA_THRESHOLD 6
-#define STAGE_3_AREA_THRESHOLD 12
+
 
 // returns TRUE if gameplay is active
 s32 update_player(void) {
@@ -684,6 +709,9 @@ s32 update_player(void) {
                 print_small_text_buffered(20, 28, "stage 3", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_VANILLA);
                 break;
         }
+
+        //print_text_fmt_int(20, 40, "%d", gOfficeState.checkpoint);
+        //print_text_fmt_int(20, 60, "%d", save_file_get_office_checkpoint());
 #endif
     }
 

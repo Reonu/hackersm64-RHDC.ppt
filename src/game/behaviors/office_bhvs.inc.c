@@ -119,6 +119,9 @@ static void play_character_coffee_sip(s32 isCathy) {
 void bhv_dudeguy_init(void) {
     o->oAnimationIndex = BPARAM1;
 
+    if (o->oAnimationIndex == NPC_ANIM_EATING && gOfficeState.checkpoint != 0) {
+        o->oEatingGuySpoke = 1;
+    }
     /*if (gEmulator == EMU_CONSOLE) {
         o->oDrawingDistance = 2000.f;
     } else {
@@ -180,7 +183,11 @@ void bhv_dudeguy_loop(void) {
 
 void bhv_presenting_dudeguy_init(void) {
     o->oAnimationIndex = NPC_ANIM_IDLE;
-    o->oAction = PRESENTING_DUDEGUY_START;
+    if (gOfficeState.checkpoint != 0) {
+        o->oAction = PRESENTING_DUDEGUY_WAITING_FOR_PLAYER_TO_COME_BACK;
+    } else {
+        o->oAction = PRESENTING_DUDEGUY_START;
+    }
     cur_obj_init_animation(o->oAnimationIndex);
 }
 
@@ -843,10 +850,18 @@ enum IntroKathyActions {
 };
 
 void bhv_intro_kathy_init(void) {
-    o->oAction = INTRO_KATHY_WAKE_UP;
-    gIntroCutscene = INTRO_CUTSCENE_START;
-    o->oAnimationIndex = NPC_ANIM_INTRO_WAKE_UP;
-    cur_obj_init_animation(o->oAnimationIndex);
+
+    if (gOfficeState.checkpoint != 0) {
+        o->oAction = INTRO_KATHY_DISAPPEAR;
+    } else {
+        o->oAction = INTRO_KATHY_WAKE_UP;
+        gIntroCutscene = INTRO_CUTSCENE_START;
+        o->oAnimationIndex = NPC_ANIM_INTRO_WAKE_UP;
+        cur_obj_init_animation(o->oAnimationIndex);
+    }    
+
+    
+
 }
 
 void bhv_intro_kathy_loop(void) {
@@ -921,6 +936,8 @@ void bhv_intro_kathy_loop(void) {
     if (gPlayer1Controller->buttonPressed & R_TRIG)
         o->oAction = INTRO_KATHY_DISAPPEAR;
     #endif
+
+
 
 
 }

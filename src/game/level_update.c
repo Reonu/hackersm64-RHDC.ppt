@@ -1186,7 +1186,25 @@ void change_slide(s8 change) {
         gMarioState->area = gCurrentArea;
         deplete_energy(E_COST_BEAT_SLIDE);
         gBeatSlide = 0;
+        if (gCurrAreaIndex == STAGE_3_AREA_THRESHOLD) {
+            save_file_set_office_checkpoint(OFFICE_STAGE_3);
+            gOfficeState.checkpoint = OFFICE_STAGE_3;
+        } else if (gCurrAreaIndex == STAGE_2_AREA_THRESHOLD) {
+            save_file_set_office_checkpoint(OFFICE_STAGE_2);
+            gOfficeState.checkpoint = OFFICE_STAGE_2;
+        } else if (gCurrAreaIndex == STAGE_1_AREA_THRESHOLD) {
+            save_file_set_office_checkpoint(OFFICE_STAGE_1);
+            gOfficeState.checkpoint = OFFICE_STAGE_1;
+        }
     }
+}
+
+void change_slide_absolute(u8 change) {
+    if (gAreaData[change].graphNode != NULL) {
+        change_area(change);
+        gMarioState->area = gCurrentArea;
+        gBeatSlide = 0;
+    }    
 }
 
 s32 update_level(void) {
@@ -1394,6 +1412,8 @@ s32 lvl_init_from_save_file(UNUSED s16 initOrUpdate, s32 levelNum) {
     save_file_move_cap_to_default_location();
     select_mario_cam_mode();
     set_yoshi_as_not_dead();
+
+    init_office_state();
 
     return levelNum;
 }

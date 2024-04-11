@@ -98,6 +98,8 @@ enum NpcAnims {
     NPC_ANIM_WALKING_IN,
     NPC_ANIM_TALKING_GENERIC,
     NPC_ANIM_ENDING_CUTSCENE,
+    NPC_ANIM_WALKING_QUARTER_SPEED,
+    NPC_ANIM_SPRINTING_QUARTER_SPEED
 };
 
 enum PresentingDudeguyActions {
@@ -170,6 +172,10 @@ enum DudeGuyRoomsActive {
     ACTIVE_OFFICE,
     ACTIVE_CONFROOM,
 };
+
+#define STAGE_1_AREA_THRESHOLD 3
+#define STAGE_2_AREA_THRESHOLD 6
+#define STAGE_3_AREA_THRESHOLD 12
 
 #define NPC_SPLINE_NORMAL                   0x00
 #define NPC_SPLINE_BACK_AND_FORTH           0x01
