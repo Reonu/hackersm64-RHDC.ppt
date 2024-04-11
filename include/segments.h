@@ -30,6 +30,8 @@
 #define TOTAL_RAM_SIZE  (RAM_1MB * 8)
 #endif
 
+#define REBOOT_RAM 0x80700000
+
 // Ending address of RAM
 #define RAM_END (RAM_START + TOTAL_RAM_SIZE)
 

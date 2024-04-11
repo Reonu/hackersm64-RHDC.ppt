@@ -21,6 +21,7 @@
 #include "mario.h"
 #include "audio/external.h"
 #include "src/game/save_file.h"
+#include "reboot/reboot.h"
 
 #include "confroom.h"
 #include "confroom_spawn.h"
@@ -294,6 +295,8 @@ void render_fadeout(Gfx **head) {
     }
 }
 
+void reboot_game(u32 devAddr);
+
 void render_pause_hud(Gfx **head) {
     static s32 lastState = PAUSE_STATE_UNPAUSED;
 
@@ -356,22 +359,38 @@ void render_pause_hud(Gfx **head) {
             f32 alphaFac = remap(MIN(gOfficeState.pauseTimer, fadeLen), 0, fadeLen, 0, 1);
             s32 alpha = roundf(smoothstep(0, 255, alphaFac));
 
-            Gfx *gfx = *head;
-            render_rect_cld(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 127, 0, 0, alpha, TRUE);
-            *head = gfx;
+            {
+                Gfx *gfx = *head;
+                render_rect_cld(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 127, 0, 0, alpha, TRUE);
+                *head = gfx;
+            }
 
             print_set_envcolour(255, 255, 255, alpha);
             print_small_text(SCREEN_WIDTH / 2,  SCREEN_HEIGHT / 2, "You were fired.", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
 
-            if (gOfficeState.pauseTimer >= fadeLen) {
-                alphaFac = remap(MIN(gOfficeState.pauseTimer, fadeLen + 30), fadeLen, fadeLen + 30, 0, 1);
-                print_set_envcolour(255, 255, 255, roundf(smoothstep(0, 255, alphaFac)));
-                print_small_text(SCREEN_WIDTH / 2,  (SCREEN_HEIGHT / 2) + 40, "Press the reset button on your console.", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
+            // if (gOfficeState.pauseTimer >= fadeLen) {
+            //     alphaFac = remap(MIN(gOfficeState.pauseTimer, fadeLen + 30), fadeLen, fadeLen + 30, 0, 1);
+            //     print_set_envcolour(255, 255, 255, roundf(smoothstep(0, 255, alphaFac)));
+            //     print_small_text(SCREEN_WIDTH / 2,  (SCREEN_HEIGHT / 2) + 40, "Press the reset button on your console.", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
 
-                // if (gPlayer1Controller->buttonPressed & START_BUTTON) {
-                //     reset_game();
-                //     lastState = PAUSE_STATE_UNPAUSED;
-                // }
+            //     // if (gPlayer1Controller->buttonPressed & START_BUTTON) {
+            //     //     // reset_game();
+            //     //     // lastState = PAUSE_STATE_UNPAUSED;
+            //     //     // reboot_game(0x00800000);
+            //     //     reboot_game(0);
+            //     // }
+            // }
+            if (gOfficeState.pauseTimer >= fadeLen + 30) {
+                alphaFac = remap(MIN(gOfficeState.pauseTimer, fadeLen + 60), fadeLen + 30, fadeLen + 60, 0, 1);
+                alpha = roundf(smoothstep(0, 255, alphaFac));
+
+                Gfx *gfx = *head;
+                render_rect_cld(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0, alpha, TRUE);
+                *head = gfx;
+
+                if (gOfficeState.pauseTimer >= fadeLen + 60) {
+                    reboot_game(0);
+                }
             }
 
             break;
@@ -432,7 +451,11 @@ void render_pause_hud(Gfx **head) {
         }
         case PAUSE_STATE_MAIN_MENU:
             Gfx *gfx = *head;
-            render_rect(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 20, 20, 20, TRUE);
+            if (osResetType == 2) {
+                render_rect(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 127, 0, 0, TRUE);
+            } else {
+                render_rect(&gfx, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 20, 20, 20, TRUE);
+            }
             *head = gfx;
             play_secondary_music(SEQ_SEA, 0, 255,0);
             print_set_envcolour(255, 255, 255, 255);

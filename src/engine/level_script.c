@@ -641,7 +641,9 @@ static void level_cmd_create_whirlpool(void) {
 }
 
 static void level_cmd_set_blackout(void) {
-    osViBlack(CMD_GET(u8, 2));
+    if (osResetType != 2) {
+        osViBlack(CMD_GET(u8, 2));
+    }
     sCurrentCmd = CMD_NEXT;
 }
 

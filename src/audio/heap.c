@@ -1449,7 +1449,7 @@ void audio_reset_session(void) {
         gAudioLoadLock = AUDIO_LOCK_NOT_LOADING;
     }
 #endif
-    append_puppyprint_log("Audio Initialised in %d" PP_CYCLE_STRING ".", (s32)PP_CYCLE_CONV(osGetTime() - first));
+    // append_puppyprint_log("Audio Initialised in %d" PP_CYCLE_STRING ".", (s32)PP_CYCLE_CONV(osGetTime() - first));
 
     sAudioIsInitialized = TRUE;
 }

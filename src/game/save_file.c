@@ -351,10 +351,13 @@ static void calculate_unique_save_magic(void) {
     SAVE_FILE_MAGIC += checksum;
 }
 #endif
-
+extern u8 isSoftReset;
 void save_file_load_all(void) {
     s32 file;
     s32 validSlots;
+    if (osResetType == 2) {
+        return;
+    }
 
 #ifdef UNIQUE_SAVE_DATA
     calculate_unique_save_magic(); // This should only be called once on boot and never again.

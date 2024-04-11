@@ -536,6 +536,25 @@ SECTIONS
    }
    END_SEG(mapData)
 #endif
+
+   BEGIN_SEG(reboot, REBOOT_RAM)
+   {
+      BUILD_DIR/src/reboot/reboot_asm.o(.text*);
+      BUILD_DIR/src/reboot/reboot.o(.text*);
+      BUILD_DIR/src/reboot*.o(.data*);
+      BUILD_DIR/src/reboot*.o(.sdata*);
+      BUILD_DIR/src/reboot*.o(.rodata*);
+   }
+   END_SEG(reboot)
+   BEGIN_NOLOAD(reboot)
+   {
+      BUILD_DIR/src/reboot*.o(.bss*);
+      BUILD_DIR/src/reboot*.o(.sbss*);
+   }
+   END_NOLOAD(reboot)
+
+   __expansionRamEnd = 0x80800000;
+
    /* DWARF debug sections.
       Symbols in the DWARF debugging sections are relative to the beginning
       of the section so we begin them at 0.  */

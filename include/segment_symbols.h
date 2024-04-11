@@ -50,6 +50,9 @@ DECLARE_SEGMENT(scripts)
 DECLARE_SEGMENT(goddard)
 DECLARE_SEGMENT(framebuffers)
 DECLARE_SEGMENT(assets)
+DECLARE_SEGMENT(reboot)
+DECLARE_NOLOAD(reboot)
+
 extern u8 _goddardSegmentStart[];
 extern u8 _goddardSegmentEnd[];
 extern u8 _engineSegmentStart[];
@@ -63,6 +66,9 @@ extern u8 _zbufferSegmentBssStart[];
 extern u8 _zbufferSegmentBssEnd[];
 extern u8 _buffersSegmentBssStart[];
 extern u8 _buffersSegmentBssEnd[];
+
+extern u8 _rebootSegmentStart[];
+extern u8 _rebootSegmentEnd[];
 
 DECLARE_LEVEL_SEGMENT(menu)
 DECLARE_LEVEL_SEGMENT(intro)

@@ -602,7 +602,7 @@ struct SPTask *create_next_audio_frame_task(void) {
 
     gAudioFrameCount++;
     if (gAudioLoadLock != AUDIO_LOCK_NOT_LOADING) {
-        stubbed_printf("DAC:Lost 1 Frame.\n");
+        // stubbed_printf("DAC:Lost 1 Frame.\n");
         return NULL;
     }
 

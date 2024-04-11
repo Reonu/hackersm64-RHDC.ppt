@@ -22,6 +22,8 @@
 #include "game/puppyprint.h"
 #include "game/profiling.h"
 #include "game/emutest.h"
+#include "segment_symbols.h"
+#include "reboot/reboot.h"
 
 // Message IDs
 enum MessageIDs {
@@ -342,6 +344,20 @@ void check_stack_validity(void) {
 }
 #endif
 
+extern void dma_read(u8 *dest, u8 *srcStart, u8 *srcEnd);
+
+void load_reboot_code_segment(void) {
+    if (osResetType == 2) return;
+    void *startAddr = (void *) _rebootSegmentStart;
+    u32 totalSize = _rebootSegmentEnd - _rebootSegmentStart;
+
+    bzero(startAddr, totalSize);
+    osWritebackDCacheAll();
+    dma_read(startAddr, _rebootSegmentRomStart, _rebootSegmentRomEnd);
+    bzero(_rebootSegmentBssStart, _rebootSegmentBssEnd - _rebootSegmentBssStart);
+    osInvalICache(startAddr, totalSize);
+    osInvalDCache(startAddr, totalSize);
+}
 
 extern void crash_screen_init(void);
 extern OSViMode VI;
@@ -349,6 +365,7 @@ void thread3_main(UNUSED void *arg) {
     setup_mesg_queues();
     alloc_pool();
     load_engine_code_segment();
+    load_reboot_code_segment();
     detect_emulator();
 #ifndef UNF
     crash_screen_init();
@@ -541,8 +558,12 @@ void thread1_idle(UNUSED void *arg) {
     }
     get_audio_frequency();
     change_vi(&VI, SCREEN_WIDTH, SCREEN_HEIGHT);
+
     osViSetMode(&VI);
-    osViBlack(TRUE);
+
+    if (osResetType != 2) {
+        osViBlack(TRUE);
+    }
     osViSetSpecialFeatures(OS_VI_DITHER_FILTER_OFF);
     osViSetSpecialFeatures(OS_VI_GAMMA_OFF);
     osCreatePiManager(OS_PRIORITY_PIMGR, &gPIMesgQueue, gPIMesgBuf, ARRAY_COUNT(gPIMesgBuf));
@@ -559,7 +580,11 @@ void thread1_idle(UNUSED void *arg) {
 
 // Clear RAM on boot
 void ClearRAM(void) {
-    bzero(_mainSegmentEnd, (size_t)osMemSize - (size_t)OS_K0_TO_PHYSICAL(_mainSegmentEnd));
+    bzero(_mainSegmentEnd, (size_t)OS_K0_TO_PHYSICAL(_framebuffersSegmentBssStart) - (size_t)OS_K0_TO_PHYSICAL(_mainSegmentEnd));
+    if (osResetType != 2) {
+        bzero(_framebuffersSegmentBssStart, (size_t)OS_K0_TO_PHYSICAL(_framebuffersSegmentBssEnd) - (size_t)OS_K0_TO_PHYSICAL(_framebuffersSegmentBssStart));
+    }
+    bzero(_framebuffersSegmentBssEnd, (size_t)OS_K0_TO_PHYSICAL(_mainSegmentEnd) - (size_t)OS_K0_TO_PHYSICAL(_framebuffersSegmentBssEnd));
 }
 
 #ifdef ISVPRINT
