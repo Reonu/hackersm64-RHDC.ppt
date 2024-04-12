@@ -291,8 +291,8 @@ void bhv_presenting_dudeguy_loop(void) {
     cur_obj_init_animation(o->oAnimationIndex);
 }
 
-#define SPLINE_GUY_PATROL_SPEED             meters_sec(1.6f)
-#define SPLINE_GUY_RUN_SPEED                meters_sec(3.05f)
+#define SPLINE_GUY_WALK_SPEED               meters_sec(1.6f)
+#define SPLINE_GUY_SPRINT_SPEED             meters_sec(3.05f)
 #define SPLINE_GUY_TURNING_SPEED            DEGREES(3)
 #define SPLINE_GUY_TURNING_SPEED_RUNNING    DEGREES(6)
 #define SPLINE_GUY_CHASE_SPEED              meters_sec(1.75f)
@@ -308,7 +308,7 @@ void bhv_spline_dudeguy_init(void) {
     o->oAnimationIndex = NPC_ANIM_WALKING;
     o->oAction = SPLINE_GUY_WALKING;
     o->oSplineDudeGuyPointIndex = 0;
-    o->oForwardVel = SPLINE_GUY_PATROL_SPEED;
+    o->oForwardVel = SPLINE_GUY_WALK_SPEED;
 
     if (BPARAM4) {
         o->oDudeGuyRoomsActive = BPARAM4;
@@ -362,7 +362,7 @@ void spline_guy_update_position(s16 goalAngle, f32 patrolSpeed, f32 turningSpeed
     f32 *vel = &o->oVelX;
     o->oFaceAngleYaw = approach_angle(o->oFaceAngleYaw, goalAngle, turningSpeed);
     if (o->oForwardVel < patrolSpeed) {
-        o->oForwardVel += patrolSpeed * 0.2f;
+        o->oForwardVel += patrolSpeed * 0.1f;
     }
     if (o->oForwardVel > patrolSpeed) {
         o->oForwardVel = patrolSpeed;
@@ -408,10 +408,11 @@ s32 closer_than_other_chasing_npc(f32 playerDist) {
 
 #define SPLINE_STOPPER_ANGLE DEGREES((o->oStopperObject->oBehParams >> 16) & 0xFF)
 
+extern s32 cur_obj_play_sound_at_anim_range(s8 startFrame1, s8 startFrame2, u32 sound);
+
 void bhv_spline_dudeguy_loop(void) {
     ConfroomObjectSplineRef *spline = &gConfroomSplines[BPARAM2];
     s32 pIndex = o->oSplineDudeGuyPointIndex;
-    f32 *vel = &o->oVelX;
     f32 *pos = &o->oPosX;
 
     f32 playerDist = vec3f_lat_dist(pos, gFPVPlayer.pos);
@@ -459,11 +460,11 @@ void bhv_spline_dudeguy_loop(void) {
     s32 isRunning = gOfficeState.stage == OFFICE_STAGE_3;
 
     if (isRunning) {
-        patrolSpeed = SPLINE_GUY_RUN_SPEED;
+        patrolSpeed = SPLINE_GUY_SPRINT_SPEED;
         turningSpeed = SPLINE_GUY_TURNING_SPEED_RUNNING;
     } else {
         turningSpeed = SPLINE_GUY_TURNING_SPEED;
-        patrolSpeed = SPLINE_GUY_PATROL_SPEED;
+        patrolSpeed = SPLINE_GUY_WALK_SPEED;
     }
 
     switch (o->oAction) {
@@ -485,9 +486,9 @@ void bhv_spline_dudeguy_loop(void) {
             // f32 *curPoint = spline->points[pIndex];
             struct Object *splineStopper = find_closest_office_obj_with_bhv(segmented_to_virtual(bhvSplineStopper), 75.f);
             if (gOfficeState.stage == OFFICE_STAGE_3) {
-                o->oAnimationIndex = NPC_ANIM_SPRINTING;
+                o->oAnimationIndex = NPC_ANIM_SPRINTING_QUARTER_SPEED;
             } else {
-                o->oAnimationIndex = NPC_ANIM_WALKING;
+                o->oAnimationIndex = NPC_ANIM_WALKING_QUARTER_SPEED;
             }
             
             if (splineStopper != NULL) {
@@ -531,26 +532,19 @@ void bhv_spline_dudeguy_loop(void) {
             }
 
             if (gOfficeState.stage == OFFICE_STAGE_3) {
-                o->oAnimationIndex = NPC_ANIM_SPRINTING;
+                o->oAnimationIndex = NPC_ANIM_SPRINTING_QUARTER_SPEED;
             } else {
-                o->oAnimationIndex = NPC_ANIM_WALKING;
+                o->oAnimationIndex = NPC_ANIM_WALKING_QUARTER_SPEED;
             }
 
             s16 goalAngle;
             vec3f_get_yaw(pos, gFPVPlayer.pos, &goalAngle);
             spline_guy_update_position(goalAngle, patrolSpeed, turningSpeed, TRUE);
 
-            s16 curFrame = o->header.gfx.animInfo.animFrame;
-            if (
-                isRunning
-                    ? (curFrame == 1 || curFrame == 9)
-                    : (curFrame == 2 || curFrame == 13)
-            ) {
-                cur_obj_play_sound_2(
-                    (SOUND_ACTION_TERRAIN_STEP & ~SOUND_DISCRETE) + (
-                        isRunning ? SOUND_TERRAIN_STONE : SOUND_TERRAIN_GRASS
-                    )
-                );
+            if (isRunning) {
+                cur_obj_play_sound_at_anim_range(4, 36,  (SOUND_ACTION_TERRAIN_STEP & ~SOUND_DISCRETE) + SOUND_TERRAIN_STONE);
+            } else {
+                cur_obj_play_sound_at_anim_range(7, 58, (SOUND_ACTION_TERRAIN_STEP & ~SOUND_DISCRETE) + SOUND_TERRAIN_GRASS);
             }
 
             break;
@@ -646,7 +640,15 @@ void bhv_spline_dudeguy_loop(void) {
                 break;
             }
     }
-    cur_obj_init_animation(o->oAnimationIndex);
+    if (o->oAnimationIndex == NPC_ANIM_WALKING_QUARTER_SPEED) {
+        f32 animSpeed = (4.0f*0.97f) * (o->oForwardVel / patrolSpeed);
+        cur_obj_init_animation_with_accel_and_sound(o->oAnimationIndex, animSpeed);
+    } else if (o->oAnimationIndex == NPC_ANIM_SPRINTING_QUARTER_SPEED) {
+        f32 animSpeed = (4.0f*0.92f) * (o->oForwardVel / (patrolSpeed));
+        cur_obj_init_animation_with_accel_and_sound(o->oAnimationIndex, animSpeed);
+    } else {
+        cur_obj_init_animation(o->oAnimationIndex);
+    }
 }
 
 enum CoffeeMachineActions {
