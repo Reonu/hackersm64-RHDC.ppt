@@ -294,6 +294,7 @@ void bhv_presenting_dudeguy_loop(void) {
 #define SPLINE_GUY_WALK_SPEED               meters_sec(1.6f)
 #define SPLINE_GUY_SPRINT_SPEED             meters_sec(3.05f)
 #define SPLINE_GUY_TURNING_SPEED            DEGREES(3)
+#define SPLINE_GUY_TURNING_SPEED_STAGE_2    DEGREES(5)
 #define SPLINE_GUY_TURNING_SPEED_RUNNING    DEGREES(6)
 #define SPLINE_GUY_CHASE_SPEED_STAGE_1      meters_sec(1.95f)
 #define SPLINE_GUY_CHASE_SPEED_STAGE_2      meters_sec(2.4f)
@@ -464,7 +465,11 @@ void bhv_spline_dudeguy_loop(void) {
         patrolSpeed = SPLINE_GUY_SPRINT_SPEED;
         turningSpeed = SPLINE_GUY_TURNING_SPEED_RUNNING;
     } else {
-        turningSpeed = SPLINE_GUY_TURNING_SPEED;
+        if (gOfficeState.stage != OFFICE_STAGE_2) {
+            turningSpeed = SPLINE_GUY_TURNING_SPEED;
+        } else {
+            turningSpeed = SPLINE_GUY_TURNING_SPEED_STAGE_2;
+        }
         if (o->oAction == SPLINE_GUY_CHASING_PLAYER) {
             switch (gOfficeState.stage) {
                 case OFFICE_STAGE_1:
