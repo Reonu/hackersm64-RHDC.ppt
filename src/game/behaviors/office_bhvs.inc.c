@@ -296,7 +296,7 @@ void bhv_presenting_dudeguy_loop(void) {
 #define SPLINE_GUY_TURNING_SPEED            DEGREES(3)
 #define SPLINE_GUY_TURNING_SPEED_RUNNING    DEGREES(6)
 #define SPLINE_GUY_CHASE_SPEED_STAGE_1      meters_sec(1.95f)
-#define SPLINE_GUY_CHASE_SPEED_STAGE_2      meters_sec(2.2f)
+#define SPLINE_GUY_CHASE_SPEED_STAGE_2      meters_sec(2.4f)
 #define SPLINE_GUY_NEXT_POINT_THRESHOLD     160
 #define SPLINE_GUY_PLAYER_START_CONVO_DIST  80
 #define SPLINE_GUY_PLAYER_START_CHASE_DIST  360
