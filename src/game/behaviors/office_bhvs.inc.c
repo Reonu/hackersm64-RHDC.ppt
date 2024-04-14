@@ -418,8 +418,8 @@ void bhv_spline_dudeguy_loop(void) {
     f32 *pos = &o->oPosX;
 
     f32 playerDist = vec3f_lat_dist(pos, gFPVPlayer.pos);
-    f32 patrolSpeed;
-    f32 turningSpeed;
+    f32 patrolSpeed = SPLINE_GUY_WALK_SPEED;
+    f32 turningSpeed = SPLINE_GUY_TURNING_SPEED;
 
     if ((BPARAM3 > 0) && (BPARAM3 == gOfficeState.stage)) {
         cur_obj_set_model(MODEL_CHATTY_KATHY);

@@ -412,7 +412,12 @@ void render_game(void) {
     PROFILER_GET_SNAPSHOT_TYPE(PROFILER_DELTA_COLLISION);
     if (gCurrentArea != NULL && !gWarpTransition.pauseRendering) {
         if (gCurrentArea->graphNode && (gFPVPlayer.actionState == PLAYER_PRESENTING || gOneRender)) {
-            if (gOneRender) gOneRender = FALSE;
+            if (gOneRender) {
+                if (gMarioState->marioObj) {
+                    gMarioState->marioObj->header.gfx.node.flags |= GRAPH_RENDER_INVISIBLE;
+                }
+                gOneRender = FALSE;
+            }
 
             g2DCamActive = TRUE;
             gDPSetColorImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, VIRTUAL_TO_PHYSICAL(gAuxBuffers[0]));

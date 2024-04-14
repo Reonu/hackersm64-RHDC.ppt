@@ -466,6 +466,7 @@ void render_pause_hud(Gfx **head) {
                 init_player();
                 gOfficeState.paused = FALSE;
                 start_fadeout(30);
+                gOneRender = TRUE;
             } else if (gPlayer1Controller->buttonPressed & B_BUTTON) {
                 gOfficeState.paused = PAUSE_STATE_START;
                 save_file_set_office_checkpoint(0);
