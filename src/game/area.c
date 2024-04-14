@@ -477,7 +477,7 @@ void render_game(void) {
                                                                      &gWarpTransition.data);
                 if (!gWarpTransition.isActive) {
                     if (gWarpTransition.type & WARP_TRANSITION_FADE_INTO) {
-                        gWarpTransition.pauseRendering = TRUE;
+                        // gWarpTransition.pauseRendering = TRUE;
                     } else {
                         set_warp_transition_rgb(0, 0, 0);
                     }
