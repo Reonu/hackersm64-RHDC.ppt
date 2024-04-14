@@ -313,6 +313,7 @@ void render_pause_hud(Gfx **head) {
     lastState = gOfficeState.paused;
 
     if (!gOfficeState.paused) {
+        gOfficeState.pauseTimer = 0;
         return;
     }
 
