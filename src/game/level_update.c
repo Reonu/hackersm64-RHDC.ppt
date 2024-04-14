@@ -1272,7 +1272,9 @@ s32 update_level(void) {
 }
 
 s32 init_level(void) {
+#ifndef PEACH_SKIP
     s32 fadeFromColor = FALSE;
+#endif
 #ifdef PUPPYPRINT_DEBUG
     OSTime first = osGetTime();
 #endif

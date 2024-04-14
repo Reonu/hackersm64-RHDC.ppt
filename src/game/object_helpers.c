@@ -29,6 +29,7 @@
 #include "confroom.h"
 #include "fpv_player.h"
 #include "actors/group0.h"
+#include "confroom_spawn.h"
 
 static s32 clear_move_flag(u32 *bitSet, s32 flag);
 
@@ -2364,17 +2365,13 @@ Gfx *geo_set_prim_color(s32 callContext, struct GraphNode *node, UNUSED void *co
 
 Gfx *geo_set_confroom_lights(s32 callContext, struct GraphNode *node, UNUSED void *context) {
     Gfx *dlStart, *dlHead;
-    struct Object *objectGraphNode;
     struct GraphNodeGenerated *currentGraphNode;
     u8 layer;
     Vec3f dir = {2,124,-4};
     dlStart = NULL;
     if (callContext == GEO_CONTEXT_RENDER) {
         currentGraphNode = (struct GraphNodeGenerated *) node;
-        objectGraphNode = (struct Object *) gCurGraphNodeObject; 
-        if (gCurGraphNodeHeldObject) {
-            objectGraphNode = gCurGraphNodeHeldObject->objNode;
-        }
+
         layer = currentGraphNode->parameter & 0xFF;
 
         //if (layer != 0) {

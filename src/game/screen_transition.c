@@ -128,14 +128,7 @@ u16 calc_tex_transition_direction(struct WarpTransitionData *transData) {
  * Called during render_screen_transition.
  * Handles shape transitions (such as the star, circle and Mario and bowser´s heads).
  */
-s32 render_textured_transition(u8 transTime, struct WarpTransitionData *transData, s8 texID, s8 transTexType) {
-    u16 texTransDir = calc_tex_transition_direction(transData);
-
-    f32 posDistance = calc_tex_transition_pos_distance(transTime, transData);
-    f32 centerTransX = center_tex_transition_x(transData, posDistance, texTransDir);
-    f32 centerTransY = center_tex_transition_y(transData, posDistance, texTransDir);
-
-    f32 texTransRadius = calc_tex_transition_radius(transTime, transData);
+s32 render_textured_transition(u8 transTime, UNUSED struct WarpTransitionData *transData, UNUSED s8 texID, UNUSED s8 transTexType) {
     Vtx *verts = alloc_display_list(8 * sizeof(Vtx));
 
     if (verts != NULL) {
@@ -196,7 +189,7 @@ Vtx *vertex_transition_color() {
     return verts;
 }
 
-s32 dl_transition_color(u8 transTime, struct WarpTransitionData *transData, u8 alpha) {
+s32 dl_transition_color(u8 transTime, UNUSED struct WarpTransitionData *transData, UNUSED u8 alpha) {
     Vtx *verts = vertex_transition_color();
 
     if (verts != NULL) {

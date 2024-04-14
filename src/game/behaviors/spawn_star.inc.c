@@ -13,17 +13,10 @@ static struct ObjectHitbox sCollectStarHitbox = {
 };
 
 void bhv_collect_star_init(void) {
-    u8 starId = GET_BPARAM1(o->oBehParams);
-#ifdef GLOBAL_STAR_IDS
-    u8 currentLevelStarFlags = save_file_get_star_flags((gCurrSaveFileNum - 1), COURSE_NUM_TO_INDEX(starId / 7));
-#else
-    u8 currentLevelStarFlags = save_file_get_star_flags((gCurrSaveFileNum - 1), COURSE_NUM_TO_INDEX(gCurrCourseNum));
-    if (currentLevelStarFlags & (1 << starId)) {
-#endif
     if (!BPARAM4) {
-            o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_STAR];
+        o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_STAR];
     } else {
-            o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_SILVER_STAR];
+        o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_SILVER_STAR];
     } 
 
     obj_set_hitbox(o, &sCollectStarHitbox);

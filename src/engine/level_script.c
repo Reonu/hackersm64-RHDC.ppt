@@ -376,7 +376,7 @@ static void level_cmd_clear_level(void) {
 }
 
 static void level_cmd_alloc_level_pool(void) {
-    s32 succ = conf_room_check_should_init();
+    UNUSED s32 succ = conf_room_check_should_init();
     assert(succ, "FAILED TO ALLOC CONF ROOM");
 
     if (sLevelPool == NULL) {
